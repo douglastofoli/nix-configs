@@ -4,7 +4,7 @@
 
 {
   imports = [ (import ./hardware-configuration.nix) ]
-    ++ [ (import ../../overlays) ] ++ [ (import ../../modules/desktop/xmonad) ]
+    ++ [ (import ../../overlays) ] ++ [ (import ../../modules/desktop/i3-gaps) ]
     ++ (import ../../modules/hardware);
 
   boot = {

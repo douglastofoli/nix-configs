@@ -37,6 +37,7 @@
           xmonad = {
             enable = true;
             enableContribAndExtras = true;
+            extraPackages = haskellPackages: [ haskellPackages.xmobar ];
             # config = ./xmonad/xmonad.hs;
           };
         };
@@ -62,7 +63,6 @@
     };
 
     environment.systemPackages = with pkgs; [
-      haskellPackages.xmobar
       xclip
       xorg.xev
       xorg.xkill

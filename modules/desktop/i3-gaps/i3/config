@@ -195,6 +195,24 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3status
+
+        tray_output none
+
+        height 30
+        position top
+        workspace_min_width 30
+
+        font pango:Roboto Mono Nerd Font, Font Awesome 6 Free 11
+
+        colors {
+                separator #1e1f29
+                background #1e1d2f
+                statusline #f8f8f2
+                focused_workspace #7aa2f7 #7aa2f7 #f8f8f2
+                active_workspace #333333 #333333 #f8f8f2
+                inactive_workspace #333333 #333333 #888888
+                urgent_workspace #f28fad #f28fad #f8f8f2
+        }
 }
 
 # Window colors

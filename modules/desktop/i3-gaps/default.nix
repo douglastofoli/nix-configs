@@ -2,7 +2,11 @@
 
 {
   config = lib.mkIf (protocol == "X") {
-    programs.dconf.enable = true;
+    programs = {
+      dconf.enable = true;
+
+      nm-applet.enable = true;
+    };
 
     services = {
       xserver = {
@@ -30,7 +34,7 @@
               };
             };
           };
-          defaultSession = "i3";
+          defaultSession = "none+i3";
         };
 
         windowManager = {
@@ -38,7 +42,7 @@
             enable = true;
             package = pkgs.i3-gaps;
             extraPackages = with pkgs; [ i3status ];
-            # configFile = ./i3/config;
+            configFile = ./i3/config;
           };
         };
 

@@ -25,22 +25,18 @@
 
     dracula = {
       scheme = "Dracula";
-      base00 = "282936"; # background
-      base01 = "3a3c4e";
-      base02 = "4d4f68";
-      base03 = "626483";
-      base04 = "62d6e8";
-      base05 = "e9e9f4"; # foreground
-      base06 = "f1f2f8";
-      base07 = "f7f7fb";
-      base08 = "ea51b2";
-      base09 = "b45bcf";
-      base0A = "00f769";
-      base0B = "ebff87";
-      base0C = "a1efe4";
-      base0D = "62d6e8";
-      base0E = "b45bcf";
-      base0F = "00f769";
+      background = "#282a36";
+      current-line = "#44475a";
+      selection = "#44475a";
+      foreground = "#f8f8f2";
+      comment = "#6272a4";
+      cyan = "#8be9fd";
+      green = "#50fa7b";
+      orange = "#ffb86c";
+      pink = "#ff79c6";
+      purple = "#bd93f9";
+      red = "#ff5555";
+      yellow = "#f1fa8c";
     };
   };
 }

@@ -198,36 +198,34 @@ bar {
 
         tray_output none
 
-        height 30
+        height 22
         position top
         workspace_min_width 30
 
         font pango:Roboto Mono Nerd Font, Font Awesome 6 Free 11
 
         colors {
-                separator #1e1f29
-                background #1e1d2f
-                statusline #f8f8f2
-                focused_workspace #7aa2f7 #7aa2f7 #f8f8f2
-                active_workspace #333333 #333333 #f8f8f2
-                inactive_workspace #333333 #333333 #888888
-                urgent_workspace #f28fad #f28fad #f8f8f2
+                background #282A36
+                statusline #F8F8F2
+                separator  #44475A
+
+                focused_workspace  #44475A #44475A #F8F8F2
+                active_workspace   #282A36 #44475A #F8F8F2
+                inactive_workspace #282A36 #282A36 #BFBFBF
+                urgent_workspace   #FF5555 #FF5555 #F8F8F2
+                binding_mode       #FF5555 #FF5555 #F8F8F2
         }
 }
 
-# Window colors
-set $bg-color            #96cdfb
-set $inactive-bg-color   #2f343f
-set $text-color          #f3f4f5
-set $inactive-text-color #676E7D
-set $urgent-bg-color     #ff5555
-set $indicator-color     #424242
+# Colors
+# class                 border  bground text    indicator child_border
+client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 
-#                        border              background          text                  indicator
-client.focused           $bg-color           $bg-color           $text-color           $indicator-color
-client.unfocused         $inactive-bg-color  $inactive-bg-color  $inactive-text-color  $indicator-color
-client.focused_inactive  $inactive-bg-color  $inactive-bg-color  $inactive-text-color  $indicator-color
-client.urgent            $urgent-bg-color    $urgent-bg-color    $text-color           $indicator-color
+client.background       #F8F8F2
 
 # Window borders and gaps
 for_window [class=".*"] border pixel 0

@@ -45,8 +45,6 @@
     interfaces.eno1.useDHCP = lib.mkDefault true;
     nameservers = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" "8.8.4.4" ];
 
-    # networkmanager.enable = false;
-
-    # resolvconf.dnsExtensionMechanism = false;
+    networkmanager.enable = true;
   };
 }

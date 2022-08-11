@@ -69,6 +69,10 @@
     carlito
     corefonts
     font-awesome
+    noto-fonts
+    liberation_ttf
+    noto-fonts-cjk
+    noto-fonts-emoji
     vegur
 
     (nerdfonts.override {
@@ -110,7 +114,7 @@
 
   system = {
     autoUpgrade = {
-      enable = true;
+      enable = false;
       channel = "https://nixos.org/channels/nixos-unstable";
     };
     stateVersion = "22.05";

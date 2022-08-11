@@ -123,7 +123,7 @@ in {
         };
         "textbox-prompt-colon" = {
           expand = false;
-          str = mkLiteral ":";
+          str = mkLiteral "':'";
           margin = mkLiteral "0px 0.3em 0em 0em";
           text-color = mkLiteral "@foreground";
         };

@@ -7,12 +7,16 @@
     [ ../modules/editors/emacs ]; # ! Comment this out on first install !
 
   users.users = {
-    root = { shell = pkgs.zsh; };
+    root = {
+      isSystemUser = true;
+      shell = pkgs.zsh;
+    };
 
     ${user} = {
       isNormalUser = true;
       extraGroups = [ "audio" "docker" "video" "wheel" ];
       shell = pkgs.zsh;
+      initialPassword = "123456";
     };
   };
 

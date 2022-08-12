@@ -6,10 +6,10 @@
     settings = {
       env = { TERM = "xterm-256color"; };
       scrolling = { history = 5000; };
-      font = {
-        normal = { family = "JetBrainsMono Nerd Font Mono"; };
-        bold = { family = "JetBrainsMono Nerd Font Mono"; };
-        italic = { family = "JetBrainsMono Nerd Font Mono"; };
+      font = rec {
+        normal.family = "JetBrainsMono Nerd Font Mono";
+        bold.family = "JetBrainsMono Nerd Font Mono";
+        italic.family = "JetBrainsMono Nerd Font Mono";
         offset = {
           x = 0;
           y = 0;
@@ -18,7 +18,6 @@
           x = 0;
           y = 0;
         };
-        size = 12;
       };
       shell = { program = "${pkgs.zsh}/bin/zsh"; };
       colors = {

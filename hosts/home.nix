@@ -11,6 +11,8 @@
     homeDirectory = "/home/${user}";
 
     packages = with pkgs; [
+      (import (fetchTarball "channel:nixos-unstable") { }).tdesktop
+
       # Apps
       firefox
       google-chrome
@@ -26,12 +28,12 @@
       rsync
       unzip
       unrar
-
-      # Libs
-      haskellPackages.hashable
+      insync-v3
 
       # Video/Audio
       vlc
+
+      wakatime
     ];
 
     file.".config/wallpaper/".source = ../modules/themes/wallpaper;

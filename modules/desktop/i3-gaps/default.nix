@@ -15,6 +15,8 @@
         layout = "br";
         xkbOptions = "eurosign:e";
 
+        desktopManager.xterm.enable = false;
+
         displayManager = {
           lightdm = {
             enable = true;
@@ -41,7 +43,7 @@
           i3 = {
             enable = true;
             package = pkgs.i3-gaps;
-            extraPackages = with pkgs; [ i3status i3blocks ];
+            extraPackages = with pkgs; [ i3lock i3status i3blocks ];
             configFile = ./i3/config;
           };
         };
@@ -71,6 +73,10 @@
       xorg.xev
       xorg.xkill
       xorg.xrandr
+
+      feh
+      gnome.file-roller
+      pcmanfm
     ];
   };
 }

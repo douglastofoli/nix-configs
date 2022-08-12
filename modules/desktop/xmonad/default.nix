@@ -37,7 +37,10 @@
           xmonad = {
             enable = true;
             enableContribAndExtras = true;
-            extraPackages = haskellPackages: [ haskellPackages.xmobar ];
+            extraPackages = haskellPackages: [
+              haskellPackages.hashable
+              haskellPackages.xmobar
+            ];
             # config = ./xmonad/xmonad.hs;
           };
         };

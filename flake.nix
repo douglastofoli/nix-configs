@@ -31,7 +31,7 @@
       lib = nixpkgs.lib;
 
       user = "douglas";
-      location = "$HOME/.flake";
+      location = "$HOME/.setup";
       protocol = "X";
     in {
       nixosConfigurations = ( # NixOS configurations

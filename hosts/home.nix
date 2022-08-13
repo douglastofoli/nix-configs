@@ -11,8 +11,6 @@
     homeDirectory = "/home/${user}";
 
     packages = with pkgs; [
-      (import (fetchTarball "channel:nixos-unstable") { }).tdesktop
-
       # Apps
       firefox
       google-chrome
@@ -28,7 +26,6 @@
       rsync
       unzip
       unrar
-      insync-v3
 
       # Video/Audio
       vlc

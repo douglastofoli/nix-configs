@@ -68,22 +68,24 @@
     ];
   };
 
-  fonts.fonts = with pkgs; [
-    cantarell-fonts
-    carlito
-    corefonts
-    font-awesome
-    noto-fonts
-    liberation_ttf
-    noto-fonts-cjk
-    noto-fonts-emoji
-    vegur
+  fonts = {
+    enableCoreFonts = true;
+    fonts = with pkgs; [
+      cantarell-fonts
+      carlito
+      corefonts
+      font-awesome
+      noto-fonts
+      liberation_ttf
+      noto-fonts-cjk
+      noto-fonts-emoji
+      vegur
 
-    (nerdfonts.override {
-      fonts = [ "FiraCode" "Iosevka" "JetBrainsMono" "RobotoMono" ];
-    })
-  ];
-
+      (nerdfonts.override {
+        fonts = [ "FiraCode" "Iosevka" "JetBrainsMono" "RobotoMono" ];
+      })
+    ];
+  };
   environment = {
     variables = {
       TERMINAL = "alacritty";

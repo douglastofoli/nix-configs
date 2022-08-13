@@ -23,9 +23,13 @@
   services = {
     blueman.enable = true;
 
-    xserver.resolutions = [{
-      x = 2560;
-      y = 1080;
-    }];
+    xserver = {
+      videoDrivers = [ "intel" ];
+
+      resolutions = [{
+        x = 2560;
+        y = 1080;
+      }];
+    };
   };
 }

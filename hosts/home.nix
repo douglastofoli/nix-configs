@@ -15,13 +15,6 @@
       firefox
       google-chrome
 
-      # Editors
-      editorconfig-checker
-      coreutils
-      fd
-      nixfmt
-      ripgrep
-
       # File Management
       rsync
       unzip

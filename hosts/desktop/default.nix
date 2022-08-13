@@ -20,5 +20,12 @@
     };
   };
 
-  services.blueman.enable = true;
+  services = {
+    blueman.enable = true;
+
+    xserver.resolutions = [{
+      x = 2560;
+      y = 1080;
+    }];
+  };
 }

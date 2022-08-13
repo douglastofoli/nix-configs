@@ -3,7 +3,22 @@
 { pkgs, ... }:
 
 {
-  home = { packages = with pkgs; [ discord gimp insomnia obsidian ]; };
+  home = {
+    packages = with pkgs; [
+      # Editors
+      editorconfig-checker
+      coreutils
+      fd
+      nixfmt
+      ripgrep
+
+      discord
+      gimp
+      insomnia
+      obsidian
+      bpytop
+    ];
+  };
 
   programs.alacritty.settings.font.size = 12;
 

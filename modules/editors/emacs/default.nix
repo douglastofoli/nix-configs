@@ -19,8 +19,6 @@
           yes | $EMACS/bin/doom install
 
           $EMACS/bin/doom sync
-        else
-          $EMACS/bin/doom sync
         fi
       '';
     };

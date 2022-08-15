@@ -43,7 +43,7 @@
 
     useDHCP = lib.mkDefault false;
     interfaces.eno1.useDHCP = lib.mkDefault true;
-    nameservers = [ "1.1.1.1" "1.0.0.1" ];
+    nameservers = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" "8.8.4.4" "192.168.0.1" ];
 
     networkmanager.enable = true;
 

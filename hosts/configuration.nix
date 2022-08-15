@@ -6,18 +6,11 @@
   imports =
     [ ../modules/editors/emacs ]; # ! Comment this out on first install !
 
-  users.users = {
-    root = {
-      isSystemUser = true;
-      shell = pkgs.zsh;
-    };
-
-    ${user} = {
-      isNormalUser = true;
-      extraGroups = [ "audio" "docker" "video" "wheel" ];
-      shell = pkgs.zsh;
-      initialPassword = "123456";
-    };
+  users.users.${user} = {
+    isNormalUser = true;
+    extraGroups = [ "audio" "docker" "video" "wheel" ];
+    shell = pkgs.zsh;
+    initialPassword = "123456";
   };
 
   time.timeZone = "America/Sao_Paulo";
@@ -118,7 +111,8 @@
 
   system = {
     autoUpgrade = {
-      enable = false;
+      enable = true;
+      allowReboot = false;
       channel = "https://nixos.org/channels/nixos-unstable";
     };
     stateVersion = "22.05";

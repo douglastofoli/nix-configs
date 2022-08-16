@@ -4,11 +4,11 @@
 
 {
   imports = [ (import ./hardware-configuration.nix) ]
-    ++ [ (import ../../overlays) ] ++ [ (import ../../modules/desktop/i3-gaps) ]
-    ++ (import ../../modules/hardware);
+    ++ [ (import ../../modules/desktop/i3-gaps) ]
+    ++ [ (import ../../overlays) ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    # kernelPackages = pkgs.linuxPackages_latest;
 
     loader = {
       systemd-boot = {

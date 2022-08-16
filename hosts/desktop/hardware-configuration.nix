@@ -6,7 +6,8 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ]
+    ++ (import ../../modules/hardware);
 
   boot.initrd.availableKernelModules =
     [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
@@ -43,7 +44,7 @@
 
     useDHCP = lib.mkDefault false;
     interfaces.eno1.useDHCP = lib.mkDefault true;
-    nameservers = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" "8.8.4.4" "192.168.0.1" ];
+    nameservers = [ "1.1.1.1" "1.0.0.1" ];
 
     networkmanager.enable = true;
 

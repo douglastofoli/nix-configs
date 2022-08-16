@@ -8,7 +8,7 @@ in {
     rofi = {
       enable = true;
       terminal = "${pkgs.alacritty}/bin/alacritty";
-      location = "left";
+      location = "center";
 
       theme = with colors.scheme.dracula; {
         "*" = {

@@ -51,6 +51,6 @@
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
-    font = { name = "RobotoMono Nerd Font"; };
+    font = { name = "Cantarell"; };
   };
 }

@@ -122,6 +122,6 @@
       allowReboot = false;
       channel = "https://nixos.org/channels/nixos-unstable";
     };
-    stateVersion = "unstable";
+    stateVersion = "22.05";
   };
 }

@@ -14,6 +14,8 @@
       # Apps
       firefox
       google-chrome
+      discord
+      tdesktop
 
       # File Management
       rsync

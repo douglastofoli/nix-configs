@@ -12,7 +12,6 @@
       nixfmt
       ripgrep
 
-      discord
       gimp
       insomnia
       obsidian

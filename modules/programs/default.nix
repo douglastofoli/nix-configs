@@ -1,1 +1,1 @@
-[ ./alacritty.nix ./rofi.nix ./steam.nix ]
+[ ./alacritty.nix ./rofi.nix ]

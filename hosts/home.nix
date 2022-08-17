@@ -16,6 +16,7 @@
       google-chrome
       discord
       tdesktop
+      signal-desktop
 
       # File Management
       rsync

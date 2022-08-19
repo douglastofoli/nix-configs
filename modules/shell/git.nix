@@ -10,7 +10,7 @@ in {
     userEmail = "${email}";
     signing = {
       gpgPath = "${pkgs.gnupg}/bin/gpg2";
-      key = "";
+      key = "E6C258B7A1A9D3AD";
       signByDefault = true;
     };
     aliases = {

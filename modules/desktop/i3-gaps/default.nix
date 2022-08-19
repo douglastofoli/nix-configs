@@ -1,14 +1,18 @@
-{ config, lib, pkgs, protocol, ... }:
+{ config, lib, pkgs, location, protocol, ... }:
 
 {
   config = lib.mkIf (protocol == "X") {
     programs = {
       dconf.enable = true;
-
       nm-applet.enable = true;
     };
 
     services = {
+      dbus = {
+        enable = true;
+        packages = [ pkgs.dconf ];
+      };
+
       xserver = {
         enable = true;
 
@@ -44,7 +48,7 @@
             enable = true;
             package = pkgs.i3-gaps;
             extraPackages = with pkgs; [ i3lock i3status i3blocks ];
-            configFile = ./i3/config;
+            configFile = ../../../dotfiles/i3/config;
           };
         };
 

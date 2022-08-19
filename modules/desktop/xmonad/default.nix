@@ -41,7 +41,7 @@
               haskellPackages.hashable
               haskellPackages.xmobar
             ];
-            # config = ./xmonad/xmonad.hs;
+            # config = ../../../dotfiles/xmonad/xmonad.hs;
           };
         };
 

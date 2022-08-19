@@ -1,0 +1,18 @@
+general {
+    colors = true
+    interval = 1
+}
+
+order += "volume master"
+order += "tztime local"
+
+volume master {
+    format = " %volume"
+    format_muted = " Muted"
+    mixer = "Master"
+    mixer_idx = 0
+}
+
+tztime local {
+    format = "%a %d %b %I:%M:%S %P"
+}

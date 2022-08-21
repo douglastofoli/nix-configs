@@ -3,7 +3,7 @@
 { config, lib, pkgs, inputs, user, location, ... }:
 
 {
-  imports = [ ./activation.nix ]; # ! Comment this out on first install !
+  # imports = [ ./activation.nix ]; # ! Comment this out on first install !
 
   users.users = {
     root = {
@@ -13,7 +13,7 @@
 
     ${user} = {
       isNormalUser = true;
-      extraGroups = [ "audio" "docker" "video" "wheel" ];
+      extraGroups = [ "audio" "docker" "networkmanager" "video" "wheel" ];
       shell = pkgs.zsh;
       initialPassword = "123456";
     };
@@ -76,10 +76,13 @@
     carlito
     corefonts
     font-awesome
-    noto-fonts
+    font-awesome_4
+    font-awesome_5
     liberation_ttf
+    noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
+    rubik
     vegur
 
     (nerdfonts.override {

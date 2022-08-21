@@ -47,8 +47,8 @@
           i3 = {
             enable = true;
             package = pkgs.i3-gaps;
-            extraPackages = with pkgs; [ i3lock i3status i3blocks ];
-            configFile = ../../../dotfiles/i3/config;
+            extraPackages = with pkgs; [ i3status ];
+            configFile = ../../dotfiles/i3/config;
           };
         };
 

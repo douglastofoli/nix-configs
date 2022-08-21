@@ -6,12 +6,13 @@
   home = {
     packages = with pkgs; [
       # Editors
-      editorconfig-checker
-      coreutils
-      fd
-      nixfmt
-      ripgrep
-
+      # editorconfig-checker
+      # coreutils
+      # fd
+      # nixfmt
+      # ripgrep
+  
+      vscodium
       gimp
       insomnia
       obsidian

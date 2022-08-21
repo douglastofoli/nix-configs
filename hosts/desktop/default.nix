@@ -4,10 +4,11 @@
 
 {
   imports = [ (import ./hardware-configuration.nix) ]
-    ++ [ (import ../../modules/editors/emacs.nix) ]
     ++ [ (import ../../modules/programs/steam.nix) ]
-    ++ [ (import ../../modules/desktop/i3-gaps) ]
+    ++ [ (import ../../modules/desktop/i3-gaps.nix) ]
     ++ [ (import ../../overlays) ];
+
+  # ++ [ (import ../../modules/editors/emacs.nix) ]
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -21,6 +22,10 @@
       timeout = 1;
     };
   };
+
+  environment.systemPackages = with pkgs; [ docker-compose ];
+
+  virtualisation.docker.enable = true;
 
   services = {
     blueman.enable = true;

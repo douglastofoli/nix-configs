@@ -3,14 +3,18 @@
 { config, lib, pkgs, user, ... }:
 
 {
-  imports = (import ../modules/programs)
-    ++ (import ../modules/services) ++ (import ../modules/shell);
+  imports = 
+    (import ../modules/programs) ++
+    (import ../modules/services) ++ 
+    (import ../modules/shell);
 
   home = {
     username = "${user}";
     homeDirectory = "/home/${user}";
 
     packages = with pkgs; [
+      asdf
+      
       # Apps
       firefox
       google-chrome
@@ -22,9 +26,13 @@
       rsync
       unzip
       unrar
+      insync-v3
 
       # Video/Audio
       vlc
+      spotify
+      ffmpeg
+      youtube-dl
 
       wakatime
     ];

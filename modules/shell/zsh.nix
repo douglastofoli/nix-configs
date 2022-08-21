@@ -18,6 +18,10 @@
       ignoreDups = true;
     };
 
+    shellAliases = {
+      code = "codium";
+    };
+
     initExtra = ''
       SPACESHIP_USER_SHOW=always
       SPACESHIP_PROMPT_ORDER=(
@@ -42,6 +46,8 @@
       SPACESHIP_CHAR_SUFFIX=" "
       SPACESHIP_RUST_SYMBOL="🦀  "
       SPACESHIP_RUST_COLOR=red
+
+      export GPG_TTY=$(tty)
     '';
 
     plugins = [{

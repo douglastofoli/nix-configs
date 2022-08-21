@@ -1,1 +1,1 @@
-[ ./alacritty.nix ./rofi.nix ]
+[ ./alacritty.nix ./i3status-rust.nix ./rofi.nix ]

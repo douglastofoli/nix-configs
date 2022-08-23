@@ -17,7 +17,6 @@
         enable = true;
 
         layout = "br";
-        xkbOptions = "eurosign:e";
 
         desktopManager.xterm.enable = false;
 
@@ -60,16 +59,5 @@
         '';
       };
     };
-
-    environment.systemPackages = with pkgs; [
-      xclip
-      xorg.xev
-      xorg.xkill
-      xorg.xrandr
-
-      feh
-      gnome.file-roller
-      pcmanfm
-    ];
   };
 }

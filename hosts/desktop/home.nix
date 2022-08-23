@@ -17,6 +17,9 @@
       insomnia
       obsidian
       bpytop
+      obinskit
+      gnome.file-roller
+      pcmanfm
     ];
   };
 

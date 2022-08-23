@@ -4,6 +4,7 @@
 
 {
   imports = [ (import ./hardware-configuration.nix) ]
+    ++ (import ../../modules/security) 
     ++ [ (import ../../modules/programs/steam.nix) ]
     ++ [ (import ../../modules/desktop/i3-gaps.nix) ]
     ++ [ (import ../../overlays) ];

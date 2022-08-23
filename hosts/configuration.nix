@@ -21,6 +21,11 @@
 
   time.timeZone = "America/Sao_Paulo";
   i18n = {
+    inputMethod = { 
+      enabled = "ibus";
+      ibus.engines = with pkgs.ibus-engines; [ anthy ];
+    };
+    
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
       LC_TIME = "pt_BR.UTF-8";
@@ -82,7 +87,6 @@
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
-    rubik
     vegur
 
     (nerdfonts.override {
@@ -97,12 +101,14 @@
   };
 
   environment = {
+    shells = [ pkgs.zsh ];
+
     variables = {
       TERMINAL = "alacritty";
       EDITOR = "emacs";
       VISUAL = "emacs";
     };
-    systemPackages = with pkgs; [ curl nano vim wget ];
+    systemPackages = with pkgs; [ curl nano vim wget xclip ];
   };
 
   xdg.portal = {
@@ -126,7 +132,13 @@
     '';
   };
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+
+    permittedInsecurePackages = [
+      "electron-13.6.9"
+    ];
+  };
 
   system = {
     autoUpgrade = {

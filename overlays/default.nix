@@ -25,15 +25,15 @@
         '';
       });
     })
-    (self: super: {
-      picom = super.picom.overrideAttrs (_: {      
-        src = super.fetchFromGitHub {
-          repo = "picom";
-          owner = "jonaburg";
-          rev = "e3c19cd7d1108d114552267f302548c113278d45";
-          sha256 = "4voCAYd0fzJHQjJo4x3RoWz5l3JJbRvgIXn1Kg6nz6Y";
-        };
-      });
-    })
+    # (self: super: {
+    #   picom = super.picom.overrideAttrs (_: {
+    #     src = super.fetchFromGitHub {
+    #       "owner" = "ibhagwan";
+    #       "repo" = "picom";
+    #       "rev" = "c4107bb6cc17773fdc6c48bb2e475ef957513c7a";
+    #       "sha256" = "0rs9bxxrw4wscf4a8yl776a8g880m5gcm75q06yx2cn3lw2b7v22";
+    #     };
+    #   });
+    # })
   ];
 }

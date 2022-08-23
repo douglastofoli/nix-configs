@@ -197,21 +197,22 @@ bar {
         status_command i3status-rs $HOME/.config/i3status-rust/config-main.toml
 
         height 22
+        position top
         workspace_min_width 30
 
         font pango:RobotoMono Nerd Font, Font Awesome 6 Free 11
-        position top
 
         colors {
-                separator #1e1f29
-                background #1e1d2f
-                statusline #f8f8f2
-                focused_workspace #7aa2f7 #7aa2f7 #f8f8f2
-                active_workspace #333333 #333333 #f8f8f2
-                inactive_workspace #333333 #333333 #888888
-                urgent_workspace #f28fad #f28fad #f8f8f2
-        }
+                background #282A36
+                statusline #F8F8F2
+                separator  #44475A
 
+                focused_workspace  #44475A #44475A #F8F8F2
+                active_workspace   #282A36 #44475A #F8F8F2
+                inactive_workspace #282A36 #282A36 #BFBFBF
+                urgent_workspace   #FF5555 #FF5555 #F8F8F2
+                binding_mode       #FF5555 #FF5555 #F8F8F2
+        }
 }
 
 # Colors
@@ -227,21 +228,36 @@ client.background       #F8F8F2
 # Window borders and gaps
 for_window [class=".*"] border pixel 0
 
-gaps inner 10
-gaps outer 2
+gaps inner 8
+gaps outer 0
 smart_gaps on
 smart_borders on
 
-# Window configurations
+# Autostart
+exec --no-startup-id ibus-daemon
+exec --no-startup-id discord
+exec --no-startup-id firefox
+exec --no-startup-id insync start
+exec --no-startup-id telegram-desktop -workdir $HOME/.local/share/TelegramDesktop/ -- %u
+
+# Window rules
 for_window [title="Picture-in-Picture"] sticky enable
+
+# Workspace 1
+for_window [class="firefox"] move to workspace $ws1, focus
+
+# Workspace 4
+for_window [class="Signal"] move to workspace $ws4, floating enable, focus
+for_window [class="TelegramDesktop"] move to workspace $ws4, floating enable, focus
+
+# Workspace 5
+for_window [class="discord"] move to workspace $ws5, focus
+
+# Workspace 6
+for_window [class="Spotify"] move to workspace $ws6, focus
 
 # Scratchpad
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show
-
-# Autostart
-exec --no-start-id firefox
-exec --no-start-id env QT_IM_MODULE=xim telegram-desktop -workdir $HOME/.local/share/TelegramDesktop/ -- %u
-exec --no-start-id discord

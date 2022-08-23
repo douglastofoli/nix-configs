@@ -34,6 +34,8 @@
       ffmpeg
       youtube-dl
 
+      gnome.seahorse
+
       wakatime
     ];
 

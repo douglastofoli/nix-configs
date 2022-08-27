@@ -58,7 +58,7 @@ in {
         };
         "element normal urgent" = {
           background-color = mkLiteral "@urgent-background";
-          text-color = mkLiteral "@urgente-foreground";
+          text-color = mkLiteral "@urgent-foreground";
         };
         "element normal active" = {
           background-color = mkLiteral "@active-background";

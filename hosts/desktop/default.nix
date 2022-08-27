@@ -6,10 +6,8 @@
   imports = [ (import ./hardware-configuration.nix) ]
     ++ (import ../../modules/security) 
     ++ [ (import ../../modules/programs/steam.nix) ]
-    ++ [ (import ../../modules/desktop/i3-gaps.nix) ]
+    ++ [ (import ../../modules/desktop/xmonad.nix) ]
     ++ [ (import ../../overlays) ];
-
-  # ++ [ (import ../../modules/editors/emacs.nix) ]
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;

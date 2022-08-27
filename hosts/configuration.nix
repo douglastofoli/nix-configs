@@ -3,7 +3,7 @@
 { config, lib, pkgs, inputs, user, location, ... }:
 
 {
-  # imports = [ ./activation.nix ]; # ! Comment this out on first install !
+  imports = [ ./activation.nix ]; # ! Comment this out on first install !
 
   users.users = {
     root = {
@@ -20,13 +20,14 @@
   };
 
   time.timeZone = "America/Sao_Paulo";
-  i18n = {
-    inputMethod = { 
-      enabled = "ibus";
-      ibus.engines = with pkgs.ibus-engines; [ anthy ];
-    };
-    
+  i18n = { 
     defaultLocale = "en_US.UTF-8";
+    supportedLocales = [
+      "en_US.UTF-8/UTF-8"
+      "en_US/ISO-8859-1"
+      "pt_BR.UTF-8/UTF-8"
+      "pt_BR/ISO-8859-1"
+    ];
     extraLocaleSettings = {
       LC_TIME = "pt_BR.UTF-8";
       LC_MONETARY = "pt_BR.UTF-8";
@@ -45,6 +46,8 @@
 
   services = {
     gnome.gnome-keyring.enable = true;
+
+    devmon.enable = true;
 
     pipewire = {
       enable = true;
@@ -81,8 +84,6 @@
     carlito
     corefonts
     font-awesome
-    font-awesome_4
-    font-awesome_5
     liberation_ttf
     noto-fonts
     noto-fonts-cjk

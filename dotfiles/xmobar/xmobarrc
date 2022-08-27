@@ -1,0 +1,23 @@
+Config { font = "xft:SpaceMono Nerd Font:pixelsize=17,M+ 1c:pixelsize=11"
+  , additionalFonts = [ "xft:Font Awesome 6 Free Solid:pixelsize=12:antialias=true:hinting=true"
+                      , "xft:Font Awesome 6 Brands:pixelsize=12"
+                      ]
+  , bgColor = "#282a36"
+  , fgColor = "#f8f8f2"
+  , position = TopSize L 100 24
+  , allDesktops = True
+  , persistent = True
+  , overrideRedirect = True
+  , iconRoot = ".xmonad/xpm/" -- default: "."
+  , commands = [
+      Run UnsafeStdinReader
+    , Run Com "echo" ["0<fn=3>\xf17c</fn>"] "penguin" 3600
+    , Run Com ".setup/dotfiles/scripts/kernel" [] "kernel" 36000
+    , Run StdinReader  
+    , Run Date "%a %d/%m %H:%M" "date" 10
+    ]
+  , sepChar = "%",
+  , alignSep = "}{"
+  , template = "%UnsafeStdinReader% }{ <box type=Bottom width=2 mb=2 color=#bd93f9><fc=#bd93f9>%penguin% %kernel%</fc></box>"
+  -- , template = "<icon=haskull.xpm/><fc=#dcffc7>%StdinReader%</fc>}{<fc=#ffe19c> %date%</fc>   "
+}

@@ -20,6 +20,9 @@
 
         desktopManager.xterm.enable = false;
 
+        videoDrivers = [ "modesetting" ];
+        useGlamor = true;
+
         displayManager = {
           lightdm = {
             enable = true;

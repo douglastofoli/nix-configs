@@ -19,7 +19,7 @@
     };
 
     shellAliases = {
-      code = "codium";
+#      code = "codium";
     };
 
     initExtra = ''

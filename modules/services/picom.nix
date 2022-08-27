@@ -5,7 +5,18 @@
     enable = true;
     
     # Shadown
-    shadow = false; 
+    shadow = true;
+    shadowOffsets = [
+      (-7)
+      (-7)
+    ];
+    shadowOpacity = 0.0;
+    shadowExclude = [
+      "name = 'Notification'"
+      "class_g ?= 'Notify-osd'"
+      "class_g = 'Cairo-clock'"
+      "_GTK_FRAME_EXTENTS@:c"
+    ];
 
     # Fading
     fade = true;

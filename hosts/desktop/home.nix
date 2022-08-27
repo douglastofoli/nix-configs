@@ -3,6 +3,8 @@
 { pkgs, ... }:
 
 {
+  imports = [ (import ../../modules/editors/vscode.nix) ];
+
   home = {
     packages = with pkgs; [
       # Editors
@@ -12,7 +14,6 @@
       # nixfmt
       # ripgrep
   
-      vscodium
       gimp
       insomnia
       obsidian

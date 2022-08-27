@@ -37,11 +37,12 @@
           xmonad = {
             enable = true;
             enableContribAndExtras = true;
+            enableConfiguredRecompile = true;
             extraPackages = haskellPackages: [
-              haskellPackages.hashable
-              haskellPackages.xmobar
+              haskellPackages.dbus
+              haskellPackages.monad-logger
             ];
-            # config = ../../../dotfiles/xmonad/xmonad.hs;
+            config = ../../dotfiles/xmonad/xmonad.hs;
           };
         };
 
@@ -51,25 +52,16 @@
           Option "SuspendTime" "0"
           Option "OffTime" "0"
         '';
-
-        resolutions = [
-          {
-            x = 1920;
-            y = 1080;
-          }
-          {
-            x = 2560;
-            y = 1080;
-          }
-        ];
       };
     };
 
     environment.systemPackages = with pkgs; [
-      xclip
-      xorg.xev
-      xorg.xkill
-      xorg.xrandr
+      haskellPackages.haskell-language-server
+      haskellPackages.hoogle
+      haskellPackages.xmobar
+      cabal-install
+      stack 
+      trayer
     ];
   };
 }

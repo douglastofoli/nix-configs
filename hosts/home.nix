@@ -35,7 +35,7 @@
       youtube-dl
 
       gnome.seahorse
-
+      yad
       wakatime
     ];
 

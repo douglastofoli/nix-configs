@@ -3,7 +3,7 @@
 { pkgs, ... }:
 
 {
-  imports = [ (import ../../modules/editors/vscode.nix) ];
+  imports = (import ../../modules/editors);
 
   home = {
     packages = with pkgs; [

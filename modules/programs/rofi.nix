@@ -12,7 +12,7 @@ in {
 
       theme = with colors.scheme.dracula; {
         "*" = {
-          font = "JetBrainsMono Nerd Font 12";
+          font = "RobotoMono Nerd Font 12";
           foreground = mkLiteral "${foreground}";
           background-color = mkLiteral "${background}";
           active-background = mkLiteral "${comment}";
@@ -58,7 +58,7 @@ in {
         };
         "element normal urgent" = {
           background-color = mkLiteral "@urgent-background";
-          text-color = mkLiteral "@urgent-foreground";
+          text-color = mkLiteral "@foreground";
         };
         "element normal active" = {
           background-color = mkLiteral "@active-background";

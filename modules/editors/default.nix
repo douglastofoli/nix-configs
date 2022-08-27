@@ -1,0 +1,4 @@
+[
+  ./emacs.nix
+  ./vscode.nix
+]

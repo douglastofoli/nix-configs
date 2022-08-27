@@ -68,6 +68,9 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
+  -- Theme
+import Colors.Dracula
+
 myFont :: String
 myFont = "xft:RobotoMono Nerd Font:regular:size=11:antialias=true:hinting=true"
 
@@ -87,10 +90,10 @@ myBorderWidth :: Dimension
 myBorderWidth = 2
 
 myNormalBorderColor :: String
-myNormalBorderColor = "#282a36"
+myNormalBorderColor = colorBack
 
 myFocusedBorderColor :: String
-myFocusedBorderColor = "#9aedfe"
+myFocusedBorderColor = color15
 
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = True
@@ -106,6 +109,8 @@ myStartupHook = do
   spawn "killall trayer"
 
   spawnOnce "telegram-desktop"
+
+  spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 -transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
 
 myNavigation :: TwoD a (Maybe a)
 myNavigation = makeXEventhandler $ shadowWithKeymap navKeyMap navDefaultHandler
@@ -294,18 +299,18 @@ wideAccordion = renamed [Replace "wideAccordion"]
 myTabTheme = def 
   {
     fontName = myFont
-  , activeColor = "#9aedfe"
-  , inactiveColor = "#bfbfbf"
-  , activeBorderColor = "#9aedfe"
-  , inactiveBorderColor = "#282a36"
-  , activeTextColor = "#282a36"
-  , inactiveTextColor = "#e6e6e6"
+  , activeColor = color15
+  , inactiveColor = color08
+  , activeBorderColor = color15
+  , inactiveBorderColor = colorBack
+  , activeTextColor = colorBack
+  , inactiveTextColor = color16
   }
 
 myShowWNameTheme :: SWNConfig
 myShowWNameTheme = def
   {
-    swn_font = "xft:RobotoMono Nerd Font:bold:size=60"
+    swn_font = "xft:RobotoMono Nerd Font:bold:size=35"
   , swn_fade = 1.0
   , swn_bgcolor = "#1c1f24"
   , swn_color = "#ffffff"
@@ -328,6 +333,7 @@ myLayoutHook = avoidStruts
                                               ||| tallAccordion
                                               ||| wideAccordion
 
+myWorkspaces :: [String]
 myWorkspaces = [" www ", " dev ", " sys ", " chat ", " disc ", " mus ", " vbox ", " vid ", " gfx "]
 myWorkspacesIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
@@ -370,8 +376,13 @@ myKeys :: XConfig l0 -> [((KeyMask, KeySym), NamedAction)]
 myKeys c =
   let subKeys str ks = subtitle' str : mkNamedKeymap c ks in
   subKeys "XMonad Essentials"
-  [ ("M-C-r", addName "Recompile XMonad"     $ spawn "xmonad --recompile")
-  , ("M-S-r", addName "Restart XMonad"       $ spawn "xmonad --restart")
+  [ ("M-C-r", addName "Recompile XMonad"       $ spawn "xmonad --recompile")
+  , ("M-S-r", addName "Restart XMonad"         $ spawn "xmonad --restart")
+  , ("M-S-q", addName "Quit XMonad"            $ io exitSuccess)
+  , ("M-S-c", addName "Kill focused window"    $ kill1)
+  , ("M-S-a", addName "Kill all windows on WS" $ killAll)
+  , ("M-S-<Return>", addName "Run rofi prompt" $ spawn "rofi -dmenu -p 'Run command:'")
+  , ("M-d", addName "Run rofi apps"            $ spawn "rofi -no-lazy-grab -show drun")
   ]
 
   ^++^ subKeys "Switch to workspace"
@@ -398,6 +409,23 @@ myKeys c =
   , ("M-S-9", addName "Send window to workspace 9"  $ (windows $ W.shift $ myWorkspaces !! 8))
   ]
 
+  ^++^ subKeys "Move window to WS and go there"
+  [ ("M-S-<Page_Up>", addName "Move window to next WS"   $ shiftTo Next nonNSP >> moveTo Next nonNSP)
+  , ("M-S-<Page_Down>", addName "Move window to prev WS" $ shiftTo Prev nonNSP >> moveTo Prev nonNSP)
+  ]
+
+  ^++^ subKeys "Window navigation"
+  [ ("M-j", addName "Move focus to next window"               $ windows W.focusDown)
+  , ("M-k", addName "Move focus to prev window"               $ windows W.focusUp)
+  , ("M-m", addName "Move focus to master window"             $ windows W.focusMaster)
+  , ("M-S-j", addName "Swap focused window with next window"  $ windows W.swapDown)
+  , ("M-S-k", addName "Swap focused window with prev window"  $ windows W.swapUp)
+  , ("M-S-m", addName "Swap focused window with prev window"  $ windows W.swapMaster)
+  , ("M-<Backspace>", addName "Move focused window to master" $ promote)
+  , ("M-S-,", addName "Rotate all windows except master"      $ rotSlavesDown)
+  , ("M-S-.", addName "Rotate all windows current stack"      $ rotAllDown)
+  ]
+
   ^++^ subKeys "Switch layouts"
   [ ("M-<Tab>", addName "Switch to next layout"     $ sendMessage NextLayout)
   , ("M-<Space>", addName "Toggle noborders/full"   $ sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)
@@ -408,16 +436,61 @@ myKeys c =
   , ("M-b", addName "Lauch web brownser"           $ spawn (myBrownser))
   ]
 
+  ^++^ subKeys "Monitors"
+  [ ("M-.", addName "Switch focus to next monitor" $ nextScreen)
+  , ("M-,", addName "Switch focus to prev monitor" $ prevScreen)
+  ]
+
+  ^++^ subKeys "Switch layouts"
+  [ ("M-<Tab>", addName "Switch to next layout"   $ sendMessage NextLayout)
+  , ("M-<Space>", addName "Toggle noborders/full" $ sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)
+  ]
+
+  ^++^ subKeys "Window resizing"
+  [ ("M-h", addName "Shrink window"               $ sendMessage Shrink)
+  , ("M-l", addName "Expand window"               $ sendMessage Expand)
+  , ("M-M1-j", addName "Shrink window vertically" $ sendMessage MirrorShrink)
+  , ("M-M1-k", addName "Expand window vertically" $ sendMessage MirrorExpand)
+  ]
+
+  ^++^ subKeys "Floating windows"
+  [ ("M-f", addName "Toggle float layout"        $ sendMessage (T.Toggle "floats"))
+  , ("M-t", addName "Sink a floating window"     $ withFocused $ windows . W.sink)
+  , ("M-S-t", addName "Sink all floated windows" $ sinkAll)
+  ]
+
+  ^++^ subKeys "Scratchpads"
+  [ ("M-s t", addName "Toggle scratchpad terminal"   $ namedScratchpadAction myScratchPads "terminal")
+  --, ("M-s m", addName "Toggle scratchpad mocp"       $ namedScratchpadAction myScratchPads "mocp")
+  --, ("M-s c", addName "Toggle scratchpad calculator" $ namedScratchpadAction myScratchPads "calculator")
+  ]
+
   ^++^ subKeys "GridSelect"
   [ ("M-M1-<Return>", addName "Select favorite apps" $ spawnSelected'
-      $ gsGames ++ gsEducation ++ gsInternet ++ gsMultimedia ++ gsOffice ++ gsSettings ++ gsSystem ++ gsUtilities)
-  , ("M-M1-c", addName "Select favorite apps" $ spawnSelected' gsCategories)
+       $ gsGames ++ gsEducation ++ gsInternet ++ gsMultimedia ++ gsOffice ++ gsSettings ++ gsSystem ++ gsUtilities)
+  , ("M-M1-c", addName "Select favorite apps"    $ spawnSelected' gsCategories)
+  , ("M-M1-t", addName "Goto selected window"    $ goToSelected $ myGridConfig myColorizer)
+  , ("M-M1-b", addName "Bring selected window"   $ bringSelected $ myGridConfig myColorizer)
+  , ("M-M1-1", addName "Menu of games"           $ spawnSelected' gsGames)
+  , ("M-M1-2", addName "Menu of education apps"  $ spawnSelected' gsEducation)
+  , ("M-M1-3", addName "Menu of Internet apps"   $ spawnSelected' gsInternet)
+  , ("M-M1-4", addName "Menu of multimedia apps" $ spawnSelected' gsMultimedia)
+  , ("M-M1-5", addName "Menu of office apps"     $ spawnSelected' gsOffice)
+  , ("M-M1-6", addName "Menu of settings apps"   $ spawnSelected' gsSettings)
+  , ("M-M1-7", addName "Menu of system apps"     $ spawnSelected' gsSystem)
+  , ("M-M1-8", addName "Menu of utilities apps"  $ spawnSelected' gsUtilities)
+  ]
+
+  ^++^ subKeys "Multimedia keys"
+  [ ("<XF86AudioMute>", addName "Toggle audio mute"   $ spawn "amixer set Master toggle")
+  , ("<XF86AudioLowerVolume>", addName "Lower vol"    $ spawn "amixer set Master 5%- unmute")
+  , ("<XF86AudioRaiseVolume>", addName "Raise vol"    $ spawn "amixer set Master 5%+ unmute")
+  , ("M-<Print>", addName "Take screenshot"           $ spawn "flameshot gui -p $HOME/gdrive/Screenshots")
   ]
 
   where
     nonNSP = WSIs (return (\ws -> W.tag ws /= "NSP"))
     nonEmptyNonNSP = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
-
 
 main :: IO ()
 main = do
@@ -435,13 +508,13 @@ main = do
     , focusedBorderColor = myFocusedBorderColor
     , logHook            = dynamicLogWithPP $ filterOutWsPP [scratchpadWorkspaceTag] $ xmobarPP
         { ppOutput = \x -> hPutStrLn xmproc0 x
-        , ppCurrent = xmobarColor "#ff79c6" "" . wrap ("<box type=Bottom width=2 mb=2 color=#ff79c6>") "</box>"
-        , ppVisible = xmobarColor "#ff79c6" "" . clickable
-        , ppHidden = xmobarColor "#bd93f9" "" . wrap ("<box type=Top width=2 mt=2 color=#bd93f9>") "</box>" . clickable 
-        -- , ppHiddenNoWindows = xmobarColor "#bd93f9" "" . clickable
-        , ppTitle = xmobarColor "#e6e6e6" "" . shorten 60
-        , ppSep = "<fc=#4d4d4d> <fn=1>|</fn> </fc>"
-        , ppUrgent = xmobarColor "#ff5555" "" . wrap "!" "!"
+        , ppCurrent = xmobarColor color06 "" . wrap ("<box type=Bottom width=2 mb=2 color=" ++ color06 ++ ">") "</box>"
+        , ppVisible = xmobarColor color06 "" . clickable
+        , ppHidden = xmobarColor color05 "" . wrap ("<box type=Top width=2 mt=2 color=" ++ color05 ++ ">") "</box>" . clickable 
+        , ppHiddenNoWindows = xmobarColor color05 "" . clickable
+        , ppTitle = xmobarColor color16 "" . shorten 60
+        , ppSep = "<fc=" ++ color09 ++ "> <fn=1>|</fn> </fc>"
+        , ppUrgent = xmobarColor color02 "" . wrap "!" "!"
         , ppExtras = [windowCount]
         , ppOrder = \(ws:l:t:ex) -> [ws,l]++ex++[t]
         }

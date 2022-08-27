@@ -2,7 +2,10 @@
 
 {
   config = lib.mkIf (protocol == "X") {
-    programs.dconf.enable = true;
+    programs = {
+      dconf.enable = true;
+      nm-applet.enable = true;
+    };
 
     services = {
       xserver = {
@@ -42,7 +45,7 @@
               haskellPackages.dbus
               haskellPackages.monad-logger
             ];
-            config = ../../dotfiles/xmonad/xmonad.hs;
+            #config = ../../dotfiles/xmonad/xmonad.hs;
           };
         };
 

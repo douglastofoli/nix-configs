@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+volume="$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')"
+echo "${volume}% volume "

@@ -1,6 +1,6 @@
-Config { font = "xft:SpaceMono Nerd Font:pixelsize=17,M+ 1c:pixelsize=11"
-  , additionalFonts = [ "xft:Font Awesome 6 Free Solid:pixelsize=12:antialias=true:hinting=true"
-                      , "xft:Font Awesome 6 Brands:pixelsize=12"
+Config { font = "xft:RobotoMono Nerd Font:weight=bold:pixelsize=15:antialias=true:hinting=true"
+  , additionalFonts = [ "xft:Font Awesome 6 Free Solid:pixelsize=16:antialias=true:hinting=true"
+                      , "xft:Font Awesome 6 Brands:pixelsize=16"
                       ]
   , bgColor = "#282a36"
   , fgColor = "#f8f8f2"
@@ -11,13 +11,11 @@ Config { font = "xft:SpaceMono Nerd Font:pixelsize=17,M+ 1c:pixelsize=11"
   , iconRoot = ".xmonad/xpm/" -- default: "."
   , commands = [
       Run UnsafeStdinReader
-    , Run Com "echo" ["0<fn=3>\xf17c</fn>"] "penguin" 3600
+    , Run Com "echo" ["<fn=3>\xf17c</fn>"] "penguin" 3600
     , Run Com ".setup/dotfiles/scripts/kernel" [] "kernel" 36000
-    , Run StdinReader  
-    , Run Date "%a %d/%m %H:%M" "date" 10
+    , Run Date "<fn=2>\xf017</fn> %b %d %Y - (%H:%M) " "date" 50
     ]
   , sepChar = "%",
   , alignSep = "}{"
-  , template = "%UnsafeStdinReader% }{ <box type=Bottom width=2 mb=2 color=#bd93f9><fc=#bd93f9>%penguin% %kernel%</fc></box>"
-  -- , template = "<icon=haskull.xpm/><fc=#dcffc7>%StdinReader%</fc>}{<fc=#ffe19c> %date%</fc>   "
+  , template = "%UnsafeStdinReader% }{ <box type=Bottom width=2 mb=2 color=#bd93f9><fc=#bd93f9>%penguin% %kernel%</fc></box> <box type=Bottom width=2 mb=2 color=#caa9fa><fc=#caa9fa><action=`emacsclient -c -a 'emacs' --eval '(doom/window-maximize-buffer(douglas/year-calendar))'`>%date%</action></fc></box>"
 }

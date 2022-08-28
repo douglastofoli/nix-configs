@@ -7,15 +7,17 @@
     # Shadown
     shadow = true;
     shadowOffsets = [
-      (-7)
-      (-7)
+      (-3)
+      (-3)
     ];
-    shadowOpacity = 0.0;
+    shadowOpacity = 0.6;
     shadowExclude = [
       "name = 'Notification'"
       "class_g ?= 'Notify-osd'"
       "class_g = 'Cairo-clock'"
+      "class_g = 'trayer'"
       "_GTK_FRAME_EXTENTS@:c"
+
     ];
 
     # Fading
@@ -28,31 +30,13 @@
 
     # Transparency
     activeOpacity = 1.0;
-    inactiveOpacity = 0.95;
-    opacityRules = [
-      "100:class_g = 'firefox'"
-      "80:class_g = 'i3bar' && !_NET_WM_STATE@:32a"
-      "50:class_g = 'i3-frame' && !_NET_WM_STATE@:32a"
-      "0:_NET_WM_STATE@:32a *= '_NET_WM_STATE_HIDDEN'"
-      "100:fullscreen"
-    ];
+    inactiveOpacity = 1.0;
 
-    # Background-Blurring
     settings = {
-      blur = {
-        method = "dual_kawase";
-        strength = 8;
-        background = false;
-        background-frame = false;
-        background-fixed = false;
-        kern = "3x3box";
-        blur-background-exclude = [
-          "class_g = 'TelegramDesktop'"
-          "window_type = 'desktop'"
-          "_GTK_FRAME_EXTENTS@:c"
-        ];
-      };
+      shadow-radius = 8;
     };
+
+    menuOpacity = 0.9;
 
     # Backend
     backend = "glx";
@@ -61,7 +45,10 @@
     vSync = true;
 
     wintypes = {
+      normal = { fade = false; shadow = true; };
       tooltip = { fade = true; shadow = true; opacity = 0.75; focus = true; full-shadow = false; };
+      dock = { shadow = false; };
+      dnd = { shadow = true; };
       popup_menu = { opacity = config.services.picom.menuOpacity; };
       dropdown_menu = { opacity = config.services.picom.menuOpacity; };
     };

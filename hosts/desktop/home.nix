@@ -3,17 +3,16 @@
 { pkgs, ... }:
 
 {
-  imports = (import ../../modules/editors);
+  imports = [ (import ../../modules/editors/vscode.nix) ];
 
   home = {
     packages = with pkgs; [
       # Editors
-      # editorconfig-checker
-      # coreutils
-      # fd
-      # nixfmt
-      # ripgrep
-  
+      coreutils
+      fd
+      nixfmt
+      ripgrep
+
       gimp
       insomnia
       obsidian
@@ -21,6 +20,9 @@
       obinskit
       gnome.file-roller
       pcmanfm
+      minecraft
+      exa
+      bat
     ];
   };
 

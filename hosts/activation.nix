@@ -8,13 +8,14 @@
       '';
     };
 
-    emacs = {
+    doomEmacs = {
       text = ''
+        source ${config.system.build.setEnvironment}
         DOOM="$HOME/.doom.d"
-        $EMACS="$HOME/.emacs.d"
+        EMACS="$HOME/.emacs.d"
 
         if [ ! -d "$EMACS" ]; then
-          git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
+          git clone --depth 1 https://github.com/doomemacs/doomemacs $EMACS
           yes | $EMACS/bin/doom install
 
           rm -r $DOOM
@@ -23,8 +24,6 @@
         else
           $EMACS/bin/doom sync
         fi
-
-        
       '';
     };
 

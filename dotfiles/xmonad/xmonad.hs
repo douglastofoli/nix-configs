@@ -108,9 +108,10 @@ myStartupHook :: X ()
 myStartupHook = do
   spawn "killall trayer"
 
+  spawnOnce "volumeicon"
   spawnOnce "telegram-desktop"
 
-  spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 -transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
+  spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 24")
 
 myNavigation :: TwoD a (Maybe a)
 myNavigation = makeXEventhandler $ shadowWithKeymap navKeyMap navDefaultHandler
@@ -352,9 +353,13 @@ myManageHook = composeAll
   , className =? "pinentry-gtk-2"   --> doFloat
   , className =? "splash"           --> doFloat
   , className =? "toolbar"          --> doFloat
-  , className =? "telegram-desktop" --> doFloat
+  , className =? "TelegramDesktop"  --> doFloat
   , className =? "Yad"              --> doCenterFloat
-  , title =? "Mozilla Firefox"      --> doShift (myWorkspaces !! 1)
+  , className =? "firefox"          --> doShift (myWorkspaces !! 1)
+  , className =? "code"             --> doShift (myWorkspaces !! 2)
+  , className =? "telegram-desktop" --> doShift (myWorkspaces !! 4)
+  , className =? "discord"          --> doShift (myWorkspaces !! 5)
+  , className =? "spotify"          --> doShift (myWorkspaces !! 6)
   , className =? "Gimp"             --> doShift (myWorkspaces !! 8)
   , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat
   , isFullscreen                    --> doFullFloat
@@ -458,6 +463,31 @@ myKeys c =
   , ("M-t", addName "Sink a floating window"     $ withFocused $ windows . W.sink)
   , ("M-S-t", addName "Sink all floated windows" $ sinkAll)
   ]
+
+  ^++^ subKeys "Window spacing (gaps)"
+  [ ("C-M1-j", addName "Decrease window spacing" $ decWindowSpacing 4)
+  , ("C-M1-k", addName "Increase window spacing" $ incWindowSpacing 4)
+  , ("C-M1-h", addName "Decrease screen spacing" $ decScreenSpacing 4)
+  , ("C-M1-l", addName "Increase screen spacing" $ incScreenSpacing 4)]
+
+  ^++^ subKeys "Increase/decrease windows in master pane or the stack"
+  [ ("M-S-<Up>", addName "Increase clients in master pane"   $ sendMessage (IncMasterN 1))
+  , ("M-S-<Down>", addName "Decrease clients in master pane" $ sendMessage (IncMasterN (-1)))
+  , ("M-=", addName "Increase max # of windows for layout"   $ increaseLimit)
+  , ("M--", addName "Decrease max # of windows for layout"   $ decreaseLimit)]
+
+
+  ^++^ subKeys "Sublayouts"
+  [ ("M-C-h", addName "pullGroup L"           $ sendMessage $ pullGroup L)
+  , ("M-C-l", addName "pullGroup R"           $ sendMessage $ pullGroup R)
+  , ("M-C-k", addName "pullGroup U"           $ sendMessage $ pullGroup U)
+  , ("M-C-j", addName "pullGroup D"           $ sendMessage $ pullGroup D)
+  , ("M-C-m", addName "MergeAll"              $ withFocused (sendMessage . MergeAll))
+  -- , ("M-C-u", addName "UnMerge"               $ withFocused (sendMessage . UnMerge))
+  , ("M-C-/", addName "UnMergeAll"            $  withFocused (sendMessage . UnMergeAll))
+  , ("M-C-.", addName "Switch focus next tab" $  onGroup W.focusUp')
+  , ("M-C-,", addName "Switch focus prev tab" $  onGroup W.focusDown')]
+
 
   ^++^ subKeys "Scratchpads"
   [ ("M-s t", addName "Toggle scratchpad terminal"   $ namedScratchpadAction myScratchPads "terminal")

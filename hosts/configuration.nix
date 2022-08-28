@@ -20,7 +20,7 @@
   };
 
   time.timeZone = "America/Sao_Paulo";
-  i18n = { 
+  i18n = {
     defaultLocale = "en_US.UTF-8";
     supportedLocales = [
       "en_US.UTF-8/UTF-8"
@@ -54,26 +54,30 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      jack.enable = true;
-      wireplumber.enable = false;
-      media-session.enable = true;
-      config.pipewire = { "default.metadata" = true; };
+
       media-session.config.bluez-monitor.rules = [
         {
+          # Matches all cards
           matches = [{ "device.name" = "~bluez_card.*"; }];
           actions = {
             "update-props" = {
-              "bluez5.reconnect-profile" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
+              "bluez5.reconnect-profiles" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
+              # mSBC is not expected to work on all headset + adapter combinations.
               "bluez5.msbc-support" = true;
+              # SBC-XQ is not expected to work on all headset + adapter combinations.
+              "bluez5.sbc-xq-support" = true;
             };
           };
         }
         {
           matches = [
-            { "node.name" = "~bluez_input.*"; }
+            # Matches all sources
+            {
+              "node.name" = "~bluez_input.*";
+            }
+            # Matches all outputs
             { "node.name" = "~bluez_output.*"; }
           ];
-          actions = { "node.pause-on-idle" = false; };
         }
       ];
     };
@@ -109,7 +113,16 @@
       EDITOR = "emacs";
       VISUAL = "emacs";
     };
-    systemPackages = with pkgs; [ curl nano vim wget xclip ];
+    systemPackages = with pkgs; [
+      cmake
+      curl
+      direnv
+      gnumake
+      nano
+      vim
+      wget
+      xclip
+    ];
   };
 
   xdg.portal = {
@@ -136,9 +149,7 @@
   nixpkgs.config = {
     allowUnfree = true;
 
-    permittedInsecurePackages = [
-      "electron-13.6.9"
-    ];
+    permittedInsecurePackages = [ "electron-13.6.9" ];
   };
 
   system = {

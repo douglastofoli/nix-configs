@@ -81,11 +81,7 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; disable exit confirmation
 (setq confirm-kill-emacs nil)
-
-(after! (treemacs projectile)
-  (treemacs-project-follow-mode 1))
 
 ;; enable evil-commentary
 (evil-commentary-mode)
@@ -93,10 +89,7 @@
 ;; enable wakatime
 (global-wakatime-mode)
 
-;; centaur-tabs config
-(after! centaur-tabs (centaur-tabs-group-by-projectile-project))
-
-;; keybindings
+;; KEYBINDINGS
 (map! :desc "Toggle treemacs"
       :nv "C-b" #'+treemacs/toggle)
 (map! :desc "Toggle vterm"

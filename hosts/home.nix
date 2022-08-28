@@ -3,10 +3,8 @@
 { config, lib, pkgs, user, ... }:
 
 {
-  imports = 
-    (import ../modules/programs) ++
-    (import ../modules/services) ++ 
-    (import ../modules/shell);
+  imports = (import ../modules/programs) ++ (import ../modules/services)
+    ++ (import ../modules/shell);
 
   home = {
     username = "${user}";
@@ -14,7 +12,7 @@
 
     packages = with pkgs; [
       asdf
-      
+
       # Apps
       firefox
       google-chrome
@@ -37,6 +35,21 @@
       gnome.seahorse
       yad
       wakatime
+
+      aspell
+      aspellDicts.en
+      aspellDicts.pt_BR
+
+      nodejs
+      nodePackages.npm
+      nodePackages.stylelint
+      nodePackages.js-beautify
+      yarn
+      shfmt
+      shellcheck
+      html-tidy
+      multimarkdown
+      python310Packages.grip
     ];
 
     file.".config/wallpaper/".source = ../modules/themes/wallpaper;

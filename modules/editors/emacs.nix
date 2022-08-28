@@ -6,4 +6,6 @@
     package = pkgs.emacs28NativeComp;
     defaultEditor = true;
   };
+
+  environment.systemPackages = with pkgs; [ emacs28Packages.editorconfig ];
 }

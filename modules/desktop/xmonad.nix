@@ -63,8 +63,11 @@
       haskellPackages.hoogle
       haskellPackages.xmobar
       cabal-install
-      stack 
+      stack
       trayer
+      xdotool
+
+      xorg.xwininfo
     ];
   };
 }

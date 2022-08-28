@@ -19,7 +19,10 @@
     };
 
     shellAliases = {
-#      code = "codium";
+      cat = "bat -pp --theme='Nord'";
+      emacs = "emacsclient -c -a 'emacs'";
+      ls = "exa -G --color auto --icons -s type";
+      ll = "exa -l --color always --icons -s type";
     };
 
     initExtra = ''

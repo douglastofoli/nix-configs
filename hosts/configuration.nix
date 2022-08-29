@@ -16,6 +16,7 @@
       extraGroups = [ "audio" "docker" "networkmanager" "video" "wheel" ];
       shell = pkgs.zsh;
       initialPassword = "123456";
+      openssh.authorizedKeys.keyFiles = [ "${location}/../.ssh/id_ed25519.pub" ];
     };
   };
 

@@ -16,10 +16,8 @@
       extraGroups = [ "audio" "docker" "networkmanager" "video" "wheel" ];
       shell = pkgs.zsh;
       initialPassword = "123456";
-      openssh.authorizedKeys.keyFiles = [ 
-        "/home/${user}/.ssh/id_ed25519"
-        "/home/${user}/.ssh/id_ed25519.pub"
-      ];
+      openssh.authorizedKeys.keyFiles =
+        [ "/home/${user}/.ssh/id_ed25519" "/home/${user}/.ssh/id_ed25519.pub" ];
     };
   };
 
@@ -104,39 +102,44 @@
     })
   ];
 
-  programs = {
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = false;
-      pinentryFlavor = "curses";
-    };
-
-    ssh.startAgent = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+    pinentryFlavor = "curses";
   };
 
   environment = {
     shells = [ pkgs.zsh ];
 
     variables = {
-      TERMINAL = "alacritty";
       EDITOR = "emacs";
+      GTK_USE_PORTAL = "1";
+      TERMINAL = "alacritty";
       VISUAL = "emacs";
     };
     systemPackages = with pkgs; [
       cmake
       curl
       direnv
+      gcc
       gnumake
+      killall
+      libnotify
+      libtool
       nano
       vim
       wget
       xclip
+
+      (aspellWithDicts
+        (dicts: with dicts; [ en en-computers en-science pt_BR ]))
+      ((emacsPackagesFor emacs).emacsWithPackages (epkgs: [ epkgs.vterm ]))
     ];
   };
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk xdg-desktop-portal-wlr ];
   };
 
   nix = {

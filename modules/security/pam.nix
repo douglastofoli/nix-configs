@@ -1,3 +1,3 @@
 {
-  security.pam.services.gdm.enableGnomeKeyring = true;
+  security.pam.services.lightdm.enableGnomeKeyring = true;
 }

@@ -51,6 +51,8 @@
       SPACESHIP_RUST_COLOR=red
 
       export GPG_TTY=$(tty)
+
+      PATH=$HOME/.emacs.d/bin:$PATH
     '';
 
     plugins = [{

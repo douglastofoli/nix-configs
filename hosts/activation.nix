@@ -65,6 +65,6 @@
           feh --bg-scale $WALLPAPER
         fi
       '';
-    }
+    };
   };
 }

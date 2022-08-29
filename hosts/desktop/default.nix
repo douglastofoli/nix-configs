@@ -7,7 +7,8 @@
     ++ [ (import ../../modules/desktop/xmonad.nix) ]
     ++ [ (import ../../modules/editors/emacs.nix) ]
     ++ [ (import ../../modules/programs/steam.nix) ]
-    ++ (import ../../modules/security) ++ [ (import ../../overlays) ];
+    ++ (import ../../modules/security) 
+    ++ [ (import ../../overlays) ];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -24,7 +25,12 @@
 
   environment.systemPackages = with pkgs; [ docker-compose ];
 
-  virtualisation.docker.enable = true;
+  virtualisation = {
+    docker = {
+      enable = true;
+      enableOnBoot = true;
+    };
+  };
 
   services = {
     blueman.enable = true;

@@ -36,10 +36,6 @@
       yad
       wakatime
 
-      aspell
-      aspellDicts.en
-      aspellDicts.pt_BR
-
       nodejs
       nodePackages.npm
       nodePackages.stylelint

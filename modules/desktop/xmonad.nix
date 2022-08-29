@@ -18,7 +18,7 @@
           lightdm = {
             enable = true;
             background =
-              pkgs.nixos-artwork.wallpapers.dracula.gnomeFilePath;
+              pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
             greeters = {
               gtk = {
                 theme = {

@@ -7,5 +7,7 @@
     defaultEditor = true;
   };
 
-  environment.systemPackages = with pkgs; [ emacs28Packages.editorconfig ];
+  environment.systemPackages = with pkgs; [
+    emacs28Packages.editorconfig
+  ];
 }

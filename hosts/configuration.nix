@@ -16,7 +16,10 @@
       extraGroups = [ "audio" "docker" "networkmanager" "video" "wheel" ];
       shell = pkgs.zsh;
       initialPassword = "123456";
-      openssh.authorizedKeys.keyFiles = [ "${location}/../.ssh/id_ed25519.pub" ];
+      openssh.authorizedKeys.keyFiles = [ 
+        "/home/${user}/.ssh/id_ed25519"
+        "/home/${user}/.ssh/id_ed25519.pub"
+      ];
     };
   };
 
@@ -101,10 +104,14 @@
     })
   ];
 
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-    pinentryFlavor = "curses";
+  programs = {
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = false;
+      pinentryFlavor = "curses";
+    };
+
+    ssh.startAgent = true;
   };
 
   environment = {

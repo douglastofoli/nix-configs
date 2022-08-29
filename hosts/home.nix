@@ -52,7 +52,7 @@
       python310Packages.grip
     ];
 
-    file.".config/wallpaper/".source = ../modules/themes/wallpaper;
+    file.".wallpaper".source = ../modules/themes/wallpaper.png;
 
     pointerCursor = {
       name = "Dracula-cursors";

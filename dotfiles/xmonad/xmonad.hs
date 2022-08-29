@@ -34,6 +34,7 @@ import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.WindowSwallowing
 import XMonad.Hooks.WorkspaceHistory
+import XMonad.Hooks.Minimize
 
   -- Layouts
 import XMonad.Layout.Accordion
@@ -108,10 +109,11 @@ myStartupHook :: X ()
 myStartupHook = do
   spawn "killall trayer"
 
-  spawnOnce "volumeicon"
   spawnOnce "telegram-desktop"
 
   spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 24")
+
+  setWMName "XMonad"
 
 myNavigation :: TwoD a (Maybe a)
 myNavigation = makeXEventhandler $ shadowWithKeymap navKeyMap navDefaultHandler
@@ -336,10 +338,10 @@ myLayoutHook = avoidStruts
 
 myWorkspaces :: [String]
 myWorkspaces = [" www ", " dev ", " sys ", " chat ", " disc ", " mus ", " vbox ", " vid ", " gfx "]
-myWorkspacesIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
+myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
-  where i = fromJust $ M.lookup ws myWorkspacesIndices
+    where i = fromJust $ M.lookup ws myWorkspaceIndices
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
@@ -355,12 +357,11 @@ myManageHook = composeAll
   , className =? "toolbar"          --> doFloat
   , className =? "TelegramDesktop"  --> doFloat
   , className =? "Yad"              --> doCenterFloat
-  , className =? "firefox"          --> doShift (myWorkspaces !! 1)
-  , className =? "code"             --> doShift (myWorkspaces !! 2)
-  , className =? "TelegraDesktop"   --> doShift (myWorkspaces !! 4)
-  , className =? "discord"          --> doShift (myWorkspaces !! 5)
-  , className =? "spotify"          --> doShift (myWorkspaces !! 6)
-  , className =? "Gimp"             --> doShift (myWorkspaces !! 8)
+  , className =? "firefox"          --> doShift (myWorkspaces !! 0)
+  , className =? "TelegramDesktop"  --> doShift (myWorkspaces !! 3)
+  , className =? "discord"          --> doShift (myWorkspaces !! 4)
+  , className =? "Spotify"          --> doShift (myWorkspaces !! 5)
+  , className =? "Gimp"             --> doShift (myWorkspaces !! 7)
   , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat
   , isFullscreen                    --> doFullFloat
   ] <+> namedScratchpadManageHook myScratchPads
@@ -524,10 +525,10 @@ myKeys c =
 
 main :: IO ()
 main = do
-  xmproc0 <- spawnPipe ("xmobar -x 0")
+  xmproc <- spawnPipe ("xmobar $HOME/.config/xmobar/xmobar-" ++ colorScheme ++ ".hs")
   xmonad $ addDescrKeys' ((mod4Mask, xK_F1), showKeybindings) myKeys $ ewmh $ docks $ def
     { manageHook         = myManageHook <+> manageDocks
-    , handleEventHook    = swallowEventHook (className =? "Alacritty" <||> className =? "st-256color" <||> className =? "XTerm") (return True)
+    , handleEventHook    = serverModeEventHookCmd <+> serverModeEventHook <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn) <+> minimizeEventHook <+> swallowEventHook (className =? "Alacritty" <||> className =? "st-256color" <||> className =? "XTerm") (return True)
     , modMask            = myModMask 
     , terminal           = myTerminal
     , startupHook        = myStartupHook
@@ -537,7 +538,7 @@ main = do
     , normalBorderColor  = myNormalBorderColor
     , focusedBorderColor = myFocusedBorderColor
     , logHook            = dynamicLogWithPP $ filterOutWsPP [scratchpadWorkspaceTag] $ xmobarPP
-        { ppOutput = \x -> hPutStrLn xmproc0 x
+        { ppOutput = \x -> hPutStrLn xmproc x
         , ppCurrent = xmobarColor color06 "" . wrap ("<box type=Bottom width=2 mb=2 color=" ++ color06 ++ ">") "</box>"
         , ppVisible = xmobarColor color06 "" . clickable
         , ppHidden = xmobarColor color05 "" . wrap ("<box type=Top width=2 mt=2 color=" ++ color05 ++ ">") "</box>" . clickable 
@@ -546,6 +547,8 @@ main = do
         , ppSep = "<fc=" ++ color09 ++ "> <fn=1>|</fn> </fc>"
         , ppUrgent = xmobarColor color02 "" . wrap "!" "!"
         , ppExtras = [windowCount]
-        , ppOrder = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+        , ppOrder = \(ws:l:t:ex) -> ["<fn=4>" ++ ws ++ "</fn>"] ++ ex ++ ["<fc=" ++ color06 ++ ">[" ++ l ++ "]</fc> " ++ t]
         }
     }
+
+--src/Main.hs

@@ -118,12 +118,7 @@
 
       "telemetry.telemetryLevel" = "off";
 
-      "vim.easymotion" = true;
-      "vim.incsearch" = true;
-      "vim.useSystemClipboard" = true;
-      "vim.useCtrlKeys" = true;
-      "vim.hlsearch" = true;
-      "vim.leader" = "<space>";
+      "explorer.compactFolders" = false;
     };
   };
 }

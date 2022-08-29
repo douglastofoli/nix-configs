@@ -18,7 +18,7 @@
           lightdm = {
             enable = true;
             background =
-              pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath;
+              pkgs.nixos-artwork.wallpapers.dracula.gnomeFilePath;
             greeters = {
               gtk = {
                 theme = {
@@ -67,6 +67,7 @@
       trayer
       xdotool
 
+      feh
       xorg.xwininfo
     ];
   };

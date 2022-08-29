@@ -27,6 +27,16 @@
       '';
     };
 
+    scripts = {
+      text = ''
+        SCRIPTS="$HOME/.local/bin"
+
+        if [ ! -d "$SCRIPTS" ]; then
+          ln -s ${location}/dotfiles/local/bin $SCRIPTS
+        fi
+      '';
+    };
+
     xmobar = {
       text = ''
         XMOBAR="$HOME/.config/xmobar"
@@ -46,5 +56,15 @@
         fi
       '';
     };
+
+    wallpaper = {
+      text = ''
+        WALLPAPER="$HOME/.wallpaper"
+
+        if [ ! -d "$WALLPAPER" ]; then
+          feh --bg-scale $WALLPAPER
+        fi
+      '';
+    }
   };
 }

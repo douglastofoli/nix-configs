@@ -89,6 +89,7 @@
     corefonts
     font-awesome
     liberation_ttf
+    mononoki
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji

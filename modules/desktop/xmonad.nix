@@ -14,6 +14,10 @@
         layout = "br";
         xkbOptions = "eurosign:e";
 
+        videoDrivers = [ "modesetting" ];
+
+        desktopManager.xterm.enable = false;
+
         displayManager = {
           lightdm = {
             enable = true;
@@ -45,7 +49,6 @@
               haskellPackages.dbus
               haskellPackages.monad-logger
             ];
-            #config = ../../dotfiles/xmonad/xmonad.hs;
           };
         };
 

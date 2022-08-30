@@ -38,16 +38,4 @@
 
   # high-resolution display
   hardware.video.hidpi.enable = lib.mkDefault true;
-
-  networking = {
-    hostName = "wizarch";
-
-    useDHCP = lib.mkDefault false;
-    interfaces.eno1.useDHCP = lib.mkDefault true;
-    nameservers = [ "1.1.1.1" "1.0.0.1" ];
-
-    networkmanager.enable = true;
-
-    resolvconf.dnsExtensionMechanism = false;
-  };
 }

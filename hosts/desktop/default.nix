@@ -13,30 +13,29 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    supportedFilesystems = [ "btrfs" "ntfs" ];
+    supportedFilesystems = [ "btrfs" ];
 
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
-      efi.efiSysMountPoint = "/boot";
 
-     # grub = {
-     #   enable = true;
-     #   efiSupport = true;
-     #   enableCryptodisk = true;
-     #   version = 2;
-     #   devices = [ "nodev" ];
-     #   extraEntries = ''
-     #     menuentry "Windows 11" {
-     #       insmod part_gpt
-     #       insmod fat
-     #       insmod search_fs_uuid
-     #       insmod chain
-     #       search --fs-uuid --set=root "0017-8B44"
-     #       chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-     #     }
-     #   '';
-     # };
+      grub = {
+        enable = true;
+        efiSupport = true;
+        enableCryptodisk = true;
+        devices = [ "nodev" ];
+        version = 2;
+        extraEntries = ''
+          menuentry "Windows 11" {
+            insmod part_gpt
+            insmod fat
+            insmod search_fs_uuid
+            insmod chain
+            search --fs-uuid --set=root "0017-8B44"
+            chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+          }
+        '';
+      };
     };
     
     initrd.luks.devices = {

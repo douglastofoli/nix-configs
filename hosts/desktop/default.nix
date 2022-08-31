@@ -15,9 +15,9 @@
     kernelPackages = pkgs.linuxPackages_latest;
     supportedFilesystems = [ "btrfs" ];
 
-    loader. = {
+    loader = {
       efi.canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot";
+      efi.efiSysMountPoint = "/boot";
 
       grub = {
         enable = true;
@@ -41,7 +41,7 @@
     
     initrd.luks.devices = {
       root = {
-        device = "/dev/disk/by-uuid/4a4b273e-1008-405b-9e24-e3e24adbe5c9";
+        device = "/dev/disk/by-uuid/d14e2c11-03ed-4cd1-9065-55134d7c216e";
         preLVM = true;
       };
     };

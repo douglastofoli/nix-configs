@@ -46,14 +46,6 @@ read -p "Want to create subvolume NIX? [Y/n]" subvol_nix
 if [[ $subvol_nix == "Y" || $subvol_nix == "y" ]]; then
   btrfs subvolume create /mnt/nix
 fi
-read -p "Want to create subvolume PERSIST? [Y/n]" subvol_persist
-if [[ $subvol_persist == "Y" || $subvol_persist == "y" ]]; then
-  btrfs subvolume create /mnt/persist
-fi
-read -p "Want to create subvolume LOG? [Y/n]" subvol_log
-if [[ $subvol_log == "Y" || $subvol_log == "y" ]]; then
-  btrfs subvolume create /mnt/log
-fi
 
 umount /mnt
 
@@ -62,23 +54,15 @@ echo "Mounting directories..."
 echo
 
 if [[ $subvol_root == "Y" || $subvol_root == "y" ]]; then
-  mount -o subvol=root,compress=zstd,noatime /dev/lvm/root /mnt
+  mount -o subvol=root,compress=zstd /dev/lvm/root /mnt
 fi
 if [[ $subvol_home == "Y" || $subvol_home == "y" ]]; then
   mkdir /mnt/home
-  mount -o subvol=home,compress=zstd,noatime /dev/lvm/root /mnt/home
+  mount -o subvol=home,compress=zstd /dev/lvm/root /mnt/home
 fi
 if [[ $subvol_nix == "Y" || $subvol_nix == "y" ]]; then
   mkdir /mnt/nix
   mount -o subvol=nix,compress=zstd,noatime /dev/lvm/root /mnt/nix
-fi
-if [[ $subvol_persist == "Y" || $subvol_persist == "y" ]]; then
-  mkdir /mnt/persist
-  mount -o subvol=persist,compress=zstd,noatime /dev/lvm/root /mnt/persist
-fi
-if [[ $subvol_log == "Y" || $subvol_log == "y" ]]; then
-  mkdir -p /mnt/var/log
-  mount -o subvol=log,compress=zstd,noatime /dev/lvm/root /mnt/var/log
 fi
 
 mkdir /mnt/boot
@@ -93,5 +77,3 @@ nix-env -iA nixos.git
 
 cd /mnt/etc/nixos
 git clone https://github.com/douglastofoli/nix-configs
-
-cp hardware-configuration.nix nix-configs/hosts/desktop/hardware-configuration.nix

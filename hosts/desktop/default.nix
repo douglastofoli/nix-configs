@@ -38,13 +38,6 @@
         '';
       };
     };
-    
-    initrd.luks.devices = {
-      root = {
-        device = "/dev/disk/by-uuid/42c390a8-d648-448c-80de-6e9f1a494eaa";
-        preLVM = true;
-      };
-    };
   };
 
   hardware.enableAllFirmware = true;

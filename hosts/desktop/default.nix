@@ -16,7 +16,7 @@
     supportedFilesystems = [ "btrfs" ];
 
     loader = {
-      systemd-boot.enable = true;
+      systemd-boot.enable = false;
       efi.canTouchEfiVariables = true;
 
       grub = {
@@ -31,7 +31,7 @@
             insmod fat
             insmod search_fs_uuid
             insmod chain
-            search --fs-uuid --set=root "0017-8B44"
+            search --fs-uuid --set=root "6CAE-7A1E"
             chainloader /EFI/Microsoft/Boot/bootmgfw.efi
           }
         '';
@@ -40,7 +40,7 @@
     
     initrd.luks.devices = {
       root = {
-        device = "/dev/nvme0n1p2";
+        device = "/dev/disk/by-uuid/0675a5bb-e05b-4b6b-b020-98d117c3e5a9";
         preLVM = true;
       };
     };

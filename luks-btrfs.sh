@@ -13,6 +13,8 @@ echo
 mkfs.fat -F 32 -n BOOT "$DISK"p1
 mkfs.btrfs /dev/mapper/enc
 
+mount -t btrfs /dev/mapper/enc /mnt
+
 echo
 echo "Creating subvolumes..."
 echo

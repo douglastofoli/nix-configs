@@ -3,7 +3,7 @@
 { config, lib, pkgs, inputs, user, location, ... }:
 
 {
-  imports = [ ./activation.nix ]; # ! Comment this out on first install !
+  # imports = [ ./activation.nix ]; # ! Comment this out on first install !
 
   users.users = {
     root = {
@@ -16,8 +16,6 @@
       extraGroups = [ "audio" "docker" "networkmanager" "video" "wheel" ];
       shell = pkgs.zsh;
       initialPassword = "123456";
-      openssh.authorizedKeys.keyFiles =
-        [ "/home/${user}/.ssh/id_ed25519" "/home/${user}/.ssh/id_ed25519.pub" ];
     };
   };
 
@@ -87,7 +85,6 @@
 
   fonts.fonts = with pkgs; [
     cantarell-fonts
-    carlito
     corefonts
     font-awesome
     liberation_ttf

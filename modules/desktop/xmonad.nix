@@ -12,9 +12,6 @@
         enable = true;
 
         layout = "br";
-        xkbOptions = "eurosign:e";
-
-        videoDrivers = [ "modesetting" ];
 
         desktopManager.xterm.enable = false;
 

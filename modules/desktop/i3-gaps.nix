@@ -19,8 +19,6 @@
         layout = "br";
 
         desktopManager.xterm.enable = false;
-
-        videoDrivers = [ "modesetting" ];
         
         displayManager = {
           lightdm = {

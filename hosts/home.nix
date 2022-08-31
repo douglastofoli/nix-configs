@@ -16,7 +16,7 @@
       # Apps
       firefox
       google-chrome
-      discord
+      #discord
       tdesktop
       signal-desktop
 
@@ -24,7 +24,6 @@
       rsync
       unzip
       unrar
-      insync-v3
 
       # Video/Audio
       vlc

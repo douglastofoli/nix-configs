@@ -16,7 +16,7 @@
       # Apps
       firefox
       google-chrome
-      #discord
+      # discord
       tdesktop
       signal-desktop
 

@@ -6,6 +6,7 @@
   imports = [ (import ./hardware-configuration.nix) ]
     ++ [ (import ../../modules/desktop/xmonad.nix) ]
     ++ [ (import ../../modules/editors/emacs.nix) ]
+    ++ (import ../../modules/hardware)
     ++ (import ../../modules/security);
   
   # ++ [ (import ../../modules/programs/steam.nix) ]
@@ -40,7 +41,7 @@
     
     initrd.luks.devices = {
       root = {
-        device = "/dev/disk/by-uuid/0675a5bb-e05b-4b6b-b020-98d117c3e5a9";
+        device = "/dev/disk/by-uuid/e7b85a1c-8573-4228-ae87-e5bee900dff8";
         preLVM = true;
       };
     };

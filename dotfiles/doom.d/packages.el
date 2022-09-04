@@ -57,5 +57,3 @@
 (package! ivy-posframe)
 (package! org-auto-tangle)
 (package! org-web-tools)
-(package! evil-tutor)
-(package! clippy)

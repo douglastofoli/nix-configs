@@ -35,6 +35,8 @@ if [[ $subvol_swap == "Y" || $subvol_swap == "y" ]]; then
   btrfs subvolume create /mnt/swap
 fi
 
+btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
+
 umount /mnt
 
 echo

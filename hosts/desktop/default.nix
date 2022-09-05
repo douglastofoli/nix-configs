@@ -6,9 +6,8 @@
   imports = [ (import ./hardware-configuration.nix) ]
     ++ [ (import ../../modules/desktop/xmonad.nix) ]
     ++ [ (import ../../modules/editors/emacs.nix) ]
-    ++ (import ../../modules/hardware)
-    ++ (import ../../modules/security);
-  
+    ++ (import ../../modules/hardware) ++ (import ../../modules/security);
+
   # ++ [ (import ../../modules/programs/steam.nix) ]
   # ++ [ (import ../../overlays) ];
 
@@ -45,13 +44,13 @@
   networking = {
     hostName = "wizarch";
 
-    useDHCP = lib.mkDefault false;
-    interfaces.eno1.useDHCP = lib.mkDefault true;
+    #useDHCP = lib.mkDefault false;
+    #interfaces.eno1.useDHCP = lib.mkDefault true;
     nameservers = [ "1.1.1.1" "1.0.0.1" ];
 
     networkmanager.enable = true;
 
-    resolvconf.dnsExtensionMechanism = false;
+    #resolvconf.dnsExtensionMechanism = false;
   };
 
   time.hardwareClockInLocalTime = true;

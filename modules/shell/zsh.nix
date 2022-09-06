@@ -51,11 +51,8 @@
       SPACESHIP_RUST_COLOR=red
 
       export GPG_TTY=$(tty)
-
+      
       PATH=$HOME/.emacs.d/bin:$PATH
-
-      eval $(gnome-keyring-daemon --daemonize)
-      export SSH_AUTH_SOCK
     '';
 
     plugins = [{

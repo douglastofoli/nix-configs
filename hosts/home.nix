@@ -44,7 +44,6 @@
       shellcheck
       html-tidy
       multimarkdown
-      python310Packages.grip
     ];
 
     file.".wallpaper".source = ../modules/themes/wallpaper.png;

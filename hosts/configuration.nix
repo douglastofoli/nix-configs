@@ -3,7 +3,7 @@
 { config, lib, pkgs, inputs, user, location, ... }:
 
 {
-  # imports = [ ./activation.nix ]; # ! Comment this out on first install !
+  imports = [ (import ./activation.nix) ]; # ! Comment this out on first install !
 
   users.users = {
     root = {
@@ -44,9 +44,15 @@
     mediaKeys.enable = true;
   };
 
-  services = {
-    gnome.gnome-keyring.enable = true;
+  programs = {
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+      pinentryFlavor = "curses";
+    };
+  };
 
+  services = {
     devmon.enable = true;
 
     pipewire = {
@@ -98,14 +104,6 @@
       fonts = [ "FiraCode" "Iosevka" "JetBrainsMono" "RobotoMono" ];
     })
   ];
-
-  programs = {
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-      pinentryFlavor = "curses";
-    };
-  };
 
   environment = {
     shells = [ pkgs.zsh ];

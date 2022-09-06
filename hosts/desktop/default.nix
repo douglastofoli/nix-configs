@@ -6,10 +6,9 @@
   imports = [ (import ./hardware-configuration.nix) ]
     ++ [ (import ../../modules/desktop/xmonad.nix) ]
     ++ [ (import ../../modules/editors/emacs.nix) ]
-    ++ (import ../../modules/hardware) ++ (import ../../modules/security);
-
-  # ++ [ (import ../../modules/programs/steam.nix) ]
-  # ++ [ (import ../../overlays) ];
+    ++ [ (import ../../modules/services/gnome-keyring.nix) ]
+    ++ (import ../../modules/hardware) 
+    ++ [ (import ../../overlays) ];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;

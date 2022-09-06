@@ -8,23 +8,23 @@
         };
       });
     })
-    (self: super: {
-      insync-v3 = super.insync-v3.overrideAttrs (_: {
-        src = builtins.fetchurl {
-          url = "https://cdn.insynchq.com/builds/linux/insync_3.7.11.50381-jammy_amd64.deb";
-          sha256 = "12516y39zdvz2l5m0d49fvnd9jbq9wfpvrhnmbxajzfar6b69yk4";
-        };
-        installPhase = ''
-          mkdir -p $out/bin $out/lib $out/share
-          cp -R usr/* $out/
+    # (self: super: {
+    #   insync-v3 = super.insync-v3.overrideAttrs (_: {
+    #     src = builtins.fetchurl {
+    #       url = "https://cdn.insynchq.com/builds/linux/insync_3.7.11.50381-jammy_amd64.deb";
+    #       sha256 = "12516y39zdvz2l5m0d49fvnd9jbq9wfpvrhnmbxajzfar6b69yk4";
+    #     };
+    #     installPhase = ''
+    #       mkdir -p $out/bin $out/lib $out/share
+    #       cp -R usr/* $out/
 
-          rm -f $out/lib/insync/libGLX.so.0
+    #       rm -f $out/lib/insync/libGLX.so.0
 
-          sed -i 's|/usr/lib/insync|/lib/insync|' "$out/bin/insync"
-          wrapQtApp "$out/lib/insync/insync"
-        '';
-      });
-    })
+    #       sed -i 's|/usr/lib/insync|/lib/insync|' "$out/bin/insync"
+    #       wrapQtApp "$out/lib/insync/insync"
+    #     '';
+    #   });
+    # })
     # (self: super: {
     #   picom = super.picom.overrideAttrs (_: {
     #     src = super.fetchFromGitHub {

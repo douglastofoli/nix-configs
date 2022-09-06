@@ -125,6 +125,7 @@
       killall
       libnotify
       libtool
+      libsecret
       nano
       vim
       wget

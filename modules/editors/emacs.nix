@@ -10,5 +10,9 @@
   environment.systemPackages = with pkgs; [
     emacs28Packages.editorconfig
     python310Packages.grip # Preview Markdown
+    coreutils
+    fd
+    nixfmt
+    ripgrep
   ];
 }

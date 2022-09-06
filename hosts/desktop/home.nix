@@ -7,12 +7,6 @@
 
   home = {
     packages = with pkgs; [
-      # Editors
-      coreutils
-      fd
-      nixfmt
-      ripgrep
-
       gimp
       insomnia
       obsidian

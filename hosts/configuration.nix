@@ -98,6 +98,7 @@
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
+    ubuntu_font_family
     vegur
 
     (nerdfonts.override {

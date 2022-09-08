@@ -62,6 +62,7 @@
       haskellPackages.haskell-language-server
       haskellPackages.hoogle
       haskellPackages.xmobar
+      ghc
       cabal-install
       stack
       trayer

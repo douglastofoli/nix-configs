@@ -106,8 +106,7 @@ wideAccordion = renamed [Replace "wideAccordion"]
                 $ Mirror Accordion
 
 myTabTheme = def 
-  {
-    fontName = C.myFont
+  { fontName = C.myFont
   , activeColor = C.color15
   , inactiveColor = C.color08
   , activeBorderColor = C.color15

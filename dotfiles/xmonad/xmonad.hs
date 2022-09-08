@@ -82,31 +82,27 @@ import qualified XMonad.Custom.LayoutHook as C
 import qualified XMonad.Custom.StartupHook as C
 import qualified XMonad.Custom.Variables as C
 import qualified XMonad.Custom.Workspaces as C
+import qualified XMonad.Custom.XMobar as C
+
+myConfig = def
+  { manageHook         = insertPosition End Newer <+> C.myManageHook
+  , handleEventHook    = serverModeEventHookCmd <+> serverModeEventHook <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn) <+> minimizeEventHook <+> swallowEventHook (className =? "Alacritty" <||> className =? "st-256color" <||> className =? "XTerm") (return True)
+  , modMask            = C.myModMask 
+  , terminal           = C.myTerminal
+  , startupHook        = C.myStartupHook
+  , layoutHook         = C.myLayoutHook
+  , workspaces         = C.myWorkspaces
+  , borderWidth        = C.myBorderWidth
+  , normalBorderColor  = C.myNormalBorderColor
+  , focusedBorderColor = C.myFocusedBorderColor
+  }
 
 main :: IO ()
-main = do
-  xmproc <- spawnPipe ("xmobar $HOME/.config/xmobar/xmobarrc-" ++ colorScheme ++ ".hs")
-  xmonad $ addDescrKeys' ((mod4Mask, xK_F1), C.showKeybindings) C.myKeys $ ewmhFullscreen $ ewmh $ docks $ def
-    { manageHook         = insertPosition End Newer <+> C.myManageHook
-    , handleEventHook    = serverModeEventHookCmd <+> serverModeEventHook <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn) <+> minimizeEventHook <+> swallowEventHook (className =? "Alacritty" <||> className =? "st-256color" <||> className =? "XTerm") (return True)
-    , modMask            = C.myModMask 
-    , terminal           = C.myTerminal
-    , startupHook        = C.myStartupHook
-    , layoutHook         = C.myLayoutHook
-    , workspaces         = C.myWorkspaces
-    , borderWidth        = C.myBorderWidth
-    , normalBorderColor  = C.myNormalBorderColor
-    , focusedBorderColor = C.myFocusedBorderColor
-    , logHook            = dynamicLogWithPP $ filterOutWsPP [scratchpadWorkspaceTag] $ xmobarPP
-        { ppOutput = \x -> hPutStrLn xmproc x
-        , ppCurrent = xmobarColor C.color06 "" . wrap ("<box type=Bottom width=2 mb=2 color=" ++ C.color06 ++ ">") "</box>"
-        , ppVisible = xmobarColor C.color06 "" . C.clickable
-        , ppHidden = xmobarColor C.color05 "" . wrap ("<box type=Top width=2 mt=2 color=" ++ C.color05 ++ ">") "</box>" . C.clickable 
-        , ppHiddenNoWindows = xmobarColor C.color05 "" . C.clickable
-        , ppTitle = xmobarColor C.color16 "" . shorten 60
-        , ppSep = "<fc=" ++ C.color09 ++ "> <fn=1>|</fn> </fc>"
-        , ppUrgent = xmobarColor C.color02 "" . wrap "!" "!"
-        , ppExtras = [C.windowCount]
-        , ppOrder = \(ws:l:t:ex) -> ["<fn=4>" ++ ws ++ "</fn>"] ++ ex ++ ["<fc=" ++ C.color06 ++ ">[" ++ l ++ "]</fc> " ++ t]
-        }
-    }
+main = xmonad 
+      . addDescrKeys' ((mod4Mask, xK_F1), C.showKeybindings) C.myKeys 
+      . ewmhFullscreen 
+      . ewmh 
+      . docks 
+      . withEasySB (statusBarProp "xmobar" (pure C.myXmobarPP)) defToggleStrutsKey
+      $ myConfig
+    

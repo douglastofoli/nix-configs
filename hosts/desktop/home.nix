@@ -21,6 +21,8 @@
       minecraft
       exa
       bat
+
+      neofetch
     ];
   };
 

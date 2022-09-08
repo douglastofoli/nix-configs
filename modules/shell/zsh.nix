@@ -53,6 +53,8 @@
       export GPG_TTY=$(tty)
       
       PATH=$HOME/.emacs.d/bin:$PATH
+
+      SSH_AUTH_SOCK="''${XDG_RUNTIME_DIR}/ssh-agent.socket"; export SSH_AUTH_SOCK
     '';
 
     plugins = [{

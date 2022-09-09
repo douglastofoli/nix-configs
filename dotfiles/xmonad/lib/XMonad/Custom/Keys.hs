@@ -3,7 +3,7 @@ module XMonad.Custom.Keys (myKeys, showKeybindings) where
 import XMonad
 import XMonad.Util.SpawnOnce
 import System.Exit (exitSuccess)
-import Data.Maybe
+import Data.Maybe (isJust)
 
 import XMonad.Prompt.OrgMode
 import XMonad.Prompt.FuzzyMatch

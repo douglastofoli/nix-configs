@@ -1,7 +1,6 @@
 module XMonad.Custom.Variables where
 
 import XMonad
-import XMonad.StackSet as W
 
 import qualified XMonad.Custom.Colors.Dracula as C
 
@@ -31,6 +30,3 @@ myNormalBorderColor = C.color01
 
 myFocusedBorderColor :: String
 myFocusedBorderColor = C.color06
-
-windowCount :: X (Maybe String)
-windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset

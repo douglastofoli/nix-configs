@@ -4,6 +4,7 @@ import XMonad
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Util.Loggers
+import XMonad.StackSet as W
 
 import XMonad.Custom.Colors.Dracula as C
 import XMonad.Custom.Variables as C
@@ -11,28 +12,16 @@ import XMonad.Custom.Workspaces as C
 
 myXmobarPP :: PP
 myXmobarPP = def
-    { ppSep             = magenta " • "
-    , ppTitleSanitize   = xmobarStrip
-    , ppCurrent         = wrap " " "" . xmobarBorder "Top" "#8be9fd" 2
-    , ppHidden          = white . wrap " " ""
-    , ppHiddenNoWindows = lowWhite . wrap " " ""
-    , ppUrgent          = red . wrap (yellow "!") (yellow "!")
-    , ppOrder           = \[ws, l, _, wins] -> [ws, l, wins]
-    , ppExtras          = [logTitles formatFocused formatUnfocused]
+    { ppCurrent = xmobarColor C.color06 "" . wrap "[" "]"
+    , ppVisible = xmobarColor C.color05 ""
+    , ppHidden = xmobarColor C.color04 "" . wrap ("<fc=" ++ C.color05 ++ ">") "</fc>"
+    , ppHiddenNoWindows = xmobarColor "#666666" "" 
+    , ppTitle = xmobarColor C.color14 "" . shorten 60
+    , ppSep =  "<fc=" ++ C.color09 ++ "> <fn=1>|</fn> </fc>"
+    , ppUrgent = xmobarColor C.color02 "" . wrap "!" "!"
+    , ppExtras = [windowCount]
+    , ppOrder  = \(ws:l:t:ex) -> ["<fn=4>" ++ ws ++ "</fn>"] ++ ex ++ ["<fc=" ++ C.color06 ++ ">[" ++ l ++ "]</fc> " ++ t ]
     }
   where
-    formatFocused   = wrap (white    "[") (white    "]") . magenta . ppWindow
-    formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue    . ppWindow
-
-    -- | Windows should have *some* title, which should not not exceed a
-    -- sane length.
-    ppWindow :: String -> String
-    ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
-
-    blue, lowWhite, magenta, red, white, yellow :: String -> String
-    magenta  = xmobarColor "#ff79c6" ""
-    blue     = xmobarColor "#bd93f9" ""
-    white    = xmobarColor "#f8f8f2" ""
-    yellow   = xmobarColor "#f1fa8c" ""
-    red      = xmobarColor "#ff5555" ""
-    lowWhite = xmobarColor "#bbbbbb" ""
+    windowCount :: X (Maybe String)
+    windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset

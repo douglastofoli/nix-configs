@@ -641,35 +641,7 @@ List of keybindings (SPC h b b)")
       eshell-hist-ignoredups t
       eshell-scroll-to-bottom-on-input t
       eshell-destroy-buffer-when-process-dies t
-      eshell-visual-commands'("bash" "htop" "ssh" "top" "zsh")(package! flycheck-aspell)
-(package! calfw)
-(package! calfw-org)
-(package! dashboard)
-(package! dired-open)
-(package! dired-subtree)
-(package! dirvish)
-(package! dmenu)
-(package! elfeed-goodies)
-(package! emojify)
-(package! evil-tutor)
-(package! exwm)
-(package! ivy-posframe)
-(package! mw-thesaurus)
-(package! org-auto-tangle)
-(package! org-web-tools)
-(package! ox-gemini)
-(package! peep-dired)
-(package! password-store)
-(package! rainbow-mode)
-(package! resize-window)
-(package! tldr)
-(package! wc-mode)
-(package! beacon)
-(package! clippy)
-(package! minimap)
-(package! olivetti)
-
-)
+      eshell-visual-commands'("bash" "htop" "ssh" "top" "zsh"))
 (map! :leader
       :desc "Eshell" "e s" #'eshell
       :desc "Eshell popup toggle" "e t" #'+eshell/toggle

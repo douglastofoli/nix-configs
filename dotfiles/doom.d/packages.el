@@ -68,7 +68,6 @@
 (package! ox-gemini)
 (package! peep-dired)
 (package! password-store)
-(package! rainbow-mode)
 (package! resize-window)
 (package! tldr)
 (package! wc-mode)

@@ -42,11 +42,6 @@
             enable = true;
             enableContribAndExtras = true;
             enableConfiguredRecompile = true;
-            extraPackages = haskellPackages: [
-              haskellPackages.dbus
-              haskellPackages.List
-              haskellPackages.monad-logger
-            ];
           };
         };
 
@@ -65,10 +60,7 @@
       haskellPackages.xmobar
       cabal-install
       stack
-
-      ghc
       trayer
-      xdotool
 
       feh
     ];

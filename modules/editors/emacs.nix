@@ -8,11 +8,14 @@
   };
 
   environment.systemPackages = with pkgs; [
-    emacs28Packages.editorconfig
-    python310Packages.grip # Preview Markdown
     coreutils
+    emacs28Packages.editorconfig
     fd
+    jq
     nixfmt
+    python310Packages.grip # Preview Markdown
     ripgrep
+
+    ((emacsPackagesFor emacs).emacsWithPackages (epkgs: [ epkgs.vterm ]))
   ];
 }

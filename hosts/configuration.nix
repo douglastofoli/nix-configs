@@ -3,7 +3,8 @@
 { config, lib, pkgs, inputs, user, location, ... }:
 
 {
-  imports = [ (import ./activation.nix) ]; # ! Comment this out on first install !
+  imports =
+    [ (import ./activation.nix) ]; # ! Comment this out on first install !
 
   users.users = {
     root = {

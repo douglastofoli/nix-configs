@@ -44,6 +44,7 @@
             enableConfiguredRecompile = true;
             extraPackages = haskellPackages: [
               haskellPackages.dbus
+              haskellPackages.List
               haskellPackages.monad-logger
             ];
           };
@@ -62,14 +63,14 @@
       haskellPackages.haskell-language-server
       haskellPackages.hoogle
       haskellPackages.xmobar
-      ghc
       cabal-install
       stack
+
+      ghc
       trayer
       xdotool
 
       feh
-      xorg.xwininfo
     ];
   };
 }

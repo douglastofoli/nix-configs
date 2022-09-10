@@ -1,11 +1,11 @@
-Config { font = "xft:RobotoMono Nerd Font:weight=bold:pixelsize=14:antialias=true:hinting=true"
-  , additionalFonts = [ "xft:Mononoki:pixelsize=11:antialias=true:hinting=true"
-                      , "xft:Font Awesome 6 Free Solid:pixelsize=13"
+Config { font = "xft:RobotoMono Nerd Font:weight=bold:pixelsize=15:antialias=true:hinting=true"
+  , additionalFonts = [ "xft:Mononoki:pixelsize=15:antialias=true:hinting=true"
+                      , "xft:Font Awesome 6 Free Solid:pixelsize=15"
                       , "xft:Font Awesome 6 Brands:pixelsize=15"
                       ]
   , bgColor = "#282a36"
   , fgColor = "#f8f8f2"
-  , position = TopSize L 100 24
+  , position = TopSize L 100 26
   , lowerOnStart = True
   , hideOnStart  = False
   , allDesktops  = True
@@ -17,6 +17,7 @@ Config { font = "xft:RobotoMono Nerd Font:weight=bold:pixelsize=14:antialias=tru
       -- Echos a "penguin" icon in font
     , Run Com "echo" ["<fn=3>\xf17c</fn>"] "penguin" 3600
     , Run Com "uname" ["-r"] "kernel" -1
+    , Run Memory ["-t", "<fc=#b4f9f8><fn=2>\xf233</fn> <used>M (<usedratio>%)</fc>"] 20
     , Run Alsa "default" "Master"
                           [ "--template", "<status>"
                           , "--"
@@ -34,5 +35,5 @@ Config { font = "xft:RobotoMono Nerd Font:weight=bold:pixelsize=14:antialias=tru
     ]
   , sepChar = "%",
   , alignSep = "}{"
-  , template = " <icon=/home/douglas/.config/xmonad/xpm/haskell_20.xpm/> <fc=#4d4d4d><fn=1>|</fn></fc> %XMonadLog% }{ <box type=Bottom width=2 mb=2 color=#bd93f9> <fc=#bd93f9>%penguin% %kernel%</fc> </box> %sep% <box type=Bottom width=2 mb=2 color=#50fa7b> %alsa:default:Master% </box> %sep% <box type=Bottom width=2 mb=2 color=#ff92d0> <action=`emacsclient -c -a 'emacs' --eval '(doom/window-maximize-buffer(cfw:open-org-calendar))'`>%date%</action> </box> %sep% <box type=Bottom width=2 mb=2 color=#bd93f9> %time% </box> %sep% %trayerpad%" 
+  , template = " <action=`alacritty`><icon=haskell_20.xpm/></action> <fc=#4d4d4d><fn=1>|</fn></fc> %XMonadLog% }{ <fc=#bd93f9>%penguin% %kernel%</fc> %sep% %memory% %sep% %alsa:default:Master% %sep% <action=`emacsclient -c -a 'emacs' --eval '(doom/window-maximize-buffer(cfw:open-org-calendar))'`>%date%</action> %sep% %time% %sep% %trayerpad%" 
 }

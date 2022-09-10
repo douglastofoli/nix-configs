@@ -6,11 +6,10 @@
   imports = [ (import ../../modules/editors/vscode.nix) ];
 
   home = {
-    sessionVariables = {
-      SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
-    };
+    sessionVariables = { SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh"; };
 
     packages = with pkgs; [
+      asdf
       gimp
       insomnia
       obsidian

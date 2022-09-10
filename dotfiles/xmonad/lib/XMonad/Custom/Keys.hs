@@ -203,7 +203,7 @@ myKeys c =
   [ ("<XF86AudioMute>", addName "Toggle audio mute"   $ spawn "amixer set Master toggle")
   , ("<XF86AudioLowerVolume>", addName "Lower vol"    $ spawn "amixer set Master 5%- unmute")
   , ("<XF86AudioRaiseVolume>", addName "Raise vol"    $ spawn "amixer set Master 5%+ unmute")
-  , ("M-<Print>", addName "Take screenshot"           $ spawn "flameshot gui -p $HOME/gdrive/Screenshots")
+  , ("M-<Print>", addName "Take screenshot"           $ spawn "flameshot gui -p $HOME/GoogleDrive/Screenshots")
   ]
 
   where

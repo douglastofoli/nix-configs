@@ -11,42 +11,32 @@
     homeDirectory = "/home/${user}";
 
     packages = with pkgs; [
-      asdf
-
-      # Apps
+      discord
+      ffmpeg
       firefox
       google-chrome
-      # discord
-      tdesktop
-      signal-desktop
-
-      # File Management
-      rsync
-      unzip
-      unrar
-
-      # Video/Audio
-      vlc
-      spotify
-      ffmpeg
-      youtube-dl
-
-      gnome.seahorse
-      yad
-      wakatime
-
-      nodejs
-      nodePackages.npm
-      nodePackages.stylelint
-      nodePackages.js-beautify
-      yarn
-      shfmt
-      shellcheck
       html-tidy
       multimarkdown
+      nodejs
+      nodePackages.js-beautify
+      nodePackages.npm
+      nodePackages.stylelint
+      rsync
+      shellcheck
+      shfmt
+      signal-desktop
+      spotify
+      tdesktop
+      unrar
+      unzip
+      vlc
+      yad
+      yarn
+      youtube-dl
+      wakatime
     ];
 
-    file.".wallpaper".source = ../modules/themes/wallpaper.png;
+    file.".wallpaper.png".source = ../modules/themes/wallpaper.png;
 
     pointerCursor = {
       name = "Dracula-cursors";

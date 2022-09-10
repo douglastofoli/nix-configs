@@ -46,4 +46,3 @@ main = xmonad
       . docks 
       . withEasySB (statusBarProp "xmobar -x 0 $HOME/.config/xmobar/xmobarrc.hs" (pure C.myXmobarPP)) defToggleStrutsKey
       $ myConfig
-    

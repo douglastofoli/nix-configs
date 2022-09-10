@@ -10,15 +10,19 @@
       asdf-vm
       bat
       bpytop
+      etcher
       exa
+      feh
       gimp
       gnome.file-roller
+      gnome.seahorse
       insomnia
       minecraft
       neofetch
       obinskit
       obsidian
       pcmanfm
+      qbittorrent
     ];
   };
 

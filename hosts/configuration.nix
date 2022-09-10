@@ -159,7 +159,7 @@
   nixpkgs.config = {
     allowUnfree = true;
 
-    permittedInsecurePackages = [ "electron-13.6.9" ];
+    permittedInsecurePackages = [ "electron-12.2.3" "electron-13.6.9" ];
   };
 
   system = {

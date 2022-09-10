@@ -61,8 +61,6 @@
       cabal-install
       stack
       trayer
-
-      feh
     ];
   };
 }

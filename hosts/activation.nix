@@ -2,12 +2,6 @@
 
 {
   system.userActivationScripts = {
-    source = {
-      text = ''
-        source ${config.system.build.setEnvironment}
-      '';
-    };
-
     doomEmacs = {
       text = ''
         source ${config.system.build.setEnvironment}
@@ -53,16 +47,6 @@
 
         if [ ! -d "$XMONAD" ]; then
           ln -s ${location}/dotfiles/xmonad $XMONAD
-        fi
-      '';
-    };
-
-    wallpaper = {
-      text = ''
-        WALLPAPER="$HOME/.wallpaper"
-
-        if [ ! -d "$WALLPAPER" ]; then
-          feh --bg-scale $WALLPAPER
         fi
       '';
     };

@@ -3,8 +3,7 @@
 { config, lib, pkgs, inputs, user, location, ... }:
 
 {
-  imports =
-    [ (import ./activation.nix) ]; # ! Comment this out on first install !
+  # imports = [ (import ./activation.nix) ]; # ! Comment this out on first install !
 
   users.users = {
     root = {
@@ -103,7 +102,7 @@
     vegur
 
     (nerdfonts.override {
-      fonts = [ "FiraCode" "Iosevka" "JetBrainsMono" "RobotoMono" ];
+      fonts = [ "JetBrainsMono" "RobotoMono" ];
     })
   ];
 
@@ -112,7 +111,6 @@
 
     variables = {
       EDITOR = "emacs";
-      GTK_USE_PORTAL = "1";
       TERMINAL = "alacritty";
       VISUAL = "emacs";
     };
@@ -127,13 +125,13 @@
       libtool
       libsecret
       nano
+      scrot
       vim
       wget
       xclip
 
       (aspellWithDicts
         (dicts: with dicts; [ en en-computers en-science pt_BR ]))
-      ((emacsPackagesFor emacs).emacsWithPackages (epkgs: [ epkgs.vterm ]))
     ];
   };
 

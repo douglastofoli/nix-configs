@@ -3,25 +3,22 @@
 { pkgs, ... }:
 
 {
-  imports = [ (import ../../modules/editors/vscode.nix) ];
+  # imports = [ (import ../../modules/editors/vscode.nix) ];
 
   home = {
-    sessionVariables = { SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh"; };
-
     packages = with pkgs; [
-      asdf
-      gimp
-      insomnia
-      obsidian
-      bpytop
-      obinskit
-      gnome.file-roller
-      pcmanfm
-      minecraft
-      exa
+      asdf-vm
       bat
-
+      bpytop
+      exa
+      gimp
+      gnome.file-roller
+      insomnia
+      minecraft
       neofetch
+      obinskit
+      obsidian
+      pcmanfm
     ];
   };
 

@@ -25,8 +25,6 @@
       unzip
       unrar
 
-      (import ../modules/programs/insync-v3.nix)
-
       # Video/Audio
       vlc
       spotify

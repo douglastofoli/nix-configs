@@ -5,9 +5,9 @@
     enable = true;
     settings = {
       General = {
-        savePath = "/home/${user}/gdrive/Screenshots";
+        savePath = "/home/${user}/GoogleDrive/Screenshots";
         saveAsFileExtension = ".png";
-        uiColor = "#2d0096";
+        uiColor = "#bd93f9";
         showHelp = "false";
         disabledTrayIcon = "true";
       };

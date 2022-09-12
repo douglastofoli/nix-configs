@@ -3,8 +3,6 @@
 { pkgs, ... }:
 
 {
-  # imports = [ (import ../../modules/editors/vscode.nix) ];
-
   home = {
     packages = with pkgs; [
       asdf-vm
@@ -28,9 +26,8 @@
     ];
   };
 
-  programs.git.signing.key = "A78F1B85248F4095";
-
   programs.alacritty.settings.font.size = 12;
+  programs.git.signing.key = "A78F1B85248F4095";
 
   services.blueman-applet.enable = true;
 }

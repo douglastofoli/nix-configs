@@ -7,8 +7,7 @@
     ++ [ (import ../../modules/desktop/xmonad.nix) ]
     ++ [ (import ../../modules/editors/emacs.nix) ]
     ++ [ (import ../../modules/services/gnome-keyring.nix) ]
-    ++ (import ../../modules/hardware) 
-    ++ [ (import ../../overlays) ];
+    ++ (import ../../modules/hardware) ++ [ (import ../../overlays) ];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -42,7 +41,6 @@
 
   networking = {
     hostName = "wizarch";
-    nameservers = [ "1.1.1.1" "1.0.0.1" ];
     networkmanager.enable = true;
   };
 
@@ -58,9 +56,17 @@
   services = {
     blueman.enable = true;
 
+    flatpak.enable = true;
+
     xserver.resolutions = [{
       x = 2560;
       y = 1080;
     }];
+  };
+
+  nixpkgs.config = {
+    allowUnfree = true;
+
+    permittedInsecurePackages = [ "electron-12.2.3" "electron-13.6.9" ];
   };
 }

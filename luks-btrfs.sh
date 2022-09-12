@@ -21,7 +21,7 @@ mount -o compress=zstd,subvol=root /dev/mapper/enc /mnt
 mkdir /mnt/{home,nix,swap}
 mount -o compress=zstd,subvol=home /dev/mapper/enc /mnt/home
 mount -o compress=zstd,noatime,subvol=nix /dev/mapper/enc /mnt/nix
-mount -o subvol=swap /dev/mapper/enc /swap
+mount -o subvol=swap /dev/mapper/enc /mnt/swap
 
 mkdir /mnt/boot
 mount "$DISK"p1 /mnt/boot

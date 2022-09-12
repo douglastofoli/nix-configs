@@ -3,7 +3,8 @@
 { config, lib, pkgs, inputs, user, location, ... }:
 
 {
-  # imports = [ (import ./activation.nix) ]; # ! Comment this out on first install !
+  #imports =
+  #  [ (import ./activation.nix) ]; # ! Comment this out on first install !
 
   users.users = {
     root = {
@@ -17,6 +18,13 @@
       shell = pkgs.zsh;
       initialPassword = "123456";
     };
+  };
+
+  environment.etc = {
+    "resolv.conf".text = ''
+      nameserver 1.1.1.1
+      nameserver 1.0.0.1
+    '';
   };
 
   time.timeZone = "America/Sao_Paulo";
@@ -101,9 +109,7 @@
     ubuntu_font_family
     vegur
 
-    (nerdfonts.override {
-      fonts = [ "JetBrainsMono" "RobotoMono" ];
-    })
+    (nerdfonts.override { fonts = [ "JetBrainsMono" "RobotoMono" ]; })
   ];
 
   environment = {
@@ -154,12 +160,6 @@
       keep-outputs          = true
       keep-derivations      = true
     '';
-  };
-
-  nixpkgs.config = {
-    allowUnfree = true;
-
-    permittedInsecurePackages = [ "electron-12.2.3" "electron-13.6.9" ];
   };
 
   system = {

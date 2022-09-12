@@ -16,11 +16,13 @@
       gimp
       gnome.file-roller
       gnome.seahorse
+      helvum
       insomnia
       minecraft
       neofetch
       obinskit
       obsidian
+      obs-studio
       pcmanfm
       qbittorrent
     ];

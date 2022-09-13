@@ -37,7 +37,7 @@
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = { inherit user protocol; };
         home-manager.users.${user} = {
-          imports = [ (import ./home.nix) ] ++ [ (import ./laptop/home.nix) ];
+          imports = [ (import ./home.nix) ] ++ [ (import ./solfacil/home.nix) ];
         };
       }
     ];

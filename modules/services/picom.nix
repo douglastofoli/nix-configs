@@ -27,7 +27,7 @@
 
     settings = {
       # Animations
-      transition-length = 150;
+      transition-length = 180;
       transition-pow-x = 0.1;
       transition-pow-y = 0.1;
       transition-pow-w = 0.1;
@@ -36,10 +36,12 @@
 
       corner-radius = 10.0;
       round-borders = 1;
+      round-borders-exclude = [ "class_g = 'xmobar'" ];
+      rounded-corners-exclur = [ "class_g = 'xmobar'" ];
 
       # Opacity
       frame-opacity = 0.7;
-      opacity-rule = [ "80:class_g = 'xmobar'" ];
+      opacity-rule = [ "100:class_g = 'xmobar'" ];
 
       # Blur
       blur = {

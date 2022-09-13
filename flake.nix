@@ -17,9 +17,14 @@
       url = "github:guibou/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixpkgs-pinned = {
+      url = "github:nixos/nixpkgs/b49473e6679c733f917254b786bfac42339875eb";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nur, nixgl, ... }:
+  outputs =
+    inputs@{ self, nixpkgs, nixpkgs-pinned, home-manager, nur, nixgl, ... }:
     let
       system = "x86_64-linux"; # System architecture
 
@@ -37,7 +42,8 @@
       nixosConfigurations = ( # NixOS configurations
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs home-manager nur system pkgs user location protocol;
+          inherit inputs nixpkgs-pinned home-manager nur system pkgs user
+            location protocol;
         });
 
       homeConfigurations = ( # Non-NixOS configurations

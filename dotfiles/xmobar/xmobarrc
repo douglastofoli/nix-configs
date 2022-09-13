@@ -31,9 +31,9 @@ Config { font = "xft:RobotoMono Nerd Font:weight=bold:pixelsize=15:antialias=tru
     , Run Date "<fc=#ff92d0><fn=2>\xf073</fn> %a %m/%d/%y</fc>" "date" 100000
     , Run Date "<fc=#bd93f9><fn=2>\xf017</fn> %H:%M</fc>" "time" 10
     , Run Com ".local/bin/trayer-padding-icon" [] "trayerpad" 20
-    , Run XMonadLog
+    , Run UnsafeStdinReader
     ]
   , sepChar = "%",
   , alignSep = "}{"
-  , template = " <action=`alacritty`><icon=haskell_20.xpm/></action> <fc=#4d4d4d><fn=1>|</fn></fc> %XMonadLog% }{ <fc=#bd93f9>%penguin% %kernel%</fc> %sep% %memory% %sep% %alsa:default:Master% %sep% <action=`emacsclient -c -a 'emacs' --eval '(doom/window-maximize-buffer(cfw:open-org-calendar))'`>%date%</action> %sep% %time% %sep% %trayerpad%" 
+  , template = " <action=`alacritty`><icon=haskell_20.xpm/></action> <fc=#4d4d4d><fn=1>|</fn></fc> %UnsafeStdinReader% }{ <fc=#bd93f9>%penguin% %kernel%</fc> %sep% %memory% %sep% %alsa:default:Master% %sep% <action=`emacsclient -c -a 'emacs' --eval '(doom/window-maximize-buffer(cfw:open-org-calendar))'`>%date%</action> %sep% %time% %sep% %trayerpad%"
 }

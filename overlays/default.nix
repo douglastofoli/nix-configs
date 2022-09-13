@@ -10,5 +10,15 @@
         };
       });
     })
+    (self: super: {
+      insync-v3 = super.insync-v3.overrideAttrs (_: {
+        version = "3.7.11.50381";
+        src = super.fetchurl {
+          url =
+            "https://cdn.insynchq.com/builds/linux/insync_3.7.11.50381-focal_amd64.deb";
+          sha256 = "sha256-W4YUjQ8VdU+m5DwPlokO0i/mKWOi/1vN79ZmMJk9dZM=";
+        };
+      });
+    })
   ];
 }

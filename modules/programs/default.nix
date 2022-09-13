@@ -1,1 +1,1 @@
-[ ./alacritty.nix ./rofi.nix ]
+[ ./alacritty.nix ./insync-v3.nix ./rofi.nix ]

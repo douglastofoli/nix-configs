@@ -61,6 +61,7 @@
       cabal-install
       stack
       trayer
+      xdotool
     ];
   };
 }

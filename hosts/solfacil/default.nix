@@ -36,16 +36,38 @@
   services = {
     blueman.enable = true;
 
-    xserver.resolutions = [
-      {
-        x = 1920;
-        y = 1080;
-      }
-      {
-        x = 1920;
-        y = 1080;
-      }
-    ];
+    flatpak.enable = true;
+
+    autorandr = {
+      enable = true;
+
+      profiles = {
+        "default" = {
+          fingerprint = {
+            eDP-1 = "*";
+            HDMI-1 = "*";
+          };
+          config = {
+            eDP-1 = {
+              enable = true;
+              primary = true;
+              rate = "60.00";
+              mode = "1920x1080";
+              rotate = "normal";
+              position = "0x0";
+            };
+            HDMI-1 = {
+              enable = true;
+              primary = false;
+              mode = "1920x1080";
+              rate = "74.97";
+              rotate = "normal";
+              position = "1920x0";
+            };
+          };
+        };
+      };
+    };
   };
 
   nixpkgs.config = {

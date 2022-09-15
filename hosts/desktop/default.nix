@@ -7,6 +7,7 @@
     ++ [ (import ../../modules/desktop/xmonad.nix) ]
     ++ [ (import ../../modules/editors/emacs.nix) ]
     ++ [ (import ../../modules/services/gnome-keyring.nix) ]
+    ++ [ (import ../../modules/services/zram.nix) ]
     ++ (import ../../modules/hardware) ++ [ (import ../../overlays) ];
 
   boot = {

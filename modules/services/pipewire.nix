@@ -25,7 +25,7 @@
           { "node.name" = "~bluez_input.*"; }
           { "node.name" = "~bluez_output.*"; }
         ];
-        actions = { "node.pause-on-idle" = false; };
+        actions = { "node.pause-on-idle" = true; };
       }
     ];
   };

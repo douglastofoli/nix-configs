@@ -14,18 +14,30 @@
     });
 
     # Shadown
-    shadow = false;
+    shadow = true;
+    shadowOpacity = 0.6;
+    shadowOffsets = [ (-3) (-3) ];
+    shadowExclude = [
+      "name = 'Notification'"
+      "class_g ?= 'Notify-osd'"
+      "class_g = 'Cairo-clock'"
+      "class_g = 'xmobar'"
+      "class_g = 'trayer'"
+      "_GTK_FRAME_EXTENTS@:c"
+    ];
 
     # Fading
     fade = true;
     fadeSteps = [ 3.0e-2 3.0e-2 ];
-    fadeExclude = [ ];
 
     # Transparency
     activeOpacity = 1.0;
     inactiveOpacity = 0.8;
 
     settings = {
+      # Shadow
+      shadow-radius = 8;
+
       # Animations
       transition-length = 180;
       transition-pow-x = 0.1;
@@ -36,12 +48,18 @@
 
       corner-radius = 10.0;
       round-borders = 1;
-      round-borders-exclude = [ "class_g = 'xmobar'" ];
-      rounded-corners-exclur = [ "class_g = 'xmobar'" ];
+      round-borders-exclude =
+        [ "class_g = 'Cairo-clock'" "class_g = 'xmobar'" "class_g = 'trayer'" ];
+      rounded-corners-exclur =
+        [ "class_g = 'Cairo-clock'" "class_g = 'xmobar'" "class_g = 'trayer'" ];
 
       # Opacity
       frame-opacity = 0.7;
-      opacity-rule = [ "100:class_g = 'xmobar'" ];
+      opacity-rule = [
+        "100:class_g = 'firefox'"
+        "100:class_g = 'google-chrome'"
+        "100:class_g = 'Thunderbird'"
+      ];
 
       # Blur
       blur = {

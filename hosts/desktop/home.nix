@@ -23,6 +23,7 @@
       obs-studio
       pcmanfm
       qbittorrent
+      thunderbird
     ];
   };
 

@@ -16,7 +16,7 @@
     # Shadown
     shadow = true;
     shadowOpacity = 0.6;
-    shadowOffsets = [ (-3) (-3) ];
+    shadowOffsets = [ (-7) (-7) ];
     shadowExclude = [
       "name = 'Notification'"
       "class_g ?= 'Notify-osd'"
@@ -29,6 +29,7 @@
     # Fading
     fade = true;
     fadeSteps = [ 3.0e-2 3.0e-2 ];
+    fadeExclude = [ ];
 
     # Transparency
     activeOpacity = 1.0;
@@ -46,8 +47,8 @@
       transition-pow-h = 0.1;
       size-transition = true;
 
-      corner-radius = 10.0;
-      round-borders = 1;
+      corner-radius = 8.0;
+      round-borders = 8.0;
       round-borders-exclude =
         [ "class_g = 'Cairo-clock'" "class_g = 'xmobar'" "class_g = 'trayer'" ];
       rounded-corners-exclur =

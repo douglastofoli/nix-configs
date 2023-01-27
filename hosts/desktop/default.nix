@@ -5,14 +5,10 @@
 {
   imports = [ (import ./hardware-configuration.nix) ]
     ++ [ (import ../../modules/desktop/xmonad.nix) ]
-    ++ [ (import ../../modules/editors/emacs.nix) ]
-    ++ [ (import ../../modules/services/gnome-keyring.nix) ]
-    ++ [ (import ../../modules/services/zram.nix) ]
-    ++ (import ../../modules/hardware) ++ [ (import ../../overlays) ];
+    ++ (import ../../modules/hardware);
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    supportedFilesystems = [ "btrfs" ];
 
     loader = {
       systemd-boot.enable = false;
@@ -38,14 +34,13 @@
     };
   };
 
-  hardware.enableAllFirmware = true;
+  networking.hostName = "wizarch";
 
-  networking = {
-    hostName = "wizarch";
-    networkmanager.enable = true;
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 60;
   };
-
-  time.hardwareClockInLocalTime = true;
 
   virtualisation = {
     docker = {
@@ -56,8 +51,6 @@
 
   services = {
     blueman.enable = true;
-
-    flatpak.enable = true;
 
     autorandr = {
       enable = true;
@@ -78,11 +71,5 @@
         };
       };
     };
-  };
-
-  nixpkgs.config = {
-    allowUnfree = true;
-
-    permittedInsecurePackages = [ "electron-12.2.3" "electron-13.6.9" ];
   };
 }

@@ -4,7 +4,8 @@
 
 {
   imports =
-    [ (import ./activation.nix) ]; # ! Comment this out on first install !
+    (import ../modules/editors) ++
+    (import ../modules/shell);
 
   users.users = {
     root = {
@@ -20,22 +21,14 @@
     };
   };
 
-  environment.etc = {
-    "resolv.conf".text = ''
-      nameserver 1.1.1.1
-      nameserver 1.0.0.1
-    '';
+  security = {
+    sudo.wheelNeedsPassword = true;
+    rtkit.enable = true;
   };
 
   time.timeZone = "America/Sao_Paulo";
   i18n = {
     defaultLocale = "en_US.UTF-8";
-    supportedLocales = [
-      "en_US.UTF-8/UTF-8"
-      "en_US/ISO-8859-1"
-      "pt_BR.UTF-8/UTF-8"
-      "pt_BR/ISO-8859-1"
-    ];
     extraLocaleSettings = {
       LC_TIME = "pt_BR.UTF-8";
       LC_MONETARY = "pt_BR.UTF-8";
@@ -45,11 +38,6 @@
   console = {
     font = "Lat2-Terminus16";
     keyMap = "br-abnt2";
-  };
-
-  sound = {
-    enable = true;
-    mediaKeys.enable = true;
   };
 
   programs = {
@@ -65,49 +53,20 @@
 
     pipewire = {
       enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
       pulse.enable = true;
-
-      media-session.config.bluez-monitor.rules = [
-        {
-          # Matches all cards
-          matches = [{ "device.name" = "~bluez_card.*"; }];
-          actions = {
-            "update-props" = {
-              "bluez5.reconnect-profiles" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
-              # mSBC is not expected to work on all headset + adapter combinations.
-              "bluez5.msbc-support" = true;
-              # SBC-XQ is not expected to work on all headset + adapter combinations.
-              "bluez5.sbc-xq-support" = true;
-            };
-          };
-        }
-        {
-          matches = [
-            # Matches all sources
-            {
-              "node.name" = "~bluez_input.*";
-            }
-            # Matches all outputs
-            { "node.name" = "~bluez_output.*"; }
-          ];
-        }
-      ];
+      jack.enable = true;
     };
   };
 
   fonts.fonts = with pkgs; [
-    cantarell-fonts
-    corefonts
-    font-awesome
-    liberation_ttf
-    mononoki
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    ubuntu_font_family
+    carlito
     vegur
+    font-awesome
+    corefonts
 
     (nerdfonts.override { fonts = [ "JetBrainsMono" "RobotoMono" ]; })
   ];
@@ -120,30 +79,22 @@
       TERMINAL = "alacritty";
       VISUAL = "emacs";
     };
-    systemPackages = with pkgs; [
-      cmake
-      curl
-      direnv
-      gcc
-      gnumake
-      killall
-      libnotify
-      libtool
-      libsecret
-      nano
-      scrot
-      vim
-      wget
-      xclip
 
-      (aspellWithDicts
-        (dicts: with dicts; [ en en-computers en-science pt_BR ]))
+    systemPackages = with pkgs; [
+      killall
+      nano
+      vim
+      pciutils
+      usbutils
+      wget
     ];
   };
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk xdg-desktop-portal-wlr ];
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+    ];
   };
 
   nix = {
@@ -153,7 +104,7 @@
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.unstable;
     registry.nixpkgs.flake = inputs.nixpkgs;
     extraOptions = ''
       experimental-features = nix-command flakes
@@ -162,12 +113,21 @@
     '';
   };
 
+  nixpkgs.config = {
+    allowUnfree = true;
+
+    permittedInsecurePackages = [
+      "electron-12.2.3"
+      "electron-13.6.9"
+    ];
+  };
+
   system = {
     autoUpgrade = {
       enable = false;
       allowReboot = false;
       channel = "https://nixos.org/channels/nixos-unstable";
     };
-    stateVersion = "22.05";
+    stateVersion = "22.11";
   };
 }

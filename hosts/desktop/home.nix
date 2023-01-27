@@ -5,25 +5,12 @@
 {
   home = {
     packages = with pkgs; [
-      asdf-vm
-      bat
-      bpytop
       etcher
-      exa
-      feh
       gimp
-      gnome.file-roller
-      gnome.seahorse
-      helvum
-      insomnia
-      minecraft
-      neofetch
+      discord
       obinskit
       obsidian
-      obs-studio
-      pcmanfm
       qbittorrent
-      thunderbird
     ];
   };
 

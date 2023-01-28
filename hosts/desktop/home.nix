@@ -10,5 +10,8 @@
   programs.alacritty.settings.font.size = 12;
   programs.git.signing.key = "A78F1B85248F4095";
 
-  services.blueman-applet.enable = true;
+  services = {
+    blueman-applet.enable = true;
+    picom.enable = true;
+  };
 }

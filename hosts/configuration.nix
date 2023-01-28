@@ -3,7 +3,8 @@
 { config, lib, pkgs, inputs, user, location, ... }:
 
 {
-  imports = (import ../modules/editors) ++ (import ../modules/shell);
+  imports = [ (import ./activation.nix) ] ++ (import ../modules/editors)
+    ++ (import ../modules/shell);
 
   users.users = {
     root = {

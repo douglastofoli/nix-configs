@@ -2,37 +2,12 @@
 
 {
   system.userActivationScripts = {
-    doomEmacs = {
-      text = ''
-        source ${config.system.build.setEnvironment}
-        DOOM="$HOME/.doom.d"
-        EMACS="$HOME/.emacs.d"
-
-        if [ ! -d "$EMACS" ]; then
-          git clone --depth 1 https://github.com/doomemacs/doomemacs $EMACS
-          yes | $EMACS/bin/doom install
-
-          rm -r $DOOM
-          ln -s ${location}/dotfiles/doom.d $DOOM
-          $EMACS/bin/doom sync
-        else
-          $EMACS/bin/doom sync
-        fi
-      '';
-    };
-
-    flatpak = {
-      text = ''
-        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-      '';
-    };
-
     scripts = {
       text = ''
         SCRIPTS="$HOME/.local/bin"
 
         if [ ! -d "$SCRIPTS" ]; then
-          ln -s ${location}/dotfiles/local/bin $SCRIPTS
+          ln -sf ${location}/dotfiles/local/bin $SCRIPTS
         fi
       '';
     };
@@ -42,7 +17,7 @@
         XMOBAR="$HOME/.config/xmobar"
 
         if [ ! -d "$XMOBAR" ]; then
-          ln -s ${location}/dotfiles/xmobar $XMOBAR
+          ln -sf ${location}/dotfiles/xmobar $XMOBAR
         fi
       '';
     };
@@ -52,7 +27,7 @@
         XMONAD="$HOME/.config/xmonad"
 
         if [ ! -d "$XMONAD" ]; then
-          ln -s ${location}/dotfiles/xmonad $XMONAD
+          ln -sf ${location}/dotfiles/xmonad $XMONAD
         fi
       '';
     };

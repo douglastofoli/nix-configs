@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "douglastofoli"
+      user-mail-address "tofoli.douglas@hotmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -33,10 +33,6 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-one)
-
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -74,3 +70,46 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(setq delete-by-moving-to-trash t
+      trash-directory "~/.local/share/Trash/files/")
+
+
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
+      doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
+      doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 24))
+(after! doom-themes
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t))
+(custom-set-faces!
+  '(font-lock-comment-face :slant italic)
+  '(font-lock-keyword-face :slant italic))
+
+
+(setq +treemacs-git-mode 'deferred)
+(after! treemacs
+  (treemacs-follow-mode 1))
+
+(after! wakatime-mode
+  (global-wakatime-mode 1))
+
+
+(map! :leader
+      (:prefix ("b" . "buffer")
+               :desc "List bookmarks" "L" #'list-bookmarks
+               :desc "Save current bookmarks to boormark file" "w" #'bookmark-save))
+
+
+(setq display-line-numbers-type t)
+(map! :leader
+      :desc "Comment or uncomment lines" "TAB TAB" #'comment-line
+      (:prefix ("t" . "toggle")
+               :desc "Toggle line numbers" "l" #'doom/toggle-line-numbers
+               :desc "Toggle line highlight in frame" "h" #'hl-line-mode
+               :desc "Toggle line highlight globally" "H" #'global-hl-line-mode
+               :desc "Toggle truncate lines" "t" #'toggle-truncate-lines))
+
+
+(map! :desc "Toggle fold code block"
+      :ni "C-." #'+fold/toggle)
+

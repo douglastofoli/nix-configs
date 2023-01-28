@@ -6,38 +6,23 @@ let
 in {
   programs.git = {
     enable = true;
-    userName = "${username}";
-    userEmail = "${email}";
-    signing = {
-      gpgPath = "${pkgs.gnupg}/bin/gpg2";
-      signByDefault = true;
-    };
-    aliases = {
-      p = "push";
-      s = "status";
-      c = "commit";
-      b = "branch";
-      lg = "log --graph --oneline --decorate --abbrev-commit";
-    };
-    extraConfig = {
-      github = { user = "${username}"; };
-      push = { default = "current"; };
-      init = { defaultBranch = "main"; };
-      pull = { rebase = false; };
-      rebase = { autosquash = true; };
-      log = {
-        follow = true;
-        abbrevCommit = true;
+    config = {
+      user = {
+        name = "douglastofoli";
+        email = "tofoli.douglas@hotmail.com";
+        signingkey = "AAAAAAA";
       };
-      core = { editor = "emacs"; };
-      color = {
-        grep = "auto";
-        branch = "auto";
-        diff = "auto";
-        status = "auto";
-        showBranch = "auto";
-        interactive = "auto";
-        ui = "auto";
+      core = {
+        editor = "emacs";
+      };
+      init = {
+        defaultBranch = "main";
+      };
+      commit = {
+        gpgsign = true;
+      };
+      pull = {
+        rebase = false;
       };
     };
   };

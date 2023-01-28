@@ -1,13 +1,26 @@
 # Profiles that can be used when building Nix
 
-{ lib, inputs, nixpkgs, home-manager, nixgl, user, system, pkgs, ... }:
+{ lib, inputs, nixpkgs, home-manager, nixgl, user, ... }:
 
-{
-  pacman =
-    home-manager.lib.homeManagerConfiguration { # Currently only host that can be built
-      inherit pkgs;
-
-      modules = [ ./pacman.nix ];
-      extraSpecialArgs = { inherit inputs nixgl user; };
+let
+  system = "x86_64-linux";
+  pkgs = nixpkgs.legacyPackages.${system};
+in {
+  pacman = home-manager.lib.homeManagerConfiguration {
+    inherit pkgs;
+    extraSpecialArgs = {
+      inherit inputs nixgl user;
     };
+    modules = [
+      ./pacman.nix
+      {
+        home = {
+          username = "${user}";
+          homeDirectory = "/home/${user}";
+          packages = [ pkgs.home-manager ];
+          stateVersion = "22.11";
+        };
+      }
+    ];
+  };
 }

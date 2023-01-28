@@ -3,48 +3,54 @@
 { config, lib, pkgs, user, ... }:
 
 {
-  imports = (import ../modules/programs) ++ (import ../modules/services)
-    ++ (import ../modules/shell);
+  imports =
+    (import ../modules/programs) ++
+    (import ../modules/services);
+
 
   home = {
     username = "${user}";
     homeDirectory = "/home/${user}";
 
     packages = with pkgs; [
-      discord
-      ffmpeg
-      firefox
-      google-chrome
-      html-tidy
-      multimarkdown
-      nodejs
-      nodePackages.js-beautify
-      nodePackages.npm
-      nodePackages.stylelint
-      rsync
-      shellcheck
-      shfmt
-      signal-desktop
-      spotify
-      tdesktop
-      unrar
+      # Terminal
+      btop
+      bat
+      exa
+
+      # Video/Audio
+      feh
+      pavucontrol
+
+      # Apps
+      brave
+      flameshot
+      gnome.seahorse
+
+      # File Management
+      pcmanfm
+      gnome.file-roller
       unzip
-      vlc
-      yad
-      yarn
-      youtube-dl
-      wakatime
+      unrar
+
+      # Xorg
+      picom
+      xclip
+      xorg.xev
+      xorg.xkill
+      xorg.xrandr
     ];
 
-    file.".wallpaper.png".source = ../modules/themes/wallpaper.png;
+    file.".config/wallpaper.png".source = ../modules/themes/wallpaper.png;
 
     pointerCursor = {
+      gtk.enable = true;
       name = "Dracula-cursors";
       package = pkgs.dracula-theme;
       size = 16;
     };
 
-    stateVersion = "22.05";
+    stateVersion = "22.11";
   };
 
   programs = { home-manager.enable = true; };
@@ -59,6 +65,5 @@
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
-    font = { name = "Cantarell"; };
   };
 }

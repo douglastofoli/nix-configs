@@ -1,11 +1,13 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
-{
+let colors = import ../themes/colors.nix;
+in {
   programs.alacritty = {
     enable = true;
+    #shell = { program = "${pkgs.zsh}/bin/zsh"; };
     settings = {
       env = { TERM = "xterm-256color"; };
-      scrolling = { history = 5000; };
+      scrolling = { history = 10000; };
       font = rec {
         normal.family = "JetBrainsMono Nerd Font Mono";
         bold.family = "JetBrainsMono Nerd Font Mono";
@@ -19,80 +21,71 @@
           y = 0;
         };
       };
-      shell = { program = "${pkgs.zsh}/bin/zsh"; };
-      colors = {
+      colors = with colors.scheme.dracula; {
         primary = {
-          background = "#1E1E2E";
-          foreground = "#CDD6F4";
-          dim_foreground = "#CDD6F4";
-          bright_foreground = "#CDD6F4";
+          background = "${background}";
+          foreground = "${foreground}";
+          bright_foreground = "${white}";
         };
         cursor = {
-          text = "#1E1E2E";
-          cursor = "#F5E0DC";
+          text = "CellBackground";
+          cursor = "CellForeground";
         };
         vi_mode_cursor = {
-          text = "#1E1E2E";
-          cursor = "#B4BEFE";
+          text = "CellBackground";
+          cursor = "CellForeground";
         };
         search = {
           matches = {
-            background = "#A6ADC8";
-            foreground = "#1E1E2E";
+            foreground = "${current_line}";
+            background = "${green}";
           };
           focused_match = {
-            background = "#A6E3A1";
-            foreground = "#1E1E2E";
+            foreground = "${current_line}";
+            background = "${orange}";
           };
-          bar = {
-            background = "#A6ADC8";
-            foreground = "#1E1E2E";
-
-          };
+        };
+        footer_bar = {
+          background = "${background}";
+          foreground = "${foreground}";
         };
         hints = {
           start = {
-            background = "#F9E2AF";
-            foreground = "#1E1E2E";
+            foreground = "${background}";
+            background = "${yellow}";
           };
           end = {
-            background = "#A6ADC8";
-            foreground = "#1E1E2E";
+            foreground = "${yellow}";
+            background = "${background}";
           };
         };
+        line_indicator = {
+          foreground = "None";
+          background = "None";
+        };
         selection = {
-          text = "#1E1E2E";
-          background = "#F5E0DC";
+          text = "CellForeground";
+          background = "${current_line}";
         };
         normal = {
-          black = "#45475A";
-          red = "#F38BA8";
-          green = "#A6E3A1";
-          yellow = "#F9E2AF";
-          blue = "#89B4FA";
-          magenta = "#F5C2E7";
-          cyan = "#94E2D5";
-          white = "#BAC2DE";
+          black = "${black}";
+          red = "${red}";
+          green = "${green}";
+          yellow = "${yellow}";
+          blue = "${purple}";
+          magenta = "${pink}";
+          cyan = "${cyan}";
+          white = "${foreground}";
         };
         bright = {
-          black = "#585B70";
-          red = "#F38BA8";
-          green = "#A6E3A1";
-          yellow = "#F9E2AF";
-          blue = "#89B4FA";
-          magenta = "#F5C2E7";
-          cyan = "#94E2D5";
-          white = "#A6ADC8";
-        };
-        dim = {
-          black = "#45475A";
-          red = "#F38BA8";
-          green = "#A6E3A1";
-          yellow = "#F9E2AF";
-          blue = "#89B4FA";
-          magenta = "#F5C2E7";
-          cyan = "#94E2D5";
-          white = "#BAC2DE";
+          black = "${comment}";
+          red = "#ff6e6e";
+          green = "#69ff94";
+          yellow = "#ffffa5";
+          blue = "#d6acff";
+          magenta = "#ff92df";
+          cyan = "#a4ffff";
+          white = "${white}";
         };
       };
     };

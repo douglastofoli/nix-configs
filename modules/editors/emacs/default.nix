@@ -11,6 +11,7 @@
     coreutils
     ripgrep
     fd
+    nixfmt
 
     ((emacsPackagesFor emacs).emacsWithPackages (epkgs: [ epkgs.vterm ]))
   ];

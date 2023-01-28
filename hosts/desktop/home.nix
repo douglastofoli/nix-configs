@@ -4,14 +4,7 @@
 
 {
   home = {
-    packages = with pkgs; [
-      etcher
-      gimp
-      discord
-      obinskit
-      obsidian
-      qbittorrent
-    ];
+    packages = with pkgs; [ etcher gimp discord obinskit obsidian qbittorrent ];
   };
 
   programs.alacritty.settings.font.size = 12;

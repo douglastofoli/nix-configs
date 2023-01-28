@@ -4,6 +4,16 @@
   programs = {
     starship = {
       enable = true;
+
+      settings = {
+        add_newline = false;
+
+        character = {
+          success_symbol = "[➜](bold #50fa7b)";
+          cancel_symbol = "[➜](bold #ffb86c)";
+          error_symbol = "[➜](bold #ff5555)";
+        };
+      };
     };
 
     zsh = {
@@ -22,10 +32,10 @@
       };
 
       shellInit = ''
-      export GPG_TTY=$(tty)
+        export GPG_TTY=$(tty)
 
-      PATH=$HOME/.emacs.d/bin:$PATH
-    '';
+        PATH=$HOME/.emacs.d/bin:$PATH
+      '';
     };
   };
 }

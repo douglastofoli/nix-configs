@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 
-let
-  colors = import ../themes/colors.nix;
+let colors = import ../themes/colors.nix;
 in {
   programs.alacritty = {
     enable = true;
@@ -83,7 +82,7 @@ in {
           red = "#ff6e6e";
           green = "#69ff94";
           yellow = "#ffffa5";
-          blue = "d6acff";
+          blue = "#d6acff";
           magenta = "#ff92df";
           cyan = "#a4ffff";
           white = "${white}";

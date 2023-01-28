@@ -3,10 +3,7 @@
 { config, lib, pkgs, user, ... }:
 
 {
-  imports =
-    (import ../modules/programs) ++
-    (import ../modules/services);
-
+  imports = (import ../modules/programs) ++ (import ../modules/services);
 
   home = {
     username = "${user}";
@@ -15,8 +12,6 @@
     packages = with pkgs; [
       # Terminal
       btop
-      bat
-      exa
 
       # Video/Audio
       feh
@@ -50,7 +45,7 @@
       size = 16;
     };
 
-    stateVersion = "22.11";
+    stateVersion = "22.05";
   };
 
   programs = { home-manager.enable = true; };

@@ -8,9 +8,7 @@ let
 in {
   pacman = home-manager.lib.homeManagerConfiguration {
     inherit pkgs;
-    extraSpecialArgs = {
-      inherit inputs nixgl user;
-    };
+    extraSpecialArgs = { inherit inputs nixgl user; };
     modules = [
       ./pacman.nix
       {
@@ -18,7 +16,7 @@ in {
           username = "${user}";
           homeDirectory = "/home/${user}";
           packages = [ pkgs.home-manager ];
-          stateVersion = "22.11";
+          stateVersion = "22.05";
         };
       }
     ];

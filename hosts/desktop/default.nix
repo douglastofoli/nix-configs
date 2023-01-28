@@ -5,7 +5,7 @@
 {
   imports = [ (import ./hardware-configuration.nix) ]
     ++ [ (import ../../modules/desktop/xmonad.nix) ]
-    ++ [ (import ../../overlays) ] ++ (import ../../modules/hardware);
+    ++ (import ../../modules/hardware);
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;

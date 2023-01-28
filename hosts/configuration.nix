@@ -3,9 +3,7 @@
 { config, lib, pkgs, inputs, user, location, ... }:
 
 {
-  imports =
-    (import ../modules/editors) ++
-    (import ../modules/shell);
+  imports = (import ../modules/editors) ++ (import ../modules/shell);
 
   users.users = {
     root = {
@@ -80,21 +78,12 @@
       VISUAL = "emacs";
     };
 
-    systemPackages = with pkgs; [
-      killall
-      nano
-      vim
-      pciutils
-      usbutils
-      wget
-    ];
+    systemPackages = with pkgs; [ killall nano vim pciutils usbutils wget ];
   };
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-    ];
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
   };
 
   nix = {
@@ -116,10 +105,7 @@
   nixpkgs.config = {
     allowUnfree = true;
 
-    permittedInsecurePackages = [
-      "electron-12.2.3"
-      "electron-13.6.9"
-    ];
+    permittedInsecurePackages = [ "electron-12.2.3" "electron-13.6.9" ];
   };
 
   system = {
@@ -128,6 +114,6 @@
       allowReboot = false;
       channel = "https://nixos.org/channels/nixos-unstable";
     };
-    stateVersion = "22.11";
+    stateVersion = "22.05";
   };
 }

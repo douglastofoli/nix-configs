@@ -3,7 +3,6 @@
 {
   hardware.bluetooth = {
     enable = true;
-    hsphfpd.enable = true; # HSP & HFP daemon
     settings = {
       General = {
         Name = "nixos-bluetooth";

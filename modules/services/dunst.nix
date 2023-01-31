@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
-let
-  colors = import ../themes/colors.nix;
+let colors = import ../themes/colors.nix;
 in {
   services.dunst = {
     enable = true;
@@ -39,7 +38,7 @@ in {
         font = "RobotoMono Nerd Font 10";
         line_height = 0;
         markup = "full";
-        format = "%s %p\n%b";
+        format = "<b>%s</b> %p\\n%b";
         alignment = "left";
         vertical_alignment = "center";
         show_age_threshold = 60;
@@ -51,10 +50,11 @@ in {
         icon_position = "left";
         min_icon_size = 0;
         max_icon_size = 64;
-        icon_path = "/usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/";
+        icon_path =
+          "/usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/";
         sticky_history = "yes";
         history_length = 20;
-        demnu = "/usr/bin/dmenu -p dunst:";
+        dmenu = "/usr/bin/dmenu -p dunst:";
         browser = "/usr/bin/firefox -new-tab";
         always_run_script = true;
         title = "Dunst";
@@ -67,9 +67,7 @@ in {
         mouse_middle_click = "do_action, close_current";
         mouse_right_click = "close_all";
       };
-      experimental = {
-        per_monitor_dpi = false;
-      };
+      experimental = { per_monitor_dpi = false; };
       urgency_low = {
         background = "${background}";
         foreground = "${comment}";
@@ -89,9 +87,8 @@ in {
     };
   };
 
-  home.packages = with pkgs; [
-    libnotify
-  ];
+  home.packages = with pkgs; [ libnotify ];
 
-  xdg.dataFile."dbus-1/services/org.knopwob.dunst.service".source = "${pkgs.dunst}/share/dbus-1/services/org.knopwob.dunst.service";
+  xdg.dataFile."dbus-1/services/org.knopwob.dunst.service".source =
+    "${pkgs.dunst}/share/dbus-1/services/org.knopwob.dunst.service";
 }

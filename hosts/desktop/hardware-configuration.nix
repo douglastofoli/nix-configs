@@ -4,45 +4,24 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports =
+    [ (modulesPath + "/installer/scan/not-detected.nix")
+    ];
 
-  boot.initrd.availableKernelModules =
-    [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/f24c14b2-853c-403b-9389-d786e47f459b";
-    fsType = "btrfs";
-    options = [ "subvol=root" ];
-  };
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/7744191a-6aab-4c16-b4b7-bbe7259055d1";
+      fsType = "ext4";
+    };
 
-  boot.initrd.luks.devices."enc".device =
-    "/dev/disk/by-uuid/54aee868-bd9a-4022-b41b-18e1cae8308e";
-
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/f24c14b2-853c-403b-9389-d786e47f459b";
-    fsType = "btrfs";
-    options = [ "subvol=home" ];
-  };
-
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/f24c14b2-853c-403b-9389-d786e47f459b";
-    fsType = "btrfs";
-    options = [ "subvol=nix" ];
-  };
-
-  fileSystems."/swap" = {
-    device = "/dev/disk/by-uuid/f24c14b2-853c-403b-9389-d786e47f459b";
-    fsType = "btrfs";
-    options = [ "subvol=swap" ];
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/DA91-A524";
-    fsType = "vfat";
-  };
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/CEE9-52E2";
+      fsType = "vfat";
+    };
 
   swapDevices = [ ];
 
@@ -53,9 +32,9 @@
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.eno1.useDHCP = lib.mkDefault true;
 
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  hardware.cpu.intel.updateMicrocode =
-    lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   # high-resolution display
   hardware.video.hidpi.enable = lib.mkDefault true;
 }

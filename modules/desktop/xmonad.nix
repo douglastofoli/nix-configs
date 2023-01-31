@@ -45,21 +45,26 @@
       };
 
       serverFlagsSection = ''
-                         Option "BlankTime" "0"
-                         Option "StandbyTime" "0"
-                         Option "SuspendTime" "0"
-                         Option "OffTime" "0"
-                         '';
+        Option "BlankTime" "0"
+        Option "StandbyTime" "0"
+        Option "SuspendTime" "0"
+        Option "OffTime" "0"
+      '';
     };
   };
 
   environment.systemPackages = with pkgs; [
+    haskellPackages.dbus
+    haskellPackages.List
+    haskellPackages.monad-logger
     haskellPackages.haskell-language-server
     haskellPackages.hoogle
     haskellPackages.xmobar
-    cabal-install
-    stack
+    haskellPackages.alsa-core
+    haskellPackages.alsa-mixer
     trayer
     xdotool
+    ghc
+    yad
   ];
 }

@@ -49,6 +49,8 @@
     };
   };
 
+  programs.git.config.user.signingkey = "5DF64272B34553CA";
+
   services = {
     blueman.enable = true;
 

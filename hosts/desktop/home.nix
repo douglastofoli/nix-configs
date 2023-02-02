@@ -5,6 +5,7 @@
 {
   home = {
     packages = with pkgs; [
+      hugo
       jetbrains.datagrip
       etcher
       gimp

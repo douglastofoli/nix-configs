@@ -94,8 +94,8 @@ myStartupHook = do
   spawn "/usr/bin/emacs --daemon"
   spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
 
-  spawnOnce myBrowser
-  spawnOnce "telegram-desktop"
+  -- spawnOnce myBrowser
+  -- spawnOnce "telegram-desktop"
   -- spawnOnce "discord"
   spawnOnce "feh --bg-scale $HOME/.config/wallpaper.png"
 
@@ -623,7 +623,8 @@ myKeys c =
             ("<XF86AudioMute>", addName "Toggle audio mute" $ spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"),
             ("<XF86AudioLowerVolume>", addName "Lower vol" $ spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"),
             ("<XF86AudioRaiseVolume>", addName "Raise vol" $ spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"),
-            ("<XF86Calculator>", addName "Calculator" $ runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))
+            ("<XF86Calculator>", addName "Calculator" $ runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk")),
+            ("M-<Print>", addName "Take screenshot" $ spawn "flameshot gui -p $HOME/Pictures/Screenshots")
           ]
   where
     -- The following lines are needed for named scratchpads.

@@ -66,8 +66,12 @@
     vegur
     font-awesome
     corefonts
+    ubuntu_font_family
+    mononoki
 
-    (nerdfonts.override { fonts = [ "JetBrainsMono" "RobotoMono" ]; })
+    (nerdfonts.override {
+      fonts = [ "JetBrainsMono" "RobotoMono" "SourceCodePro" ];
+    })
   ];
 
   environment = {
@@ -79,7 +83,15 @@
       VISUAL = "emacs";
     };
 
-    systemPackages = with pkgs; [ killall nano vim pciutils usbutils wget ];
+    systemPackages = with pkgs; [
+      pulseaudio
+      killall
+      nano
+      vim
+      pciutils
+      usbutils
+      wget
+    ];
   };
 
   xdg.portal = {

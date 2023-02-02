@@ -5,7 +5,7 @@
     enable = true;
     settings = {
       General = {
-        savePath = "/home/${user}/GoogleDrive/Screenshots";
+        savePath = "/home/${user}/Pictures/Screenshots";
         saveAsFileExtension = ".png";
         uiColor = "#bd93f9";
         showHelp = "false";

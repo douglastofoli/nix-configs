@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/run/current-system/sw/bin/bash
+
 # Copied from https://github.com/jaor/xmobar/issues/239#issuecomment-233206552
 # Detects the width of running trayer-srg window (xprop name 'panel')
 # and creates an XPM icon of that width, 1px height, and transparent.
@@ -35,8 +36,6 @@ EOF
 
 # Width of the trayer window
 width=$(xprop -name panel | grep 'program specified minimum size' | cut -d ' ' -f 5)
-
-width=$(($width-8))
 
 # Icon file name
 iconfile="/tmp/trayer-padding-${width}px.xpm"

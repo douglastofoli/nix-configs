@@ -4,11 +4,21 @@
 
 {
   home = {
-    packages = with pkgs; [ etcher gimp discord obinskit obsidian qbittorrent ];
+    packages = with pkgs; [
+      hugo
+      jetbrains.datagrip
+      etcher
+      gimp
+      discord
+      tdesktop
+      obinskit
+      obsidian
+      qalculate-gtk
+      qbittorrent
+    ];
   };
 
   programs.alacritty.settings.font.size = 12;
-  programs.git.signing.key = "A78F1B85248F4095";
 
   services = {
     blueman-applet.enable = true;

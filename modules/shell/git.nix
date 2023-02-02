@@ -10,20 +10,11 @@ in {
       user = {
         name = "douglastofoli";
         email = "tofoli.douglas@hotmail.com";
-        signingkey = "AAAAAAA";
       };
-      core = {
-        editor = "emacs";
-      };
-      init = {
-        defaultBranch = "main";
-      };
-      commit = {
-        gpgsign = true;
-      };
-      pull = {
-        rebase = false;
-      };
+      core = { editor = "emacs"; };
+      init = { defaultBranch = "main"; };
+      commit = { gpgsign = true; };
+      pull = { rebase = false; };
     };
   };
 }

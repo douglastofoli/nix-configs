@@ -19,6 +19,7 @@
 
       # Apps
       brave
+      firefox
       flameshot
       gnome.seahorse
 

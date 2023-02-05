@@ -3,6 +3,8 @@
 { pkgs, ... }:
 
 {
+  imports = [ (import ../../modules/desktop/hyprland/home.nix) ];
+
   home = {
     packages = with pkgs; [
       hugo

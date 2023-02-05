@@ -23,6 +23,7 @@
   security = {
     sudo.wheelNeedsPassword = true;
     rtkit.enable = true;
+    polkit.enable = true;
   };
 
   time.timeZone = "America/Sao_Paulo";
@@ -84,6 +85,9 @@
     };
 
     systemPackages = with pkgs; [
+      playerctl
+      light
+      wev
       pulseaudio
       killall
       nano
@@ -92,11 +96,6 @@
       usbutils
       wget
     ];
-  };
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
   };
 
   nix = {

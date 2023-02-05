@@ -30,11 +30,11 @@
       unrar
 
       # Xorg
-      picom
+      # picom
       xclip
-      xorg.xev
-      xorg.xkill
-      xorg.xrandr
+      # xorg.xev
+      # xorg.xkill
+      # xorg.xrandr
     ];
 
     file.".config/wallpaper.png".source = ../modules/themes/wallpaper.png;

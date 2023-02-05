@@ -9,8 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur = {
-      url = "github:nix-community/NUR";
+    nur = { url = "github:nix-community/NUR"; };
+
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixgl = { # OpenGL
@@ -19,8 +22,7 @@
     };
   };
 
-  outputs =
-    inputs @ { self, nixpkgs, home-manager, nur, nixgl, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, nur, hyprland, nixgl, ... }:
     let
       user = "douglas";
       location = "$HOME/.setup";
@@ -28,7 +30,7 @@
       nixosConfigurations = ( # NixOS configurations
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs home-manager nur user location;
+          inherit inputs nixpkgs home-manager nur hyprland user location;
         });
 
       homeConfigurations = ( # Non-NixOS configurations

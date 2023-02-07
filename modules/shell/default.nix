@@ -1,1 +1,1 @@
-[ ./direnv.nix ./git.nix ./zsh.nix ]
+[ ./direnv.nix ./git.nix ./python.nix ./zsh.nix ]

@@ -154,7 +154,8 @@ let
     windowrule = pin, title: ^(Picture-in-Picture)$
     windowrule = move 75% 75%, title: ^(Picture-in-Picture)$
     windowrule = size 24% 24%, title: ^(Picture-in-Picture)$
-    windowrule = float, title: Telegram
+    windowrule = float, class: TelegramDesktop
+    windowrule = size 30% 30%, class: TelegramDesktop
   '';
 in {
   imports = [ (import ../../environment/hyprland-variables.nix) ];

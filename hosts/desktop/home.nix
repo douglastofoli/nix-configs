@@ -17,6 +17,7 @@
       obsidian
       qalculate-gtk
       qbittorrent
+      zoom-us
     ];
   };
 

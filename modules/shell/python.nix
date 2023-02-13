@@ -1,9 +1,6 @@
 { pkgs, ... }:
 
-with pkgs;
-
-let pythonPackages = p: with p; [ requests ];
+let pythonPkgs = p: with p; [ requests ];
 in {
-  environment.systemPackages =
-    [ python3 (python3.withPackages pythonPackages) ];
+  environment.systemPackages = with pkgs; [ (python3.withPackages pythonPkgs) ];
 }

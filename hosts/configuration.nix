@@ -14,7 +14,8 @@
 
     ${user} = {
       isNormalUser = true;
-      extraGroups = [ "audio" "docker" "networkmanager" "video" "wheel" ];
+      extraGroups =
+        [ "audio" "docker" "input" "networkmanager" "video" "wheel" ];
       shell = pkgs.zsh;
       initialPassword = "123456";
     };
@@ -86,15 +87,19 @@
 
     systemPackages = with pkgs; [
       playerctl
-      light
-      wev
       pulseaudio
+      wev
       killall
       nano
       vim
       pciutils
       usbutils
       wget
+
+      (if config.networking.networkmanager.enable then
+        networkmanagerapplet
+      else
+        "")
     ];
   };
 

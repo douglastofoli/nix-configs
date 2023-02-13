@@ -34,7 +34,10 @@
     };
   };
 
-  networking.hostName = "wizarch";
+  networking = {
+    hostName = "wizarch";
+    networkmanager.enable = true;
+  };
 
   zramSwap = {
     enable = true;

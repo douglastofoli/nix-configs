@@ -1,43 +1,51 @@
 { config, lib, pkgs, host, ... }:
 
 let
+  execute = ''
+    exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+    exec-once=${pkgs.swaybg}/bin/swaybg -m center -i $HOME/.config/wallpaper.png
+    exec-once=${pkgs.waybar}/bin/waybar
+    exec-once=${pkgs.blueman}/bin/blueman-applet
+    exec-once=${pkgs.networkmanagerapplet}/bin/nm-applet --indicator
+  '';
+in let
   hyprlandConf = with host; ''
     monitor = ,preferred,auto,auto
 
     input {
-        kb_layout = br
+        kb_layout = br,us
         kb_variant =
         kb_model =
-        kb_options =
+        kb_options = grp:win_space_toggle
         kb_rules =
 
         follow_mouse = 1
 
         touchpad {
-            natural_scroll = no
+            natural_scroll = yes
         }
 
-        sensitivity = 0
+        sensitivity = 0.7
     }
 
     general {
-        gaps_in = 5
-        gaps_out = 20
-        border_size = 2
-        col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
-        col.inactive_border = rgba(595959aa)
-
+        gaps_in = 3
+        gaps_out = 5
+        border_size = 3
+        col.active_border = rgba(f38ba8FF) rgba(cba6f7FF) rgba(89b4faFF) rgba(fab387FF) 45deg
+        col.inactive_border = rgba(59595900)
         layout = dwindle
     }
 
     decoration {
-        rounding = 10
+        rounding = 8
         blur = yes
-        blur_size = 3
-        blur_passes = 1
+        blur_size = 6.8
+        blur_passes = 3
         blur_new_optimizations = on
+        inactive_opacity = 0.98
 
-        drop_shadow = yes
+        drop_shadow = no
         shadow_range = 4
         shadow_render_power = 3
         col.shadow = rgba(1a1a1aee)
@@ -47,26 +55,39 @@ let
         enabled = yes
 
         bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+        bezier = overshot, 0.13, 0.99, 0.29, 1.1
 
-        animation = windows, 1, 7, myBezier
-        animation = windowsOut, 1, 7, default, popin 80%
-        animation = border, 1, 10, default
-        animation = borderangle, 1, 8, default
-        animation = fade, 1, 7, default
+        animation = windows, 1, 5, overshot, popin
+        animation = border, 1, 5, default
+        animation = fade, 1, 5, default
         animation = workspaces, 1, 6, default
     }
 
     dwindle {
         pseudotile = yes
+        pseudotile = true
         preserve_split = yes
+        force_split = 2
+        no_gaps_when_only = 1
     }
 
     master {
         new_is_master = true
+        new_on_top = true,
+        no_gaps_when_only = true
     }
 
     gestures {
-        workspace_swipe = off
+        workspace_swipe = on
+        workspace_swipe_min_speed_to_force = 50
+        workspace_swipe_distance = 500
+    }
+
+    misc {
+       disable_hyprland_logo = on
+       enable_swallow = true
+       no_vfr = true
+       animate_manual_resizes = false
     }
 
     device:epic mouse V1 {
@@ -75,9 +96,9 @@ let
 
     $mainMod = SUPER
 
-    bind = $mainMod, Return, exec, alacritty
-    bind = $mainMod SHIFT, C, killactive,
-    bind = $mainMod SHIFT, Q, exit,
+    bind = $mainMod, Return, exec, $TERMINAL
+    bind = $mainMod SHIFT, Q, killactive,
+    bind = $mainMod SHIFT, E, exit,
     bind = $mainMod, V, togglefloating,
     bind = $mainMod, D, exec, wofi --show drun
     bind = $mainMod, P, pseudo,
@@ -87,6 +108,11 @@ let
     bind = $mainMod, right, movefocus, r
     bind = $mainMod, up, movefocus, u
     bind = $mainMod, down, movefocus, d
+
+    bind = SUPER_SHIFT, left, movewindow, l
+    bind = SUPER_SHIFT, right, movewindow, r
+    bind = SUPER_SHIFT, up, movewindow, u
+    bind = SUPER_SHIFT, down, movewindow, d
 
     bind = $mainMod, 1, workspace, 1
     bind = $mainMod, 2, workspace, 2
@@ -147,7 +173,7 @@ let
     bind = , print, exec, ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - -o ~/Pictures/Screenshots/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png && notify-send "Saved to ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png"
 
     # Auto start
-    exec-once=${pkgs.waybar}/bin/waybar
+    ${execute}
 
     # Window rules
     windowrule = float, title: ^(Picture-in-Picture)$
@@ -155,10 +181,37 @@ let
     windowrule = move 75% 75%, title: ^(Picture-in-Picture)$
     windowrule = size 24% 24%, title: ^(Picture-in-Picture)$
     windowrule = float, class: TelegramDesktop
-    windowrule = size 30% 30%, class: TelegramDesktop
+    windowrule = float, class: TelegramDesktop
+
+    windowrule = float, ^(blueman-manager)$
+    windowrule = size 1000 600, ^(blueman-manager)$
+    windowrule = center, ^(blueman-manager)$
   '';
 in {
-  imports = [ (import ../../environment/hyprland-variables.nix) ];
-
   xdg.configFile."hypr/hyprland.conf".text = hyprlandConf;
+
+  programs.swaylock.settings = {
+    color = "000000f0";
+    font-size = "24";
+    indicator-idle-visible = false;
+    indicator-radius = 100;
+    indicator-thickness = 20;
+    inside-color = "00000000";
+    inside-clear-color = "00000000";
+    inside-ver-color = "00000000";
+    inside-wrong-color = "00000000";
+    key-hl-color = "79b360";
+    line-color = "000000f0";
+    line-clear-color = "000000f0";
+    line-ver-color = "000000f0";
+    line-wrong-color = "000000f0";
+    ring-color = "ffffff50";
+    ring-clear-color = "bbbbbb50";
+    ring-ver-color = "bbbbbb50";
+    ring-wrong-color = "b3606050";
+    text-color = "ffffff";
+    text-ver-color = "ffffff";
+    text-wrong-color = "ffffff";
+    show-failed-attempts = true;
+  };
 }

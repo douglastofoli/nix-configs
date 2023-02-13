@@ -51,7 +51,7 @@ let
       transition: none;
       color: #7c818c;
       background: transparent;
-      padding: 8px;
+      padding: 5px;
       font-size: 16px;
     }
     #workspaces button.persistent {
@@ -80,7 +80,8 @@ let
     }
     #keyboard-state {
       margin-right: 8px;
-      padding-right: 8px;
+      padding-left: 16px;
+      padding-right: 16px;
       border-radius: 10px 10px 10px 10px;
       transition: none;
       color: #ffffff;
@@ -88,26 +89,11 @@ let
     }
     #keyboard-state > label.locked {
       margin-right: 8px;
-      padding-right: 8px;
+      padding-left: 16px;
+      padding-right: 16px;
       border-radius: 10px 10px 10px 10px;
       background-image: linear-gradient(to right, rgba(148, 226, 213, 1), rgba(137, 180, 250, 1));
       color: #11111d
-    }
-    #custom-pacman {
-      padding-left: 8px;
-      padding-right: 8px;
-      border-radius: 10px 10px 10px 10px;
-      transition: none;
-      color: #ffffff;
-      background: #383c4a;
-    }
-    #custom-mail {
-      margin-right: 8px;
-      padding-right: 16px;
-      border-radius: 0px 10px 10px 0px;
-      transition: none;
-      color: #ffffff;
-      background: #383c4a;
     }
     #mode {
       padding-left: 16px;
@@ -166,15 +152,6 @@ let
     #temperature.critical {
       background-color: #eb4d4b;
     }
-    #backlight {
-      margin-right: 8px;
-      padding-left: 16px;
-      padding-right: 16px;
-      border-radius: 10px;
-      transition: none;
-      color: #ffffff;
-      background-image: linear-gradient(to right, rgba(108, 112, 134, 1), rgba(108, 112, 134, 1));
-    }
     #battery {
       margin-right: 8px;
       padding-left: 16px;
@@ -229,7 +206,6 @@ let
       "custom/memory"
       "temperature"
       "pulseaudio"
-      "backlight"
       "battery"
       "network"
       "tray"
@@ -250,17 +226,16 @@ let
       "path" = "/";
     };
     "network" = {
-      "interface" = "eno1";
       "format" = "{ifname}";
       "format-wifi" = "{essid} ({signalStrength}%)";
-      "format-ethernet" = "{ipaddr}/{cidr}  ";
+      "format-ethernet" = "{ipaddr}/{cidr} ";
       "format-disconnected" = "";
       "tooltip-format" = "{ifname} via {gwaddr} ";
       "tooltip-format-wifi" = "{essid} ({signalStrength}%)";
       "tooltip-format-ethernet" = "{ifname} ";
       "tooltip-format-disconnected" = "Disconnected";
       "max-length" = 60;
-      #"on-click": "wofi-wifi-menu"
+      "on-click" = "nm-connection-editor";
     };
     "hyprland/window" = {
       "format" = "-> {}";
@@ -283,15 +258,15 @@ let
     };
     "keyboard-state" = {
       "capslock" = true;
-      "format" = " {name} {icon}";
+      "format" = "{name} {icon}";
       "format-icons" = {
         "locked" = " ";
-        "unlocked" = " ";
+        "unlocked" = "";
       };
     };
     "sway/mode" = { "format" = ''<span style="italic">{}</span>''; };
     "clock" = {
-      "format" = "{:%a, %d %b, %I:%M %p}";
+      "format" = "{:%a, %d %b, %H:%M %p}";
       "tooltip-format" = ''
         <big>{:%Y %B}</big>
         <tt><small>{calendar}</small></tt>
@@ -305,7 +280,7 @@ let
       "return-type" = "json";
     };
     "pulseaudio" = {
-      "scrolling-step" = 3;
+      "scrolling-step" = 5;
       "format" = "{volume}% {icon} {format_source}";
       "format-bluetooth" = "{volume}% {icon}  {format_source}";
       "format-bluetooth-muted" = " {icon}  {format_source}";
@@ -333,18 +308,13 @@ let
       "on-click" = "$TERMINAL -e btop";
     };
     "temperature" = {
-      "hwmon-path" = "/sys/class/hwmon/hwmon2/temp1_input";
+      "hwmon-path" =
+        "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input";
       "critical-threshold" = 80;
       "format-critical" = "{temperatureC}°C {icon}";
       "format" = "{temperatureC}°C {icon}";
       "format-icons" = [ "" "" "" "" "" ];
       "tooltip" = false;
-    };
-    "backlight" = {
-      "device" = "intel_backlight";
-      "format" = "{percent}% {icon}";
-      "format-icons" = [ "" "" "" "" "" "" "" ];
-      "min-length" = 7;
     };
     "battery" = {
       "states" = {
@@ -360,7 +330,7 @@ let
     };
     "tray" = {
       "icon-size" = 16;
-      "spacing" = 0;
+      "spacing" = 1;
     };
   }];
 in {

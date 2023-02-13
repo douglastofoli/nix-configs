@@ -22,19 +22,13 @@
       firefox
       flameshot
       gnome.seahorse
+      obs-studio
 
       # File Management
       pcmanfm
       gnome.file-roller
       unzip
       unrar
-
-      # Xorg
-      # picom
-      xclip
-      # xorg.xev
-      # xorg.xkill
-      # xorg.xrandr
     ];
 
     file.".config/wallpaper.png".source = ../modules/themes/wallpaper.png;

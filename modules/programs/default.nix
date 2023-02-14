@@ -1,1 +1,1 @@
-  [ ./alacritty.nix ./rofi.nix ]
+  [ ./alacritty.nix ./wezterm.nix ]

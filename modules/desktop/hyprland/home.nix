@@ -180,12 +180,18 @@ in let
     windowrule = pin, title: ^(Picture-in-Picture)$
     windowrule = move 75% 75%, title: ^(Picture-in-Picture)$
     windowrule = size 24% 24%, title: ^(Picture-in-Picture)$
-    windowrule = float, class: TelegramDesktop
-    windowrule = float, class: TelegramDesktop
 
-    windowrule = float, ^(blueman-manager)$
-    windowrule = size 1000 600, ^(blueman-manager)$
-    windowrule = center, ^(blueman-manager)$
+    windowrule = workspace 1, title: ^(Mozilla Firefox)$
+    windowrule = workspace 4, title: ^(Telegram)$
+    windowrule = workspace 5, title: ^(Discord)$
+
+    windowrule = float, title: ^(Telegram)$
+    windowrule = move 75% 75%, title: ^(Telegram)$
+    windowrule = size 24% 24%, title: ^(Telegram)$
+
+    windowrule = float, title: ^(Bluetooth Devices)$
+    windowrule = size 1000 600, title: ^(Bluetooth Devices)$
+    windowrule = center, title: ^(Bluetooth Devices)$
   '';
 in {
   xdg.configFile."hypr/hyprland.conf".text = hyprlandConf;

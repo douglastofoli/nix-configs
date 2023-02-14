@@ -68,12 +68,8 @@
     vegur
     font-awesome
     corefonts
-    ubuntu_font_family
-    mononoki
 
-    (nerdfonts.override {
-      fonts = [ "JetBrainsMono" "RobotoMono" "SourceCodePro" ];
-    })
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
   environment = {
@@ -81,7 +77,7 @@
 
     variables = {
       EDITOR = "emacs";
-      TERMINAL = "alacritty";
+      TERMINAL = "wezterm";
       VISUAL = "emacs";
     };
 

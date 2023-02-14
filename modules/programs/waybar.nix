@@ -18,9 +18,7 @@ let
     }
     #window {
       margin-left: 8px;
-      margin-right: 8px;
-      padding-left: 16px;
-      padding-right: 16px;
+      padding: 0 16px 0 16px;
       border-radius: 10px;
       color: #11111b;
       background-image: linear-gradient(to right, rgba(180, 190, 254, 1), rgba(205, 214, 244, 1), rgba(186, 194, 222, 1));
@@ -28,21 +26,12 @@ let
     #network {
       margin-left: 8px;
       margin-right: 8px;
-      padding-left: 16px;
-      padding-right: 16px;
+      padding: 0 16px 0 16px;
       border-radius: 10px;
       background-image: linear-gradient(to right, rgba(127, 132, 156, 1), rgba(147, 153, 178, 1));
     }
-    #disk {
-      margin-left: 8px;
-      margin-right: 8px;
-      padding-left: 16px;
-      padding-right: 16px;
-      border-radius: 10px;
-      background-image: linear-gradient(to right, rgba(49, 50, 68, 1), rgba(69, 71, 90, 1));
-    }
     #workspaces {
-      margin-right: 8px;
+      margin-left: 8px;
       border-radius: 10px;
       transition: none;
       background: #171727;
@@ -51,7 +40,7 @@ let
       transition: none;
       color: #7c818c;
       background: transparent;
-      padding: 5px;
+      padding: 5px 10px 5px 8px;
       font-size: 16px;
     }
     #workspaces button.persistent {
@@ -71,41 +60,34 @@ let
       font-size: 20px;
     }
     #language {
-      padding-left: 16px;
-      padding-right: 8px;
+      padding: 0 16px 0 16px;
       border-radius: 10px 0px 0px 10px;
       transition: none;
       color: #ffffff;
       background: #383c4a;
     }
     #keyboard-state {
-      margin-right: 8px;
-      padding-left: 16px;
-      padding-right: 16px;
+      padding: 0 16px 0 16px;
       border-radius: 10px 10px 10px 10px;
       transition: none;
       color: #ffffff;
       background-image: linear-gradient(to right, rgba(17, 17, 27, 1), rgba(24, 24, 37, 1));
     }
     #keyboard-state > label.locked {
-      margin-right: 8px;
-      padding-left: 16px;
-      padding-right: 16px;
+      padding: 0 16px 0 16px;
       border-radius: 10px 10px 10px 10px;
       background-image: linear-gradient(to right, rgba(148, 226, 213, 1), rgba(137, 180, 250, 1));
       color: #11111d
     }
     #mode {
-      padding-left: 16px;
-      padding-right: 16px;
+      padding: 0 16px 0 16px;
       border-radius: 10px;
       transition: none;
       color: #ffffff;
       background: #383c4a;
     }
     #clock {
-      padding-left: 16px;
-      padding-right: 16px;
+      padding: 0 16px 0 16px;
       border-radius: 10px 0px 0px 10px;
       transition: none;
       color: #11111b;
@@ -119,22 +101,21 @@ let
       background-image: linear-gradient(to right, rgba(250, 179, 135, 1), rgba(249, 226, 175, 1));
     }
     #pulseaudio {
-      padding-left: 16px;
-      padding-right: 16px;
+      padding: 0 16px 0 16px;
       border-radius: 10px;
       transition: none;
       color: #ffffff;
       background-image: linear-gradient(to right, rgba(88, 91, 112, 1), rgba(108, 112, 134, 1));
     }
     #pulseaudio.muted {
+      padding: 0 16px 0 16px;
       background-image: linear-gradient(to right, rgba(148, 226, 213, 1), rgba(137, 180, 250, 1));
       background-color: #94e2d5;
       color: #11111b;
     }
     #custom-memory {
       margin-right: 8px;
-      padding-left: 16px;
-      padding-right: 16px;
+      padding: 0 16px 0 16px;
       border-radius: 10px;
       transition: none;
       color: #ffffff;
@@ -142,8 +123,7 @@ let
     }
     #temperature {
       margin-right: 8px;
-      padding-left: 16px;
-      padding-right: 16px;
+      padding: 0 16px 0 16px;
       border-radius: 10px;
       transition: none;
       color: #ffffff;
@@ -154,8 +134,7 @@ let
     }
     #battery {
       margin-right: 8px;
-      padding-left: 16px;
-      padding-right: 16px;
+      padding: 0 16px 0 16px;
       border-radius: 10px;
       transition: none;
       color: #ffffff;
@@ -179,8 +158,7 @@ let
       animation-direction: alternate;
     }
     #tray {
-      padding-left: 16px;
-      padding-right: 16px;
+      padding: 0 16px 0 16px;
       border-radius: 10px;
       transition: none;
       color: #ffffff;
@@ -201,15 +179,8 @@ let
 
     "modules-left" = [ "keyboard-state" "wlr/workspaces" "hyprland/window" ];
     "modules-center" = [ "clock" "custom/weather" ];
-    "modules-right" = [
-      "disk"
-      "custom/memory"
-      "temperature"
-      "pulseaudio"
-      "battery"
-      "network"
-      "tray"
-    ];
+    "modules-right" =
+      [ "custom/memory" "temperature" "pulseaudio" "battery" "network" "tray" ];
 
     "wlr/taskbar" = {
       "format" = "{icon}";
@@ -220,17 +191,11 @@ let
       "on-click-middle" = "close";
       "ignore-list" = [ "Alacritty" ];
     };
-    "disk" = {
-      "interval" = 60;
-      "format" = "{free}";
-      "path" = "/";
-    };
     "network" = {
       "format" = "{ifname}";
       "format-wifi" = "{essid} ({signalStrength}%)";
-      "format-ethernet" = "{ipaddr}/{cidr} ";
+      "format-ethernet" = "{ipaddr}/{cidr} ";
       "format-disconnected" = "";
-      "tooltip-format" = "{ifname} via {gwaddr} ";
       "tooltip-format-wifi" = "{essid} ({signalStrength}%)";
       "tooltip-format-ethernet" = "{ifname} ";
       "tooltip-format-disconnected" = "Disconnected";

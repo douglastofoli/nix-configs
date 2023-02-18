@@ -25,6 +25,8 @@
 ;; Key bindings
 (map! :leader
       :desc "Comment or uncomment lines" "TAB TAB" #'comment-line
+      (:prefix ("s" . "search")
+               :desc "Locate file" "f" #'project-find-file)
       (:prefix ("t" . "toggle")
                :desc "Toggle treemacs" "t" #'+treemacs/toggle
                :desc "Toggle vterm" "j" #'+vterm/toggle
@@ -47,3 +49,12 @@
 ;; Wakatime config
 (after! wakatime-mode
   (global-wakatime-mode 1))
+
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (("C-TAB" . 'copilot-accept-completion-by-word)
+         ("C-<tab>" . 'copilot-accept-completion-by-word)
+         :map copilot-completion-map
+         ("<tab>" . 'copilot-accept-completion)
+         ("TAB" . 'copilot-accept-completion)))

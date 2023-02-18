@@ -3,6 +3,7 @@
 let
   execute = ''
     exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+    exec-once=systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
     exec-once=${pkgs.swaybg}/bin/swaybg -m center -i $HOME/.config/wallpaper.png
     exec-once=${pkgs.waybar}/bin/waybar
     exec-once=${pkgs.blueman}/bin/blueman-applet
@@ -10,7 +11,7 @@ let
   '';
 in let
   hyprlandConf = with host; ''
-    monitor = ,preferred,auto,auto
+    monitor = ,preferred,auto,1
 
     input {
         kb_layout = br,us
@@ -20,79 +21,70 @@ in let
         kb_rules =
 
         follow_mouse = 1
+        float_switch_override_focus = true
 
         touchpad {
             natural_scroll = yes
         }
-
-        sensitivity = 0.7
     }
 
     general {
+        sensitivity = 1.0
+
         gaps_in = 3
         gaps_out = 5
-        border_size = 3
-        col.active_border = rgba(f38ba8FF) rgba(cba6f7FF) rgba(89b4faFF) rgba(fab387FF) 45deg
-        col.inactive_border = rgba(59595900)
+        border_size = 2
+        col.active_border = 0xb3cba6f7
+        col.inactive_border = 0xb3313244
         layout = dwindle
+
+        apply_sens_to_raw = 0
     }
 
     decoration {
-        rounding = 8
-        blur = yes
-        blur_size = 6.8
-        blur_passes = 3
-        blur_new_optimizations = on
-        inactive_opacity = 0.98
-
-        drop_shadow = no
-        shadow_range = 4
-        shadow_render_power = 3
-        col.shadow = rgba(1a1a1aee)
+        rounding = 5
+        blur = true
+        blur_size = 10
+        blur_passes = 4
+        blur_new_optimizations = true
     }
 
     animations {
-        enabled = yes
-
-        bezier = myBezier, 0.05, 0.9, 0.1, 1.05
-        bezier = overshot, 0.13, 0.99, 0.29, 1.1
-
-        animation = windows, 1, 5, overshot, popin
-        animation = border, 1, 5, default
-        animation = fade, 1, 5, default
-        animation = workspaces, 1, 6, default
+        enabled=1
+        animation=windows,1,4,default
+        animation=border,1,10,default
+        animation=fade,1,10,default
+        animation=workspaces,1,4,default
     }
 
     dwindle {
-        pseudotile = yes
-        pseudotile = true
-        preserve_split = yes
+        pseudotile = 0
         force_split = 2
-        no_gaps_when_only = 1
     }
 
     master {
-        new_is_master = true
-        new_on_top = true,
+        new_is_master = false
+        new_on_top = true
         no_gaps_when_only = true
     }
 
     gestures {
-        workspace_swipe = on
-        workspace_swipe_min_speed_to_force = 50
-        workspace_swipe_distance = 500
+        workspace_swipe = yes
     }
 
     misc {
-       disable_hyprland_logo = on
-       enable_swallow = true
-       no_vfr = true
-       animate_manual_resizes = false
+       disable_hyprland_logo = true
+       disable_splash_rendering = true
+       mouse_move_enables_dpms = true
+       no_vfr = false
     }
 
     device:epic mouse V1 {
         sensitivity = -0.5
     }
+
+    blurls = gtk-layer-shell
+    blurls = lockscreen
 
     $mainMod = SUPER
 
@@ -103,6 +95,9 @@ in let
     bind = $mainMod, D, exec, wofi --show drun
     bind = $mainMod, P, pseudo,
     bind = $mainMod, J, togglesplit,
+    bind = $mainMod, L, exec, ~/.setup/dotfiles/local/bin/logout.sh
+
+    bind = ALT, Space, exec, wofi-emoji
 
     bind = $mainMod, left, movefocus, l
     bind = $mainMod, right, movefocus, r
@@ -164,6 +159,7 @@ in let
     bind = , XF86AudioPlay, exec, playerctl play-pause
     bind = , XF86AudioNext, exec, playerctl next
     bind = , XF86AudioPrev, exec, playerctl previous
+    bind = , XF86PowerOff, exec, ~/.setup/dotfiles/local/bin/logout.sh
 
     # Scratchpad
     bind = $mainMod, minus, movetoworkspace,special
@@ -176,24 +172,25 @@ in let
     ${execute}
 
     # Window rules
-    windowrule = float, title: ^(Picture-in-Picture)$
-    windowrule = pin, title: ^(Picture-in-Picture)$
-    windowrule = move 75% 75%, title: ^(Picture-in-Picture)$
-    windowrule = size 24% 24%, title: ^(Picture-in-Picture)$
+    windowrule=float,title:^(Picture-in-Picture)$
+    windowrule=size 590 333,title:^(Picture-in-Picture)$
+    windowrule=move 1930 710,title:^(Picture-in-Picture)$
 
-    windowrule = workspace 1, title: ^(Mozilla Firefox)$
-    windowrule = workspace 4, title: ^(Telegram)$
-    windowrule = workspace 5, title: ^(Discord)$
+    windowrule=workspace 1,title:^(Firefox)(.*)$
+    windowrule=workspace 4,title:^(Telegram)$
+    windowrule=workspace 5,class:^(discord)$
 
-    windowrule = float, title: ^(Telegram)$
-    windowrule = move 75% 75%, title: ^(Telegram)$
-    windowrule = size 24% 24%, title: ^(Telegram)$
-
-    windowrule = float, title: ^(Bluetooth Devices)$
-    windowrule = size 1000 600, title: ^(Bluetooth Devices)$
-    windowrule = center, title: ^(Bluetooth Devices)$
+    windowrule=float,title:^(Telegram)$
+    windowrule=move 1080 150,title:^(Telegram)$
+    windowrule=size 1090 840,title:^(Telegram)$
+    windowrule=float,title:^(Bluetooth)(.*)$
+    windowrule=move 955 330,title:^(Bluetooth)(.*)$
+    windowrule=size 710 550,title:^(Bluetooth)(.*)$
   '';
 in {
+  imports = [ (import ../../programs/wofi.nix) ]
+    ++ [ (import ../../programs/wlogout.nix) ];
+
   xdg.configFile."hypr/hyprland.conf".text = hyprlandConf;
 
   programs.swaylock.settings = {

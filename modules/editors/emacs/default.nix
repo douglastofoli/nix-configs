@@ -12,6 +12,7 @@
     ripgrep
     fd
     nixfmt
+    gopls
 
     ((emacsPackagesFor emacs).emacsWithPackages (epkgs: [ epkgs.vterm ]))
   ];

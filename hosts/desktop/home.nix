@@ -7,6 +7,7 @@
 
   home = {
     packages = with pkgs; [
+      nodejs
       hugo
       jetbrains.datagrip
       etcher
@@ -18,14 +19,10 @@
       qalculate-gtk
       qbittorrent
       youtube-music
+      wakatime
       zoom-us
     ];
   };
 
-  programs.alacritty.settings.font.size = 12;
-
-  services = {
-    blueman-applet.enable = true;
-    picom.enable = true;
-  };
+  services = { blueman-applet.enable = true; };
 }

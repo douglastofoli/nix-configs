@@ -28,6 +28,7 @@
         export GPG_TTY=$(tty)
 
         PATH=$HOME/.emacs.d/bin:$PATH
+        PATH=$HOME/.local/bin:$PATH
       '';
     };
   };

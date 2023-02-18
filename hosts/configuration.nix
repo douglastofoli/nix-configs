@@ -3,8 +3,7 @@
 { config, lib, pkgs, inputs, user, location, ... }:
 
 {
-  imports = [ (import ./activation.nix) ] ++ (import ../modules/editors)
-    ++ (import ../modules/shell);
+  imports = (import ../modules/editors) ++ (import ../modules/shell);
 
   users.users = {
     root = {
@@ -60,6 +59,33 @@
       };
       pulse.enable = true;
       jack.enable = true;
+      wireplumber.enable = false;
+      media-session.enable = true;
+      config.pipewire = { "default.metadata" = true; };
+      media-session.config.bluez-monitor.rules = [
+        {
+          # Matches all cards
+          matches = [{ "device.name" = "~bluez_card.*"; }];
+          actions = {
+            "update-props" = {
+              "bluez5.reconnect-profiles" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
+              # mSBC is not expected to work on all headset + adapter combinations.
+              "bluez5.msbc-support" = true;
+            };
+          };
+        }
+        {
+          matches = [
+            # Matches all sources
+            {
+              "node.name" = "~bluez_input.*";
+            }
+            # Matches all outputs
+            { "node.name" = "~bluez_output.*"; }
+          ];
+          actions = { "node.pause-on-idle" = false; };
+        }
+      ];
     };
   };
 
@@ -77,16 +103,17 @@
 
     variables = {
       EDITOR = "emacs";
-      TERMINAL = "wezterm";
       VISUAL = "emacs";
+      BROWSER = "firefox";
+      TERMINAL = "wezterm";
     };
 
     systemPackages = with pkgs; [
-      playerctl
-      pulseaudio
+      gcc
+      gnumake
+      brightnessctl
       wev
       killall
-      nano
       vim
       pciutils
       usbutils

@@ -18,8 +18,8 @@
       pavucontrol
 
       # Apps
-      brave
       firefox
+      google-chrome
       flameshot
       gnome.seahorse
       obs-studio

@@ -1,1 +1,1 @@
-[ ./emacs ]
+[ ./emacs ./nvim ]

@@ -3,8 +3,7 @@
 let
   execute = ''
     exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-    exec-once=systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-    exec-once=${pkgs.swaybg}/bin/swaybg -m center -i $HOME/.config/wallpaper.png
+    exec-once=${pkgs.swaybg}/bin/swaybg -m center -i $HOME/.config/wallpaper.jpg
     exec-once=${pkgs.waybar}/bin/waybar
     exec-once=${pkgs.blueman}/bin/blueman-applet
     exec-once=${pkgs.networkmanagerapplet}/bin/nm-applet --indicator
@@ -76,7 +75,6 @@ in let
        disable_hyprland_logo = true
        disable_splash_rendering = true
        mouse_move_enables_dpms = true
-       no_vfr = false
     }
 
     device:epic mouse V1 {
@@ -192,6 +190,12 @@ in {
     ++ [ (import ../../programs/wlogout.nix) ];
 
   xdg.configFile."hypr/hyprland.conf".text = hyprlandConf;
+
+  home.file.".local/bin/kernel.sh".source = ../../../dotfiles/scripts/kernel.sh;
+  home.file.".local/bin/lock.sh".source = ../../../dotfiles/scripts/lock.sh;
+  home.file.".local/bin/logout.sh".source = ../../../dotfiles/scripts/logout.sh;
+  home.file.".local/bin/weather.py".source =
+    ../../../dotfiles/scripts/weather.py;
 
   programs.swaylock.settings = {
     color = "000000f0";

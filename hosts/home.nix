@@ -14,14 +14,11 @@
       btop
 
       # Video/Audio
-      feh
       pavucontrol
 
       # Apps
       firefox
       google-chrome
-      flameshot
-      gnome.seahorse
       obs-studio
 
       # File Management
@@ -31,7 +28,7 @@
       unrar
     ];
 
-    file.".config/wallpaper.png".source = ../modules/themes/wallpaper.png;
+    file.".config/wallpaper.png".source = ../modules/themes/wallpaper2.jpg;
 
     pointerCursor = {
       gtk.enable = true;
@@ -40,7 +37,7 @@
       size = 16;
     };
 
-    stateVersion = "22.05";
+    stateVersion = "22.11";
   };
 
   programs = { home-manager.enable = true; };

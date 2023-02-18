@@ -101,7 +101,6 @@ let
     }
   '';
 in {
-  # programs.wezterm.enable = true;
   home.packages = with pkgs; [ wezterm ];
 
   xdg.configFile."wezterm/wezterm.lua".text = weztermConf;

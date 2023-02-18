@@ -4,7 +4,6 @@ let colors = import ../themes/colors.nix;
 in {
   programs.alacritty = {
     enable = true;
-    #shell = { program = "${pkgs.zsh}/bin/zsh"; };
     settings = {
       env = { TERM = "xterm-256color"; };
       scrolling = { history = 10000; };

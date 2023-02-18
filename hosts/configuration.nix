@@ -44,7 +44,7 @@
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
-      pinentryFlavor = "gnome3";
+      # pinentryFlavor = "curses";
     };
   };
 
@@ -105,14 +105,13 @@
       EDITOR = "emacs";
       VISUAL = "emacs";
       BROWSER = "firefox";
-      TERMINAL = "wezterm";
+      TERMINAL = "alacritty";
     };
 
     systemPackages = with pkgs; [
       gcc
       gnumake
       brightnessctl
-      wev
       killall
       vim
       pciutils
@@ -154,6 +153,6 @@
       allowReboot = false;
       channel = "https://nixos.org/channels/nixos-unstable";
     };
-    stateVersion = "22.05";
+    stateVersion = "22.11";
   };
 }

@@ -1,12 +1,13 @@
 # Home manager configuration for desktop
 
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [ (import ../../modules/desktop/hyprland/home.nix) ];
 
   home = {
     packages = with pkgs; [
+      pulseaudio # installed to have pactl
       nodejs
       hugo
       jetbrains.datagrip
@@ -19,7 +20,6 @@
       qalculate-gtk
       qbittorrent
       youtube-music
-      wakatime
       zoom-us
     ];
   };

@@ -8,12 +8,13 @@
   };
 
   environment.systemPackages = with pkgs; [
-    coreutils
+    # emacs dependencies
     ripgrep
     fd
-    nixfmt
-    gopls
 
+    # plugins dependencies
+    nixfmt
+    wakatime
     ((emacsPackagesFor emacs).emacsWithPackages (epkgs: [ epkgs.vterm ]))
   ];
 }

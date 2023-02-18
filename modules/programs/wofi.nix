@@ -19,25 +19,6 @@ let
     gtk_dark=true
   '';
 
-  wofiWifiConf = ''
-    # Config for wofi-wifi-menu
-
-    # position values:
-    # 1 2 3
-    # 8 0 4
-    # 7 6 5
-    POSITION=3
-
-    #y-offset
-    YOFF=10
-
-    #x-offset
-    XOFF=-65
-
-    #fields to be displayed
-    FIELDS=SSID,IN-USE,BARS,SECURITY
-  '';
-
   wofiStyle = ''
     @define-color clear rgba(0, 0, 0, 0.0);
     @define-color primary rgba(0, 0, 0, 0.75);
@@ -56,6 +37,7 @@ let
       margin: 4px;
       margin-bottom: 8px;
       border: none;
+      border-radius: 8px;
       color: @foreground;
       background-color: #313244;
       outline: none;
@@ -63,8 +45,8 @@ let
     #inner-box {
       margin: 2px;
       border: 0px solid;
-      background-color: @clear;
       border-radius: 8px;
+      background-color: @clear;
     }
     #outer-box {
       margin: 5px;
@@ -88,7 +70,7 @@ let
       border-radius: 0px;
       background-color: transparent;
     }
-    #entry:selected {
+    entry:selected {
       margin: 0px 0px;
       border: none;
       border-radius: 8px;
@@ -97,6 +79,5 @@ let
   '';
 in {
   xdg.configFile."wofi/config".text = wofiConf;
-  xdg.configFile."wofi/wifi".text = wofiWifiConf;
   xdg.configFile."wofi/style.css".text = wofiStyle;
 }

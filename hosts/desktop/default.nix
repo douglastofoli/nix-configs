@@ -5,7 +5,7 @@
 {
   imports = [ (import ./hardware-configuration.nix) ]
     ++ [ (import ../../modules/desktop/hyprland) ]
-    ++ [ (import ../../overlays) ] ++ (import ../../modules/hardware);
+    ++ (import ../../modules/hardware);
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -17,7 +17,7 @@
       grub = {
         enable = true;
         efiSupport = true;
-        enableCryptodisk = true;
+        enableCryptodisk = false;
         devices = [ "nodev" ];
         version = 2;
         extraEntries = ''
@@ -56,25 +56,17 @@
 
   services = {
     blueman.enable = true;
-
-    autorandr = {
-      enable = true;
-
-      profiles = {
-        "default" = {
-          fingerprint = { HDMI-2 = "*"; };
-          config = {
-            HDMI-2 = {
-              enable = true;
-              primary = true;
-              rate = "74.99";
-              mode = "2560x1080";
-              rotate = "normal";
-              position = "0x0";
-            };
-          };
-        };
-      };
-    };
+    dbus.enable = true;
   };
+
+  nixpkgs.overlays = [
+    (self: super: {
+      discord = super.discord.overrideAttrs (_: {
+        src = builtins.fetchTarball {
+          url = "https://discord.com/api/download?platform=linux&format=tar.gz";
+          sha256 = "087p8z538cyfa9phd4nvzjrvx4s9952jz1azb2k8g6pggh1vxwm8";
+        };
+      });
+    })
+  ];
 }

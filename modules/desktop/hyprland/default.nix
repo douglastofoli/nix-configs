@@ -55,5 +55,8 @@ in {
     '';
   };
 
-  xdg.portal.wlr.enable = true;
+  xdg.portal = {
+    wlr.enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
 }

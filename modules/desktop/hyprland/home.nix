@@ -11,9 +11,10 @@ let
     exec=${pkgs.tdesktop}/bin/telegram-desktop
     exec=${pkgs.firefox}/bin/firefox
   '';
-in let
+in
+let
   hyprlandConf = with host; ''
-    monitor = ,preferred,auto,1
+    monitor = ,highrr,auto,1
 
     input {
         kb_layout = br,us
@@ -205,7 +206,8 @@ in let
 
     windowrule = animation fadeIn, ^(wlogout)$
   '';
-in {
+in
+{
   imports = [ (import ../../programs/wofi.nix) ]
     ++ [ (import ../../programs/wlogout.nix) ];
 

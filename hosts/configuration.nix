@@ -44,7 +44,6 @@
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
-      # pinentryFlavor = "curses";
     };
   };
 
@@ -68,7 +67,7 @@
     font-awesome
     corefonts
 
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    (nerdfonts.override { fonts = [ "DroidSansMono" "JetBrainsMono" ]; })
   ];
 
   environment = {

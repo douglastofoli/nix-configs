@@ -20,6 +20,11 @@
       qbittorrent
       youtube-music
       zoom-us
+
+      # langs
+      cargo
+      nodejs
+      rustc
     ];
   };
 

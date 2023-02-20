@@ -4,7 +4,7 @@ let
   layout = ''
     {
       "label" : "lock",
-      "action" : "~/.setup/dotfiles/local/bin/lock.sh",
+      "action" : "~/.local/bin/lock.sh",
       "text" : "Lock",
       "keybind" : "l"
     }

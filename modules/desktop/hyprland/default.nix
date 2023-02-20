@@ -15,23 +15,18 @@ in {
 
     variables = {
       XDG_CURRENT_DESKTOP = "Hyprland";
-      XDG_SESSION_DESKTOP = "Hyprland";
       XDG_SESSION_TYPE = "wayland";
-      XDG_CACHE_HOME = "\${HOME}/.cache";
-      XDG_CONFIG_HOME = "\${HOME}/.config";
-      XDG_BIN_HOME = "\${HOME}/.local/bin";
-      XDG_DATA_HOME = "\${HOME}/.local/share";
+      XDG_SESSION_DESKTOP = "Hyprland";
 
+      QT_AUTO_SCREEN_SCALE_FACTOR = "1";
       QT_QPA_PLATFORM = "wayland";
-      QT_QPA_PLATFORMTHEME = "gtk3";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+      QT_QPA_PLATFORMTHEME = "qt5ct";
 
+      SDL_VIDEODRIVER = "wayland";
+      _JAVA_AWT_WM_NONREPARENTING = "1";
+      CLUTTER_BACKEND = "wayland";
       GDK_BACKEND = "wayland";
-
-      WLR_NO_HARDWARE_CURSORS = "1";
-      WLR_RENDERER = "vulkan";
-
-      MOZ_ENABLE_WAYLAND = "1";
     };
 
     systemPackages = with pkgs; [
@@ -40,7 +35,7 @@ in {
       slurp
       swappy
       swaybg
-      swaylock
+      swaylock-effects
       wofi
       wofi-emoji
       wlogout
@@ -55,8 +50,5 @@ in {
     '';
   };
 
-  xdg.portal = {
-    wlr.enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  };
+  xdg.portal.wlr.enable = true;
 }

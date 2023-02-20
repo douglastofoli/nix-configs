@@ -28,7 +28,7 @@
       unrar
     ];
 
-    file.".config/wallpaper.png".source = ../modules/themes/wallpaper2.jpg;
+    file.".config/wallpaper.jpg".source = ../modules/themes/wallpaper2.jpg;
 
     pointerCursor = {
       gtk.enable = true;

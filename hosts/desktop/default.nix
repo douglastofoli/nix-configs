@@ -17,7 +17,6 @@
       grub = {
         enable = true;
         efiSupport = true;
-        enableCryptodisk = false;
         devices = [ "nodev" ];
         version = 2;
         extraEntries = ''
@@ -32,6 +31,11 @@
         '';
       };
     };
+  };
+
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [ vaapiIntel vaapiVdpau libvdpau-va-gl ];
   };
 
   networking = {

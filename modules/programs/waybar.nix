@@ -5,7 +5,7 @@ let
     * {
       border: none;
       border-radius: 0;
-      font-family: monospace;
+      font-family: monospace, "Font Awesome 6 Free Solid";
       font-weight: bold;
       font-size: 14px;
       min-height: 0;
@@ -44,7 +44,7 @@ let
       color: #cdd6f4;
       border-radius: 10px;
     }
-    #custom-language,
+    #language,
     #window,
     #clock,
     #pulseaudio,
@@ -69,7 +69,7 @@ let
       padding-right: 0px;
       padding-left: 5px;
     }
-    #custom-language {
+    #language {
       color: #f38ba8;
       border-radius: 10px 0px 0px 10px;
       border-right: 0px;
@@ -96,6 +96,9 @@ let
       border-left: 0px;
       margin-right: 10px;
     }
+    #pulseaudio.muted {
+      color: #313244;
+    }
     #backlight {
       color: #cba6f7;
       border-left: 0px;
@@ -111,7 +114,7 @@ let
     "modules-left" = [ "clock" "wlr/workspaces" ];
     "modules-center" = [ "hyprland/window" ];
     "modules-right" =
-      [ "tray" "custom/language" "network" "backlight" "pulseaudio" ];
+      [ "tray" "hyprland/language" "network" "backlight" "pulseaudio" ];
 
     "clock" = {
       "format" = "{: %R   %d/%m}";
@@ -136,21 +139,16 @@ let
         "10" = [ ];
       };
     };
-    "hyprland/window" = { "format" = "{}"; };
     "tray" = {
       "icon-size" = 13;
       "spacing" = 10;
     };
-    "custom/language" = {
-      #"exec" = "xkblayout-state print '%s'";
-      "interval" = 3;
-      "format" = " br";
-    };
+    "hyprland/language" = { "format" = " {}"; };
     "network" = {
-      "format-wifi" = "直 {essid}";
+      "format-wifi" = " {essid}";
       "format-ethernet" = " {ipaddr}/{cidr}";
       "format-linked" = "{ifname} (No IP) ";
-      "format-disconnected" = "睊 Disconnected";
+      "format-disconnected" = " Disconnected";
       "tooltip-format-wifi" =
         "Signal Strenght: {signalStrength}% | Down Speed: {bandwidthDownBits}, Up Speed: {bandwidthUpBits}";
       "on-click" = "wofi-wifi-menu";
@@ -165,22 +163,23 @@ let
     };
     "pulseaudio" = {
       "format" = "{icon} {volume}% {format_source}";
-      "format-muted" = "ﱝ Muted {format_source}";
-      "format-bluetooth" = "{icon}  {volume}% {format_source}";
-      "format-bluetooth-muted" = "   Muted {format_source}";
+      "format-muted" = " Muted {format_source}";
+      "format-bluetooth" = " {volume}% {format_source}";
+      "format-bluetooth-muted" = " Muted {format_source}";
+      "tooltip-format" = "{icon} {desc}";
       "format-source" = " {volume}%";
       "format-source-muted" = "";
-      "on-click" = "";
+      "on-click" = "pavucontrol";
       "on-click-middle" = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
       "scroll-step" = 1;
       "format-icons" = {
         "headphone" = "";
         "hands-free" = "";
-        "headset" = "";
+        "headset" = "";
         "phone" = "";
         "portable" = "";
         "car" = "";
-        "default" = [ "奄" "奔" "墳" ];
+        "default" = [ "" "" "" ];
       };
     };
   }];

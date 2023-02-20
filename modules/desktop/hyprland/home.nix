@@ -3,10 +3,13 @@
 let
   execute = ''
     exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-    exec-once=${pkgs.swaybg}/bin/swaybg -m center -i $HOME/.config/wallpaper.jpg
+    exec-once=${pkgs.swaybg}/bin/swaybg -m fill -i $HOME/.config/wallpaper.jpg
     exec-once=${pkgs.waybar}/bin/waybar
     exec-once=${pkgs.blueman}/bin/blueman-applet
     exec-once=${pkgs.networkmanagerapplet}/bin/nm-applet --indicator
+
+    exec=${pkgs.tdesktop}/bin/telegram-desktop
+    exec=${pkgs.firefox}/bin/firefox
   '';
 in let
   hyprlandConf = with host; ''
@@ -25,75 +28,90 @@ in let
         touchpad {
             natural_scroll = yes
         }
+
+        sensitivity = 0.7
     }
 
     general {
-        sensitivity = 1.0
+        layout = dwindle
 
         gaps_in = 3
         gaps_out = 5
-        border_size = 2
-        col.active_border = 0xb3cba6f7
-        col.inactive_border = 0xb3313244
-        layout = dwindle
+        border_size = 3
+        no_border_on_floating = false,
 
-        apply_sens_to_raw = 0
+        col.active_border = rgba(f38ba8FF) rgba(cba6f7FF) rgba(89b4faFF) rgba(fab387FF) 45deg
+        col.inactive_border = rgba(59595900)
     }
 
     decoration {
-        rounding = 5
-        blur = true
-        blur_size = 10
-        blur_passes = 4
+        rounding = 8
+        blur = yes
+        blur_size = 6.8
+        blur_passes = 3
         blur_new_optimizations = true
+        inactive_opacity = 0.98
+
+        drop_shadow = no
+        shadow_range = 4
+        shadow_render_power = 3
+        col.shadow = rgba(1a1a1aee)
     }
 
     animations {
-        enabled=1
-        animation=windows,1,4,default
-        animation=border,1,10,default
-        animation=fade,1,10,default
-        animation=workspaces,1,4,default
+        enabled = yes
+
+        bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+        bezier = overshot,0.13,0.99,0.29,1.1
+
+        animation = windows, 1, 5, overshot, popin
+        animation = border, 1, 5, default
+        animation = fade, 1, 5, default
+        animation = workspaces, 1, 6, default
     }
 
     dwindle {
-        pseudotile = 0
+        pseudotile = yes
+        preserve_split = yes
+
+        pseudotile = true
         force_split = 2
+        no_gaps_when_only = 1
     }
 
     master {
-        new_is_master = false
-        new_on_top = true
+        new_is_master = true
+        new_on_top = true,
         no_gaps_when_only = true
     }
 
     gestures {
-        workspace_swipe = yes
+        workspace_swipe = on
+        workspace_swipe_min_speed_to_force = 50
+        workspace_swipe_distance = 550
     }
 
     misc {
-       disable_hyprland_logo = true
-       disable_splash_rendering = true
-       mouse_move_enables_dpms = true
+       disable_hyprland_logo = on
+       enable_swallow = true
+
+       animate_manual_resizes = false
     }
 
     device:epic mouse V1 {
         sensitivity = -0.5
     }
 
-    blurls = gtk-layer-shell
-    blurls = lockscreen
-
     $mainMod = SUPER
 
     bind = $mainMod, Return, exec, $TERMINAL
     bind = $mainMod SHIFT, Q, killactive,
-    bind = $mainMod SHIFT, E, exit,
+    bind = $mainMod SHIFT, E, exec, ~/.local/bin/logout.sh
     bind = $mainMod, V, togglefloating,
     bind = $mainMod, D, exec, wofi --show drun
     bind = $mainMod, P, pseudo,
     bind = $mainMod, J, togglesplit,
-    bind = $mainMod, L, exec, ~/.setup/dotfiles/local/bin/logout.sh
+    bind = $mainMod, L, exec, ~/.local/bin/lock.sh
 
     bind = ALT, Space, exec, wofi-emoji
 
@@ -149,15 +167,15 @@ in let
     bindm = $mainMod, mouse:273, resizewindow
 
     # Volume, brightness, media player
-    bind = , XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%
-    bind = , XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%
-    bind = , XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle
-    bind = , XF86MonBrightnessUp, exec, light -A 5
-    bind = , XF86MonBrightnessDown, exec, light -U 5
+    binde = , XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%
+    binde = , XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%
+    binde = , XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle
+    binde = , XF86MonBrightnessUp, exec, light -A 5
+    binde = , XF86MonBrightnessDown, exec, light -U 5
     bind = , XF86AudioPlay, exec, playerctl play-pause
     bind = , XF86AudioNext, exec, playerctl next
     bind = , XF86AudioPrev, exec, playerctl previous
-    bind = , XF86PowerOff, exec, ~/.setup/dotfiles/local/bin/logout.sh
+    bind = , XF86PowerOff, exec, ~/.local/bin/logout.sh
 
     # Scratchpad
     bind = $mainMod, minus, movetoworkspace,special
@@ -184,6 +202,8 @@ in let
     windowrule=float,title:^(Bluetooth)(.*)$
     windowrule=move 955 330,title:^(Bluetooth)(.*)$
     windowrule=size 710 550,title:^(Bluetooth)(.*)$
+
+    windowrule = animation fadeIn, ^(wlogout)$
   '';
 in {
   imports = [ (import ../../programs/wofi.nix) ]
@@ -191,34 +211,6 @@ in {
 
   xdg.configFile."hypr/hyprland.conf".text = hyprlandConf;
 
-  home.file.".local/bin/kernel.sh".source = ../../../dotfiles/scripts/kernel.sh;
   home.file.".local/bin/lock.sh".source = ../../../dotfiles/scripts/lock.sh;
   home.file.".local/bin/logout.sh".source = ../../../dotfiles/scripts/logout.sh;
-  home.file.".local/bin/weather.py".source =
-    ../../../dotfiles/scripts/weather.py;
-
-  programs.swaylock.settings = {
-    color = "000000f0";
-    font-size = "24";
-    indicator-idle-visible = false;
-    indicator-radius = 100;
-    indicator-thickness = 20;
-    inside-color = "00000000";
-    inside-clear-color = "00000000";
-    inside-ver-color = "00000000";
-    inside-wrong-color = "00000000";
-    key-hl-color = "79b360";
-    line-color = "000000f0";
-    line-clear-color = "000000f0";
-    line-ver-color = "000000f0";
-    line-wrong-color = "000000f0";
-    ring-color = "ffffff50";
-    ring-clear-color = "bbbbbb50";
-    ring-ver-color = "bbbbbb50";
-    ring-wrong-color = "b3606050";
-    text-color = "ffffff";
-    text-ver-color = "ffffff";
-    text-wrong-color = "ffffff";
-    show-failed-attempts = true;
-  };
 }

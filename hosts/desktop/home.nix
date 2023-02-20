@@ -7,8 +7,7 @@
 
   home = {
     packages = with pkgs; [
-      pulseaudio # installed to have pactl
-      nodejs
+      #pulseaudio # installed to have pactl
       hugo
       jetbrains.datagrip
       etcher
@@ -24,5 +23,10 @@
     ];
   };
 
-  services = { blueman-applet.enable = true; };
+  programs.alacritty.settings.font.size = 11;
+
+  services = {
+    blueman-applet.enable = true;
+    network-manager-applet.enable = true;
+  };
 }

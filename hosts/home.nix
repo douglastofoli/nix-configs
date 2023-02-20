@@ -24,8 +24,10 @@
       # File Management
       pcmanfm
       gnome.file-roller
+      rsync
       unzip
       unrar
+      zip
     ];
 
     file.".config/wallpaper.jpg".source = ../modules/themes/wallpaper2.jpg;
@@ -52,5 +54,6 @@
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
+    font = { name = "JetBrains Mono Nerd Font"; };
   };
 }

@@ -19,6 +19,7 @@
         efiSupport = true;
         devices = [ "nodev" ];
         version = 2;
+        useOSProber = true;
         extraEntries = ''
           menuentry "Windows 11" {
             insmod part_gpt
@@ -30,6 +31,8 @@
           }
         '';
       };
+
+      timeout = 3;
     };
   };
 
@@ -54,6 +57,11 @@
       enable = true;
       enableOnBoot = true;
     };
+  };
+
+  programs = {
+    dconf.enable = true;
+    light.enable = true;
   };
 
   programs.git.config.user.signingkey = "5DF64272B34553CA";

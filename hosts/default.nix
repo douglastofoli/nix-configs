@@ -17,7 +17,7 @@ in {
     specialArgs = {
       inherit inputs user location;
       host = {
-        hostName = "nixos";
+        hostName = "desktop";
         mainMonitor = "HDMI-2";
       };
     };
@@ -34,7 +34,7 @@ in {
         home-manager.extraSpecialArgs = {
           inherit user;
           host = {
-            hostName = "nixos";
+            hostName = "desktop";
             mainMonitor = "HDMI-2";
           };
         };

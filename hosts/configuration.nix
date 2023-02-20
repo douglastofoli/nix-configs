@@ -59,7 +59,6 @@
       };
       pulse.enable = true;
       jack.enable = true;
-      wireplumber.enable = true;
     };
   };
 
@@ -92,11 +91,6 @@
       pciutils
       usbutils
       wget
-
-      (if config.networking.networkmanager.enable then
-        networkmanagerapplet
-      else
-        "")
     ];
   };
 

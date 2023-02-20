@@ -10,7 +10,6 @@
       #pulseaudio # installed to have pactl
       hugo
       jetbrains.datagrip
-      etcher
       gimp
       discord
       tdesktop
@@ -22,9 +21,9 @@
       zoom-us
 
       # langs
-      cargo
-      nodejs
-      rustc
+      #cargo
+      #nodejs
+      #rustc
     ];
   };
 

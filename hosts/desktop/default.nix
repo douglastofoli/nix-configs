@@ -4,7 +4,7 @@
 
 {
   imports = [ (import ./hardware-configuration.nix) ]
-    ++ [ (import ../../modules/desktop/hyprland) ]
+    ++ [ (import ../../modules/desktop/xmonad) ]
     ++ (import ../../modules/hardware);
 
   boot = {
@@ -36,11 +36,6 @@
     };
   };
 
-  hardware.opengl = {
-    enable = true;
-    extraPackages = with pkgs; [ vaapiIntel vaapiVdpau libvdpau-va-gl ];
-  };
-
   networking = {
     hostName = "wizarch";
     networkmanager.enable = true;
@@ -64,8 +59,6 @@
     light.enable = true;
   };
 
-  programs.git.config.user.signingkey = "5DF64272B34553CA";
-
   services = {
     blueman.enable = true;
     dbus.enable = true;
@@ -76,7 +69,7 @@
       discord = super.discord.overrideAttrs (_: {
         src = builtins.fetchTarball {
           url = "https://discord.com/api/download?platform=linux&format=tar.gz";
-          sha256 = "087p8z538cyfa9phd4nvzjrvx4s9952jz1azb2k8g6pggh1vxwm8";
+          sha256 = "12yrhlbigpy44rl3icir3jj2p5fqq2ywgbp5v3m1hxxmbawsm6wi";
         };
       });
     })

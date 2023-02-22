@@ -1,18 +1,12 @@
 { lib, pkgs, protocol, ... }:
 
 {
-  programs = {
-    dconf.enable = true;
-    nm-applet.enable = true;
-  };
-
   services = {
     xserver = {
       enable = true;
-
-      layout = "br";
-
       desktopManager.xterm.enable = false;
+      
+      layout = "br";
 
       displayManager = {
         lightdm = {
@@ -55,16 +49,14 @@
 
   environment.systemPackages = with pkgs; [
     haskellPackages.dbus
-    haskellPackages.List
     haskellPackages.monad-logger
-    haskellPackages.haskell-language-server
-    haskellPackages.hoogle
     haskellPackages.xmobar
-    haskellPackages.alsa-core
-    haskellPackages.alsa-mixer
+    # haskellPackages.alsa-core
+    # haskellPackages.alsa-mixer
     trayer
     xdotool
     ghc
     yad
+    feh
   ];
 }

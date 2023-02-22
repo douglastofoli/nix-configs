@@ -20,7 +20,7 @@ Config { font            = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:h
                         -- Echos a "penguin" icon in front of the kernel output.
                       Run Com "echo" ["<fn=3>\xf17c</fn>"] "penguin" 3600
                         -- Get kernel version (script found in .local/bin)
-                    , Run Com ".local/bin/kernel" [] "kernel" 36000
+                    , Run Com ".local/bin/kernel.sh" [] "kernel" 36000
                         -- Echos a volume icon
                     , Run Com "echo" ["<fn=2>\xf6a8</fn>"] "volumeicon" 3600
                         -- Get volume status

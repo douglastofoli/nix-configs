@@ -8,12 +8,13 @@ in {
     enable = true;
     config = {
       user = {
-        name = "douglastofoli";
-        email = "tofoli.douglas@hotmail.com";
+        name = username;
+        email = email;
+        # signingkey = "5DF64272B34553CA";
       };
       core = { editor = "emacs"; };
       init = { defaultBranch = "main"; };
-      commit = { gpgsign = true; };
+      # commit = { gpgsign = true; };
       pull = { rebase = false; };
     };
   };

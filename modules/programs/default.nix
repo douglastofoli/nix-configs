@@ -1,1 +1,1 @@
-  [ ./alacritty.nix ]
+[ ./alacritty.nix ]

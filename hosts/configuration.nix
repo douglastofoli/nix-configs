@@ -14,16 +14,10 @@
     ${user} = {
       isNormalUser = true;
       extraGroups =
-        [ "audio" "docker" "input" "networkmanager" "video" "wheel" ];
+        [ "audio" "docker" "networkmanager" "video" "wheel" ];
       shell = pkgs.zsh;
       initialPassword = "123456";
     };
-  };
-
-  security = {
-    sudo.wheelNeedsPassword = true;
-    rtkit.enable = true;
-    polkit.enable = true;
   };
 
   time.timeZone = "America/Sao_Paulo";
@@ -57,17 +51,14 @@
         support32Bit = true;
       };
       pulse.enable = true;
-      jack.enable = true;
     };
   };
 
   fonts.fonts = with pkgs; [
-    carlito
-    vegur
     font-awesome
     corefonts
 
-    (nerdfonts.override { fonts = [ "DroidSansMono" "JetBrainsMono" ]; })
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
   environment = {
@@ -78,17 +69,13 @@
       VISUAL = "emacs";
       BROWSER = "firefox";
       TERMINAL = "alacritty";
-      LIBVA_DRIVER_NAME = "i965";
     };
 
     systemPackages = with pkgs; [
       gcc
       gnumake
-      brightnessctl
       killall
       vim
-      pciutils
-      usbutils
       wget
     ];
   };

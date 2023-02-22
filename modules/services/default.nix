@@ -1,1 +1,1 @@
-[ ./dunst.nix ]
+[ ./dunst.nix ./flameshot.nix ./picom.nix ]

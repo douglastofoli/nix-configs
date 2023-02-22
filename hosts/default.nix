@@ -16,14 +16,9 @@ in {
     inherit system;
     specialArgs = {
       inherit inputs user location;
-      host = {
-        hostName = "desktop";
-        mainMonitor = "HDMI-2";
-      };
     };
     modules = [
       nur.nixosModules.nur
-      hyprland.nixosModules.default
       ./desktop
       ./configuration.nix
 
@@ -33,10 +28,6 @@ in {
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = {
           inherit user;
-          host = {
-            hostName = "desktop";
-            mainMonitor = "HDMI-2";
-          };
         };
         home-manager.users.${user} = {
           imports = [ (import ./home.nix) ] ++ [ (import ./desktop/home.nix) ];

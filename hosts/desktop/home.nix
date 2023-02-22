@@ -3,11 +3,10 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ (import ../../modules/desktop/hyprland/home.nix) ];
+  imports = [(import ../../modules/desktop/xmonad/home.nix)];
 
   home = {
     packages = with pkgs; [
-      #pulseaudio # installed to have pactl
       hugo
       jetbrains.datagrip
       gimp
@@ -19,11 +18,6 @@
       qbittorrent
       youtube-music
       zoom-us
-
-      # langs
-      #cargo
-      #nodejs
-      #rustc
     ];
   };
 

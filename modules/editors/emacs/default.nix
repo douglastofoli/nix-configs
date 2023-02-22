@@ -1,9 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  services.emacs = {
-    enable = true;
-  };
+  services.emacs = { enable = true; };
 
   environment.systemPackages = with pkgs; [
     ripgrep

@@ -54,11 +54,6 @@
     };
   };
 
-  programs = {
-    dconf.enable = true;
-    light.enable = true;
-  };
-
   services = {
     blueman.enable = true;
     dbus.enable = true;

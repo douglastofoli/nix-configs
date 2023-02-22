@@ -1,6 +1,8 @@
 { lib, pkgs, protocol, ... }:
 
 {
+  programs.dconf.enable = true;
+
   services = {
     xserver = {
       enable = true;

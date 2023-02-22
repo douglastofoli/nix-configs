@@ -10,11 +10,11 @@ in {
       user = {
         name = username;
         email = email;
-        # signingkey = "5DF64272B34553CA";
+        signingkey = "4551DDB13FA45EA0";
       };
       core = { editor = "emacs"; };
       init = { defaultBranch = "main"; };
-      # commit = { gpgsign = true; };
+      commit = { gpgsign = true; };
       pull = { rebase = false; };
     };
   };

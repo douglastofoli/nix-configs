@@ -3,7 +3,8 @@
 { config, pkgs, ... }:
 
 {
-  imports = [(import ../../modules/desktop/xmonad/home.nix)];
+  imports = [ (import ../../modules/desktop/xmonad/home.nix) ]
+    ++ [ (import ../../modules/editors/emacs/home.nix) ];
 
   home = {
     packages = with pkgs; [
@@ -18,6 +19,9 @@
       qbittorrent
       youtube-music
       zoom-us
+
+      nodejs
+      yarn
     ];
   };
 

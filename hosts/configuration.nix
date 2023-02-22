@@ -13,8 +13,7 @@
 
     ${user} = {
       isNormalUser = true;
-      extraGroups =
-        [ "audio" "docker" "networkmanager" "video" "wheel" ];
+      extraGroups = [ "audio" "docker" "networkmanager" "video" "wheel" ];
       shell = pkgs.zsh;
       initialPassword = "123456";
     };
@@ -57,6 +56,7 @@
   fonts.fonts = with pkgs; [
     font-awesome
     corefonts
+    mononoki
 
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
@@ -71,13 +71,7 @@
       TERMINAL = "alacritty";
     };
 
-    systemPackages = with pkgs; [
-      gcc
-      gnumake
-      killall
-      vim
-      wget
-    ];
+    systemPackages = with pkgs; [ gcc gnumake killall vim wget ];
   };
 
   nix = {

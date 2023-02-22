@@ -1,4 +1,4 @@
-Config { font            = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true"
+Config { font            = "xft:JetBrainsMono Nerd Font:weight=bold:pixelsize=11:antialias=true:hinting=true"
        , additionalFonts = [ "xft:Mononoki:pixelsize=11:antialias=true:hinting=true"
                            , "xft:Font Awesome 6 Free Solid:pixelsize=12"
                            , "xft:Font Awesome 6 Brands:pixelsize=12"
@@ -10,17 +10,13 @@ Config { font            = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:h
        --   an integer for the percentage width, so 100 would be 100%.
        --   an integer for the minimum pixel height for xmobar, so 24 would force a height of at least 24 pixels.
        --   NOTE: The height should be the same as the trayer (system tray) height.
-       , position       = TopSize L 100 24
+       , position       = TopSize L 100 30
        , lowerOnStart = True
        , hideOnStart  = False
        , allDesktops  = True
        , persistent   = True
        , iconRoot     = ".config/xmonad/xpm/" -- default: "."
-       , commands = [
-                        -- Echos a "penguin" icon in front of the kernel output.
-                      Run Com "echo" ["<fn=3>\xf17c</fn>"] "penguin" 3600
-                        -- Get kernel version (script found in .local/bin)
-                    , Run Com ".local/bin/kernel.sh" [] "kernel" 36000
+       , commands = [ Run Com "echo" ["<fc=#666666><fn=2>\xf053</fn></fc>"] "sep" 10000
                         -- Echos a volume icon
                     , Run Com "echo" ["<fn=2>\xf6a8</fn>"] "volumeicon" 3600
                         -- Get volume status
@@ -29,7 +25,12 @@ Config { font            = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:h
                                                     , "-c", "#ff5555"
                                                     ] 10
                         -- Cpu usage in percent
-                    , Run Cpu ["-t", "<fn=2>\xf108</fn>  cpu: (<total>%)","-H","50","--high","red"] 20
+                    , Run Cpu [ "--template", "<fc=#8be7fd><fn=2>\xf2db</fn> <total>%</fc>"
+                              , "--Low", "3"
+                              , "--High", "50"
+                              , "--low", "#8be7fd"
+                              , "--normal", "#8be7fd"
+                              , "--high", "#ff5555" ] 50
                         -- Ram used number and percent
                     , Run Memory ["-t", "<fn=2>\xf233</fn>  mem: <used>M (<usedratio>%)"] 20
                         -- Disk space free
@@ -41,7 +42,8 @@ Config { font            = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:h
                         -- Echos a "bell" icon in front of the pacman updates.
                     , Run Com "echo" ["<fn=2>\xf0f3</fn>"] "bell" 3600
                         -- Time and date
-                    , Run Date "<fn=2>\xf017</fn>  %b %d %Y - (%H:%M) " "date" 50
+                    , Run Date "<fc=#ff92d0><fn=2>\xf073</fn> %a %m/%_d</fc>" "date"  100000
+                    , Run Date "<fc=#bd93f9><fn=2>\xf017</fn> %H:%M</fc>" "time"  10
                         -- Script that dynamically adjusts xmobar padding depending on number of trayer icons.
                     , Run Com ".config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 20
                         -- Prints out the left side items such as workspaces, layout, etc.
@@ -49,5 +51,5 @@ Config { font            = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:h
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <action=`alacritty`><icon=haskell_20.xpm/></action> <fc=#4d4d4d><fn=1>|</fn></fc> %UnsafeStdinReader% }{ <box type=Bottom width=2 mb=2 color=#bd93f9><fc=#bd93f9>%penguin%  %kernel%</fc></box>    <box type=Bottom width=2 mb=2 color=#bd93f9><fc=#bd93f9>%volumeicon% %default:Master%</fc></box>    <box type=Bottom width=2 mb=2 color=#f1fa8c><fc=#f1fa8c><action=`alacritty -e btop`>%cpu%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#ff5555><fc=#ff5555><action=`alacritty -e htop`>%memory%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#5af78e><fc=#5af78e>%disku%</fc></box>    <box type=Bottom width=2 mb=2 color=#ff79c6><fc=#ff79c6>%uparrow%  %uptime%</fc></box>    <box type=Bottom width=2 mb=2 color=#caa9fa><fc=#caa9fa><action=`emacsclient -c -a 'emacs' --eval '(doom/window-maximize-buffer(dt/year-calendar))'`>%date%</action></fc></box> %trayerpad%"
-       }
+       , template = " <action=`alacritty`><icon=haskell_20.xpm/></action> <fc=#666666>|</fc> %UnsafeStdinReader%}{ <action=`alacritty -e btop`>%cpu%</action> <fc=#e6e6e6>%sep% %wlp3s0%</fc><fc=#f1fa8c> %sep% <action=`alacritty -e doas pacman -Syu --noconfirm`>%up% %check-updates%</action></fc> <fc=#f1fa8c>%sep% %battery%</fc> <action=`emacsclient -c -a 'emacs' --eval '(doom/window-maximize-buffer(cfw:open-org-calendar))'`>%date%</action>%time% <fc=#666666>%sep%</fc>%trayerpad%"
+}

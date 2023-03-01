@@ -42,6 +42,7 @@
 
   services = {
     devmon.enable = true;
+    yubikey-agent.enable = true;
 
     pipewire = {
       enable = true;
@@ -53,16 +54,41 @@
     };
   };
 
-  fonts.fonts = with pkgs; [
-    font-awesome
-    corefonts
-    mononoki
+  fonts = {
+    enableDefaultFonts = true;
+    fontconfig = {
+      enable = true;
 
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-  ];
+      hinting = {
+        enable = true;
+        autohint = false;
+      };
+
+      defaultFonts.emoji = [ "Noto Color Emoji" ];
+      defaultFonts.monospace = [ "Hack" ];
+      defaultFonts.sansSerif = [ "DejaVu Sans" ];
+      defaultFonts.serif = [ "DejaVu Serif" ];
+    };
+
+    fonts = with pkgs; [
+      font-awesome
+      corefonts
+      mononoki
+
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+
+      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    ];
+  };
 
   environment = {
     shells = [ pkgs.zsh ];
+
+    extraInit = ''
+      export SSH_AUTH_SOCK="/tmp/yubikey-agent.sock"
+    '';
 
     variables = {
       EDITOR = "emacs";
@@ -92,7 +118,6 @@
 
   nixpkgs.config = {
     allowUnfree = true;
-
     permittedInsecurePackages = [ "electron-12.2.3" "electron-13.6.9" ];
   };
 

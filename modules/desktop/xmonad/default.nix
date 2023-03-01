@@ -7,8 +7,10 @@
     xserver = {
       enable = true;
       desktopManager.xterm.enable = false;
-      
-      layout = "br";
+
+      layout = "br,us";
+      xkbModel = "pc105";
+      xkbOptions = "grp:alt_space_toggle";
 
       displayManager = {
         lightdm = {
@@ -36,7 +38,6 @@
         xmonad = {
           enable = true;
           enableContribAndExtras = true;
-          enableConfiguredRecompile = true;
         };
       };
 
@@ -51,10 +52,11 @@
 
   environment.systemPackages = with pkgs; [
     haskellPackages.dbus
+    haskellPackages.List
     haskellPackages.monad-logger
     haskellPackages.xmobar
-    # haskellPackages.alsa-core
-    # haskellPackages.alsa-mixer
+    haskellPackages.haskell-language-server
+
     trayer
     xdotool
     ghc

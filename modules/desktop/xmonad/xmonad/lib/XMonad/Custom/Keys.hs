@@ -1,59 +1,52 @@
 module XMonad.Custom.Keys (myKeys, showKeybindings) where
 
-import XMonad
-import XMonad.Util.SpawnOnce
-import System.Exit (exitSuccess)
-import Data.Maybe
-
-import XMonad.Prompt.OrgMode
-import XMonad.Prompt.FuzzyMatch
-import XMonad.Prompt.Workspace
-import XMonad.Prompt.Input
-import XMonad.Prompt.Shell (shellPrompt)
-import XMonad.Prompt.Man
-import XMonad.Prompt.Window
-import XMonad.Prompt.XMonad
-import XMonad.Prompt.Pass
-import XMonad.Prompt.Ssh
-import XMonad.Util.Run (spawnPipe)
-import XMonad.Actions.WindowGo (runOrRaise)
-import qualified XMonad.StackSet as W
-import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
-import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
-
-import XMonad.Operations
-
-import XMonad.Util.NamedScratchpad
-import XMonad.Util.NamedActions
-
-import System.IO (hClose, hPutStr)
 import Data.Char (toUpper)
-import XMonad.Actions.FloatKeys
-import XMonad.Actions.Submap
-import XMonad.Actions.Navigation2D
+import Data.Maybe
+import System.Exit (exitSuccess)
+import System.IO (hClose, hPutStr)
+import XMonad
 import XMonad.Actions.CopyWindow (kill1)
-import XMonad.Actions.WithAll (sinkAll, killAll)
-import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
+import XMonad.Actions.CycleWS (Direction1D (..), WSType (..), moveTo, nextScreen, nextWS, prevScreen, prevWS, shiftTo)
+import XMonad.Actions.FloatKeys
 import XMonad.Actions.GridSelect
-import XMonad.Actions.Promote
 import XMonad.Actions.Minimize
-import XMonad.Actions.CycleWS (Direction1D(..), moveTo, shiftTo, WSType(..), nextScreen, prevScreen, nextWS, prevWS)
-import qualified XMonad.Actions.Search as S
-
+import XMonad.Actions.Navigation2D
+import XMonad.Actions.Promote
+import XMonad.Actions.RotSlaves (rotAllDown, rotSlavesDown)
+import XMonad.Actions.Search qualified as S
+import XMonad.Actions.Submap
+import XMonad.Actions.WindowGo (runOrRaise)
+import XMonad.Actions.WithAll (killAll, sinkAll)
+import XMonad.Custom.GridSelect qualified as C
+import XMonad.Custom.Scratchpads qualified as C
+import XMonad.Custom.Variables qualified as C
+import XMonad.Custom.Workspaces qualified as C
+import XMonad.Custom.XPrompt qualified as C
+import XMonad.Hooks.ManageDocks
 import XMonad.Layout.LimitWindows
-import XMonad.Layout.SubLayouts
+import XMonad.Layout.MultiToggle qualified as MT (Toggle (..))
+import XMonad.Layout.MultiToggle.Instances (StdTransformers (MIRROR, NBFULL, NOBORDERS))
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Spacing
-import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
-
-import XMonad.Hooks.ManageDocks
-
-import qualified XMonad.Custom.Variables as C
-import qualified XMonad.Custom.Workspaces as C
-import qualified XMonad.Custom.Scratchpads as C
-import qualified XMonad.Custom.GridSelect as C
-import qualified XMonad.Custom.XPrompt as C
+import XMonad.Layout.SubLayouts
+import XMonad.Layout.ToggleLayouts qualified as T (ToggleLayout (Toggle), toggleLayouts)
+import XMonad.Operations
+import XMonad.Prompt.FuzzyMatch
+import XMonad.Prompt.Input
+import XMonad.Prompt.Man
+import XMonad.Prompt.OrgMode
+import XMonad.Prompt.Pass
+import XMonad.Prompt.Shell (shellPrompt)
+import XMonad.Prompt.Ssh
+import XMonad.Prompt.Window
+import XMonad.Prompt.Workspace
+import XMonad.Prompt.XMonad
+import XMonad.StackSet qualified as W
 import XMonad.Util.EZConfig (mkNamedKeymap)
+import XMonad.Util.NamedActions
+import XMonad.Util.NamedScratchpad
+import XMonad.Util.Run (spawnPipe)
+import XMonad.Util.SpawnOnce
 
 subtitle' :: String -> ((KeyMask, KeySym), NamedAction)
 subtitle' x =
@@ -129,6 +122,11 @@ myKeys c =
             ("M-S-,", addName "Rotate all windows except master" $ rotSlavesDown),
             ("M-S-.", addName "Rotate all windows current stack" $ rotAllDown)
           ]
+        -- \^++^ subKeys
+        --   "Prompts"
+        --   [ ("M-r <Space>", shellPrompt C.myXPConfig),
+        --     ("M-r o", orgPrompt C.myXPConfig "TODO" "$HOME/org-mode/todo.org")
+        --   ]
         ^++^ subKeys
           "Favorite programs"
           [ ("M-<Return>", addName "Launch terminal" $ spawn (C.myTerminal)),
@@ -209,7 +207,7 @@ myKeys c =
             ("M-u h", addName "mocp prev" $ spawn "mocp --previous"),
             ("M-u <Space>", addName "mocp toggle pause" $ spawn "mocp --toggle-pause")
           ]
-        -- ^++^ subKeys
+        -- \^++^ subKeys
         --   "GridSelect"
         --   [ ( "M-M1-<Return>",
         --       addName "Select favorite apps" $

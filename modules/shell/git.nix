@@ -1,5 +1,3 @@
-{ pkgs, ... }:
-
 let
   username = "douglastofoli";
   email = "tofoli.douglas@hotmail.com";

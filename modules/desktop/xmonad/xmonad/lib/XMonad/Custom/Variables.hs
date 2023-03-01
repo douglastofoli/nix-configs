@@ -1,9 +1,8 @@
 module XMonad.Custom.Variables where
 
 import XMonad
+import XMonad.Custom.Colors.Dracula qualified as C
 import XMonad.StackSet as W
-
-import qualified XMonad.Custom.Colors.Dracula as C
 
 myFont :: String
 myFont = "xft:JetBrainsMono Nerd Font:regular:size=14:antialias=true:hinting=true"

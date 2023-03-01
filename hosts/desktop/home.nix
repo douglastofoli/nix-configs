@@ -8,6 +8,7 @@
 
   home = {
     packages = with pkgs; [
+      google-drive-ocamlfuse
       hugo
       jetbrains.datagrip
       gimp
@@ -20,8 +21,9 @@
       youtube-music
       zoom-us
 
+      inotify-tools
+
       nodejs
-      yarn
     ];
   };
 

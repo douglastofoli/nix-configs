@@ -3,14 +3,95 @@
 {
   services.picom = {
     enable = true;
+    package = pkgs.picom-jonaburg;
 
-    package = pkgs.picom.overrideAttrs (_: {
-      src = pkgs.fetchFromGitHub {
-        repo = "picom";
-        owner = "jonaburg";
-        rev = "e3c19cd7d1108d114552267f302548c113278d45";
-        sha256 = "sha256-4voCAYd0fzJHQjJo4x3RoWz5l3JJbRvgIXn1Kg6nz6Y=";
+    shadow = false;
+    shadowOffsets = [ (-7) (-7) ];
+    shadowExclude = [
+      "name = 'Notification'"
+      "class_g ?= 'Notify-osd'"
+      "_GTK_FRAME_EXTENTS@:c"
+    ];
+
+    fade = true;
+    fadeSteps = [ 3.0e-2 3.0e-2 ];
+    fadeExclude = [ ];
+
+    menuOpacity = 0.8;
+    activeOpacity = 1.0;
+    inactiveOpacity = 0.8;
+
+    opacityRules = [
+      "80:class_g = 'xmobar'"
+      "100:class_g = 'Alacritty'"
+      "100:class_g = 'Emacs'"
+      "100:class_g = 'firefox'"
+    ];
+
+    wintypes = {
+      normal = {
+        fade = false;
+        shadow = false;
       };
-    });
+      tooltip = {
+        fade = true;
+        shadow = true;
+        opacity = 0.75;
+        focus = true;
+        full-shadow = false;
+      };
+      dock = { shadow = false; };
+      dnd = { shadow = false; };
+      popup_menu = { opacity = config.services.picom.menuOpacity; };
+      dropdown_menu = { opacity = config.services.picom.menuOpacity; };
+    };
+
+    vSync = true;
+
+    settings = {
+      transition-length = 300;
+      transition-pow-x = 0.1;
+      transition-pow-y = 0.1;
+      transition-pow-w = 0.1;
+      transition-pow-h = 0.1;
+      size-transition = true;
+
+      corner-radius = 8;
+      rounded-corners-exclude = [ "class_g = 'xmobar'" "class_g = 'trayer'" ];
+
+      round-borders = 1;
+      round-borders-exclude = [ "class_g = 'xmobar'" "class_g = 'trayer'" ];
+
+      shadow-radius = 8;
+
+      frame-opacity = 0.7;
+
+      inactive-opacity-override = false;
+
+      focus-exclude = [ "class_g = 'xmobar'" "class_g = 'trayer'" ];
+
+      blur = {
+        method = "kawase";
+        strength = 7;
+        background = false;
+        background-frame = false;
+        background-fixed = false;
+        kernel = "3x3box";
+      };
+
+      blur-background-exclude = [ "_GTK_FRAME_EXTENTS@:c" ];
+
+      experimental-backends = true;
+      backend = "glx";
+
+      mark-wmwin-focused = true;
+      mark-ovredir-focused = true;
+      detect-client-opacity = true;
+      refresh-rate = 0;
+      detect-transient = true;
+      detect-client-leader = true;
+      use-damage = false;
+      log-level = "info";
+    };
   };
 }

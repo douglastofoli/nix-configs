@@ -49,7 +49,7 @@
     vSync = true;
 
     settings = {
-      transition-length = 300;
+      transition-length = 200;
       transition-pow-x = 0.1;
       transition-pow-y = 0.1;
       transition-pow-w = 0.1;
@@ -62,7 +62,7 @@
       round-borders = 1;
       round-borders-exclude = [ "class_g = 'xmobar'" "class_g = 'trayer'" ];
 
-      shadow-radius = 8;
+      shadow-radius = 7;
 
       frame-opacity = 0.7;
 

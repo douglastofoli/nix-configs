@@ -22,7 +22,7 @@
       obs-studio
 
       # File Management
-      pcmanfm
+      gnome.nautilus
       gnome.file-roller
       rsync
       unzip

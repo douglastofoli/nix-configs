@@ -77,8 +77,8 @@ myKeys c =
           ("M-S-q", addName "Quit XMonad" $ io exitSuccess),
           ("M-S-c", addName "Kill focused window" $ kill1),
           ("M-S-a", addName "Kill all windows on WS" $ killAll),
-          ("M-S-<Return>", addName "Run rofi prompt" $ spawn "rofi -dmenu -p 'Run command:'"),
-          ("M-d", addName "Run rofi apps" $ spawn "rofi -no-lazy-grab -show drun"),
+          ("M-S-<Return>", addName "Run rofi prompt" $ spawn "sh $HOME/.config/rofi/bin/runner"),
+          ("M-d", addName "Run rofi apps" $ spawn "sh $HOME/.config/rofi/bin/launcher"),
           ("M-S-b", addName "Toggle bar show/hide" $ sendMessage ToggleStruts)
         ]
         ^++^ subKeys

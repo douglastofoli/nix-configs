@@ -1,18 +1,16 @@
 { lib, pkgs, protocol, ... }:
 
 {
-  programs = {
-    dconf.enable = true;
-    nm-applet.enable = true;
-  };
+  programs.dconf.enable = true;
 
   services = {
     xserver = {
       enable = true;
-
-      layout = "br";
-
       desktopManager.xterm.enable = false;
+
+      layout = "br,us";
+      xkbModel = "pc105";
+      xkbOptions = "grp:alt_space_toggle";
 
       displayManager = {
         lightdm = {
@@ -40,7 +38,6 @@
         xmonad = {
           enable = true;
           enableContribAndExtras = true;
-          enableConfiguredRecompile = true;
         };
       };
 
@@ -57,14 +54,13 @@
     haskellPackages.dbus
     haskellPackages.List
     haskellPackages.monad-logger
-    haskellPackages.haskell-language-server
-    haskellPackages.hoogle
     haskellPackages.xmobar
-    haskellPackages.alsa-core
-    haskellPackages.alsa-mixer
+    haskellPackages.haskell-language-server
+
     trayer
     xdotool
     ghc
     yad
+    feh
   ];
 }

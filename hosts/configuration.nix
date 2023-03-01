@@ -13,17 +13,10 @@
 
     ${user} = {
       isNormalUser = true;
-      extraGroups =
-        [ "audio" "docker" "input" "networkmanager" "video" "wheel" ];
+      extraGroups = [ "audio" "docker" "networkmanager" "video" "wheel" ];
       shell = pkgs.zsh;
       initialPassword = "123456";
     };
-  };
-
-  security = {
-    sudo.wheelNeedsPassword = true;
-    rtkit.enable = true;
-    polkit.enable = true;
   };
 
   time.timeZone = "America/Sao_Paulo";
@@ -49,6 +42,7 @@
 
   services = {
     devmon.enable = true;
+    yubikey-agent.enable = true;
 
     pipewire = {
       enable = true;
@@ -57,40 +51,53 @@
         support32Bit = true;
       };
       pulse.enable = true;
-      jack.enable = true;
     };
   };
 
-  fonts.fonts = with pkgs; [
-    carlito
-    vegur
-    font-awesome
-    corefonts
+  fonts = {
+    enableDefaultFonts = true;
+    fontconfig = {
+      enable = true;
 
-    (nerdfonts.override { fonts = [ "DroidSansMono" "JetBrainsMono" ]; })
-  ];
+      hinting = {
+        enable = true;
+        autohint = false;
+      };
+
+      defaultFonts.emoji = [ "Noto Color Emoji" ];
+      defaultFonts.monospace = [ "Hack" ];
+      defaultFonts.sansSerif = [ "DejaVu Sans" ];
+      defaultFonts.serif = [ "DejaVu Serif" ];
+    };
+
+    fonts = with pkgs; [
+      font-awesome
+      corefonts
+      mononoki
+
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+
+      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    ];
+  };
 
   environment = {
     shells = [ pkgs.zsh ];
+
+    extraInit = ''
+      export SSH_AUTH_SOCK="/tmp/yubikey-agent.sock"
+    '';
 
     variables = {
       EDITOR = "emacs";
       VISUAL = "emacs";
       BROWSER = "firefox";
       TERMINAL = "alacritty";
-      LIBVA_DRIVER_NAME = "i965";
     };
 
-    systemPackages = with pkgs; [
-      gcc
-      gnumake
-      brightnessctl
-      killall
-      vim
-      pciutils
-      usbutils
-      wget
-    ];
+    systemPackages = with pkgs; [ gcc gnumake killall vim wget ];
   };
 
   nix = {
@@ -111,7 +118,6 @@
 
   nixpkgs.config = {
     allowUnfree = true;
-
     permittedInsecurePackages = [ "electron-12.2.3" "electron-13.6.9" ];
   };
 

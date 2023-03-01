@@ -1,4 +1,4 @@
-module Colors.Dracula where
+module XMonad.Custom.Colors.Dracula where
 
 import XMonad
 

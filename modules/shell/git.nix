@@ -1,5 +1,3 @@
-{ pkgs, ... }:
-
 let
   username = "douglastofoli";
   email = "tofoli.douglas@hotmail.com";
@@ -8,8 +6,9 @@ in {
     enable = true;
     config = {
       user = {
-        name = "douglastofoli";
-        email = "tofoli.douglas@hotmail.com";
+        name = username;
+        email = email;
+        signingkey = "4551DDB13FA45EA0";
       };
       core = { editor = "emacs"; };
       init = { defaultBranch = "main"; };

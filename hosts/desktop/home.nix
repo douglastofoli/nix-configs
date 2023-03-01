@@ -3,11 +3,12 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ (import ../../modules/desktop/hyprland/home.nix) ];
+  imports = [ (import ../../modules/desktop/xmonad/home.nix) ]
+    ++ [ (import ../../modules/editors/emacs/home.nix) ];
 
   home = {
     packages = with pkgs; [
-      #pulseaudio # installed to have pactl
+      google-drive-ocamlfuse
       hugo
       jetbrains.datagrip
       gimp
@@ -20,10 +21,9 @@
       youtube-music
       zoom-us
 
-      # langs
-      #cargo
-      #nodejs
-      #rustc
+      inotify-tools
+
+      nodejs
     ];
   };
 

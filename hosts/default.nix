@@ -1,6 +1,6 @@
 # These are the different profiles that can be used when building NixOS
 
-{ lib, inputs, nixpkgs, home-manager, nur, hyprland, user, location, ... }:
+{ lib, inputs, nixpkgs, home-manager, nur, user, location, ... }:
 
 let
   system = "x86_64-linux";
@@ -14,16 +14,9 @@ let
 in {
   desktop = lib.nixosSystem {
     inherit system;
-    specialArgs = {
-      inherit inputs user location;
-      host = {
-        hostName = "desktop";
-        mainMonitor = "HDMI-2";
-      };
-    };
+    specialArgs = { inherit inputs user location; };
     modules = [
       nur.nixosModules.nur
-      hyprland.nixosModules.default
       ./desktop
       ./configuration.nix
 
@@ -31,13 +24,7 @@ in {
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
-        home-manager.extraSpecialArgs = {
-          inherit user;
-          host = {
-            hostName = "desktop";
-            mainMonitor = "HDMI-2";
-          };
-        };
+        home-manager.extraSpecialArgs = { inherit user; };
         home-manager.users.${user} = {
           imports = [ (import ./home.nix) ] ++ [ (import ./desktop/home.nix) ];
         };

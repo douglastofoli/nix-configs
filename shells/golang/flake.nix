@@ -13,7 +13,7 @@
         pkgs = import nixpkgs { inherit system; };
 
         # enable on study environment
-        enableExercism = false;
+        enableExercism = true;
       in with pkgs; rec {
         devShells.default = callPackage ./shell.nix { inherit enableExercism; };
       });

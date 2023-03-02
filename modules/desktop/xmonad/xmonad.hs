@@ -750,7 +750,7 @@ main = do
   -- the xmonad, ya know...what the WM is named after!
   xmonad $
     addDescrKeys' ((mod4Mask, xK_F1), showKeybindings) myKeys $
-      docks . ewmh $
+      docks . ewmhFullscreen . ewmh $
         def
           { manageHook = myManageHook <+> manageDocks,
             handleEventHook = windowedFullscreenFixEventHook <> swallowEventHook (className =? "Alacritty" <||> className =? "st-256color" <||> className =? "XTerm") (return True) <> trayerPaddingXmobarEventHook,

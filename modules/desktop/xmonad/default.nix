@@ -38,6 +38,7 @@
         xmonad = {
           enable = true;
           enableContribAndExtras = true;
+          config = ./xmonad.hs;
         };
       };
 
@@ -62,7 +63,7 @@
     haskellPackages.xmobar
     haskellPackages.haskell-language-server
 
-    trayer
+    # trayer
     xdotool
     ghc
     yad

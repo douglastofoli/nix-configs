@@ -1,26 +1,20 @@
 {
-  description = "DevShell for Golang";
+  description = "Dev and Study envinronment for Golang";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    devshell-flake.url = "github:numtide/devshell";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs, flake-utils, devshell-flake }:
     flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = import nixpkgs { inherit system; };
-      in {
-        devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            go
-            gotools
-            golangci-lint
-            gopls
-            go-outline
-            gopkgs
-          ];
+      let
+        pkgs = import nixpkgs { inherit system; };
 
-          GOROOT = "${pkgs.go}/share/go";
-        };
+        # enable on study environment
+        enableExercism = false;
+      in with pkgs; rec {
+        devShells.default = callPackage ./shell.nix { inherit enableExercism; };
       });
 }

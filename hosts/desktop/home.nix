@@ -1,5 +1,3 @@
-# Home manager configuration for desktop
-
 { config, pkgs, ... }:
 
 {

@@ -73,11 +73,13 @@
     fonts = with pkgs; [
       font-awesome
       corefonts
-      mononoki
 
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
+      liberation_ttf
+
+      ubuntu_font_family
 
       (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
@@ -86,10 +88,6 @@
   environment = {
     shells = [ pkgs.zsh ];
 
-    extraInit = ''
-      export SSH_AUTH_SOCK="/tmp/yubikey-agent.sock"
-    '';
-
     variables = {
       EDITOR = "emacs";
       VISUAL = "emacs";
@@ -97,7 +95,7 @@
       TERMINAL = "alacritty";
     };
 
-    systemPackages = with pkgs; [ gcc gnumake killall vim wget ];
+    systemPackages = with pkgs; [ gcc gnumake killall vim xclip wget ];
   };
 
   nix = {

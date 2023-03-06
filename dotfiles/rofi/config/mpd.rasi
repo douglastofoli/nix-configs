@@ -44,7 +44,7 @@ textbox-prompt-colon {
     background-color:               @BG;
     text-color:                     @FG;
     padding:                        8px 12px 8px 12px;
-    font:			                "Iosevka Nerd Font 10";
+    font:			                "Font Awesome 6 Free Solid 11";
 }
 
 entry {

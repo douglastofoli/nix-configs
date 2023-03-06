@@ -1,7 +1,9 @@
 (setq user-full-name "douglastofoli"
       user-mail-address "tofoli.douglas@hotmail.com")
 
-(setq doom-theme 'doom-one)
+(setq doom-theme 'catppuccin)
+(setq catppuccin-flavor 'mocha)
+(catppuccin-reload)
 
 (setq org-directory "~/org/")
 

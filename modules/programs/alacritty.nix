@@ -7,85 +7,136 @@ in {
     settings = {
       env = { TERM = "xterm-256color"; };
       scrolling = { history = 10000; };
+      draw_bold_text_with_bright_colors = true;
       font = rec {
-        normal.family = "JetBrainsMono Nerd Font Mono";
-        bold.family = "JetBrainsMono Nerd Font Mono";
-        italic.family = "JetBrainsMono Nerd Font Mono";
+        normal = {
+          family = "JetBrainsMono Nerd Font";
+          style = "Regular";
+        };
+        bold = {
+          family = "JetBrainsMono Nerd Font";
+          style = "Bold";
+        };
+        italic = {
+          family = "JetBrainsMono Nerd Font";
+          style = "Italic";
+        };
+        bold_italic = {
+          family = "JetBrainsMono Nerd Font";
+          style = "Bold Italic";
+        };
         offset = {
           x = 0;
-          y = 0;
-        };
-        glyph_offset = {
-          x = 0;
-          y = 0;
+          y = 1;
         };
       };
-      colors = with colors.scheme.dracula; {
+      window = {
+        paddings = {
+          x = 6;
+          y = 6;
+        };
+
+        dynamic_padding = false;
+        opacity = 1.0;
+
+        title = "Alacritty";
+        class = {
+          instance = "Alacritty";
+          general = "Alacritty";
+        };
+      };
+      colors = with colors.scheme.catppuccin-mocha; {
         primary = {
-          background = "${background}";
-          foreground = "${foreground}";
-          bright_foreground = "${white}";
+          background = "${base}";
+          foreground = "${text}";
+          dim_foreground = "${text}";
+          bright_foreground = "${text}";
         };
+
         cursor = {
-          text = "CellBackground";
-          cursor = "CellForeground";
+          text = "${base}";
+          cursor = "${rosewater}";
         };
+
         vi_mode_cursor = {
-          text = "CellBackground";
-          cursor = "CellForeground";
+          text = "${base}";
+          cursor = "${lavender}";
         };
+
         search = {
-          matches = {
-            foreground = "${current_line}";
-            background = "${green}";
+          matchs = {
+            foreground = "${base}";
+            background = "${subtext0}";
           };
           focused_match = {
-            foreground = "${current_line}";
-            background = "${orange}";
+            foreground = "${base}";
+            background = "${green}";
+          };
+          footer_bar = {
+            foreground = "${base}";
+            background = "${subtext0}";
           };
         };
-        footer_bar = {
-          background = "${background}";
-          foreground = "${foreground}";
-        };
+
         hints = {
           start = {
-            foreground = "${background}";
+            foreground = "${base}";
             background = "${yellow}";
           };
           end = {
-            foreground = "${yellow}";
-            background = "${background}";
+            foreground = "${base}";
+            background = "${subtext0}";
           };
         };
-        line_indicator = {
-          foreground = "None";
-          background = "None";
-        };
+
         selection = {
-          text = "CellForeground";
-          background = "${current_line}";
+          text = "${base}";
+          background = "${rosewater}";
         };
+
         normal = {
-          black = "${black}";
+          black = "${surface1}";
           red = "${red}";
           green = "${green}";
           yellow = "${yellow}";
-          blue = "${purple}";
+          blue = "${blue}";
           magenta = "${pink}";
-          cyan = "${cyan}";
-          white = "${foreground}";
+          cyan = "${teal}";
+          white = "${subtext1}";
         };
+
         bright = {
-          black = "${comment}";
-          red = "#ff6e6e";
-          green = "#69ff94";
-          yellow = "#ffffa5";
-          blue = "#d6acff";
-          magenta = "#ff92df";
-          cyan = "#a4ffff";
-          white = "${white}";
+          black = "${surface2}";
+          red = "${red}";
+          green = "${green}";
+          yellow = "${yellow}";
+          blue = "${blue}";
+          magenta = "${pink}";
+          cyan = "${teal}";
+          white = "${subtext0}";
         };
+
+        dim = {
+          black = "${surface1}";
+          red = "${red}";
+          green = "${green}";
+          yellow = "${yellow}";
+          blue = "${blue}";
+          magenta = "${pink}";
+          cyan = "${teal}";
+          white = "${subtext1}";
+        };
+
+        indexed_colors = [
+          {
+            index = 16;
+            color = "${peach}";
+          }
+          {
+            index = 17;
+            color = "${rosewater}";
+          }
+        ];
       };
     };
   };

@@ -10,19 +10,22 @@
     shadowExclude = [
       "name = 'Notification'"
       "class_g ?= 'Notify-osd'"
+      "class_g = 'slop'"
       "_GTK_FRAME_EXTENTS@:c"
     ];
 
     fade = true;
     fadeSteps = [ 3.0e-2 3.0e-2 ];
-    fadeExclude = [ ];
+    fadeExclude = [ "class_g = 'slop'" ];
 
     menuOpacity = 0.8;
     activeOpacity = 1.0;
     inactiveOpacity = 0.8;
 
     opacityRules = [
-      "80:class_g = 'xmobar'"
+      "100:class_g = 'slop'"
+      "95:class_g = 'xmobar'"
+      "95:class_g = 'Polybar'"
       "100:class_g = 'Alacritty'"
       "100:class_g = 'Emacs'"
       "100:class_g = 'firefox'"
@@ -57,10 +60,12 @@
       size-transition = true;
 
       corner-radius = 8;
-      rounded-corners-exclude = [ "class_g = 'xmobar'" "class_g = 'trayer'" ];
+      rounded-corners-exclude =
+        [ "class_g = 'xmobar'" "class_g = 'trayer'" "class_g = 'Polybar'" ];
 
       round-borders = 1;
-      round-borders-exclude = [ "class_g = 'xmobar'" "class_g = 'trayer'" ];
+      round-borders-exclude =
+        [ "class_g = 'xmobar'" "class_g = 'trayer'" "class_g = 'Polybar'" ];
 
       shadow-radius = 7;
 
@@ -68,7 +73,12 @@
 
       inactive-opacity-override = false;
 
-      focus-exclude = [ "class_g = 'xmobar'" "class_g = 'trayer'" ];
+      focus-exclude = [
+        "class_g = 'slop'"
+        "class_g = 'xmobar'"
+        "class_g = 'trayer'"
+        "class_g = 'Polybar'"
+      ];
 
       blur = {
         method = "kawase";
@@ -79,7 +89,7 @@
         kernel = "3x3box";
       };
 
-      blur-background-exclude = [ "_GTK_FRAME_EXTENTS@:c" ];
+      blur-background-exclude = [ "class_g = 'slop'" "_GTK_FRAME_EXTENTS@:c" ];
 
       experimental-backends = true;
       backend = "glx";

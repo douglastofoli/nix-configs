@@ -9,10 +9,10 @@ in {
       package = pkgs.papirus-icon-theme;
       size = "16x16";
     };
-    settings = with colors.scheme.dracula; {
+    settings = with colors.scheme.catppuccin-mocha; {
       global = {
         monitor = 0;
-        follow = "mouse";
+        follow = "none";
         width = 300;
         height = 300;
         origin = "top-right";
@@ -24,18 +24,20 @@ in {
         progress_bar_frame_width = 1;
         progress_bar_min_width = 150;
         progress_bar_max_width = 300;
+        progress_bar_corner_radius = 0;
         indicate_hidden = "yes";
-        transparency = 15;
+        transparency = 0;
         separator_height = 1;
         padding = 8;
-        horizontal_padding = 10;
+        horizontal_padding = 8;
         text_icon_padding = 0;
-        frame_width = 0;
-        frame_color = "${background}";
+        frame_width = 2;
+        frame_color = "${blue}";
+        gap_size = 4;
         separator_color = "frame";
         sort = "yes";
         idle_threshold = 120;
-        font = "RobotoMono Nerd Font 10";
+        font = "Ubuntu 10";
         line_height = 0;
         markup = "full";
         format = "<b>%s</b> %p\\n%b";
@@ -48,18 +50,18 @@ in {
         hide_duplicate_count = false;
         show_indicators = "yes";
         icon_position = "left";
-        min_icon_size = 0;
-        max_icon_size = 64;
+        min_icon_size = 32;
+        max_icon_size = 128;
         icon_path =
           "/usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/";
         sticky_history = "yes";
         history_length = 20;
         dmenu = "/usr/bin/dmenu -p dunst:";
-        browser = "/usr/bin/firefox -new-tab";
+        browser = "/run/current-system/sw/bin/xdg-open";
         always_run_script = true;
         title = "Dunst";
         class = "Dunst";
-        corner_radius = 0;
+        corner_radius = 8;
         ignore_dbusclose = false;
         force_xwayland = false;
         force_xinerama = false;
@@ -69,19 +71,19 @@ in {
       };
       experimental = { per_monitor_dpi = false; };
       urgency_low = {
-        background = "${background}";
-        foreground = "${comment}";
+        background = "${base}";
+        foreground = "${text}";
         timeout = 10;
       };
       urgency_normal = {
-        background = "${background}";
-        foreground = "${purple}";
+        background = "${base}";
+        foreground = "${text}";
         timeout = 10;
       };
       urgency_critical = {
-        background = "${red}";
-        foreground = "${foreground}";
-        frame_color = "${red}";
+        background = "${base}";
+        foreground = "${text}";
+        frame_color = "${peach}";
         timeout = 0;
       };
     };

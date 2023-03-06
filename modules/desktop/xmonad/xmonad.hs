@@ -446,7 +446,7 @@ myShowWNameTheme :: SWNConfig
 myShowWNameTheme =
   def
     { swn_font = "xft:Ubuntu:bold:size=60",
-      swn_fade = 1.0,
+      swn_fade = 0.5,
       swn_bgcolor = "#1c1f24",
       swn_color = "#ffffff"
     }
@@ -492,14 +492,13 @@ myManageHook =
       className =? "pinentry-gtk-2" --> doFloat,
       className =? "splash" --> doFloat,
       className =? "toolbar" --> doFloat,
+      className =? "TelegramDesktop" --> doFloat,
       className =? "Yad" --> doCenterFloat,
-      title =? "Oracle VM VirtualBox Manager" --> doFloat,
-      title =? "Order Chain - Market Snapshots" --> doFloat,
       title =? "Mozilla Firefox" --> doShift (myWorkspaces !! 1),
       className =? "Brave-browser" --> doShift (myWorkspaces !! 1),
-      className =? "mpv" --> doShift (myWorkspaces !! 7),
+      className =? "TelegramDesktop" --> doShift (myWorkspaces !! 3),
+      className =? "discord" --> doShift (myWorkspaces !! 4),
       className =? "Gimp" --> doShift (myWorkspaces !! 8),
-      className =? "VirtualBox Manager" --> doShift (myWorkspaces !! 4),
       (className =? "firefox" <&&> resource =? "Dialog") --> doFloat, -- Float Firefox Dialog
       isFullscreen --> doFullFloat
     ]
@@ -543,9 +542,9 @@ myKeys c =
           -- , ("M-S-q", addName "Quit XMonad"            $ spawn "dm-logout")
           ("M-S-c", addName "Kill focused window" $ kill1),
           ("M-S-a", addName "Kill all windows on WS" $ killAll),
-          ("M-S-<Return>", addName "Run prompt" $ sequence_ [spawn (mySoundPlayer ++ dmenuSound), spawn "~/.local/bin/dm-run"]),
           ("M-S-b", addName "Toggle bar show/hide" $ sendMessage ToggleStruts),
-          ("M-d", addName "Open Rofi launcher" $ spawn "sh $HOME/.config/rofi/bin/launcher")
+          ("M-d", addName "Open Rofi launcher" $ spawn "sh $HOME/.config/rofi/bin/launcher"),
+          ("M-S-e", addName "Open Rofi powermenu" $ spawn "sh $HOME/.config/rofi/bin/powermenu")
         ]
         ^++^ subKeys
           "Switch to workspace"
@@ -588,33 +587,11 @@ myKeys c =
             ("M-S-,", addName "Rotate all windows except master" $ rotSlavesDown),
             ("M-S-.", addName "Rotate all windows current stack" $ rotAllDown)
           ]
-        -- Dmenu scripts (dmscripts)
-        -- In Xmonad and many tiling window managers, M-p is the default keybinding to
-        -- launch dmenu_run, so I've decided to use M-p plus KEY for these dmenu scripts.
-        ^++^ subKeys
-          "Dmenu scripts"
-          [ ("M-p h", addName "List all dmscripts" $ spawn "dm-hub"),
-            ("M-p a", addName "Choose ambient sound" $ spawn "dm-sounds"),
-            ("M-p b", addName "Set background" $ spawn "dm-setbg"),
-            ("M-p c", addName "Choose color scheme" $ spawn "~/.local/bin/dtos-colorscheme"),
-            ("M-p C", addName "Pick color from scheme" $ spawn "dm-colpick"),
-            ("M-p e", addName "Edit config files" $ spawn "dm-confedit"),
-            ("M-p i", addName "Take a screenshot" $ spawn "dm-maim"),
-            ("M-p k", addName "Kill processes" $ spawn "dm-kill"),
-            ("M-p m", addName "View manpages" $ spawn "dm-man"),
-            ("M-p n", addName "Store and copy notes" $ spawn "dm-note"),
-            ("M-p o", addName "Browser bookmarks" $ spawn "dm-bookman"),
-            ("M-p p", addName "Passmenu" $ spawn "passmenu -p \"Pass: \""),
-            ("M-p q", addName "Logout Menu" $ spawn "dm-logout"),
-            ("M-p r", addName "Listen to online radio" $ spawn "dm-radio"),
-            ("M-p s", addName "Search various engines" $ spawn "dm-websearch"),
-            ("M-p t", addName "Translate text" $ spawn "dm-translate")
-          ]
         ^++^ subKeys
           "Favorite programs"
           [ ("M-<Return>", addName "Launch terminal" $ spawn (myTerminal)),
             ("M-b", addName "Launch web browser" $ spawn (myBrowser)),
-            ("M-M1-h", addName "Launch htop" $ spawn (myTerminal ++ " -e htop"))
+            ("M-M1-h", addName "Launch btop" $ spawn (myTerminal ++ " -e btop"))
           ]
         ^++^ subKeys
           "Monitors"
@@ -733,12 +710,7 @@ myKeys c =
             ("<XF86AudioMute>", addName "Toggle audio mute" $ spawn "amixer set Master toggle"),
             ("<XF86AudioLowerVolume>", addName "Lower vol" $ spawn "amixer set Master 5%- unmute"),
             ("<XF86AudioRaiseVolume>", addName "Raise vol" $ spawn "amixer set Master 5%+ unmute"),
-            ("<XF86HomePage>", addName "Open home page" $ spawn (myBrowser ++ " https://www.youtube.com/c/DistroTube")),
-            ("<XF86Search>", addName "Web search (dmscripts)" $ spawn "dm-websearch"),
-            ("<XF86Mail>", addName "Email client" $ runOrRaise "thunderbird" (resource =? "thunderbird")),
-            ("<XF86Calculator>", addName "Calculator" $ runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk")),
-            ("<XF86Eject>", addName "Eject /dev/cdrom" $ spawn "eject /dev/cdrom"),
-            ("<Print>", addName "Take screenshot (dmscripts)" $ spawn "dm-maim")
+            ("<Print>", addName "Open Rofi screenshot" $ spawn "sh $HOME/.config/rofi/bin/screenshot")
           ]
   where
     -- The following lines are needed for named scratchpads.
@@ -747,7 +719,6 @@ myKeys c =
 
 main :: IO ()
 main = do
-  -- the xmonad, ya know...what the WM is named after!
   xmonad $
     addDescrKeys' ((mod4Mask, xK_F1), showKeybindings) myKeys $
       docks . ewmhFullscreen . ewmh $

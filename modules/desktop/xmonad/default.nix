@@ -63,8 +63,7 @@
     haskellPackages.xmobar
     haskellPackages.haskell-language-server
 
-    # trayer
-    xdotool
+    # xdotool
     ghc
     yad
     feh

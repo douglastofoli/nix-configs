@@ -6,5 +6,5 @@ let projectName = "java";
 in mkShell {
   name = "${projectName}-shell";
 
-  packages = [ jdk ];
+  packages = [ clang-tools jdk ];
 }

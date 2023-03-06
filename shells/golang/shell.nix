@@ -17,7 +17,7 @@ let
 in mkShell {
   name = "${projectName}-shell";
 
-  packages = [ go gotools golangci-lint gopls go-outline gopkgs ]
+  packages = [ go gopls gomodifytags gotests gore gotools ]
     ++ (if enableExercism then
       [ exercism (python3.withPackages exercismPython) ] ++ fSharp
     else

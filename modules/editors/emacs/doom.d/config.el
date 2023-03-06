@@ -1,11 +1,35 @@
 (setq user-full-name "douglastofoli"
       user-mail-address "tofoli.douglas@hotmail.com")
 
-(setq doom-theme 'catppuccin)
-(setq catppuccin-flavor 'mocha)
-(catppuccin-reload)
+(setq doom-theme 'catppuccin
+      catppuccin-flavor 'mocha)
 
-(setq org-directory "~/org/")
+(after! org
+  (setq org-directory "~/org/"
+        org-default-notes-file (expand-file-name "notes.org" org-directory)
+        org-ellipsis " ▼ "
+        org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
+        org-superstar-itembullet-alist '((?+ . ?➤) (?- . ?✦)) ; changes +/- symbols in item lists
+        org-log-done 'time
+        org-hide-emphasis-markers t
+        org-table-convert-region-max-lines 20000
+        org-todo-keywords '((sequence "TODO(t)" "BLOG(b)" "PROJ(p)" "WORK(w)" "|" "DONE(d)" "CANCELLED(c)"))))
+
+(after! org
+  (setq org-agenda-files '("~/org/agenda.org")))
+
+(after! org
+  (setq org-journal-dir "~/org/journal/"
+        org-journal-date-prefix "* "
+        org-journal-time-prefix "** "
+        org-journal-date-format "%B %d, %Y (%A) "
+        org-journal-file-format "%Y-%m-%d.org"))
+
+(after! org
+  (setq org-roam-directory "~/org/roam"
+        org-roam-graph-viewer "/usr/bin/env firefox"))
+
+(setq bookmark-default-file "~/.doom.d/bookmarks")
 
 (setq display-line-numbers-type t)
 

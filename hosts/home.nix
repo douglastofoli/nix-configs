@@ -33,6 +33,7 @@
       zip
 
       # Xorg
+      xclip
       xorg.xwininfo
     ];
 

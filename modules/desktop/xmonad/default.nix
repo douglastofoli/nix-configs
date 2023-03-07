@@ -8,7 +8,6 @@
       enable = true;
 
       layout = "br,us";
-      xkbModel = "pc105";
       xkbOptions = "grp:alt_space_toggle";
 
       displayManager = {
@@ -27,9 +26,9 @@
                 };
               };
               cursorTheme = {
-                name = "Dracula-cursors";
-                package = pkgs.dracula-theme;
-                size = 16;
+                name = "Catppuccin-Mocha-Mauve-Cursors";
+                package = pkgs.catppuccin-cursors.mochaMauve;
+                size = 24;
               };
             };
           };

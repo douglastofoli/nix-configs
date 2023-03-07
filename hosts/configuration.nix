@@ -55,21 +55,6 @@
   };
 
   fonts = {
-    enableDefaultFonts = true;
-    fontconfig = {
-      enable = true;
-
-      hinting = {
-        enable = true;
-        autohint = false;
-      };
-
-      defaultFonts.emoji = [ "Noto Color Emoji" ];
-      defaultFonts.monospace = [ "Hack" ];
-      defaultFonts.sansSerif = [ "DejaVu Sans" ];
-      defaultFonts.serif = [ "DejaVu Serif" ];
-    };
-
     fonts = with pkgs; [
       font-awesome
       corefonts
@@ -95,7 +80,7 @@
       TERMINAL = "alacritty";
     };
 
-    systemPackages = with pkgs; [ cmake gcc gnumake killall vim xclip wget ];
+    systemPackages = with pkgs; [ cmake gcc gnumake killall vim wget ];
   };
 
   nix = {

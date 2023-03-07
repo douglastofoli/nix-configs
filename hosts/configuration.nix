@@ -95,7 +95,7 @@
       TERMINAL = "alacritty";
     };
 
-    systemPackages = with pkgs; [ gcc gnumake killall vim xclip wget ];
+    systemPackages = with pkgs; [ cmake gcc gnumake killall vim xclip wget ];
   };
 
   nix = {

@@ -31,15 +31,18 @@
       unzip
       unrar
       zip
+
+      # Xorg
+      xorg.xwininfo
     ];
 
     file.".config/wallpaper.jpg".source = ../modules/themes/wallpaper2.jpg;
 
     pointerCursor = {
       gtk.enable = true;
-      name = "Dracula-cursors";
-      package = pkgs.dracula-theme;
-      size = 16;
+      name = "Catppuccin-Mocha-Mauve-Cursors";
+      package = pkgs.catppuccin-cursors.mochaMauve;
+      size = 24;
     };
 
     stateVersion = "22.11";
@@ -50,12 +53,19 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Dracula";
-      package = pkgs.dracula-theme;
+      name = "Catppuccin-Mocha-Standard-Mauve-Dark";
+      package = pkgs.catppuccin-gtk.override {
+        accents = [ "mauve" ];
+        size = "standard";
+        variant = "mocha";
+      };
     };
     iconTheme = {
       name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
+      package = pkgs.catppuccin-papirus-folders.override {
+        accent = "mauve";
+        flavor = "mocha";
+      };
     };
     font = { name = "JetBrains Mono Nerd Font"; };
   };

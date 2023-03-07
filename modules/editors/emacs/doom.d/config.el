@@ -27,7 +27,7 @@
 
 (after! org
   (setq org-roam-directory "~/org/roam"
-        org-roam-graph-viewer "/usr/bin/env firefox"))
+        org-roam-graph-viewer "/etc/profiles/per-user/douglas/bin/firefox"))
 
 (setq bookmark-default-file "~/.doom.d/bookmarks")
 
@@ -62,7 +62,9 @@
                :desc "Toggle truncate lines" "T" #'toggle-truncate-lines)
       (:prefix ("b" . "buffer")
                :desc "List bookmarks" "L" #'list-bookmarks
-               :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
+               :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save)
+      (:prefix ("i" . "insert")
+               :desc "Insert auto-tangle tag" "a" #'dt/insert-auto-tangle-tag))
 
 (map! :desc "Toggle fold code block"
       "C-." #'+fold/toggle)
@@ -84,3 +86,16 @@
          :map copilot-completion-map
          ("<tab>" . 'copilot-accept-completion)
          ("TAB" . 'copilot-accept-completion)))
+
+(use-package! org-auto-tangle
+  :defer t
+  :hook (org-mode . org-auto-tangle-mode)
+  :config
+  (setq org-auto-tangle-default t))
+
+(defun dt/insert-auto-tangle-tag ()
+  "Insert auto-tangle tag in a literate config."
+  (interactive)
+  (evil-org-open-below 1)
+  (insert "#+auto_tangle: t ")
+  (evil-force-normal-state))

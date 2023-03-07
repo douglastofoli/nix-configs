@@ -6,7 +6,6 @@
   services = {
     xserver = {
       enable = true;
-      desktopManager.xterm.enable = false;
 
       layout = "br,us";
       xkbModel = "pc105";
@@ -20,8 +19,12 @@
           greeters = {
             gtk = {
               theme = {
-                name = "Dracula";
-                package = pkgs.dracula-theme;
+                name = "Catppuccin-Mocha-Standard-Mauve-Dark";
+                package = pkgs.catppuccin-gtk.override {
+                  accents = [ "mauve" ];
+                  size = "standard";
+                  variant = "mocha";
+                };
               };
               cursorTheme = {
                 name = "Dracula-cursors";
@@ -51,19 +54,16 @@
     };
   };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-  };
-
   environment.systemPackages = with pkgs; [
     haskellPackages.dbus
     haskellPackages.List
     haskellPackages.monad-logger
     haskellPackages.xmobar
     haskellPackages.haskell-language-server
+    haskellPackages.hoogle
+    haskellPackages.cabal-install
 
-    # xdotool
+    xdotool
     ghc
     yad
     feh

@@ -12,9 +12,12 @@ let
 
   lib = nixpkgs.lib;
 in {
-  desktop = lib.nixosSystem {
+  desktop = lib.nixosSystem { # Desktop profile
     inherit system;
-    specialArgs = { inherit inputs user location; };
+    specialArgs = {
+      inherit inputs user location;
+      host = { hostName = "desktop"; };
+    };
     modules = [
       nur.nixosModules.nur
       ./desktop
@@ -24,9 +27,12 @@ in {
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
-        home-manager.extraSpecialArgs = { inherit user; };
+        home-manager.extraSpecialArgs = {
+          inherit user;
+          host = { hostName = "desktop"; };
+        };
         home-manager.users.${user} = {
-          imports = [ (import ./home.nix) ] ++ [ (import ./desktop/home.nix) ];
+          imports = [ ./home.nix ./desktop/home.nix ];
         };
       }
     ];

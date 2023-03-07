@@ -19,7 +19,6 @@
         efiSupport = true;
         devices = [ "nodev" ];
         version = 2;
-        useOSProber = true;
         extraEntries = ''
           menuentry "Windows 11" {
             insmod part_gpt
@@ -31,8 +30,11 @@
           }
         '';
       };
+      timeout = 3;
     };
   };
+
+  hardware.opengl.enable = true;
 
   networking = {
     hostName = "wizarch";
@@ -55,6 +57,7 @@
   services = {
     blueman.enable = true;
     dbus.enable = true;
+    gnome.gnome-keyring.enable = true;
   };
 
   nixpkgs.overlays = [

@@ -6,6 +6,7 @@
   services = {
     xserver = {
       enable = true;
+      desktopManager.xterm.enable = false;
 
       layout = "br,us";
       xkbOptions = "grp:alt_space_toggle";
@@ -65,6 +66,9 @@
     xdotool
     ghc
     yad
-    feh
+
+    # xorg
+    xclip
+    xorg.xwininfo
   ];
 }

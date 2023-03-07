@@ -13,7 +13,8 @@
 
     ${user} = {
       isNormalUser = true;
-      extraGroups = [ "audio" "docker" "networkmanager" "video" "wheel" ];
+      extraGroups =
+        [ "audio" "camera" "docker" "networkmanager" "video" "wheel" ];
       shell = pkgs.zsh;
       initialPassword = "123456";
     };
@@ -26,6 +27,11 @@
       LC_TIME = "pt_BR.UTF-8";
       LC_MONETARY = "pt_BR.UTF-8";
     };
+  };
+
+  security = {
+    rtkit.enable = true;
+    polkit.enable = true;
   };
 
   console = {
@@ -42,7 +48,6 @@
 
   services = {
     devmon.enable = true;
-    yubikey-agent.enable = true;
 
     pipewire = {
       enable = true;
@@ -88,7 +93,7 @@
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 7d";
+      options = "--delete-older-than 3d";
     };
     package = pkgs.nixVersions.unstable;
     registry.nixpkgs.flake = inputs.nixpkgs;
@@ -110,6 +115,6 @@
       allowReboot = false;
       channel = "https://nixos.org/channels/nixos-unstable";
     };
-    stateVersion = "22.11";
+    stateVersion = "22.05";
   };
 }

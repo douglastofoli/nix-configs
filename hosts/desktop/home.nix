@@ -20,6 +20,8 @@
 
       inotify-tools
 
+      ispell
+
       nodejs
     ];
   };

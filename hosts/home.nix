@@ -14,6 +14,8 @@
       btop
 
       # Video/Audio
+      feh
+      vlc
       pavucontrol
 
       # Apps
@@ -31,10 +33,6 @@
       unzip
       unrar
       zip
-
-      # Xorg
-      xclip
-      xorg.xwininfo
     ];
 
     file.".config/wallpaper.jpg".source = ../modules/themes/wallpaper2.jpg;
@@ -46,7 +44,7 @@
       size = 24;
     };
 
-    stateVersion = "22.11";
+    stateVersion = "22.05";
   };
 
   programs = { home-manager.enable = true; };

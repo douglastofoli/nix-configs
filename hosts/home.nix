@@ -15,20 +15,19 @@
 
       # Video/Audio
       feh
-      vlc
       pavucontrol
 
       # Apps
       firefox
-      google-chrome
-      qutebrowser
-      nyxt
+      # google-chrome
+      # qutebrowser
+      # nyxt
       obs-studio
       maim # screenshot
 
       # File Management
-      gnome.nautilus
-      gnome.file-roller
+      # gnome.nautilus
+      # gnome.file-roller
       rsync
       unzip
       unrar
@@ -39,8 +38,8 @@
 
     pointerCursor = {
       gtk.enable = true;
-      name = "Catppuccin-Mocha-Mauve-Cursors";
-      package = pkgs.catppuccin-cursors.mochaMauve;
+      name = "Catppuccin-Macchiato-Blue-Cursors";
+      package = pkgs.catppuccin-cursors.macchiatoBlue;
       size = 24;
     };
 
@@ -52,18 +51,18 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Catppuccin-Mocha-Standard-Mauve-Dark";
+      name = "Catppuccin-Macchiato-Standard-Blue-Dark";
       package = pkgs.catppuccin-gtk.override {
-        accents = [ "mauve" ];
+        accents = [ "blue" ];
         size = "standard";
-        variant = "mocha";
+        variant = "macchiato";
       };
     };
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.catppuccin-papirus-folders.override {
-        accent = "mauve";
-        flavor = "mocha";
+        accent = "blue";
+        flavor = "macchiato";
       };
     };
     font = { name = "JetBrains Mono Nerd Font"; };

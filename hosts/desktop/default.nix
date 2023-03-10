@@ -11,30 +11,21 @@
     kernelPackages = pkgs.linuxPackages_latest;
 
     loader = {
-      systemd-boot.enable = false;
-      efi.canTouchEfiVariables = true;
-
-      grub = {
+      systemd-boot = {
         enable = true;
-        efiSupport = true;
-        devices = [ "nodev" ];
-        version = 2;
-        extraEntries = ''
-          menuentry "Windows 11" {
-            insmod part_gpt
-            insmod fat
-            insmod search_fs_uuid
-            insmod chain
-            search --fs-uuid --set=root "6CAE-7A1E"
-            chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-          }
-        '';
+        configurationLimit = 5;
+        extraEntries = {
+          "windows.conf" = ''
+            title Windows 11
+            efi /EFI/Microsoft/Boot/bootmgfw.efi
+            options root=PARTUUID=6CAE-7A1E
+          '';
+        };
       };
+      efi.canTouchEfiVariables = true;
       timeout = 3;
     };
   };
-
-  hardware.opengl.enable = true;
 
   networking = {
     hostName = "wizarch";
@@ -57,7 +48,6 @@
   services = {
     blueman.enable = true;
     dbus.enable = true;
-    gnome.gnome-keyring.enable = true;
   };
 
   nixpkgs.overlays = [

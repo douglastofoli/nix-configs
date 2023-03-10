@@ -2,7 +2,7 @@
       user-mail-address "tofoli.douglas@hotmail.com")
 
 (setq doom-theme 'catppuccin
-      catppuccin-flavor 'mocha)
+      catppuccin-flavor 'macchiato)
 
 (after! org
   (setq org-directory "~/org/"
@@ -99,3 +99,11 @@
   (evil-org-open-below 1)
   (insert "#+auto_tangle: t ")
   (evil-force-normal-state))
+
+;; Elixir config
+(setq lsp-elixir-fetch-deps t
+     lsp-elixir-suggest-specs nil)
+
+;; Compile and test on save
+(setq alchemist-hooks-test-on-save t
+      alchemist-hooks-compile-on-save t)

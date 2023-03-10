@@ -4,12 +4,12 @@ let colors = import ../themes/colors.nix;
 in {
   services.dunst = {
     enable = true;
-    iconTheme = { # Icons
+    iconTheme = {
       name = "Papirus Dark";
       package = pkgs.papirus-icon-theme;
       size = "16x16";
     };
-    settings = with colors.scheme.catppuccin-mocha; {
+    settings = with colors.scheme.catppuccin-macchiato; {
       global = {
         monitor = 0;
         follow = "none";
@@ -89,8 +89,7 @@ in {
     };
   };
 
-  home.packages = with pkgs; [ libnotify ];
+  home.packages = [ pkgs.libnotify ];
 
-  xdg.dataFile."dbus-1/services/org.knopwob.dunst.service".source =
-    "${pkgs.dunst}/share/dbus-1/services/org.knopwob.dunst.service";
+  xdg.dataFile."dbus-1/services/org.knopwob.dunst.service".source = "${pkgs.dunst}/share/dbus-1/services/org.knopwob.dunst.service";
 }

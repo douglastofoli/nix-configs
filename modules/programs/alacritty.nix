@@ -45,7 +45,7 @@ in {
           general = "Alacritty";
         };
       };
-      colors = with colors.scheme.catppuccin-mocha; {
+      colors = with colors.scheme.catppuccin-macchiato; {
         primary = {
           background = "${base}";
           foreground = "${text}";

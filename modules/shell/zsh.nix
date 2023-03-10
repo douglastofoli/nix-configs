@@ -63,6 +63,7 @@
 
       shellInit = ''
         export GPG_TTY=$(tty)
+        export PATH="$HOME/.config/emacs/bin:$PATH"
       '';
     };
   };

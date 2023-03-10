@@ -5,7 +5,7 @@
 
   home = {
     packages = with pkgs; [
-      google-drive-ocamlfuse
+      # google-drive-ocamlfuse
       hugo
       jetbrains.datagrip
       gimp
@@ -19,8 +19,6 @@
       zoom-us
 
       inotify-tools
-
-      ispell
 
       nodejs
     ];

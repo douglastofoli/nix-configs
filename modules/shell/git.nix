@@ -8,7 +8,7 @@ in {
       user = {
         name = username;
         email = email;
-        signingkey = "4551DDB13FA45EA0";
+        signingkey = "";
       };
       core = { editor = "emacs"; };
       init = { defaultBranch = "main"; };

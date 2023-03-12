@@ -7,6 +7,8 @@
     fd
     ripgrep
 
+    nixfmt
+
     ((emacsPackagesFor emacs).emacsWithPackages
       (epkgs: with epkgs; [ editorconfig vterm ]))
   ];

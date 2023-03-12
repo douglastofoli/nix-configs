@@ -5,7 +5,7 @@
     enable = true;
     settings = {
       General = {
-        Name = "doug-bluetooth";
+        Name = "Bluetooth";
         Enable = "Source,Sink,Media,Socket";
         DiscoverableTimeout = 0;
         AlwaysPairable = true;

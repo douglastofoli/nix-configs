@@ -56,6 +56,7 @@
         support32Bit = true;
       };
       pulse.enable = true;
+      jack.enable = true;
     };
   };
 
@@ -85,7 +86,7 @@
       TERMINAL = "alacritty";
     };
 
-    systemPackages = with pkgs; [ cmake gcc gnumake killall vim wget ];
+    systemPackages = with pkgs; [ cmake gcc gnumake killall vim pciutils usbutils wget ];
   };
 
   nix = {

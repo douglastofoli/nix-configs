@@ -16,7 +16,10 @@ in {
     inherit system;
     specialArgs = {
       inherit inputs user location;
-      host = { hostName = "desktop"; };
+      host = { # System specific configuration
+        hostName = "desktop";
+        gitSigningKey = "B9BC08BF40A291A1";
+      };
     };
     modules = [
       nur.nixosModules.nur
@@ -29,7 +32,10 @@ in {
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = {
           inherit user;
-          host = { hostName = "desktop"; };
+          host = { # User specific configuration
+            hostName = "desktop";
+            alacrittyFontSize = 11;
+          };
         };
         home-manager.users.${user} = {
           imports = [ ./home.nix ./desktop/home.nix ];

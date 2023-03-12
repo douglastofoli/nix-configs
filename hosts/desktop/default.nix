@@ -1,6 +1,6 @@
 # Specific system configuration settings for desktop
 
-{ lib, pkgs, user, location, ... }:
+{ lib, pkgs, user, location, host, ... }:
 
 {
   imports = [ (import ./hardware-configuration.nix) ]
@@ -49,6 +49,8 @@
     blueman.enable = true;
     dbus.enable = true;
   };
+
+  programs.git.config.user.signingkey = lib.mkForce host.gitSigningKey;
 
   nixpkgs.overlays = [
     (self: super: {

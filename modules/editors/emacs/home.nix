@@ -1,5 +1,5 @@
 { config, ... }:
 
 {
-  home.file.".doom.d".source = ./doom.d;
+  xdg.configFile."doom".source = ./doom;
 }

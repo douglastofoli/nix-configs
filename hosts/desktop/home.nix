@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, host, ... }:
 
 {
   imports = [ (import ../../modules/editors/emacs/home.nix) ];
@@ -24,7 +24,7 @@
     ];
   };
 
-  programs.alacritty.settings.font.size = 11;
+  programs.alacritty.settings.font.size = lib.mkForce host.alacrittyFontSize;
 
   services = {
     blueman-applet.enable = true;

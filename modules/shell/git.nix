@@ -14,6 +14,13 @@ in {
       init = { defaultBranch = "main"; };
       commit = { gpgsign = true; };
       pull = { rebase = false; };
+      alias = {
+        ch = "checkout";
+        st = "status";
+        co = "commit";
+        ps = "push";
+        lg = "log --all --graph --decorate --oneline --abbrev-commit";
+      };
     };
   };
 }

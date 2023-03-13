@@ -1,6 +1,7 @@
 # These are the different profiles that can be used when building NixOS
 
-{ lib, inputs, nixpkgs, home-manager, nur, user, location, ... }:
+{ lib, inputs, nixpkgs, home-manager, nur, user, location, ...
+}:
 
 let
   system = "x86_64-linux";

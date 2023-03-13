@@ -3,7 +3,7 @@
 { config, lib, pkgs, inputs, user, location, ... }:
 
 {
-  imports = (import ../modules/editors) ++ (import ../modules/shell);
+  imports = (import ../modules/shell);
 
   users.users = {
     root = {
@@ -86,7 +86,16 @@
       TERMINAL = "alacritty";
     };
 
-    systemPackages = with pkgs; [ cmake gcc gnumake killall vim pciutils usbutils wget ];
+    systemPackages = with pkgs; [
+      cmake
+      gcc
+      gnumake
+      killall
+      vim
+      pciutils
+      usbutils
+      wget
+    ];
   };
 
   nix = {

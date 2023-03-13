@@ -9,6 +9,7 @@
       desktopManager.xterm.enable = false;
 
       layout = "br,us";
+      xkbModel = "pc105";
       xkbOptions = "grp:alt_space_toggle";
 
       displayManager = {
@@ -19,16 +20,16 @@
           greeters = {
             gtk = {
               theme = {
-                name = "Catppuccin-Mocha-Standard-Mauve-Dark";
+                name = "Catppuccin-Macchiato-Standard-Blue-Dark";
                 package = pkgs.catppuccin-gtk.override {
-                  accents = [ "mauve" ];
+                  accents = [ "blue" ];
                   size = "standard";
-                  variant = "mocha";
+                  variant = "macchiato";
                 };
               };
               cursorTheme = {
-                name = "Catppuccin-Mocha-Mauve-Cursors";
-                package = pkgs.catppuccin-cursors.mochaMauve;
+                name = "Catppuccin-Macchiato-Blue-Cursors";
+                package = pkgs.catppuccin-cursors.macchiatoBlue;
                 size = 24;
               };
             };

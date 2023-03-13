@@ -10,6 +10,6 @@
     nixfmt
 
     ((emacsPackagesFor emacs).emacsWithPackages
-      (epkgs: with epkgs; [ editorconfig vterm ]))
+      (epkgs: with epkgs; [ editorconfig emojify vterm ]))
   ];
 }

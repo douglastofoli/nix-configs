@@ -5,6 +5,7 @@
 {
   imports = [ (import ./hardware-configuration.nix) ]
     ++ [ (import ../../modules/desktop/xmonad) ]
+    ++ [ (import ../../modules/editors/emacs) ]
     ++ (import ../../modules/hardware);
 
   boot = {

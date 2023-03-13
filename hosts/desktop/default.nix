@@ -6,7 +6,8 @@
   imports = [ (import ./hardware-configuration.nix) ]
     ++ [ (import ../../modules/desktop/xmonad) ]
     ++ [ (import ../../modules/editors/emacs) ]
-    ++ (import ../../modules/hardware);
+    ++ (import ../../modules/hardware)
+    ++ [ (import ../../modules/programs/firefox.nix) ];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -27,6 +28,8 @@
       timeout = 3;
     };
   };
+
+  environment.variables = { LIBVA_DRIVER_NAME = "i965"; };
 
   networking = {
     hostName = "wizarch";

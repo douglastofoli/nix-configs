@@ -1,6 +1,6 @@
 # These are the different profiles that can be used when building NixOS
 
-{ lib, inputs, nixpkgs, home-manager, nur, user, location, ...
+{ lib, inputs, nixpkgs, nixpkgs-pinned, home-manager, nur, user, location, ...
 }:
 
 let
@@ -11,8 +11,19 @@ let
     config.allowUnfree = true;
   };
 
+  pkgs-pinned = import nixpkgs-pinned {
+    inherit system;
+    config = { allowUnfree = true; };
+  };
+
   lib = nixpkgs.lib;
+
+  insync-v3 =
+    pkgs-pinned.libsForQt5.callPackage ../modules/programs/insync-v3.nix {
+      alsaLib = pkgs.alsaLib;
+    };
 in {
+
   desktop = lib.nixosSystem { # Desktop profile
     inherit system;
     specialArgs = {
@@ -32,7 +43,7 @@ in {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = {
-          inherit user;
+          inherit user insync-v3;
           host = { # User specific configuration
             hostName = "desktop";
             alacrittyFontSize = 11;

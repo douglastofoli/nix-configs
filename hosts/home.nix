@@ -18,10 +18,6 @@
       pavucontrol
 
       # Apps
-      firefox
-      # google-chrome
-      # qutebrowser
-      # nyxt
       obs-studio
       maim # screenshot
 

@@ -1,11 +1,10 @@
-{ config, lib, pkgs, host, ... }:
+{ config, lib, pkgs, host, insync-v3, ... }:
 
 {
   imports = [ (import ../../modules/editors/emacs/home.nix) ];
 
   home = {
     packages = with pkgs; [
-      # google-drive-ocamlfuse
       hugo
       jetbrains.datagrip
       gimp
@@ -19,6 +18,8 @@
       zoom-us
 
       inotify-tools
+
+      insync-v3
 
       nodejs
     ];

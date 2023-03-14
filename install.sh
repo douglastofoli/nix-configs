@@ -20,8 +20,6 @@ nix-env -iA nixos.git
 cd /mnt/etc/nixos
 
 git clone https://github.com/douglastofoli/nix-configs
-cp hardware-configuration.nix nix-configs/hosts/desktop/hardware-configuration.nix
-
 cd nix-configs
 
 nixos-install --flake .#desktop

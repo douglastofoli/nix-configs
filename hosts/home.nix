@@ -18,6 +18,8 @@
       pavucontrol
 
       # Apps
+      firefox
+      google-chrome
       obs-studio
       maim # screenshot
 

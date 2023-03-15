@@ -7,7 +7,7 @@ import System.Directory
 import System.Exit (exitSuccess)
 import System.IO (hClose, hPutStr, hPutStrLn)
 import XMonad
-import XMonad.Actions.CopyWindow (kill1)
+import XMonad.Actions.CopyWindow (copyToAll, kill1)
 import XMonad.Actions.CycleWS (Direction1D (..), WSType (..), moveTo, nextScreen, prevScreen, shiftTo)
 import XMonad.Actions.GridSelect
 import XMonad.Actions.MouseResize
@@ -19,7 +19,7 @@ import XMonad.Actions.WithAll (killAll, sinkAll)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks (ToggleStruts (..), avoidStruts, docks, manageDocks)
-import XMonad.Hooks.ManageHelpers (doCenterFloat, doFullFloat, isFullscreen)
+import XMonad.Hooks.ManageHelpers (doCenterFloat, doFullFloat, isDialog, isFullscreen)
 import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.StatusBar
@@ -137,7 +137,7 @@ myStartupHook = do
   spawn "sleep 2 && sh $HOME/.config/polybar/launch"
 
   spawnOnce "feh -zr --bg-fill --no-fehbg $HOME/.config/wallpaper.jpg"
-  spawnOnce "google-drive-ocamlfuse -label google-drive $HOME/GoogleDrive"
+  spawnOnce "insync start"
 
   setWMName "LG3D"
 
@@ -473,7 +473,7 @@ myLayoutHook =
 
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
 -- myWorkspaces = [" dev ", " www ", " sys ", " doc ", " vbox ", " chat ", " mus ", " vid ", " gfx "]
-myWorkspaces = ["1: dev", "2: www", "3: sys", "4: doc", "5: vbox", "6: chat", "7: mus", "8: vid", "9: gfx"]
+myWorkspaces = ["1: dev", "2: www", "3: sys", "4: chat", "5: disc", "6: mus", "7: vid", "8: img", "9: game"]
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook =
@@ -484,7 +484,6 @@ myManageHook =
     -- name of my workspaces and the names would be very long if using clickable workspaces.
     [ className =? "confirm" --> doFloat,
       className =? "file_progress" --> doFloat,
-      className =? "dialog" --> doFloat,
       className =? "download" --> doFloat,
       className =? "error" --> doFloat,
       className =? "Gimp" --> doFloat,
@@ -499,7 +498,9 @@ myManageHook =
       className =? "TelegramDesktop" --> doShift (myWorkspaces !! 3),
       className =? "discord" --> doShift (myWorkspaces !! 4),
       className =? "Gimp" --> doShift (myWorkspaces !! 8),
-      (className =? "firefox" <&&> resource =? "Dialog") --> doFloat, -- Float Firefox Dialog
+      (className =? "firefox" <&&> resource =? "Toolkit") --> doFloat, -- Float Firefox Toolkit
+      title =? "Picture-in-Picture" --> doF copyToAll,
+      isDialog --> doCenterFloat,
       isFullscreen --> doFullFloat
     ]
     <+> namedScratchpadManageHook myScratchPads

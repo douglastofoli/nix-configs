@@ -3,7 +3,8 @@
 { config, lib, pkgs, user, ... }:
 
 {
-  imports = (import ../modules/programs) ++ (import ../modules/services);
+  imports = (import ../modules/programs) ++ (import ../modules/services)
+    ++ [ (import ../modules/shell/zsh.nix) ];
 
   home = {
     username = "${user}";

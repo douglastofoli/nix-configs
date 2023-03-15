@@ -79,6 +79,8 @@
   environment = {
     shells = [ pkgs.zsh ];
 
+    pathsToLink = [ "/share/nix-direnv" ];
+
     variables = {
       EDITOR = "emacs";
       VISUAL = "emacs";

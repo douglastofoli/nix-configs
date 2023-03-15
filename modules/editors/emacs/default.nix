@@ -8,6 +8,7 @@
     ripgrep
 
     nixfmt
+    wakatime
 
     ((emacsPackagesFor emacs).emacsWithPackages
       (epkgs: with epkgs; [ editorconfig emojify vterm ]))

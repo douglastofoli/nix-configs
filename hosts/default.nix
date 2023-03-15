@@ -23,7 +23,6 @@ let
       alsaLib = pkgs.alsaLib;
     };
 in {
-
   desktop = lib.nixosSystem { # Desktop profile
     inherit system;
     specialArgs = {

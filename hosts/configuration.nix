@@ -32,6 +32,9 @@
   security = {
     rtkit.enable = true;
     polkit.enable = true;
+
+    pam.services.lightdm.enableGnomeKeyring =
+      config.services.xserver.displayManager.lightdm.enable;
   };
 
   console = {
@@ -48,6 +51,8 @@
 
   services = {
     devmon.enable = true;
+
+    gnome.gnome-keyring.enable = true;
 
     pipewire = {
       enable = true;

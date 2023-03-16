@@ -84,9 +84,6 @@ myNormColor = colorBack -- This variable is imported from Colors.THEME
 myFocusColor :: String -- Border color of focused windows
 myFocusColor = color15 -- This variable is imported from Colors.THEME
 
-mySoundPlayer :: String
-mySoundPlayer = "ffplay -nodisp -autoexit " -- The program that will play system sounds
-
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
@@ -132,7 +129,6 @@ colorTrayer = "--tint 0x282c34"
 
 myStartupHook :: X ()
 myStartupHook = do
-  spawnOnce (mySoundPlayer ++ startupSound)
   spawn "killall polybar" -- kill current polybar on each restart
   spawn "sleep 2 && sh $HOME/.config/polybar/launch"
 
@@ -494,9 +490,12 @@ myManageHook =
       className =? "TelegramDesktop" --> doFloat,
       className =? "Yad" --> doCenterFloat,
       title =? "Mozilla Firefox" --> doShift (myWorkspaces !! 1),
-      className =? "Brave-browser" --> doShift (myWorkspaces !! 1),
+      title =? "Google-chrome" --> doShift (myWorkspaces !! 1),
+      title =? "Bluetooth Device" --> doCenterFloat,
+      title =? "Volume Control" --> doCenterFloat,
       className =? "TelegramDesktop" --> doShift (myWorkspaces !! 3),
       className =? "discord" --> doShift (myWorkspaces !! 4),
+      className =? "YouTube Music" --> doShift (myWorkspaces !! 5),
       className =? "Gimp" --> doShift (myWorkspaces !! 8),
       (className =? "firefox" <&&> resource =? "Toolkit") --> doFloat, -- Float Firefox Toolkit
       title =? "Picture-in-Picture" --> doF copyToAll,
@@ -504,14 +503,6 @@ myManageHook =
       isFullscreen --> doFullFloat
     ]
     <+> namedScratchpadManageHook myScratchPads
-
-soundDir = "/opt/dtos-sounds/" -- The directory that has the sound files
-
-startupSound = soundDir ++ "startup-01.mp3"
-
-shutdownSound = soundDir ++ "shutdown-01.mp3"
-
-dmenuSound = soundDir ++ "menu-01.mp3"
 
 subtitle' :: String -> ((KeyMask, KeySym), NamedAction)
 subtitle' x =
@@ -539,8 +530,7 @@ myKeys c =
         "Xmonad Essentials"
         [ ("M-C-r", addName "Recompile XMonad" $ spawn "xmonad --recompile"),
           ("M-S-r", addName "Restart XMonad" $ spawn "xmonad --restart"),
-          ("M-S-q", addName "Quit XMonad" $ sequence_ [spawn (mySoundPlayer ++ shutdownSound), io exitSuccess]),
-          -- , ("M-S-q", addName "Quit XMonad"            $ spawn "dm-logout")
+          ("M-S-q", addName "Quit XMonad" $ io exitSuccess),
           ("M-S-c", addName "Kill focused window" $ kill1),
           ("M-S-a", addName "Kill all windows on WS" $ killAll),
           ("M-S-b", addName "Toggle bar show/hide" $ sendMessage ToggleStruts),

@@ -49,6 +49,11 @@
     };
   };
 
+  sound = {
+    enable = true;
+    mediaKeys.enable = true;
+  };
+
   services = {
     devmon.enable = true;
 
@@ -83,8 +88,6 @@
 
   environment = {
     shells = [ pkgs.zsh ];
-
-    pathsToLink = [ "/share/nix-direnv" ];
 
     variables = {
       EDITOR = "emacs";

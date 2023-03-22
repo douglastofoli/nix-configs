@@ -36,9 +36,9 @@
 (setq delete-by-moving-to-trash t
       trash-directory "~/.local/share/Trash/files/")
 
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
-      doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
-      doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 24))
+(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15)
+      doom-variable-pitch-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15)
+      doom-big-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 24))
 
 (after! doom-themes
   (setq doom-themes-enable-bold t

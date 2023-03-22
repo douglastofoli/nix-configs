@@ -57,7 +57,7 @@ import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
 myFont :: String
-myFont = "xft:JetBrainsMono Nerd Font:regular:size=11:antialias=true:hinting=true"
+myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=11:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask -- Sets modkey to super/windows key
@@ -538,7 +538,7 @@ subtitle' x =
 
 showKeybindings :: [((KeyMask, KeySym), NamedAction)] -> NamedAction
 showKeybindings x = addName "Show Keybindings" $ io $ do
-  h <- spawnPipe $ "yad --text-info --fontname=\"JetBrainsMono Nerd Font 12\" --fore=#46d9ff back=#282c36 --center --geometry=1200x800 --title \"XMonad keybindings\""
+  h <- spawnPipe $ "yad --text-info --fontname=\"SauceCodePro Nerd Font Mono 12\" --fore=#46d9ff back=#282c36 --center --geometry=1200x800 --title \"XMonad keybindings\""
   -- hPutStr h (unlines $ showKm x) -- showKM adds ">>" before subtitles
   hPutStr h (unlines $ showKmSimple x) -- showKmSimple doesn't add ">>" to subtitles
   hClose h
@@ -752,7 +752,7 @@ main = do
                 filterOutWsPP [scratchpadWorkspaceTag] $
                   xmobarPP
                     { ppOutput = hPutStrLn xmproc,
-                      ppCurrent = xmobarColor color13 "" . wrap "[" "]", -- . wrap "[" "]"
+                      ppCurrent = xmobarColor color13 "" . wrap "[ " " ]",
                       ppVisible = xmobarColor color15 "" . clickable,
                       ppHidden =
                         xmobarColor color04 ""
@@ -762,9 +762,9 @@ main = do
                           . clickable,
                       ppHiddenNoWindows = xmobarColor color19 "" . clickable,
                       ppTitle = xmobarColor color13 "" . shorten 60,
-                      ppSep = "<fc=" ++ color04 ++ "> <fn=1>|</fn> </fc>",
+                      ppSep = "<fc=" ++ color22 ++ ">    <fn=2>\xf054</fn>    </fc>",
                       ppUrgent = xmobarColor color05 "" . wrap "!" "!",
                       ppExtras = [windowCount],
-                      ppOrder = \(ws : l : t : ex) -> ["<fn=4>" ++ ws ++ "</fn>"] ++ ex ++ ["<fc=" ++ color06 ++ ">[" ++ l ++ "]</fc> " ++ t]
+                      ppOrder = \(ws : l : t : ex) -> ["<fn=4>" ++ ws ++ "</fn>"] ++ ex ++ ["<fc=" ++ color06 ++ ">[" ++ l ++ "]</fc>  " ++ t]
                     }
           }

@@ -14,7 +14,7 @@
     ${user} = {
       isNormalUser = true;
       extraGroups =
-        [ "audio" "camera" "docker" "networkmanager" "video" "wheel" ];
+        [ "audio" "camera" "docker" "kvm" "networkmanager" "video" "wheel" ];
       shell = pkgs.zsh;
       initialPassword = "123456";
     };
@@ -71,22 +71,14 @@
   };
 
   fonts = {
-    # enableDefaultFonts = true;
-    fontconfig = { antialias = true; };
-
     fonts = with pkgs; [
+      corefonts # Microsoft fonts
       font-awesome
-      corefonts
-
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-emoji
-      liberation_ttf
 
       mononoki
       ubuntu_font_family
 
-      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      (nerdfonts.override { fonts = [ "SourceCodePro" ]; })
     ];
   };
 

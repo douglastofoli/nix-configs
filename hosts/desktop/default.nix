@@ -36,6 +36,8 @@
     };
   };
 
+  environment.variables = { LIBVA_DRIVER_NAME = "i965"; };
+
   networking = {
     hostName = "wizarch";
     networkmanager.enable = true;

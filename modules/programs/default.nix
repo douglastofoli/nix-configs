@@ -1,1 +1,1 @@
-[ ./alacritty.nix ./polybar.nix ./rofi.nix ]
+[ ./alacritty.nix ./rofi.nix ]

@@ -6,7 +6,6 @@
   services = {
     xserver = {
       enable = true;
-      desktopManager.xterm.enable = false;
 
       layout = "br,us";
       xkbModel = "pc105";
@@ -54,6 +53,8 @@
       '';
     };
   };
+
+  xdg.portal.enable = true;
 
   environment.systemPackages = with pkgs; [
     haskellPackages.dbus

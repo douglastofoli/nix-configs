@@ -67,6 +67,7 @@
     xdotool
     ghc
     yad
+    trayer
 
     # xorg
     xclip

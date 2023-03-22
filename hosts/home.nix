@@ -17,6 +17,7 @@
       # Video/Audio
       feh
       pavucontrol
+      vlc
 
       # Apps
       firefox
@@ -25,8 +26,7 @@
       maim # screenshot
 
       # File Management
-      # gnome.nautilus
-      # gnome.file-roller
+      ranger
       rsync
       unzip
       unrar
@@ -42,7 +42,7 @@
       size = 24;
     };
 
-    stateVersion = "22.05";
+    stateVersion = "22.11";
   };
 
   programs = { home-manager.enable = true; };
@@ -64,6 +64,6 @@
         flavor = "macchiato";
       };
     };
-    font = { name = "JetBrains Mono Nerd Font"; };
+    font = { name = "SauceCodePro Nerd Font Mono"; };
   };
 }

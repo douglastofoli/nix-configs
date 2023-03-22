@@ -3,6 +3,7 @@ import Data.Map qualified as M
 import Data.Maybe (fromJust, isJust)
 import Data.Monoid
 import Data.Tree
+import Distribution.Backpack.LinkedComponent (dispLinkedComponent)
 import System.Directory
 import System.Exit (exitSuccess)
 import System.IO (hClose, hPutStr, hPutStrLn)
@@ -20,7 +21,6 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks (ToggleStruts (..), avoidStruts, docks, manageDocks)
 import XMonad.Hooks.ManageHelpers (doCenterFloat, doFullFloat, isDialog, isFullscreen)
-import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
@@ -48,9 +48,8 @@ import XMonad.Layout.ToggleLayouts qualified as T (ToggleLayout (Toggle), toggle
 import XMonad.Layout.WindowArranger (WindowArrangerMsg (..), windowArrange)
 import XMonad.Layout.WindowNavigation
 import XMonad.StackSet qualified as W
-import XMonad.Util.Dmenu
 import XMonad.Util.EZConfig (additionalKeysP, mkNamedKeymap)
-import XMonad.Util.Hacks (javaHack, trayAbovePanelEventHook, trayPaddingEventHook, trayPaddingXmobarEventHook, trayerAboveXmobarEventHook, trayerPaddingXmobarEventHook, windowedFullscreenFixEventHook)
+import XMonad.Util.Hacks (trayerPaddingXmobarEventHook, windowedFullscreenFixEventHook)
 import XMonad.Util.NamedActions
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.NamedWindows (getName)
@@ -58,7 +57,8 @@ import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
 myFont :: String
-myFont = "xft:JetBrainsMono Nerd Font:regular:size=11:antialias=true:hinting=true"
+-- myFont = "xft:JetBrainsMono Nerd Font:regular:size=11:antialias=true:hinting=true"
+myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=11:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask -- Sets modkey to super/windows key
@@ -79,7 +79,7 @@ myBorderWidth :: Dimension
 myBorderWidth = 2 -- Sets border width for windows
 
 myNormColor :: String -- Border color of normal windows
-myNormColor = colorBack -- This variable is imported from Colors.THEME
+myNormColor = color24 -- This variable is imported from Colors.THEME
 
 myFocusColor :: String -- Border color of focused windows
 myFocusColor = color15 -- This variable is imported from Colors.THEME
@@ -88,52 +88,71 @@ windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 -- colors
-colorBack = "#282c34"
+color01 = "#f4dbd6" -- rosewater
 
-colorFore = "#bbc2cf"
+color02 = "#f0c6c6" -- flamingo
 
-color01 = "#1c1f24"
+color03 = "#f5bde6" -- pink
 
-color02 = "#ff6c6b"
+color04 = "#c6a0f6" -- mauve
 
-color03 = "#98be65"
+color05 = "#ed8796" -- red
 
-color04 = "#da8548"
+color06 = "#ee99a0" -- maroon
 
-color05 = "#51afef"
+color07 = "#f5a97f" -- peach
 
-color06 = "#c678dd"
+color08 = "#eed49f" -- yellow
 
-color07 = "#5699af"
+color09 = "#a6da95" -- green
 
-color08 = "#202328"
+color10 = "#8bd5ca" -- teal
 
-color09 = "#5b6268"
+color11 = "#91d7e3" -- sky
 
-color10 = "#da8548"
+color12 = "#7dc4e4" -- sapphire
 
-color11 = "#4db5bd"
+color13 = "#8aadf4" -- blue
 
-color12 = "#ecbe7b"
+color14 = "#b7bdf8" -- lavender
 
-color13 = "#3071db"
+color15 = "#cad3f5" -- text
 
-color14 = "#a9a1e1"
+color16 = "#b8c0e0" -- subtext1
 
-color15 = "#46d9ff"
+color17 = "#a5adcb" -- subtext0
 
-color16 = "#dfdfdf"
+color18 = "#939ab7" -- overlay2
+
+color19 = "#8087a2" -- overlay1
+
+color20 = "#6e738d" -- overlay0
+
+color21 = "#5b6078" -- surface2
+
+color22 = "#494d64" -- surface1
+
+color23 = "#363a4f" -- surface0
+
+color24 = "#24273a" -- base
+
+color25 = "#1e2030" -- mantle
+
+color26 = "#181926" -- crust
 
 colorTrayer :: String
-colorTrayer = "--tint 0x282c34"
+colorTrayer = "--tint 0x1e1e2e"
 
 myStartupHook :: X ()
 myStartupHook = do
-  spawn "killall polybar" -- kill current polybar on each restart
-  spawn "sleep 2 && sh $HOME/.config/polybar/launch"
+  spawn "killall trayer"
+  -- spawn "killall polybar" -- kill current polybar on each restart
+  -- spawn "sleep 2 && sh $HOME/.config/polybar/launch"
 
   spawnOnce "feh -zr --bg-fill --no-fehbg $HOME/.config/wallpaper.jpg"
   spawnOnce "insync start"
+
+  spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 " ++ colorTrayer ++ " --height 30")
 
   setWMName "LG3D"
 
@@ -432,8 +451,8 @@ myTabTheme =
       activeColor = color15,
       inactiveColor = color08,
       activeBorderColor = color15,
-      inactiveBorderColor = colorBack,
-      activeTextColor = colorBack,
+      inactiveBorderColor = color24,
+      activeTextColor = color24,
       inactiveTextColor = color16
     }
 
@@ -442,7 +461,7 @@ myShowWNameTheme :: SWNConfig
 myShowWNameTheme =
   def
     { swn_font = "xft:Ubuntu:bold:size=60",
-      swn_fade = 0.5,
+      swn_fade = 0.4,
       swn_bgcolor = "#1c1f24",
       swn_color = "#ffffff"
     }
@@ -467,9 +486,13 @@ myLayoutHook =
         ||| tallAccordion
         ||| wideAccordion
 
--- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
--- myWorkspaces = [" dev ", " www ", " sys ", " doc ", " vbox ", " chat ", " mus ", " vid ", " gfx "]
-myWorkspaces = ["1: dev", "2: www", "3: sys", "4: chat", "5: disc", "6: mus", "7: vid", "8: img", "9: game"]
+myWorkspaces = [" dev ", " www ", " sys ", " chat ", " disc ", " mus ", " vid ", " img ", " game "]
+
+myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1 ..] -- (,) == \x y -> (x,y)
+
+clickable ws = "<action=xdotool key super+" ++ show i ++ ">" ++ ws ++ "</action>"
+  where
+    i = fromJust $ M.lookup ws myWorkspaceIndices
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook =
@@ -710,6 +733,7 @@ myKeys c =
 
 main :: IO ()
 main = do
+  xmproc <- spawnPipe "xmobar -x 0 $HOME/.setup/modules/desktop/xmonad/xmobar/xmobarrc"
   xmonad $
     addDescrKeys' ((mod4Mask, xK_F1), showKeybindings) myKeys $
       docks . ewmhFullscreen . ewmh $
@@ -723,5 +747,25 @@ main = do
             workspaces = myWorkspaces,
             borderWidth = myBorderWidth,
             normalBorderColor = myNormColor,
-            focusedBorderColor = myFocusColor
+            focusedBorderColor = myFocusColor,
+            logHook =
+              dynamicLogWithPP $
+                filterOutWsPP [scratchpadWorkspaceTag] $
+                  xmobarPP
+                    { ppOutput = hPutStrLn xmproc,
+                      ppCurrent = xmobarColor color13 "" . wrap "[" "]", -- . wrap "[" "]"
+                      ppVisible = xmobarColor color15 "" . clickable,
+                      ppHidden =
+                        xmobarColor color04 ""
+                          . wrap
+                            ("<fc=" ++ color15 ++ ">")
+                            "</fc>"
+                          . clickable,
+                      ppHiddenNoWindows = xmobarColor color19 "" . clickable,
+                      ppTitle = xmobarColor color13 "" . shorten 60,
+                      ppSep = "<fc=" ++ color04 ++ "> <fn=1>|</fn> </fc>",
+                      ppUrgent = xmobarColor color05 "" . wrap "!" "!",
+                      ppExtras = [windowCount],
+                      ppOrder = \(ws : l : t : ex) -> ["<fn=4>" ++ ws ++ "</fn>"] ++ ex ++ ["<fc=" ++ color06 ++ ">[" ++ l ++ "]</fc> " ++ t]
+                    }
           }

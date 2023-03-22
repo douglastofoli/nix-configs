@@ -1,0 +1,43 @@
+Config { font              = "Ubuntu Bold 11"
+       , additionalFonts = [ "Font Awesome 6 Free Solid 13"
+                           , "Font Awesome 6 Brands 13"
+                           ]
+       , bgColor = "#1e1e2e"
+       , fgColor = "#cdd6f4"
+       , position = TopSize L 100 30
+       , lowerOnStart = True
+       , hideOnStart = False
+       , allDesktops = True
+       , persistent = True
+       , iconRoot = ".setup/modules/desktop/xmonad/xpm/" -- default: "."
+       , commands = [ Run Com "echo" ["<fc=#666666><fn=1>\xf053</fn></fc>"] "sep" 10000
+                    , Run UnsafeStdinReader
+                    , Run Cpu [ "--template", "<fc=#8be7fd><fn=1>\xf2db</fn> <total>%</fc>"
+                              , "--Low","3"
+                              , "--High","50"
+                              , "--low","#8be7fd"
+                              , "--normal","#8be7fd"
+                              , "--high","#ff5555"
+                              ] 50
+                    , Run Memory [ "--template" ,"Memory: <usedratio>%"
+                                 , "--Low"      , "20"        -- units: %
+                                 , "--High"     , "90"        -- units: %
+                                 , "--low"      , "darkgreen"
+                                 , "--normal"   , "darkorange"
+                                 , "--high"     , "darkred"
+                                 ] 10
+                    , Run DynNetwork [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
+                                     , "--Low"      , "1000"       -- units: B/s
+                                     , "--High"     , "5000"       -- units: B/s
+                                     , "--low"      , "darkgreen"
+                                     , "--normal"   , "darkorange"
+                                     , "--high"     , "darkred"
+                                     ] 10
+                    , Run Date "<fc=#ff92d0><fn=1>\xf073</fn> %a %m/%_d/%y</fc>" "date" 100000
+                    , Run Date "<fc=#bd93f9><fn=1>\xf017</fn> %H:%M</fc>" "time"  10
+                    , Run Com ".setup/modules/desktop/xmonad/xmobar/trayer-padding-icon.sh" [] "trayerpad" 20
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " <icon=haskell_20.xpm/> <fc=#666666>|</fc> %UnsafeStdinReader% }{ <action=`$TERMINAL -e btop`>%cpu%</action> %memory% %sep% <action=`emacsclient -c -a 'emacs' --eval '(doom/window-maximize-buffer(cfw:open-org-calendar))'`>%date%</action> %sep% %time% %sep% %trayerpad%"
+}

@@ -5,12 +5,15 @@
     enable = true;
     package = pkgs.picom-jonaburg;
 
-    shadow = false;
-    shadowOffsets = [ (-7) (-7) ];
+    shadow = true;
+    shadowOffsets = [ (-3) (-3) ];
     shadowExclude = [
       "name = 'Notification'"
       "class_g ?= 'Notify-osd'"
+      "class_g ?= 'Cairo-clock'"
       "class_g = 'slop'"
+      "class_g = 'xmobar'"
+      "class_g = 'trayer'"
       "_GTK_FRAME_EXTENTS@:c"
     ];
 
@@ -23,9 +26,8 @@
     inactiveOpacity = 0.8;
 
     opacityRules = [
-      "100:class_g = 'slop'"
       "95:class_g = 'xmobar'"
-      "95:class_g = 'Polybar'"
+      "100:class_g = 'slop'"
       "100:class_g = 'Alacritty'"
       "100:class_g = 'Emacs'"
       "100:class_g = 'firefox'"
@@ -60,12 +62,10 @@
       size-transition = true;
 
       corner-radius = 8;
-      rounded-corners-exclude =
-        [ "class_g = 'xmobar'" "class_g = 'trayer'" "class_g = 'Polybar'" ];
+      rounded-corners-exclude = [ "class_g = 'xmobar'" "class_g = 'trayer'" ];
 
       round-borders = 1;
-      round-borders-exclude =
-        [ "class_g = 'xmobar'" "class_g = 'trayer'" "class_g = 'Polybar'" ];
+      round-borders-exclude = [ "class_g = 'xmobar'" "class_g = 'trayer'" ];
 
       shadow-radius = 7;
 
@@ -74,10 +74,10 @@
       inactive-opacity-override = false;
 
       focus-exclude = [
+        "class_g = 'Cairo-clock'"
         "class_g = 'slop'"
         "class_g = 'xmobar'"
         "class_g = 'trayer'"
-        "class_g = 'Polybar'"
       ];
 
       blur = {
@@ -89,7 +89,8 @@
         kernel = "3x3box";
       };
 
-      blur-background-exclude = [ "class_g = 'slop'" "_GTK_FRAME_EXTENTS@:c" ];
+      blur-background-exclude =
+        [ "class_g = 'xmobar'" "class_g = 'slop'" "_GTK_FRAME_EXTENTS@:c" ];
 
       experimental-backends = true;
       backend = "glx";

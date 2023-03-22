@@ -82,7 +82,7 @@
 
       ubuntu_font_family
 
-      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      (nerdfonts.override { fonts = [ "JetBrainsMono" "SourceCodePro" ]; })
     ];
   };
 
@@ -136,6 +136,6 @@
       allowReboot = false;
       channel = "https://nixos.org/channels/nixos-unstable";
     };
-    stateVersion = "22.05";
+    stateVersion = "22.11";
   };
 }

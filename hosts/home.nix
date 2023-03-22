@@ -33,7 +33,7 @@
       zip
     ];
 
-    file.".config/wallpaper.jpg".source = ../modules/themes/wallpaper2.jpg;
+    file.".config/wallpaper.jpg".source = ../modules/themes/wallpaper5.jpg;
 
     pointerCursor = {
       gtk.enable = true;

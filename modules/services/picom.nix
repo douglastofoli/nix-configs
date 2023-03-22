@@ -12,7 +12,7 @@
       "class_g ?= 'Notify-osd'"
       "class_g ?= 'Cairo-clock'"
       "class_g = 'slop'"
-      "class_g = 'xmobar'"
+      "name = 'xmobar'"
       "class_g = 'trayer'"
       "_GTK_FRAME_EXTENTS@:c"
     ];
@@ -26,7 +26,8 @@
     inactiveOpacity = 0.8;
 
     opacityRules = [
-      "95:class_g = 'xmobar'"
+      "90:name = 'xmobar'"
+      "90:class_g = 'trayer'"
       "100:class_g = 'slop'"
       "100:class_g = 'Alacritty'"
       "100:class_g = 'Emacs'"
@@ -62,10 +63,10 @@
       size-transition = true;
 
       corner-radius = 8;
-      rounded-corners-exclude = [ "class_g = 'xmobar'" "class_g = 'trayer'" ];
+      rounded-corners-exclude = [ "name = 'xmobar'" "class_g = 'trayer'" ];
 
       round-borders = 1;
-      round-borders-exclude = [ "class_g = 'xmobar'" "class_g = 'trayer'" ];
+      round-borders-exclude = [ "name = 'xmobar'" "class_g = 'trayer'" ];
 
       shadow-radius = 7;
 
@@ -76,7 +77,7 @@
       focus-exclude = [
         "class_g = 'Cairo-clock'"
         "class_g = 'slop'"
-        "class_g = 'xmobar'"
+        "name = 'xmobar'"
         "class_g = 'trayer'"
       ];
 
@@ -90,7 +91,7 @@
       };
 
       blur-background-exclude =
-        [ "class_g = 'xmobar'" "class_g = 'slop'" "_GTK_FRAME_EXTENTS@:c" ];
+        [ "name = 'xmobar'" "class_g = 'slop'" "_GTK_FRAME_EXTENTS@:c" ];
 
       experimental-backends = true;
       backend = "glx";

@@ -1,5 +1,6 @@
-Config { font              = "Ubuntu Bold 11"
-       , additionalFonts = [ "Font Awesome 6 Free Solid 13"
+Config { font              = "Ubuntu Bold 10"
+       , additionalFonts = [ "Mononoki 12"
+                           , "Font Awesome 6 Free Solid 13"
                            , "Font Awesome 6 Brands 13"
                            ]
        , bgColor = "#1e1e2e"
@@ -10,9 +11,9 @@ Config { font              = "Ubuntu Bold 11"
        , allDesktops = True
        , persistent = True
        , iconRoot = ".setup/modules/desktop/xmonad/xpm/" -- default: "."
-       , commands = [ Run Com "echo" ["<fc=#666666><fn=1>\xf053</fn></fc>"] "sep" 10000
+       , commands = [ Run Com "echo" ["<fc=#666666><fn=2>\xf053</fn></fc>"] "sep" 10000
                     , Run UnsafeStdinReader
-                    , Run Cpu [ "--template", "<fc=#8be7fd><fn=1>\xf2db</fn> <total>%</fc>"
+                    , Run Cpu [ "--template", "<fc=#8be7fd><fn=2>\xf2db</fn> <total>%</fc>"
                               , "--Low","3"
                               , "--High","50"
                               , "--low","#8be7fd"
@@ -33,8 +34,8 @@ Config { font              = "Ubuntu Bold 11"
                                      , "--normal"   , "darkorange"
                                      , "--high"     , "darkred"
                                      ] 10
-                    , Run Date "<fc=#ff92d0><fn=1>\xf073</fn> %a %m/%_d/%y</fc>" "date" 100000
-                    , Run Date "<fc=#bd93f9><fn=1>\xf017</fn> %H:%M</fc>" "time"  10
+                    , Run Date "<fc=#ff92d0><fn=2>\xf073</fn> %a %m/%_d/%y</fc>" "date" 100000
+                    , Run Date "<fc=#bd93f9><fn=2>\xf017</fn> %H:%M</fc>" "time"  10
                     , Run Com ".setup/modules/desktop/xmonad/xmobar/trayer-padding-icon.sh" [] "trayerpad" 20
                     ]
        , sepChar = "%"

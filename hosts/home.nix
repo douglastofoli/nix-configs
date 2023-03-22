@@ -64,6 +64,6 @@
         flavor = "macchiato";
       };
     };
-    font = { name = "SauceCodePro Nerd Font Mono"; };
+    font = { name = "JetBrainsMono Nerd Font"; };
   };
 }

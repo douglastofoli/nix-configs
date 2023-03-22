@@ -71,6 +71,9 @@
   };
 
   fonts = {
+    # enableDefaultFonts = true;
+    fontconfig = { antialias = true; };
+
     fonts = with pkgs; [
       font-awesome
       corefonts
@@ -80,9 +83,10 @@
       noto-fonts-emoji
       liberation_ttf
 
+      mononoki
       ubuntu_font_family
 
-      (nerdfonts.override { fonts = [ "JetBrainsMono" "SourceCodePro" ]; })
+      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
   };
 

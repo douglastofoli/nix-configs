@@ -21,8 +21,6 @@
 
       insync-v3
 
-      minecraft
-
       nodejs
     ];
   };

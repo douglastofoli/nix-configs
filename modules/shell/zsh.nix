@@ -70,10 +70,6 @@
       ];
 
       history.size = 5000;
-
-      initExtra = ''
-        export GPG_TTY=$(tty)
-      '';
     };
   };
 }

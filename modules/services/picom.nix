@@ -26,8 +26,7 @@
     inactiveOpacity = 0.8;
 
     opacityRules = [
-      "90:name = 'xmobar'"
-      "90:class_g = 'trayer'"
+      "100:name = 'xmobar'"
       "100:class_g = 'slop'"
       "100:class_g = 'Alacritty'"
       "100:class_g = 'Emacs'"

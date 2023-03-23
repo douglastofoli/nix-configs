@@ -54,7 +54,10 @@
     };
   };
 
-  xdg.portal.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
 
   environment.systemPackages = with pkgs; [
     haskellPackages.dbus

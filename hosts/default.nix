@@ -1,7 +1,7 @@
 # These are the different profiles that can be used when building NixOS
 
-{ lib, inputs, nixpkgs, nixpkgs-pinned, home-manager, nur, user, location, ...
-}:
+{ lib, inputs, nixpkgs, nixpkgs-pinned, agenix, home-manager, nur, user
+, location, ... }:
 
 let
   system = "x86_64-linux";
@@ -33,6 +33,7 @@ in {
       };
     };
     modules = [
+      agenix.nixosModules.default
       nur.nixosModules.nur
       ./desktop
       ./configuration.nix

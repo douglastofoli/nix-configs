@@ -145,8 +145,6 @@ colorTrayer = "--tint 0x1e1e2e"
 myStartupHook :: X ()
 myStartupHook = do
   spawn "killall trayer"
-  -- spawn "killall polybar" -- kill current polybar on each restart
-  -- spawn "sleep 2 && sh $HOME/.config/polybar/launch"
 
   spawnOnce "feh -zr --bg-fill --no-fehbg $HOME/.config/wallpaper.jpg"
   spawnOnce "insync start"

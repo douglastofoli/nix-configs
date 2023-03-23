@@ -1,6 +1,6 @@
 # Specific system configuration settings for desktop
 
-{ lib, pkgs, user, location, host, ... }:
+{ config, lib, pkgs, user, location, host, ... }:
 
 {
   imports = [ (import ./hardware-configuration.nix) ]

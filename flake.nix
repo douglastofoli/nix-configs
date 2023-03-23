@@ -19,10 +19,12 @@
     nixpkgs-pinned = {
       url = "github:nixos/nixpkgs/b49473e6679c733f917254b786bfac42339875eb";
     };
+
+    agenix.url = "github:ryantm/agenix";
   };
 
-  outputs =
-    inputs@{ self, nixpkgs, home-manager, nur, nixgl, nixpkgs-pinned, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, nur, nixgl, nixpkgs-pinned
+    , agenix, ... }:
     let
       user = "douglas";
       location = "$HOME/.setup";
@@ -30,7 +32,8 @@
       nixosConfigurations = ( # NixOS configurations
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs nixpkgs-pinned home-manager nur user location;
+          inherit inputs nixpkgs nixpkgs-pinned agenix home-manager nur user
+            location;
         });
 
       homeConfigurations = ( # Non-NixOS configurations

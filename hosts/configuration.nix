@@ -3,7 +3,12 @@
 { config, lib, pkgs, inputs, user, location, ... }:
 
 {
-  imports = (import ../modules/shell);
+  imports = [ (import ../modules/services/yubikey.nix) ]
+    ++ (import ../modules/shell);
+
+  age.identityPaths = [ "/home/${user}/.ssh/id_ed25519" ];
+
+  age.secrets = { userpassword.file = ../secrets/userpassword.age; };
 
   users.users = {
     root = {
@@ -16,7 +21,7 @@
       extraGroups =
         [ "audio" "camera" "docker" "kvm" "networkmanager" "video" "wheel" ];
       shell = pkgs.zsh;
-      initialPassword = "123456";
+      passwordFile = config.age.secrets.userpassword.path;
     };
   };
 
@@ -32,9 +37,6 @@
   security = {
     rtkit.enable = true;
     polkit.enable = true;
-
-    pam.services.lightdm.enableGnomeKeyring =
-      config.services.xserver.displayManager.lightdm.enable;
   };
 
   console = {
@@ -42,12 +44,12 @@
     keyMap = "br-abnt2";
   };
 
-  programs = {
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
-  };
+  # programs = {
+  #   gnupg.agent = {
+  #     enable = true;
+  #     enableSSHSupport = true;
+  #   };
+  # };
 
   sound = {
     enable = true;
@@ -57,7 +59,7 @@
   services = {
     devmon.enable = true;
 
-    gnome.gnome-keyring.enable = true;
+    # gnome.gnome-keyring.enable = true;
 
     pipewire = {
       enable = true;
@@ -74,6 +76,13 @@
     fonts = with pkgs; [
       corefonts # Microsoft fonts
       font-awesome
+
+      dejavu_fonts
+      roboto
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      liberation_ttf
 
       mononoki
       ubuntu_font_family
@@ -101,6 +110,9 @@
       pciutils
       usbutils
       wget
+
+      # inputs.agenix.packages."${system}".default
+      inputs.agenix.packages.x86_64-linux.default
     ];
   };
 

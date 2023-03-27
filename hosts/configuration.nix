@@ -9,11 +9,11 @@
   age.identityPaths = [ "/home/${user}/.ssh/id_ed25519" ];
 
   age.secrets = { userpassword.file = ../secrets/userpassword.age; };
-
+  programs.zsh.enable = true;
   users.users = {
     root = {
       isSystemUser = true;
-      shell = pkgs.zsh;
+     # shell = pkgs.zsh;
     };
 
     ${user} = {
@@ -43,13 +43,6 @@
     font = "Lat2-Terminus16";
     keyMap = "br-abnt2";
   };
-
-  # programs = {
-  #   gnupg.agent = {
-  #     enable = true;
-  #     enableSSHSupport = true;
-  #   };
-  # };
 
   sound = {
     enable = true;

@@ -20,23 +20,12 @@
         efiSupport = true;
         devices = [ "nodev" ];
         version = 2;
-        extraEntries = ''
-          menuentry "Windows 11" {
-            insmod part_gpt
-            insmod fat
-            insmod chain
-            insmod search_fs_uuid
-            search --fs-uuid --set=root "6CAE-7A1E"
-            chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-          }
-        '';
+	useOSProber = true;        
       };
 
       timeout = 3;
     };
   };
-
-  environment.variables = { LIBVA_DRIVER_NAME = "i965"; };
 
   networking = {
     hostName = "wizarch";

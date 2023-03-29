@@ -3,8 +3,7 @@
 { config, lib, pkgs, user, ... }:
 
 {
-  imports = (import ../modules/programs) ++ (import ../modules/services)
-    ++ [ (import ../modules/shell/zsh.nix) ];
+  imports = (import ../modules/programs) ++ (import ../modules/services);
 
   home = {
     username = "${user}";
@@ -26,7 +25,7 @@
       maim # screenshot
 
       # File Management
-      ranger
+      pcmanfm
       rsync
       unzip
       unrar
@@ -64,6 +63,6 @@
         flavor = "macchiato";
       };
     };
-    font = { name = "SauceCodePro Nerd Font Mono"; };
+    font = { name = "JetBrainsMono Nerd Font"; };
   };
 }

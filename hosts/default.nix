@@ -13,7 +13,7 @@ let
 
   pkgs-pinned = import nixpkgs-pinned {
     inherit system;
-    config = { allowUnfree = true; };
+    config.allowUnfree = true;
   };
 
   lib = nixpkgs.lib;

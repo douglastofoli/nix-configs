@@ -6,14 +6,15 @@
   imports = [ (import ../modules/services/yubikey.nix) ]
     ++ (import ../modules/shell);
 
-  age.identityPaths = [ "/home/${user}/.ssh/id_ed25519" ];
+  #age.identityPaths = [ "/home/${user}/.ssh/id_ed25519" ];
 
-  age.secrets = { userpassword.file = ../secrets/userpassword.age; };
-  programs.zsh.enable = true;
+  #age.secrets = { userpassword.file = ../secrets/userpassword.age; };
+  #programs.zsh.enable = true;
+  
   users.users = {
     root = {
       isSystemUser = true;
-     # shell = pkgs.zsh;
+      shell = pkgs.zsh;
     };
 
     ${user} = {
@@ -21,7 +22,8 @@
       extraGroups =
         [ "audio" "camera" "docker" "kvm" "networkmanager" "video" "wheel" ];
       shell = pkgs.zsh;
-      passwordFile = config.age.secrets.userpassword.path;
+      initialPassword = "123456";      
+#passwordFile = config.age.secrets.userpassword.path;
     };
   };
 
@@ -29,8 +31,15 @@
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
-      LC_TIME = "pt_BR.UTF-8";
+      LC_ADDRESS = "pt_BR.UTF-8";
+      LC_IDENTIFICATION = "pt_BR.UTF-8";
+      LC_MEASUREMENT = "pt_BR.UTF-8";
       LC_MONETARY = "pt_BR.UTF-8";
+      LC_NAME = "pt_BR.UTF-8";
+      LC_NUMERIC = "pt_BR.UTF-8";
+      LC_PAPER = "pt_BR.UTF-8";
+      LC_TELEPHONE = "pt_BR.UTF-8";
+      LC_TIME = "pt_BR.UTF-8";
     };
   };
 
@@ -52,8 +61,6 @@
   services = {
     devmon.enable = true;
 
-    # gnome.gnome-keyring.enable = true;
-
     pipewire = {
       enable = true;
       alsa = {
@@ -70,8 +77,6 @@
       corefonts # Microsoft fonts
       font-awesome
 
-      dejavu_fonts
-      roboto
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
@@ -80,7 +85,7 @@
       mononoki
       ubuntu_font_family
 
-      (nerdfonts.override { fonts = [ "SourceCodePro" ]; })
+      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
   };
 
@@ -104,7 +109,6 @@
       usbutils
       wget
 
-      # inputs.agenix.packages."${system}".default
       inputs.agenix.packages.x86_64-linux.default
     ];
   };

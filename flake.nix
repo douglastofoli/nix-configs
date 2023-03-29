@@ -17,7 +17,8 @@
     };
 
     nixpkgs-pinned = {
-      url = "github:nixos/nixpkgs/b49473e6679c733f917254b786bfac42339875eb";
+      #url = "github:nixos/nixpkgs/b49473e6679c733f917254b786bfac42339875eb";
+      url = "github:nixos/nixpkgs/03c01b729993503ec305de2c365cae6b1eaf1891";
     };
 
     agenix.url = "github:ryantm/agenix";

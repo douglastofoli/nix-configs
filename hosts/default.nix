@@ -29,7 +29,7 @@ in {
       inherit inputs user location;
       host = { # System specific configuration
         hostName = "desktop";
-        gitSigningKey = "B9BC08BF40A291A1";
+        gitSigningKey = "C81F647F6A1A0F62";
       };
     };
     modules = [

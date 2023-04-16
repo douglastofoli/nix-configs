@@ -6,6 +6,7 @@
   imports = [ (import ./hardware-configuration.nix) ]
     ++ [ (import ../../modules/desktop/xmonad) ]
     ++ [ (import ../../modules/editors/emacs) ]
+    ++ [ (import ../../modules/editors/nvim) ]
     ++ (import ../../modules/hardware);
 
   boot = {
@@ -20,7 +21,7 @@
         efiSupport = true;
         devices = [ "nodev" ];
         version = 2;
-	useOSProber = true;        
+        useOSProber = true;
       };
 
       timeout = 3;

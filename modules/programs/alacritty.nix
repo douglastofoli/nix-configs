@@ -10,19 +10,19 @@ in {
       draw_bold_text_with_bright_colors = true;
       font = rec {
         normal = {
-          family = "SauceCodePro Nerd Font Mono";
+          family = "JetBrainsMono Nerd Font";
           Style = "Regular";
         };
         bold = {
-          family = "SauceCodePro Nerd Font Mono";
+          family = "JetBrainsMono Nerd Font";
           style = "Bold";
         };
         italic = {
-          family = "SauceCodePro Nerd Font Mono";
+          family = "JetBrainsMono Nerd Font";
           style = "Italic";
         };
         bold_italic = {
-          family = "SauceCodePro Nerd Font Mono";
+          family = "JetBrainsMono Nerd Font";
           style = "Bold Italic";
         };
         offset = {

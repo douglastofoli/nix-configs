@@ -57,7 +57,7 @@ import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
 myFont :: String
-myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=11:antialias=true:hinting=true"
+myFont = "xft:JetBrainsMono Nerd Font:regular:size=11:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask -- Sets modkey to super/windows key
@@ -509,6 +509,8 @@ myManageHook =
       className =? "toolbar" --> doFloat,
       className =? "TelegramDesktop" --> doFloat,
       className =? "Yad" --> doCenterFloat,
+      (className =? zoomClassName) <&&> shouldFloat <$> title --> doFloat,
+      (className =? zoomClassName) <&&> shouldSink <$> title --> doSink,
       title =? "Mozilla Firefox" --> doShift (myWorkspaces !! 1),
       title =? "Google-chrome" --> doShift (myWorkspaces !! 1),
       title =? "Bluetooth Device" --> doCenterFloat,
@@ -516,6 +518,7 @@ myManageHook =
       className =? "TelegramDesktop" --> doShift (myWorkspaces !! 3),
       className =? "discord" --> doShift (myWorkspaces !! 4),
       className =? "YouTube Music" --> doShift (myWorkspaces !! 5),
+      title =? "Spotify" --> doShift (myWorkspaces !! 5),
       className =? "Gimp" --> doShift (myWorkspaces !! 8),
       (className =? "firefox" <&&> resource =? "Toolkit") --> doFloat, -- Float Firefox Toolkit
       title =? "Picture-in-Picture" --> doF copyToAll,
@@ -523,6 +526,17 @@ myManageHook =
       isFullscreen --> doFullFloat
     ]
     <+> namedScratchpadManageHook myScratchPads
+  where
+    zoomClassName = "zoom"
+    tileTitles =
+      [ "Zoom - Free Account", -- main window
+        "Zoom - Licensed Account", -- main window
+        "Zoom", -- meeting window on creation
+        "Zoom Meeting" -- meeting window shortly after creation
+      ]
+    shouldFloat title = title `notElem` tileTitles
+    shouldSink title = title `elem` tileTitles
+    doSink = (ask >>= doF . W.sink) <+> doF W.swapDown
 
 subtitle' :: String -> ((KeyMask, KeySym), NamedAction)
 subtitle' x =
@@ -536,7 +550,7 @@ subtitle' x =
 
 showKeybindings :: [((KeyMask, KeySym), NamedAction)] -> NamedAction
 showKeybindings x = addName "Show Keybindings" $ io $ do
-  h <- spawnPipe $ "yad --text-info --fontname=\"SauceCodePro Nerd Font Mono 12\" --fore=#46d9ff back=#282c36 --center --geometry=1200x800 --title \"XMonad keybindings\""
+  h <- spawnPipe $ "yad --text-info --fontname=\"JetBrainsMono Nerd Font 12\" --fore=#46d9ff back=#282c36 --center --geometry=1200x800 --title \"XMonad keybindings\""
   -- hPutStr h (unlines $ showKm x) -- showKM adds ">>" before subtitles
   hPutStr h (unlines $ showKmSimple x) -- showKmSimple doesn't add ">>" to subtitles
   hClose h

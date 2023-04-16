@@ -10,7 +10,7 @@ in {
         email = email;
         signingkey = "";
       };
-      core = { editor = "emacs"; };
+      core = { editor = "lvim"; };
       init = { defaultBranch = "main"; };
       commit = { gpgsign = true; };
       pull = { rebase = false; };
@@ -19,7 +19,9 @@ in {
         st = "status";
         co = "commit";
         ps = "push";
-        lg = "log --all --graph --decorate --oneline --abbrev-commit";
+        log = "log --all --graph --decorate --oneline --abbrev-commit";
+        last = "log -1 HEAD";
+        unstage = "reset HEAD --";
       };
     };
   };

@@ -22,16 +22,18 @@
       enableCompletion = true;
       autosuggestions.enable = true;
       syntaxHighlighting.enable = true;
-	
+
       ohMyZsh = {
         enable = true;
         plugins = [ "git" ];
       };
 
-      histSize = 5000; 
+      histSize = 5000;
 
       shellInit = ''
         export PATH=$HOME/.config/emacs/bin:$PATH
+        export PATH=$HOME/.npm-global/bin:$PATH
+        export PATH=$HOME/.local/bin:$PATH
       '';
     };
   };

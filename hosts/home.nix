@@ -63,6 +63,6 @@
         flavor = "macchiato";
       };
     };
-    font = { name = "JetBrainsMono Nerd Font"; };
+    font = { name = "Cantarell"; };
   };
 }

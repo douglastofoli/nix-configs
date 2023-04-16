@@ -74,6 +74,7 @@
 
   fonts = {
     fonts = with pkgs; [
+      cantarell-fonts
       corefonts # Microsoft fonts
       font-awesome
 

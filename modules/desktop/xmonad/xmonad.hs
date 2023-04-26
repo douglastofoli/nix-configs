@@ -66,7 +66,7 @@ myTerminal :: String
 myTerminal = "alacritty" -- Sets default terminal
 
 myBrowser :: String
-myBrowser = "firefox " -- Sets qutebrowser as browser
+myBrowser = "google-chrome-stable "
 
 myEmacs :: String
 myEmacs = "emacsclient -c -a 'emacs' " -- Makes emacs keybindings easier to type
@@ -78,7 +78,7 @@ myBorderWidth :: Dimension
 myBorderWidth = 2 -- Sets border width for windows
 
 myNormColor :: String -- Border color of normal windows
-myNormColor = color18 -- This variable is imported from Colors.THEME
+myNormColor = color19 -- This variable is imported from Colors.THEME
 
 myFocusColor :: String -- Border color of focused windows
 myFocusColor = color13 -- This variable is imported from Colors.THEME
@@ -219,17 +219,6 @@ runSelectedAction' conf actions = do
     Just selectedAction -> selectedAction
     Nothing -> return ()
 
--- gsCategories =
---   [ ("Games",      spawnSelected' gsGames)
---   --, ("Education",   spawnSelected' gsEducation)
---   , ("Internet",   spawnSelected' gsInternet)
---   , ("Multimedia", spawnSelected' gsMultimedia)
---   , ("Office",     spawnSelected' gsOffice)
---   , ("Settings",   spawnSelected' gsSettings)
---   , ("System",     spawnSelected' gsSystem)
---   , ("Utilities",  spawnSelected' gsUtilities)
---   ]
-
 gsCategories =
   [ ("Games", "xdotool key super+alt+1"),
     ("Education", "xdotool key super+alt+2"),
@@ -242,77 +231,42 @@ gsCategories =
   ]
 
 gsGames =
-  [ ("0 A.D.", "0ad"),
-    ("Battle For Wesnoth", "wesnoth"),
-    ("OpenArena", "openarena"),
-    ("Sauerbraten", "sauerbraten"),
-    ("Steam", "steam"),
-    ("Unvanquished", "unvanquished"),
-    ("Xonotic", "xonotic-glx")
-  ]
+  []
 
 gsEducation =
-  [ ("GCompris", "gcompris-qt"),
-    ("Kstars", "kstars"),
-    ("Minuet", "minuet"),
-    ("Scratch", "scratch")
-  ]
+  []
 
 gsInternet =
-  [ ("Brave", "brave"),
-    ("Discord", "discord"),
-    ("Element", "element-desktop"),
+  [ ("Discord", "discord"),
     ("Firefox", "firefox"),
-    ("LBRY App", "lbry"),
-    ("Mailspring", "mailspring"),
-    ("Nextcloud", "nextcloud"),
-    ("Qutebrowser", "qutebrowser"),
-    ("Transmission", "transmission-gtk"),
+    ("Google Chrome", "google-chrome-stable"),
     ("Zoom", "zoom")
   ]
 
 gsMultimedia =
-  [ ("Audacity", "audacity"),
-    ("Blender", "blender"),
-    ("Deadbeef", "deadbeef"),
-    ("Kdenlive", "kdenlive"),
-    ("OBS Studio", "obs"),
+  [ ("OBS Studio", "obs"),
     ("VLC", "vlc")
   ]
 
 gsOffice =
-  [ ("Document Viewer", "evince"),
-    ("LibreOffice", "libreoffice"),
-    ("LO Base", "lobase"),
-    ("LO Calc", "localc"),
-    ("LO Draw", "lodraw"),
-    ("LO Impress", "loimpress"),
-    ("LO Math", "lomath"),
-    ("LO Writer", "lowriter")
-  ]
+  []
 
 gsSettings =
-  [ ("ARandR", "arandr"),
-    ("ArchLinux Tweak Tool", "archlinux-tweak-tool"),
-    ("Customize Look and Feel", "lxappearance"),
-    ("Firewall Configuration", "sudo gufw")
-  ]
+  []
 
 gsSystem =
   [ ("Alacritty", "alacritty"),
     ("Bash", (myTerminal ++ " -e bash")),
-    ("Htop", (myTerminal ++ " -e htop")),
-    ("Fish", (myTerminal ++ " -e fish")),
+    ("Btop", (myTerminal ++ " -e btop")),
     ("PCManFM", "pcmanfm"),
-    ("VirtualBox", "virtualbox"),
-    ("Virt-Manager", "virt-manager"),
     ("Zsh", (myTerminal ++ " -e zsh"))
   ]
 
 gsUtilities =
   [ ("Emacs", "emacs"),
     ("Emacsclient", "emacsclient -c -a 'emacs'"),
-    ("Nitrogen", "nitrogen"),
+    ("Lvim", (myTerminal ++ " -e lvim")),
+    ("Nvim", (myTerminal ++ " -e nvim")),
     ("Vim", (myTerminal ++ " -e vim"))
   ]
 

@@ -46,11 +46,23 @@
 
 ;; Org
 (after! org
-  (setq org-agenda-files '("~/org/agenda.org")
-        org-journal-dir "~/org/journal"
+  (setq org-directory "~/org/"
+        org-default-notes-file (expand-file-name "notes.org" org-directory)
+        org-ellipsis " ▼ "
+        org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
+        org-superstar-itembullet-alist '((?+ . ?➤) (?- . ?✦)) ; changes +/- symbols in item lists
+        org-log-done 'time
+        org-hide-emphasis-markers t
+        org-table-convert-region-max-lines 20000
+        org-todo-keywords '((sequence "TODO(t)" "BLOG(b)" "PROJ(p)" "WORK(w)" "|" "DONE(d)" "CANCELLED(c)"))
+
+        org-agenda-files '("~/org/agenda.org")
+
+        org-journal-dir "~/org/journal/"
         org-journal-date-prefix "* "
         org-journal-time-prefix "** "
         org-journal-date-format "%B %d, %Y (%A) "
         org-journal-file-format "%Y-%m-%d.org"
+
         org-roam-directory "~/org/roam"
-        org-roam-graph-viewer "/etc/profiles/per-user/douglas/bin/firefox"))
+        org-roam-graph-viewer "/etc/profiles/per-user/douglas/bin/google-chrome-stable"))

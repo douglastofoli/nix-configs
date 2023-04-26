@@ -74,14 +74,18 @@
 
   fonts = {
     fonts = with pkgs; [
-      cantarell-fonts
       corefonts # Microsoft fonts
       font-awesome
+
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      liberation_ttf
 
       mononoki
       ubuntu_font_family
 
-      (nerdfonts.override { fonts = [ "JetBrainsMono" "SourceCodePro" ]; })
+      (nerdfonts.override { fonts = [ "Iosevka" "JetBrainsMono" ]; })
     ];
   };
 
@@ -91,7 +95,7 @@
     variables = {
       EDITOR = "emacs";
       VISUAL = "emacs";
-      BROWSER = "firefox";
+      BROWSER = "google-chrome-stable";
       TERMINAL = "alacritty";
     };
 

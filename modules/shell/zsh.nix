@@ -28,13 +28,32 @@
         plugins = [ "git" ];
       };
 
-      histSize = 5000;
+      histSize = 10000;
 
       shellInit = ''
         export PATH=$HOME/.config/emacs/bin:$PATH
         export PATH=$HOME/.npm-global/bin:$PATH
         export PATH=$HOME/.local/bin:$PATH
+
+        eval "$(zoxide init zsh)"
+
+        alias cat="bat --theme Dracula"
+        alias ls="exa --icons"
+        alias l="exa --icons -lbF --git"
+        alias ll="exa --icons -lbGF --git"
+        alias llm="exa --icons -lbGd --git --sort=modified"
+        alias la="exa --icons -lbhHigUmuSa --time-style=long-iso --git --color-scale"
+        alias lx="exa --icons -lbhHigUmuSa@ --time-style=long-iso --git --color-scale"
+        alias lS="exa --icons -1"
+        alias lt="exa --icons --tree --level=2"
       '';
     };
+
+    fzf = {
+      keybindings = true;
+      fuzzyCompletion = true;
+    };
   };
+
+  environment = { systemPackages = with pkgs; [ bat exa zoxide ]; };
 }

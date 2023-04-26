@@ -51,6 +51,11 @@ The theme has to be reloaded after changing anything in this group."
   :type 'number
   :group 'catppuccin)
 
+(defcustom catppuccin-highlight-matches nil
+  "Use background color to make highlighted matches more visible."
+  :type 'boolean
+  :group 'catppuccin)
+
 (defcustom catppuccin-flavor 'mocha
   "The flavor to use for the Catppuccin theme.
 Must be one of `mocha`, `macchiato`, `frappe`, or `latte`."
@@ -276,8 +281,12 @@ Must be one of `mocha`, `macchiato`, `frappe`, or `latte`."
                 (ctp-mantle           (catppuccin-get-color 'mantle) (catppuccin-quantize-color (catppuccin-get-color 'mantle)))
                 (ctp-crust            (catppuccin-get-color 'crust) (catppuccin-quantize-color (catppuccin-get-color 'crust)))
 
-                (ctp-current          (catppuccin-lighten (catppuccin-get-color 'base) 5)
-                                      (catppuccin-quantize-color (catppuccin-lighten (catppuccin-get-color 'base) 5)))))
+                (ctp-current          (if (eq catppuccin-flavor 'latte)
+                                           (catppuccin-darken (catppuccin-get-color 'base) 5)
+                                           (catppuccin-lighten (catppuccin-get-color 'base) 5))
+                                      (catppuccin-quantize-color (if (eq catppuccin-flavor 'latte)
+                                                                     (catppuccin-darken (catppuccin-get-color 'base) 5)
+                                                                   (catppuccin-lighten (catppuccin-get-color 'base) 5))))))
       (faces '(;; default / basic faces
                (cursor :background ,ctp-rosewater)
                (default :background ,ctp-base :foreground ,ctp-text)
@@ -570,7 +579,7 @@ Must be one of `mocha`, `macchiato`, `frappe`, or `latte`."
                (corfu-annotations :inherit font-lock-comment-face)
                (corfu-deprecated :strike-through t)
                ;; highlight-indentation minor mode
-               (highlight-indentation-face :background ,ctp-subtext1)
+               (highlight-indentation-face :background ,ctp-mantle)
                ;; icicle
                ;; TODO: Verify this looks proper
                (icicle-whitespace-highlight :background ,ctp-text)
@@ -819,20 +828,20 @@ Must be one of `mocha`, `macchiato`, `frappe`, or `latte`."
                (org-formula :foreground ,ctp-pink)
                (org-headline-done :inherit org-done)
                (org-hide :foreground ,ctp-crust :background ,ctp-base)
-               (org-level-1 :inherit bold :foreground ,ctp-blue
+               (org-level-1 :inherit bold :foreground ,ctp-red
                             ,@(when catppuccin-enlarge-headings
                                 (list :height catppuccin-height-title-1)))
-               (org-level-2 :inherit bold :foreground ,ctp-blue
+               (org-level-2 :inherit bold :foreground ,ctp-peach
                             ,@(when catppuccin-enlarge-headings
                                 (list :height catppuccin-height-title-2)))
-               (org-level-3 :weight normal :foreground ,ctp-blue
+               (org-level-3 :weight normal :foreground ,ctp-yellow
                             ,@(when catppuccin-enlarge-headings
                                 (list :height catppuccin-height-title-3)))
-               (org-level-4 :weight normal :foreground ,ctp-blue)
-               (org-level-5 :weight normal :foreground ,ctp-blue)
-               (org-level-6 :weight normal :foreground ,ctp-blue)
+               (org-level-4 :weight normal :foreground ,ctp-green)
+               (org-level-5 :weight normal :foreground ,ctp-teal)
+               (org-level-6 :weight normal :foreground ,ctp-sapphire)
                (org-level-7 :weight normal :foreground ,ctp-blue)
-               (org-level-8 :weight normal :foreground ,ctp-blue)
+               (org-level-8 :weight normal :foreground ,ctp-mauve)
                (org-link :inherit link)
                (org-priority :foreground ,ctp-yellow)
                (org-quote :inherit markdown-blockquote-face)
@@ -862,7 +871,7 @@ Must be one of `mocha`, `macchiato`, `frappe`, or `latte`."
                (cfw:face-disable :foreground ,ctp-surface1)
                (cfw:face-today-title :foreground ,ctp-peach)
                (cfw:face-today :inherit cfw:face-today-title)
-               (cfw:face-select :background ,ctp-surface1 :foregournd ,ctp-text)
+               (cfw:face-select :background ,ctp-surface1 :foreground ,ctp-text)
                (cfw:face-toolbar :background ,ctp-base)
                (cfw:face-toolbar-button-off :foreground ,ctp-rosewater)
                (cfw:face-toolbar-button-on :foreground ,ctp-mauve)
@@ -896,7 +905,9 @@ Must be one of `mocha`, `macchiato`, `frappe`, or `latte`."
                (rst-level-8 :foreground ,ctp-blue)
                ;; show-paren
                (show-paren-match :foreground ,ctp-pink
-                                 :weight bold)
+                                 :weight bold
+                                 ,@(when catppuccin-highlight-matches
+                                     (list :background ctp-surface0)))
                (show-paren-match-expression :inherit match)
                (show-paren-mismatch :inherit warning)
                ;; slime
@@ -1028,7 +1039,18 @@ Must be one of `mocha`, `macchiato`, `frappe`, or `latte`."
                (highlight-indent-guides-top-character-face :foreground ,ctp-pink)
                ;; (highlight-indent-guides-stack-odd-face :background ,ctp-base)
                ;; (highlight-indent-guides-stack-even-face :background ,ctp-base)
-               (highlight-indent-guides-stack-character-face :foreground ,ctp-flamingo))))
+               (highlight-indent-guides-stack-character-face :foreground ,ctp-flamingo)
+               ;; lui
+               (lui-button-face :foreground ,ctp-sky :underline t)
+               (lui-highlight-face :foreground ,ctp-sky)
+               (lui-time-stamp-face :foreground ,ctp-lavender :weight bold)
+               ;; circe
+               (circe-fool-face :foreground ,ctp-subtext1)
+               (circe-highlight-nick-face :foreground ,ctp-sky :weight bold)
+               (circe-prompt-face :foreground ,ctp-base
+                                  :background ,ctp-teal
+                                  :weight bold)
+               (circe-server-face :foreground ,ctp-blue :weight bold))))
 
   (apply #'custom-theme-set-faces
          'catppuccin

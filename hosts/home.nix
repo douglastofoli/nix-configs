@@ -63,6 +63,5 @@
         flavor = "macchiato";
       };
     };
-    font = { name = "Cantarell"; };
   };
 }

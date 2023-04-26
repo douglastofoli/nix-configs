@@ -1,5 +1,5 @@
 {
-  description = "Dev envinronment for Java";
+  description = "Dev envinronment for PHP";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";

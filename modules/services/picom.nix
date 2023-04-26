@@ -31,6 +31,7 @@
       "100:class_g = 'Alacritty'"
       "100:class_g = 'Emacs'"
       "100:class_g = 'firefox'"
+      "100:class_g = 'Google-chrome'"
     ];
 
     wintypes = {
@@ -95,9 +96,12 @@
       experimental-backends = true;
       backend = "glx";
 
+      daemon = true;
       mark-wmwin-focused = true;
       mark-ovredir-focused = true;
       detect-client-opacity = true;
+      detect-rounded-corners = true;
+      resize-damage = 1;
       refresh-rate = 0;
       detect-transient = true;
       detect-client-leader = true;

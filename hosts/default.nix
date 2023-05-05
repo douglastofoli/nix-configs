@@ -30,6 +30,7 @@ in {
       host = { # System specific configuration
         hostName = "desktop";
         gitSigningKey = "C81F647F6A1A0F62";
+        defaultBrowser = "google-chrome.desktop";
       };
     };
     modules = [

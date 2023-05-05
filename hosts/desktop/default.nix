@@ -33,6 +33,15 @@
     networkmanager.enable = true;
   };
 
+  xdg.mime.defaultApplications = {
+    "application/pdf" = host.defaultBrowser;
+    "text/html" = host.defaultBrowser;
+    "x-scheme-handler/http" = host.defaultBrowser;
+    "x-scheme-handler/https" = host.defaultBrowser;
+    "x-scheme-handler/about" = host.defaultBrowser;
+    "x-scheme-handler/unknown" = host.defaultBrowser;
+  };
+
   zramSwap = {
     enable = true;
     algorithm = "zstd";

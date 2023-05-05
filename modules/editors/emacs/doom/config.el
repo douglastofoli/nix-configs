@@ -54,8 +54,8 @@
         org-log-done 'time
         org-hide-emphasis-markers t
         org-table-convert-region-max-lines 20000
-        org-todo-keywords '((sequence "TODO(t)" "BLOG(b)" "PROJ(p)" "WORK(w)" "|" "DONE(d)" "CANCELLED(c)"))
-
+        org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w)" "REVIEW(r)" "|" "DONE(d)" "CANCELLED(c)"))
+        org-enforce-todo-dependencies t
         org-agenda-files '("~/org/agenda.org")
 
         org-journal-dir "~/org/journal/"

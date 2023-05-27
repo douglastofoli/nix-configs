@@ -20,7 +20,6 @@
         enable = true;
         efiSupport = true;
         devices = [ "nodev" ];
-        version = 2;
         useOSProber = true;
       };
 
@@ -33,14 +32,14 @@
     networkmanager.enable = true;
   };
 
-  xdg.mime.defaultApplications = {
-    "application/pdf" = host.defaultBrowser;
-    "text/html" = host.defaultBrowser;
-    "x-scheme-handler/http" = host.defaultBrowser;
-    "x-scheme-handler/https" = host.defaultBrowser;
-    "x-scheme-handler/about" = host.defaultBrowser;
-    "x-scheme-handler/unknown" = host.defaultBrowser;
-  };
+  # xdg.mime.defaultApplications = {
+  #   "application/pdf" = host.defaultBrowser;
+  #   "text/html" = host.defaultBrowser;
+  #   "x-scheme-handler/http" = host.defaultBrowser;
+  #   "x-scheme-handler/https" = host.defaultBrowser;
+  #   "x-scheme-handler/about" = host.defaultBrowser;
+  #   "x-scheme-handler/unknown" = host.defaultBrowser;
+  # };
 
   zramSwap = {
     enable = true;

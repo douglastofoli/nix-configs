@@ -13,13 +13,8 @@
     aspellDicts.en
     aspellDicts.pt_BR
 
-    # javascript
-    html-tidy
-    nodePackages.stylelint
-    nodePackages.js-beautify
-
     # markdown
-    multimarkdown
+    multimarkdown    
 
     # nix
     nixfmt
@@ -33,6 +28,11 @@
 
     # wakatime-mode
     wakatime
+
+    # web
+    html-tidy
+    nodePackages.stylelint    
+    nodePackages.js-beautify
 
     ((emacsPackagesFor emacs).emacsWithPackages
       (epkgs: with epkgs; [ editorconfig vterm ]))

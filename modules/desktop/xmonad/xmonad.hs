@@ -476,6 +476,8 @@ myManageHook =
       className =? "Gimp" --> doShift (myWorkspaces !! 8),
       (className =? "firefox" <&&> resource =? "Toolkit") --> doFloat, -- Float Firefox Toolkit
       title =? "Picture-in-Picture" --> doF copyToAll,
+      title =? "Picture in picture" --> doFloat,
+      title =? "Picture in picture" --> doF copyToAll,
       isDialog --> doCenterFloat,
       isFullscreen --> doFullFloat
     ]

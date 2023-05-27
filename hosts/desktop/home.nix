@@ -11,13 +11,12 @@
       discord
       tdesktop
       obinskit
-      obsidian
       qbittorrent
       spotify
-      youtube-music
       zoom-us
       inotify-tools
       insync-v3
+      lazygit
 
       jdk17
       prismlauncher

@@ -3,12 +3,15 @@
 let
   execute = ''
     exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+    exec-once=systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+
     exec-once=${pkgs.swaybg}/bin/swaybg -m fill -i $HOME/.config/wallpaper.jpg
     exec-once=${pkgs.waybar}/bin/waybar
     exec-once=${pkgs.blueman}/bin/blueman-applet
     exec-once=${pkgs.networkmanagerapplet}/bin/nm-applet --indicator
 
     exec=${pkgs.tdesktop}/bin/telegram-desktop
+    exec=${pkgs.discord}/bin/discord
     exec=${pkgs.firefox}/bin/firefox
   '';
 
@@ -37,8 +40,6 @@ let
     }
 
     general {
-      no_border_on_floating=false,
-
       gaps_in=3
       gaps_out=5
       border_size=3
@@ -80,13 +81,11 @@ let
       preserve_split=yes
       pseudotile=true
       force_split=2
-      no_gaps_when_only=1
     }
 
     master {
       new_is_master=true
       new_on_top=true,
-      no_gaps_when_only=true
     }
 
     gestures {
@@ -106,39 +105,39 @@ let
       sensitivity=-0.5
     }
 
-    $mainMod = SUPER
+    $mainMod=SUPER
 
-    bind = $mainMod, Return, exec, $TERMINAL
-    bind = $mainMod SHIFT, Q, killactive,
-    bind = $mainMod SHIFT, E, exec, ~/.local/bin/logout.sh
-    bind = $mainMod, V, togglefloating,
-    bind = $mainMod, D, exec, wofi --show drun
-    bind = $mainMod, P, pseudo,
-    bind = $mainMod, J, togglesplit,
-    bind = $mainMod, L, exec, ~/.local/bin/lock.sh
+    bind=$mainMod,Return,exec,$TERMINAL
+    bind=$mainMod SHIFT,Q,killactive,
+    bind=$mainMod SHIFT,E,exec,$HOME/.config/hypr/scripts/logout.sh 
+    bind=$mainMod,V,togglefloating,
+    bind=$mainMod,D,exec,wofi --show drun
+    bind=$mainMod,P,pseudo,
+    bind=$mainMod,J,togglesplit,
+    bind=$mainMod,L,exec,$HOME/.config/hypr/scripts/lock.sh
 
-    bind = ALT, Space, exec, wofi-emoji
+    bind=ALT,Space,exec,wofi-emoji
 
-    bind = $mainMod, left, movefocus, l
-    bind = $mainMod, right, movefocus, r
-    bind = $mainMod, up, movefocus, u
-    bind = $mainMod, down, movefocus, d
+    bind=$mainMod,left,movefocus,l
+    bind=$mainMod,right,movefocus,r
+    bind=$mainMod,up,movefocus,u
+    bind=$mainMod,down,movefocus,d
 
-    bind = SUPER_SHIFT, left, movewindow, l
-    bind = SUPER_SHIFT, right, movewindow, r
-    bind = SUPER_SHIFT, up, movewindow, u
-    bind = SUPER_SHIFT, down, movewindow, d
+    bind=SUPER_SHIFT,left,movewindow,l
+    bind=SUPER_SHIFT,right,movewindow,r
+    bind=SUPER_SHIFT,up,movewindow,u
+    bind=SUPER_SHIFT,down,movewindow,d
 
-    bind = $mainMod, 1, workspace, 1
-    bind = $mainMod, 2, workspace, 2
-    bind = $mainMod, 3, workspace, 3
-    bind = $mainMod, 4, workspace, 4
-    bind = $mainMod, 5, workspace, 5
-    bind = $mainMod, 6, workspace, 6
-    bind = $mainMod, 7, workspace, 7
-    bind = $mainMod, 8, workspace, 8
-    bind = $mainMod, 9, workspace, 9
-    bind = $mainMod, 0, workspace, 10
+    bind=$mainMod,1,workspace,1
+    bind=$mainMod,2,workspace,2
+    bind=$mainMod,3,workspace,3
+    bind=$mainMod,4,workspace,4
+    bind=$mainMod,5,workspace,5
+    bind=$mainMod,6,workspace,6
+    bind=$mainMod,7,workspace,7
+    bind=$mainMod,8,workspace,8
+    bind=$mainMod,9,workspace,9
+    bind=$mainMod,0,workspace,10
 
     # Move window, doesnt switch to the workspace
     bind = $mainMod SHIFT, 1, movetoworkspacesilent, 1
@@ -179,14 +178,14 @@ let
     bind = , XF86AudioPlay, exec, playerctl play-pause
     bind = , XF86AudioNext, exec, playerctl next
     bind = , XF86AudioPrev, exec, playerctl previous
-    bind = , XF86PowerOff, exec, ~/.local/bin/logout.sh
+    bind=,XF86PowerOff,exec,systemctl suspend 
 
     # Scratchpad
     bind = $mainMod, minus, movetoworkspace,special
     bind = $mainMod, equal, togglespecialworkspace
 
     # Screenshot
-    bind = , print, exec, ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - -o ~/Pictures/Screenshots/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png && notify-send "Saved to ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png"
+    bind=,print,exec,${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - -o ~/GoogleDrive/Screenshots/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png && notify-send "Saved to ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png"
 
     # Auto start
     ${execute}
@@ -196,7 +195,7 @@ let
     windowrule=size 590 333,title:^(Picture-in-Picture)$
     windowrule=move 1930 710,title:^(Picture-in-Picture)$
 
-    windowrule=workspace 1,title:^(Firefox)(.*)$
+    windowrule=workspace 1,class:^(firefox)(.*)$
     windowrule=workspace 4,title:^(Telegram)$
     windowrule=workspace 5,class:^(discord)$
 
@@ -207,7 +206,7 @@ let
     windowrule=move 955 330,title:^(Bluetooth)(.*)$
     windowrule=size 710 550,title:^(Bluetooth)(.*)$
 
-    windowrule = animation fadeIn, ^(wlogout)$
+    windowrule=animation fadeIn,^(wlogout)$
   '';
 in
 {
@@ -215,4 +214,7 @@ in
             ++ [ (import ../../programs/wofi.nix) ];
 
   xdg.configFile."hypr/hyprland.conf".text = hyprlandConfig;
+  xdg.configFile."hypr/scripts".source = ./scripts;
+
+  xdg.configFile."wlogout".source = ../../../dotfiles/wlogout;
 }

@@ -4,7 +4,7 @@ let
   colors = import ../themes/colors.nix;
 in
 {
-  xdg.configFile = with colors.scheme.catppuccin-macchiato; {
+  xdg.configFile = {
     "waybar/config".text = ''
       {
         "layer": "top",
@@ -42,17 +42,15 @@ in
         },
 
         "cpu": {
-          "interval": 10,
           "format": " {}%",
           "max-length": 10,
           "on-click": "$TERMINAL -e btop",
         },
 
         "memory": {
-          "interval": 30,
           "format": " {}%",
         },
-
+ 
         "network": {
           "format-wifi": "  {essid}",
           "format-ethernet": " {essid} Connected",
@@ -64,22 +62,22 @@ in
 
         "pulseaudio": {
           "format": "{icon} {volume}%",
-          "format-muted": "ﱝ Muted",
+          "format-muted": "󰝟 Muted",
           "on-click": "amixer set Master toggle",
           "scroll-step": 1,
           "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
+            "headphone": "󰋋",
+            "hands-free": "󰋋",
+            "headset": "󰋋",
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["", "", "墳", ""]
+            "default": ["", "", "", ""]
           },
         },
 
         "clock": {
-          "format": "{: %R   %d/%m}",
+          "format": "{:󰥔 %R  󰃭 %d/%m}",
           "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         },
 
@@ -90,7 +88,7 @@ in
       }
     '';
 
-    "waybar/style.css".text = ''
+    "waybar/style.css".text = with colors.scheme.catppuccin-macchiato; ''
       * {
         border: none;
         border-radius: 0;
@@ -130,8 +128,8 @@ in
       }
 
       #workspaces button.urgent {
-        color: ${red};
-        background: #a6e3a1;
+        color: #11111b;
+        background: ${red};
         border-radius: 10px;
       }
 
@@ -145,6 +143,7 @@ in
       #window,
       #cpu,
       #memory,
+      #language,
       #pulseaudio,
       #network,
       #clock,
@@ -153,7 +152,7 @@ in
         padding: 0px 10px;
         margin: 3px 0px;
         margin-top: 10px;
-        border: 1px solid #181825;
+        border: 1px solid ${crust};
       }
 
       #workspaces {
@@ -171,32 +170,38 @@ in
       }
 
       #cpu {
-        color: #f9e2af;
+        color: ${sky};
         border-radius: 10px 0px 0px 10px;
         border-left: 10px;
         border-right: 0px;
       }
 
       #memory {
-        color: #f9e2af;
+        color: ${green};
+        border-left: 0px;
+        border-right: 0px;
+      }
+
+      #language {
+        color: ${lavender};
         border-left: 0px;
         border-right: 0px;
       }
 
       #pulseaudio {
-        color: #89b4fa;
+        color: ${blue};
         border-left: 0px;
         border-right: 0px;
       }
 
       #network {
-        color: #fab387;
+        color: ${peach};
         border-left: 0px;
         border-right: 0px;
       }
 
       #clock {
-        color: #f9e2af;
+        color: ${mauve};
         border-radius: 0px 10px 10px 0px;
         margin-right: 10px;
         border-left: 0px;

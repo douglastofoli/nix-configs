@@ -1,44 +1,36 @@
-{ config, pkgs, hyprland, ... }:
+{ config, pkgs, system, hyprland, ... }:
 
 let exec = "exec Hyprland";
 in {
-  imports = [ (import ../../programs/waybar.nix) ];
+  programs = {
+      hyprland = {
+      enable = true;
+    
+      xwayland = {
+        enable = true;
+        hidpi = false;
+      };
 
-  programs.hyprland.enable = true;
+      nvidiaPatches = false;
+    };
+
+    waybar.enable = true;
+  };
 
   environment = {
-    # loginShellInit = ''
-    #   if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-    #     ${exec}
-    #   fi
-    # '';
-
-    variables = {
-      XDG_CURRENT_DESKTOP = "Hyprland";
-      XDG_SESSION_TYPE = "wayland";
-      XDG_SESSION_DESKTOP = "Hyprland";
-
-      QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-      QT_QPA_PLATFORM = "wayland";
-      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-      QT_QPA_PLATFORMTHEME = "qt5ct";
-
-      SDL_VIDEODRIVER = "wayland";
-      _JAVA_AWT_WM_NONREPARENTING = "1";
-      CLUTTER_BACKEND = "wayland";
-      GDK_BACKEND = "wayland";
-    };
+    loginShellInit = ''
+      if [ -z $DISPLAY ] && [ "$(tty)" == "/dev/tty1" ]; then
+        ${exec}
+      fi
+    '';
 
     systemPackages = with pkgs; [
       grim
       mpvpaper
       slurp
-      swappy
       swaybg
-      swaylock-effects
-      wofi
-      wofi-emoji
-      wlogout
+      swappy
+      swaylock
       wl-clipboard
       wlr-randr
     ];
@@ -50,5 +42,9 @@ in {
     '';
   };
 
-  xdg.portal.wlr.enable = true;
+  nixpkgs.overlays = [
+    (final: prev: {
+      waybar = hyprland.packages.${system}.waybar-hyprland;
+    })
+  ];
 }

@@ -1,7 +1,7 @@
 { config, lib, pkgs, host, insync-v3, ... }:
 
 {
-  imports = [ (import ../../modules/editors/emacs/home.nix) ];
+  imports = [ (import ../../modules/desktop/hyprland/home.nix) ];
 
   home = {
     packages = with pkgs; [
@@ -22,6 +22,8 @@
       prismlauncher
 
       nodejs
+
+      wezterm
     ];
   };
 

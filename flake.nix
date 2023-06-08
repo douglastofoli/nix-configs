@@ -9,31 +9,31 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur = { url = "github:nix-community/NUR"; };
+    nur.url = "github:nix-community/NUR";
 
     nixgl = { # OpenGL
       url = "github:guibou/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs-pinned = {
-      url = "github:nixos/nixpkgs/b49473e6679c733f917254b786bfac42339875eb";
-    };
+    nixpkgs-pinned.url = "github:nixos/nixpkgs/b49473e6679c733f917254b786bfac42339875eb";
 
-    agenix.url = "github:ryantm/agenix";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nur, nixgl, nixpkgs-pinned
-    , agenix, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, nur, nixgl, nixpkgs-pinned, hyprland, ... }:
     let
       user = "douglas";
       location = "$HOME/.setup";
-    in {
+    in
+    {
       nixosConfigurations = ( # NixOS configurations
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs nixpkgs-pinned agenix home-manager nur user
-            location;
+          inherit inputs nixpkgs home-manager nur nixpkgs-pinned hyprland user location;
         });
 
       homeConfigurations = ( # Non-NixOS configurations

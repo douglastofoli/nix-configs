@@ -4,8 +4,7 @@
 
 {
   imports = [ (import ./hardware-configuration.nix) ]
-    ++ [ (import ../../modules/desktop/xmonad) ]
-    ++ [ (import ../../modules/editors/emacs) ]
+    ++ [ (import ../../modules/desktop/hyprland) ]
     ++ [ (import ../../modules/editors/nvim) ]
     ++ (import ../../modules/hardware);
 
@@ -32,19 +31,10 @@
     networkmanager.enable = true;
   };
 
-  # xdg.mime.defaultApplications = {
-  #   "application/pdf" = host.defaultBrowser;
-  #   "text/html" = host.defaultBrowser;
-  #   "x-scheme-handler/http" = host.defaultBrowser;
-  #   "x-scheme-handler/https" = host.defaultBrowser;
-  #   "x-scheme-handler/about" = host.defaultBrowser;
-  #   "x-scheme-handler/unknown" = host.defaultBrowser;
-  # };
-
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    memoryPercent = 60;
+    memoryPercent = 70;
   };
 
   virtualisation = {

@@ -11,96 +11,99 @@ let
     exec=${pkgs.tdesktop}/bin/telegram-desktop
     exec=${pkgs.firefox}/bin/firefox
   '';
+
+  touchpad = with host; 
+    if hostName == "laptop" then ''
+      touchpad {
+        natural_scroll=yes
+        disable_while_typing=true
+      }
+    '' else "";
 in
 let
-  hyprlandConf = with host; ''
-    monitor = ,highrr,auto,1
+  hyprlandConfig = ''
+    monitor=,preferred,auto,1
 
     input {
-        kb_layout = br,us
-        kb_variant =
-        kb_model =
-        kb_options = grp:win_space_toggle
-        kb_rules =
+      kb_layout=br,us
+      kb_options=grp:win_space_toggle
 
-        follow_mouse = 1
-        float_switch_override_focus = true
+      follow_mouse=1
+      float_switch_override_focus=true
 
-        touchpad {
-            natural_scroll = yes
-        }
+      ${touchpad}
 
-        sensitivity = 0.7
+      sensitivity=0.7
     }
 
     general {
-        layout = dwindle
+      no_border_on_floating=false,
 
-        gaps_in = 3
-        gaps_out = 5
-        border_size = 3
-        no_border_on_floating = false,
+      gaps_in=3
+      gaps_out=5
+      border_size=3
 
-        col.active_border = rgba(f38ba8FF) rgba(cba6f7FF) rgba(89b4faFF) rgba(fab387FF) 45deg
-        col.inactive_border = rgba(59595900)
+      col.active_border=0xb3cba6f7
+      col.inactive_border=0xb3313244
+
+      layout=dwindle
     }
 
     decoration {
-        rounding = 8
-        blur = yes
-        blur_size = 6.8
-        blur_passes = 3
-        blur_new_optimizations = true
-        inactive_opacity = 0.98
+      rounding=5
+      blur=yes
+      blur_size=6.8
+      blur_passes=3
+      blur_new_optimizations=on
+      inactive_opacity=0.98
 
-        drop_shadow = no
-        shadow_range = 4
-        shadow_render_power = 3
-        col.shadow = rgba(1a1a1aee)
+      drop_shadow=no
+      shadow_range=4
+      shadow_render_power=3
+      col.shadow=rgba(1a1a1aee)
     }
 
     animations {
-        enabled = yes
+      enabled=yes
 
-        bezier = myBezier, 0.05, 0.9, 0.1, 1.05
-        bezier = overshot,0.13,0.99,0.29,1.1
+      bezier=myBezier,0.05,0.9,0.1,1.05
+      bezier=overshot,0.13,0.99,0.29,1.1
 
-        animation = windows, 1, 5, overshot, popin
-        animation = border, 1, 5, default
-        animation = fade, 1, 5, default
-        animation = workspaces, 1, 6, default
+      animation=windows,1,5,overshot,popin
+      animation=border,1,5,default
+      animation=fade,1,5,default
+      animation=workspaces,1,6,default
     }
 
     dwindle {
-        pseudotile = yes
-        preserve_split = yes
-
-        pseudotile = true
-        force_split = 2
-        no_gaps_when_only = 1
+      pseudotile=yes
+      preserve_split=yes
+      pseudotile=true
+      force_split=2
+      no_gaps_when_only=1
     }
 
     master {
-        new_is_master = true
-        new_on_top = true,
-        no_gaps_when_only = true
+      new_is_master=true
+      new_on_top=true,
+      no_gaps_when_only=true
     }
 
     gestures {
-        workspace_swipe = on
-        workspace_swipe_min_speed_to_force = 50
-        workspace_swipe_distance = 550
+      workspace_swipe=on
+      workspace_swipe_min_speed_to_force=50
+      workspace_swipe_distance=550
     }
 
     misc {
-       disable_hyprland_logo = on
-       enable_swallow = true
+      disable_hyprland_logo=on
+      enable_swallow=true
 
-       animate_manual_resizes = false
+      animate_manual_resizes=false
     }
 
     device:epic mouse V1 {
-        sensitivity = -0.5
+      sensitivity=-0.5
     }
 
     $mainMod = SUPER
@@ -208,11 +211,8 @@ let
   '';
 in
 {
-  imports = [ (import ../../programs/wofi.nix) ]
-    ++ [ (import ../../programs/wlogout.nix) ];
+  imports = [ (import ../../programs/waybar.nix) ] 
+            ++ [ (import ../../programs/wofi.nix) ];
 
-  xdg.configFile."hypr/hyprland.conf".text = hyprlandConf;
-
-  home.file.".local/bin/lock.sh".source = ../../../dotfiles/scripts/lock.sh;
-  home.file.".local/bin/logout.sh".source = ../../../dotfiles/scripts/logout.sh;
+  xdg.configFile."hypr/hyprland.conf".text = hyprlandConfig;
 }

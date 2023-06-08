@@ -31,9 +31,8 @@
       histSize = 10000;
 
       shellInit = ''
-        export PATH=$HOME/.config/emacs/bin:$PATH
-        export PATH=$HOME/.npm-global/bin:$PATH
         export PATH=$HOME/.local/bin:$PATH
+        export PATH=$HOME/.npm-global/bin:$PATH
 
         eval "$(zoxide init zsh)"
 

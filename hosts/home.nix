@@ -3,7 +3,7 @@
 { config, lib, pkgs, user, ... }:
 
 {
-  imports = (import ../modules/programs) ++ (import ../modules/services);
+  imports = (import ../modules/services);
 
   home = {
     username = "${user}";

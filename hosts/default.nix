@@ -1,7 +1,6 @@
 # These are the different profiles that can be used when building NixOS
 
-{ lib, inputs, nixpkgs, nixpkgs-pinned, agenix, home-manager, nur, user
-, location, ... }:
+{ lib, inputs, nixpkgs, home-manager, nur, nixpkgs-pinned, hyprland, user, location, ... }:
 
 let
   system = "x86_64-linux";
@@ -26,16 +25,16 @@ in {
   desktop = lib.nixosSystem { # Desktop profile
     inherit system;
     specialArgs = {
-      inherit inputs user location;
+      inherit inputs system hyprland user location;
       host = { # System specific configuration
         hostName = "desktop";
         gitSigningKey = "C81F647F6A1A0F62";
-        defaultBrowser = "google-chrome.desktop";
+        defaultBrowser = "firefox";
       };
     };
     modules = [
-      agenix.nixosModules.default
       nur.nixosModules.nur
+      hyprland.nixosModules.default
       ./desktop
       ./configuration.nix
 

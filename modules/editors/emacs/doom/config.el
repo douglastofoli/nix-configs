@@ -2,7 +2,7 @@
       user-mail-address "tofoli.douglas@hotmail.com")
 
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
-      doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
+      doom-variable-pitch-font (font-spec :family "Ubuntu" :size 15)
       doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 24))
 
 (setq doom-theme 'catppuccin
@@ -16,8 +16,6 @@
 
 (setq delete-by-moving-to-trash t
       trash-directory "~/.local/share/Trash/files/")
-
-(setq bookmark-default-file "~/.setup/modules/editors/emacs/doom/bookmarks")
 
 ;; Keybindings
 (map! :leader
@@ -34,6 +32,16 @@
 (after! treemacs
   (setq +treemacs-git-mode 'deferred)
   (treemacs-follow-mode 1))
+
+;; Copilot
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))
 
 ;; Wakatime config
 (after! wakatime-mode
@@ -57,12 +65,6 @@
         org-todo-keywords '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w)" "REVIEW(r)" "|" "DONE(d)" "CANCELLED(c)"))
         org-enforce-todo-dependencies t
         org-agenda-files '("~/org/agenda.org")
-
-        org-journal-dir "~/org/journal/"
-        org-journal-date-prefix "* "
-        org-journal-time-prefix "** "
-        org-journal-date-format "%B %d, %Y (%A) "
-        org-journal-file-format "%Y-%m-%d.org"
 
         org-roam-directory "~/org/roam"
         org-roam-graph-viewer "/etc/profiles/per-user/douglas/bin/google-chrome-stable"))

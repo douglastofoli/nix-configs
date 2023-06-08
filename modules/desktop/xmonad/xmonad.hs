@@ -63,16 +63,16 @@ myModMask :: KeyMask
 myModMask = mod4Mask -- Sets modkey to super/windows key
 
 myTerminal :: String
-myTerminal = "alacritty" -- Sets default terminal
+myTerminal = "wezterm" -- Sets default terminal
 
 myBrowser :: String
-myBrowser = "google-chrome-stable "
+myBrowser = "firefox "
 
 myEmacs :: String
 myEmacs = "emacsclient -c -a 'emacs' " -- Makes emacs keybindings easier to type
 
 myEditor :: String
-myEditor = "emacsclient -c -a 'emacs' " -- Sets emacs as editor
+myEditor = "nvim " -- Sets emacs as editor
 
 myBorderWidth :: Dimension
 myBorderWidth = 2 -- Sets border width for windows

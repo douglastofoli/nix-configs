@@ -6,11 +6,6 @@
   imports = [ (import ../modules/services/yubikey.nix) ]
     ++ (import ../modules/shell);
 
-  #age.identityPaths = [ "/home/${user}/.ssh/id_ed25519" ];
-
-  #age.secrets = { userpassword.file = ../secrets/userpassword.age; };
-  #programs.zsh.enable = true;
-
   users.users = {
     root = {
       isSystemUser = true;
@@ -23,7 +18,6 @@
         [ "audio" "camera" "docker" "kvm" "networkmanager" "video" "wheel" ];
       shell = pkgs.zsh;
       initialPassword = "123456";
-      #passwordFile = config.age.secrets.userpassword.path;
     };
   };
 
@@ -93,10 +87,10 @@
     shells = [ pkgs.zsh ];
 
     variables = {
-      EDITOR = "emacs";
-      VISUAL = "emacs";
-      BROWSER = "google-chrome-stable";
-      TERMINAL = "alacritty";
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+      BROWSER = "firefox";
+      TERMINAL = "wezterm";
     };
 
     systemPackages = with pkgs; [
@@ -108,8 +102,6 @@
       pciutils
       usbutils
       wget
-
-      inputs.agenix.packages.x86_64-linux.default
     ];
   };
 

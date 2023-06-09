@@ -11,75 +11,69 @@ in {
     };
     settings = with colors.scheme.catppuccin-macchiato; {
       global = {
-        monitor = 0;
         follow = "mouse";
-        shrink = "no";
-        padding = 20;
-        horizontal_padding = 20;
+        indicate_hidden = true;
 
-        width = 275;
-        height = 100;
-        offset = "10x50";
-        origin = "top-right";
+        offset = "10x10";
 
+        notification_height = 0;
+        separator_height = 0;
+
+        padding = 8;
+        horizontal_padding = 8;
+        text_icon_padding = 0;
         frame_width = 2;
-        separator_height = 2;
-        frame_color = "#161320";
-        separator_color = "#161320";
 
-        sort = "no";
-        font = "Ubuntu 10";
+        frame_color = "${blue}";
+        separator_color = "frame";
+
+        sort = "yes";
+        iddle_threshold = 120;
+        font = "Ubuntu Nerd Font 10";
+        line_height = 0;
         markup = "full";
-        format = ''
-          <b>%s</b>
-          %b'';
         alignment = "left";
+        vertical_alignment = "center";
         show_age_threshold = 60;
         word_wrap = "yes";
-        ignore_newline = "no";
         stack_duplicates = true;
-        hide_duplicate_count = "no";
+        hide_duplicate_count = false;
         show_indicators = "yes";
 
-        icon_position = "left";
-        max_icon_size = 60;
-        sticky_history = "no";
-        history_length = 6;
+        min_icon_size = 0;
+        max_icon_size = 64;
+
+        icon_path = "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/status/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/devices/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/actions/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/animations/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/apps/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/categories/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/emblems/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/emotes/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/devices/mimetypes:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/17x16/panel/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/places/";
+
+        dmenu = "${pkgs.wofi}/bin/wofi -p dunst:";
+        browser = "${pkgs.firefox}/bin/firefox --new-tab";
+
         title = "Dunst";
         class = "Dunst";
-        corner_radius = 8;
 
-        mouse_left_click = "close_current";
-        mouse_middle_click = "do_action";
-        mouse_right_click = "close_all";
+        corner_radius = 10;
+        timeout = 5;
       };
 
       urgency_low = {
         background = "${base}";
         foreground = "${text}";
-        frame_color = "${blue}";
-        timeout = 5;
       };
 
       urgency_normal = {
         background = "${base}";
         foreground = "${text}";
-        frame_color = "${blue}";
-        timeout = 10;
       };
 
       urgency_critical = {
         background = "${base}";
         foreground = "${text}";
         frame_color = "${peach}";
-        timeout = 20;
       };
     };
   };
 
   home.packages = [ pkgs.libnotify ];
-
-  xdg.configFile."dunst/icons".source = ../../dotfiles/dunst/icons;
 
   xdg.dataFile."dbus-1/services/org.knopwob.dunst.service".source =
     "${pkgs.dunst}/share/dbus-1/services/org.knopwob.dunst.service";

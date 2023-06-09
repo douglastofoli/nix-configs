@@ -29,8 +29,9 @@ in {
       mpvpaper
       playerctl
       slurp
-      swaybg
       swappy
+      swaybg
+      swayidle
       swaylock-effects
       wl-clipboard
       wlr-randr

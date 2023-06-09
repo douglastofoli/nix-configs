@@ -10,6 +10,8 @@ let
     exec-once=${pkgs.blueman}/bin/blueman-applet
     exec-once=${pkgs.networkmanagerapplet}/bin/nm-applet --indicator
 
+    exec-once=$HOME/.config/hypr/scripts/sleep.sh
+
     exec=${pkgs.tdesktop}/bin/telegram-desktop
     exec=${pkgs.discord}/bin/discord
     exec=${pkgs.firefox}/bin/firefox
@@ -215,6 +217,5 @@ in
 
   xdg.configFile."hypr/hyprland.conf".text = hyprlandConfig;
   xdg.configFile."hypr/scripts".source = ./scripts;
-
   xdg.configFile."wlogout".source = ../../../dotfiles/wlogout;
 }

@@ -48,7 +48,10 @@ in
           "return-type": "json",
           "exec": "~/.config/hypr/scripts/spotify.sh",
           "exec-if": "pgrep spotify",
-          "escape": true
+          "escape": true,
+          "on-click": "~/.config/hypr/scripts/spotify.sh --play",
+          "on-scroll-up": "~/.config/hypr/scripts/spotify.sh --next",
+          "on-scroll-down": "~/.config/hypr/scripts/spotify.sh --previous",
         },
 
         "cpu": {

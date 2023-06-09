@@ -76,10 +76,7 @@
       noto-fonts-emoji
       liberation_ttf
 
-      mononoki
-      ubuntu_font_family
-
-      (nerdfonts.override { fonts = [ "Iosevka" "JetBrainsMono" ]; })
+      (nerdfonts.override { fonts = [ "JetBrainsMono" "Ubuntu" ]; })
     ];
   };
 
@@ -133,6 +130,6 @@
       allowReboot = false;
       channel = "https://nixos.org/channels/nixos-unstable";
     };
-    stateVersion = "22.11";
+    stateVersion = "23.05";
   };
 }

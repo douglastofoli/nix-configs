@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 swaylock \
 	--hide-keyboard-layout \
 	--indicator-radius 100 \

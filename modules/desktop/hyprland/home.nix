@@ -200,8 +200,8 @@ let
     windowrule=workspace 5,class:^(discord)$
 
     windowrule=float,title:^(Telegram)$
-    windowrule=move 1080 150,title:^(Telegram)$
-    windowrule=size 1090 840,title:^(Telegram)$
+    windowrule=move 765 225,title:^(Telegram)$
+    windowrule=size 890 730,title:^(Telegram)$
     windowrule=float,title:^(Bluetooth)(.*)$
     windowrule=move 955 330,title:^(Bluetooth)(.*)$
     windowrule=size 710 550,title:^(Bluetooth)(.*)$

@@ -27,6 +27,7 @@ in {
     systemPackages = with pkgs; [
       grim
       mpvpaper
+      playerctl
       slurp
       swaybg
       swappy

@@ -41,7 +41,7 @@
       size = 24;
     };
 
-    stateVersion = "22.11";
+    stateVersion = "23.05";
   };
 
   programs = { home-manager.enable = true; };

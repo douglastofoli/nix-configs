@@ -20,9 +20,11 @@ in
         ],
 
         "modules-right": [
+          "custom/spotify",
           "cpu",
           "memory",
           "pulseaudio",
+          "pulseaudio#microphone",
           "network",
           "clock",
           "tray",
@@ -41,13 +43,23 @@ in
           "format": "{}",
         },
 
+        "custom/spotify": {
+          "interval": 1,
+          "return-type": "json",
+          "exec": "~/.config/hypr/scripts/spotify.sh",
+          "exec-if": "pgrep spotify",
+          "escape": true
+        },
+
         "cpu": {
+          "interval": 10,
           "format": " {}%",
           "max-length": 10,
           "on-click": "$TERMINAL -e btop",
         },
 
         "memory": {
+          "interval": 30,
           "format": " {}%",
         },
  
@@ -76,6 +88,17 @@ in
           },
         },
 
+        "pulseaudio#microphone": {
+          "format": "{format_source}",
+          "tooltip": false,
+          "format-source": " {volume}%",
+          "format-source-muted": " Muted",
+          "on-click": "amixer set Capture toggle",
+          "on-scroll-up": "amixer set Capture 1%+",
+          "on-scroll-down": "amixer set Capture 1%-",
+          "scroll-step": 1,
+        },
+
         "clock": {
           "format": "{:󰥔 %R  󰃭 %d/%m}",
           "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
@@ -92,7 +115,7 @@ in
       * {
         border: none;
         border-radius: 0;
-        font-family: "JetBrainsMono Nerd Font";
+        font-family: "Ubuntu Nerd Font";
         font-weight: bold;
         font-size: 14px;
         min-height: 0;
@@ -104,43 +127,44 @@ in
       }
 
       tooltip {
-        background: #1e1e2e;
+        background: ${base};
         border-radius: 10px;
         border-width: 2px;
         border-style: solid;
-        border-color: #11111b;
+        border-color: ${crust};
       }
 
       #workspaces button {
         padding: 5px;
-        color: #313244;
+        color: ${surface0};
         margin-right: 5px;
       }
 
       #workspaces button.active {
-        color: #a6adc8;
+        color: ${subtext0};
       }
 
       #workspaces button.focused {
-        color: #a6adc8;
+        color: ${subtext0};
         background: #eba0ac;
         border-radius: 10px;
       }
 
       #workspaces button.urgent {
-        color: #11111b;
+        color: ${crust};
         background: ${red};
         border-radius: 10px;
       }
 
       #workspaces button:hover {
-        background: #11111b;
-        color: #cdd6f4;
+        background: ${crust};
+        color: ${text};
         border-radius: 10px;
       }
 
       #workspaces,
       #window,
+      #custom-spotify,
       #cpu,
       #memory,
       #language,
@@ -148,15 +172,15 @@ in
       #network,
       #clock,
       #tray {
-        background: #1e1e2e;
+        background: ${base};
         padding: 0px 10px;
         margin: 3px 0px;
         margin-top: 10px;
-        border: 1px solid ${crust};
+        border: 1px solid ${mantle};
       }
 
       #workspaces {
-        background: #1e1e2e;
+        background: ${base};
         border-radius: 10px;
         margin-left: 10px;
         padding-right: 0px;
@@ -169,6 +193,11 @@ in
         margin-right: 60px;
       }
 
+      #custom-spotify {
+        border-radius: 10px;
+        margin-right: 10px;
+      }
+  
       #cpu {
         color: ${sky};
         border-radius: 10px 0px 0px 10px;
@@ -189,6 +218,12 @@ in
       }
 
       #pulseaudio {
+        color: ${blue};
+        border-left: 0px;
+        border-right: 0px;
+      }
+
+      #pulseaudio#microphone { 
         color: ${blue};
         border-left: 0px;
         border-right: 0px;

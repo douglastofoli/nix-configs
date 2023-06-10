@@ -111,12 +111,12 @@ let
 
     bind=$mainMod,Return,exec,$TERMINAL
     bind=$mainMod SHIFT,Q,killactive,
-    bind=$mainMod SHIFT,E,exec,$HOME/.config/hypr/scripts/logout.sh 
+    bind=$mainMod SHIFT,E,exec,~/.config/hypr/scripts/logout.sh 
     bind=$mainMod,V,togglefloating,
     bind=$mainMod,D,exec,wofi --show drun
     bind=$mainMod,P,pseudo,
     bind=$mainMod,J,togglesplit,
-    bind=$mainMod,L,exec,$HOME/.config/hypr/scripts/lock.sh
+    bind=$mainMod,L,exec,~/.config/hypr/scripts/lock.sh
 
     bind=ALT,Space,exec,wofi-emoji
 
@@ -172,15 +172,13 @@ let
     bindm = $mainMod, mouse:273, resizewindow
 
     # Volume, brightness, media player
-    binde = , XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%
-    binde = , XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%
-    binde = , XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle
-    binde = , XF86MonBrightnessUp, exec, light -A 5
-    binde = , XF86MonBrightnessDown, exec, light -U 5
-    bind = , XF86AudioPlay, exec, playerctl play-pause
-    bind = , XF86AudioNext, exec, playerctl next
-    bind = , XF86AudioPrev, exec, playerctl previous
-    bind=,XF86PowerOff,exec,systemctl suspend 
+    bind=,XF86AudioRaiseVolume,exec,~/.config/hypr/scripts/volume.sh up
+    bind=,XF86AudioLowerVolume,exec,~/.config/hypr/scripts/volume.sh down
+    bind=,XF86AudioMute,exec,~/.config/hypr/scripts/volume.sh mute
+    bind=,XF86AudioPlay,exec,~/.config/hypr/scripts/spotify.sh --play
+    bind=,XF86AudioNext,exec,~/.config/hypr/scripts/spotify.sh --next
+    bind=,XF86AudioPrev,exec,~/.config/hypr/scripts/spotify.sh --prev
+    bind=,XF86PowerOff,exec,systemctl suspend
 
     # Scratchpad
     bind = $mainMod, minus, movetoworkspace,special

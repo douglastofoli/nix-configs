@@ -50,8 +50,8 @@ in
           "exec-if": "pgrep spotify",
           "escape": true,
           "on-click": "~/.config/hypr/scripts/spotify.sh --play",
-          "on-scroll-up": "~/.config/hypr/scripts/spotify.sh --next",
-          "on-scroll-down": "~/.config/hypr/scripts/spotify.sh --previous",
+          "on-scroll-down": "~/.config/hypr/scripts/spotify.sh --next",
+          "on-scroll-up": "~/.config/hypr/scripts/spotify.sh --prev",
         },
 
         "cpu": {
@@ -78,7 +78,9 @@ in
         "pulseaudio": {
           "format": "{icon} {volume}%",
           "format-muted": "󰝟 Muted",
-          "on-click": "amixer set Master toggle",
+          "on-click": "~/.config/hypr/scripts/volume.sh mute",
+          "on-scroll-up": "~/.config/hypr/scripts/volume.sh up",
+          "on-scroll-down": "~/.config/hypr/scripts/volume.sh down",
           "scroll-step": 1,
           "format-icons": {
             "headphone": "󰋋",

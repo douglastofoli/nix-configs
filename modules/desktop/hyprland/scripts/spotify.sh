@@ -8,20 +8,6 @@ print_help() {
 	echo "  --previous   Previous song"
 }
 
-if [[ $class == "playing" ]]; then
-	info=$(playerctl metadata --player=spotify --format '{{artist}} - {{title}}')
-
-	if [[ ${#info} > 40 ]]; then
-		info=$(echo $info | cut -c1-40)"..."
-	fi
-
-	text="${icon} ${info}"
-elif [[ $class == "paused" ]]; then
-	text=$icon
-elif [[ $class == "stopped" ]]; then
-	text=""
-fi
-
 while [[ $# -gt 0 ]]; do
 	case "$1" in
 	--play)
@@ -32,7 +18,7 @@ while [[ $# -gt 0 ]]; do
 		playerctl -p spotify next
 		exit
 		;;
-	--previous)
+	--prev)
 		playerctl -p spotify previous
 		exit
 		;;

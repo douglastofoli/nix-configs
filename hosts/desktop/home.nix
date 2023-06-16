@@ -14,15 +14,11 @@
       qbittorrent
       spotify
       zoom-us
-      inotify-tools
       insync-v3
       lazygit
-
       jdk17
       prismlauncher
-
       nodejs
-
       wezterm
     ];
   };

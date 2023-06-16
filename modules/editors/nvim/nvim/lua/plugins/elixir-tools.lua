@@ -1,5 +1,3 @@
-local wk = require("which-key")
-
 return {
   "elixir-tools/elixir-tools.nvim",
   version = "*",
@@ -7,7 +5,8 @@ return {
   config = function()
     local elixir = require("elixir")
     local elixirls = require("elixir.elixirls")
-
+    local wk = require("which-key")
+    
     elixir.setup {
       credo = {},
       elixirls = {

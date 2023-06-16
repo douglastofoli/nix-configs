@@ -31,6 +31,19 @@
     networkmanager.enable = true;
   };
 
+  environment.etc = {
+    "resolv.conf".text = ''
+      nameserver 1.1.1.1
+      nameserver 1.0.0.1
+    '';
+
+    "hosts".text = lib.mkForce ''
+      127.0.0.1 localhost
+      ::1       localhost
+      127.0.1.1 wizarch
+    '';
+  };
+
   zramSwap = {
     enable = true;
     algorithm = "zstd";

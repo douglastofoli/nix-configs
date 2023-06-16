@@ -1,5 +1,8 @@
 { pkgs, ... }:
 
+let
+  colors = import ../themes/colors.nix;
+in
 {
   home.packages = with pkgs; [
     wofi
@@ -22,20 +25,20 @@
       insensitive=true
       allow_images=true
       image_size=28
-      gtk_dark=true    
+      gtk_dark=true
     '';
 
-    "wofi/style.css".text = ''
+    "wofi/style.css".text = with colors.scheme.catppuccin-macchiato; ''
       @define-color clear rgba(0, 0, 0, 0.0);
       @define-color primary rgba(0, 0, 0, 0.75);
 
       window {
         margin: 2px;
         border: 2px solid;
-        border-color: #313244;
-        background-color: #1e1e2e;
+        border-color: ${surface0};
+        background-color: ${base};
         border-radius: 10px;
-        font-family: monospace;
+        font-family: "Ubuntu Nerd Font";
         font-size: 14px;
       }
 
@@ -45,7 +48,7 @@
         margin-bottom: 8px;
         border: none;
         color: @foreground;
-        background-color: #313244;
+        background-color: ${surface0};
         outline: none;
       }
 
@@ -86,7 +89,7 @@
         margin: 0px 0px;
         border: none;
         border-radius: 8px;
-        background-color: #585b70;
+        background-color: ${surface2};
       }
     '';
   };

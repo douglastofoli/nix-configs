@@ -31,20 +31,9 @@
       histSize = 10000;
 
       shellInit = ''
-        export PATH=$HOME/.local/bin:$PATH
-        export PATH=$HOME/.npm-global/bin:$PATH
-
-        eval "$(zoxide init zsh)"
-
-        alias cat="bat --theme Dracula"
-        alias ls="exa --icons"
-        alias l="exa --icons -lbF --git"
-        alias ll="exa --icons -lbGF --git"
-        alias llm="exa --icons -lbGd --git --sort=modified"
-        alias la="exa --icons -lbhHigUmuSa --time-style=long-iso --git --color-scale"
-        alias lx="exa --icons -lbhHigUmuSa@ --time-style=long-iso --git --color-scale"
-        alias lS="exa --icons -1"
-        alias lt="exa --icons --tree --level=2"
+        export GPG_TTY="$(tty)"
+        export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
+        gpg-connect-agent updatestartuptty /bye > /dev/null
       '';
     };
 

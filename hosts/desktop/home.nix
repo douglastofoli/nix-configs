@@ -10,16 +10,11 @@
       gimp
       discord
       tdesktop
-      obinskit
       qbittorrent
       spotify
       zoom-us
       insync
       lazygit
-      jdk17
-      prismlauncher
-      nodejs
-      wezterm
     ];
   };
 

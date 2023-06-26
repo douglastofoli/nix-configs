@@ -1,14 +1,13 @@
 { lib, pkgs, protocol, ... }:
 
 {
-  programs.dconf.enable = true;
-
   services = {
+    dbus.enable = true;
+
     xserver = {
       enable = true;
 
       layout = "br,us";
-      xkbModel = "pc105";
       xkbOptions = "grp:alt_space_toggle";
 
       displayManager = {
@@ -19,16 +18,16 @@
           greeters = {
             gtk = {
               theme = {
-                name = "Catppuccin-Macchiato-Standard-Blue-Dark";
+                name = "Catppuccin-Mocha-Standard-Lavender-Dark";
                 package = pkgs.catppuccin-gtk.override {
-                  accents = [ "blue" ];
+                  accents = [ "lavender" ];
                   size = "standard";
-                  variant = "macchiato";
+                  variant = "mocha";
                 };
               };
               cursorTheme = {
-                name = "Catppuccin-Macchiato-Blue-Cursors";
-                package = pkgs.catppuccin-cursors.macchiatoBlue;
+                name = "Catppuccin-Mocha-Lavender-Cursors";
+                package = pkgs.catppuccin-cursors.mochaLavender;
                 size = 24;
               };
             };
@@ -60,18 +59,13 @@
   };
 
   environment.systemPackages = with pkgs; [
-    haskellPackages.dbus
-    haskellPackages.List
-    haskellPackages.monad-logger
     haskellPackages.xmobar
-    haskellPackages.haskell-language-server
-    haskellPackages.hoogle
-    haskellPackages.cabal-install
 
-    xdotool
-    ghc
-    yad
+    feh
+    maim
+
     trayer
+    xdotool
 
     # xorg
     xclip

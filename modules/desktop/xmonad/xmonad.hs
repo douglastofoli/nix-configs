@@ -1,5 +1,5 @@
 import Data.Char (isSpace, toUpper)
-import Data.Map qualified as M
+import qualified Data.Map as M
 import Data.Maybe (fromJust, isJust)
 import Data.Monoid
 import Data.Tree
@@ -14,7 +14,7 @@ import XMonad.Actions.GridSelect
 import XMonad.Actions.MouseResize
 import XMonad.Actions.Promote
 import XMonad.Actions.RotSlaves (rotAllDown, rotSlavesDown)
-import XMonad.Actions.Search qualified as S
+import qualified XMonad.Actions.Search as S
 import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Actions.WithAll (killAll, sinkAll)
 import XMonad.Hooks.DynamicLog
@@ -31,7 +31,7 @@ import XMonad.Layout.GridVariants (Grid (Grid))
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.LimitWindows (decreaseLimit, increaseLimit, limitWindows)
 import XMonad.Layout.MultiToggle (EOT (EOT), mkToggle, single, (??))
-import XMonad.Layout.MultiToggle qualified as MT (Toggle (..))
+import qualified XMonad.Layout.MultiToggle as MT (Toggle (..))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers (MIRROR, NBFULL, NOBORDERS))
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed
@@ -44,10 +44,10 @@ import XMonad.Layout.Spiral
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
-import XMonad.Layout.ToggleLayouts qualified as T (ToggleLayout (Toggle), toggleLayouts)
+import qualified XMonad.Layout.ToggleLayouts as T (ToggleLayout (Toggle), toggleLayouts)
 import XMonad.Layout.WindowArranger (WindowArrangerMsg (..), windowArrange)
 import XMonad.Layout.WindowNavigation
-import XMonad.StackSet qualified as W
+import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig (additionalKeysP, mkNamedKeymap)
 import XMonad.Util.Hacks (trayerPaddingXmobarEventHook, windowedFullscreenFixEventHook)
 import XMonad.Util.NamedActions
@@ -68,9 +68,6 @@ myTerminal = "wezterm" -- Sets default terminal
 myBrowser :: String
 myBrowser = "firefox "
 
-myEmacs :: String
-myEmacs = "emacsclient -c -a 'emacs' " -- Makes emacs keybindings easier to type
-
 myEditor :: String
 myEditor = "nvim " -- Sets emacs as editor
 
@@ -87,57 +84,57 @@ windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 -- colors
-color01 = "#f4dbd6" -- rosewater
+color01 = "#f5e0dc" -- rosewater
 
-color02 = "#f0c6c6" -- flamingo
+color02 = "#f2cdcd" -- flamingo
 
-color03 = "#f5bde6" -- pink
+color03 = "#f5c2e7" -- pink
 
-color04 = "#c6a0f6" -- mauve
+color04 = "#cba6f7" -- mauve
 
-color05 = "#ed8796" -- red
+color05 = "#f38ba8" -- red
 
-color06 = "#ee99a0" -- maroon
+color06 = "#eba0ac" -- maroon
 
-color07 = "#f5a97f" -- peach
+color07 = "#fab387" -- peach
 
-color08 = "#eed49f" -- yellow
+color08 = "#f9e2af" -- yellow
 
-color09 = "#a6da95" -- green
+color09 = "#a6e3a1" -- green
 
-color10 = "#8bd5ca" -- teal
+color10 = "#94e2d5" -- teal
 
-color11 = "#91d7e3" -- sky
+color11 = "#89dceb" -- sky
 
-color12 = "#7dc4e4" -- sapphire
+color12 = "#74c7ec" -- sapphire
 
-color13 = "#8aadf4" -- blue
+color13 = "#89b4fa" -- blue
 
-color14 = "#b7bdf8" -- lavender
+color14 = "#b4befe" -- lavender
 
-color15 = "#cad3f5" -- text
+color15 = "#cdd6f4" -- text
 
-color16 = "#b8c0e0" -- subtext1
+color16 = "#bac2de" -- subtext1
 
-color17 = "#a5adcb" -- subtext0
+color17 = "#a6adc8" -- subtext0
 
-color18 = "#939ab7" -- overlay2
+color18 = "#9399b2" -- overlay2
 
-color19 = "#8087a2" -- overlay1
+color19 = "#7f849c" -- overlay1
 
-color20 = "#6e738d" -- overlay0
+color20 = "#6c7086" -- overlay0
 
-color21 = "#5b6078" -- surface2
+color21 = "#585b70" -- surface2
 
-color22 = "#494d64" -- surface1
+color22 = "#45475a" -- surface1
 
-color23 = "#363a4f" -- surface0
+color23 = "#313244" -- surface0
 
-color24 = "#24273a" -- base
+color24 = "#1e1e2e" -- base
 
-color25 = "#1e2030" -- mantle
+color25 = "#181825" -- mantle
 
-color26 = "#181926" -- crust
+color26 = "#11111b" -- crust
 
 colorTrayer :: String
 colorTrayer = "--tint 0x1e1e2e"
@@ -147,7 +144,7 @@ myStartupHook = do
   spawn "killall trayer"
 
   spawnOnce "feh -zr --bg-fill --no-fehbg $HOME/.config/wallpaper.jpg"
-  spawnOnce "insync start"
+  --spawnOnce "insync start"
 
   spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 " ++ colorTrayer ++ " --height 30")
 
@@ -667,20 +664,6 @@ myKeys c =
             ("M-M1-6", addName "Menu of settings apps" $ spawnSelected' gsSettings),
             ("M-M1-7", addName "Menu of system apps" $ spawnSelected' gsSystem),
             ("M-M1-8", addName "Menu of utilities apps" $ spawnSelected' gsUtilities)
-          ]
-        -- Emacs (SUPER-e followed by a key)
-        ^++^ subKeys
-          "Emacs"
-          [ ("M-e e", addName "Emacsclient" $ spawn (myEmacs)),
-            -- ("M-e e", addName "Emacsclient Dashboard"    $ spawn (myEmacs ++ ("--eval '(dashboard-refresh-buffer)'")))
-            ("M-e a", addName "Emacsclient EMMS (music)" $ spawn (myEmacs ++ ("--eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/\")'"))),
-            ("M-e b", addName "Emacsclient Ibuffer" $ spawn (myEmacs ++ ("--eval '(ibuffer)'"))),
-            ("M-e d", addName "Emacsclient Dired" $ spawn (myEmacs ++ ("--eval '(dired nil)'"))),
-            ("M-e i", addName "Emacsclient ERC (IRC)" $ spawn (myEmacs ++ ("--eval '(erc)'"))),
-            ("M-e n", addName "Emacsclient Elfeed (RSS)" $ spawn (myEmacs ++ ("--eval '(elfeed)'"))),
-            ("M-e s", addName "Emacsclient Eshell" $ spawn (myEmacs ++ ("--eval '(eshell)'"))),
-            ("M-e v", addName "Emacsclient Vterm" $ spawn (myEmacs ++ ("--eval '(+vterm/here nil)'"))),
-            ("M-e w", addName "Emacsclient EWW Browser" $ spawn (myEmacs ++ ("--eval '(doom/window-maximize-buffer(eww \"distro.tube\"))'")))
           ]
         -- Multimedia Keys
         ^++^ subKeys

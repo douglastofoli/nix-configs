@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 rofi \
 	-show drun \
 	-modi run,drun,ssh \
@@ -7,6 +6,6 @@ rofi \
 	-drun-match-fields all \
 	-drun-display-format "{name}" \
 	-no-drun-show-actions \
-	-terminal $TERMINAL \
-	-kb-cancel Alt-F1 \
+	-terminal kitty \
+	-kb-cancel Escape \
 	-theme "$HOME"/.config/rofi/config/launcher.rasi

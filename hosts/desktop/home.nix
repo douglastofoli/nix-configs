@@ -1,7 +1,7 @@
-{ config, lib, pkgs, host, insync-v3, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  imports = [ (import ../../modules/desktop/hyprland/home.nix) ] ++ [ (import ../../modules/editors/nvim/home.nix) ];
+  imports = [ (import ../../modules/editors/nvim/home.nix) ];
 
   home = {
     packages = with pkgs; [
@@ -14,7 +14,7 @@
       qbittorrent
       spotify
       zoom-us
-      insync-v3
+      insync
       lazygit
       jdk17
       prismlauncher
@@ -22,8 +22,6 @@
       wezterm
     ];
   };
-
-  programs.alacritty.settings.font.size = lib.mkForce host.alacrittyFontSize;
 
   services = {
     blueman-applet.enable = true;

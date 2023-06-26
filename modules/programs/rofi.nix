@@ -1,9 +1,9 @@
-{ config, lib, pkgs, user, ... }:
+{ pkgs, ... }:
 
-let inherit (config.lib.formats.rasi) mkLiteral;
-in {
-  programs.rofi = { enable = true; };
+{
+  programs.rofi = { 
+    enable = true; 
+  };
 
-  xdg.configFile."rofi/bin".source = ../../dotfiles/rofi/bin;
-  xdg.configFile."rofi/config".source = ../../dotfiles/rofi/config;
+  xdg.configFile."rofi".source = ../../dotfiles/rofi;
 }

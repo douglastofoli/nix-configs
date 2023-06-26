@@ -9,7 +9,7 @@ in {
       package = pkgs.papirus-icon-theme;
       size = "16x16";
     };
-    settings = with colors.scheme.catppuccin-macchiato; {
+    settings = with colors.scheme.catppuccin-mocha; {
       global = {
         follow = "mouse";
         indicate_hidden = true;
@@ -29,7 +29,7 @@ in {
 
         sort = "yes";
         iddle_threshold = 120;
-        font = "Ubuntu Nerd Font 10";
+        font = "Ubuntu 10";
         line_height = 0;
         markup = "full";
         alignment = "left";
@@ -43,9 +43,6 @@ in {
         min_icon_size = 0;
         max_icon_size = 64;
 
-        icon_path = "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/status/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/devices/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/actions/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/animations/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/apps/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/categories/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/emblems/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/emotes/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/devices/mimetypes:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/17x16/panel/:${pkgs.catppuccin-papirus-folders}/share/icons/Papirus-Dark/16x16/places/";
-
-        dmenu = "${pkgs.wofi}/bin/wofi -p dunst:";
         browser = "${pkgs.firefox}/bin/firefox --new-tab";
 
         title = "Dunst";
@@ -75,6 +72,5 @@ in {
 
   home.packages = [ pkgs.libnotify ];
 
-  xdg.dataFile."dbus-1/services/org.knopwob.dunst.service".source =
-    "${pkgs.dunst}/share/dbus-1/services/org.knopwob.dunst.service";
+  xdg.dataFile."dbus-1/services/org.knopwob.dunst.service".source = "${pkgs.dunst}/share/dbus-1/services/org.knopwob.dunst.service";
 }

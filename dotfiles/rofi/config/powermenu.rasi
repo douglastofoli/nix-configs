@@ -115,9 +115,9 @@ element-icon {
 }
 
 element-text {
-    font:			                "Font Awesome 6 Free Solid 20";
     background-color: 		        inherit;
     text-color:       		        inherit;
+    font:			                    "Font Awesome 6 Free Solid 20";
     expand:                         true;
     horizontal-align:               0.5;
     vertical-align:                 0.5;

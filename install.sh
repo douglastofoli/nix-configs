@@ -22,4 +22,4 @@ cd /mnt/etc/nixos
 git clone https://github.com/douglastofoli/nix-configs
 cd nix-configs
 
-nixos-install --flake .#desktop
+#nixos-install --flake .#desktop

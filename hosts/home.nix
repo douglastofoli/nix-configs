@@ -3,7 +3,8 @@
 { config, lib, pkgs, user, ... }:
 
 {
-  imports = (import ../modules/services);
+  imports = (import ../modules/programs) ++ 
+            (import ../modules/services);
 
   home = {
     username = "${user}";
@@ -14,7 +15,6 @@
       btop
 
       # Video/Audio
-      feh
       pavucontrol
       vlc
 
@@ -22,10 +22,8 @@
       firefox
       google-chrome
       obs-studio
-      maim # screenshot
 
       # File Management
-      pcmanfm
       rsync
       unzip
       unrar
@@ -36,8 +34,8 @@
 
     pointerCursor = {
       gtk.enable = true;
-      name = "Catppuccin-Macchiato-Blue-Cursors";
-      package = pkgs.catppuccin-cursors.macchiatoBlue;
+      name = "Catppuccin-Mocha-Lavender-Cursors";
+      package = pkgs.catppuccin-cursors.mochaLavender;
       size = 24;
     };
 
@@ -49,18 +47,18 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Catppuccin-Macchiato-Standard-Blue-Dark";
+      name = "Catppuccin-Mocha-Standard-Lavender-Dark";
       package = pkgs.catppuccin-gtk.override {
-        accents = [ "blue" ];
+        accents = [ "lavender" ];
         size = "standard";
-        variant = "macchiato";
+        variant = "mocha";
       };
     };
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.catppuccin-papirus-folders.override {
-        accent = "blue";
-        flavor = "macchiato";
+        accent = "lavender";
+        flavor = "mocha";
       };
     };
   };

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-
 rofi_command="rofi -theme $HOME/.config/rofi/config/screenshot.rasi"
 
-time=$(date +%Y-%m-%d-%H-%M-%S)
+time=$(date +%Y-%m-%d-%I-%M-%S)
+geometry=$(xrandr | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current')
 dir="$HOME/GoogleDrive/Screenshots"
-file="Screenshot_${time}.png"
+file="Screenshot_${time}_${geometry}.png"
 
 # Icons
 icon1="$HOME/.config/dunst/icons/collections.svg"
@@ -13,17 +13,17 @@ icon2="$HOME/.config/dunst/icons/timer.svg"
 # Buttons
 layout=$(cat $HOME/.config/rofi/config/screenshot.rasi | grep BUTTON | cut -d'=' -f2 | tr -d '[:blank:],*/')
 if [[ "$layout" == "TRUE" ]]; then
-	screen=""
-	area=""
-	window="缾"
-	infive="靖"
-	inten="福"
+	screen=""
+	area=""
+	window=""
+	infive=""
+	inten=""
 else
 	screen=" Capture Desktop"
 	area=" Capture Area"
-	window=" Capture Window"
-	infive=" Take in 3s"
-	inten=" Take in 10s"
+	window=" Capture Window"
+	infive=" Take in 3s"
+	inten=" Take in 10s"
 fi
 
 # Notify and view screenshot
@@ -82,19 +82,19 @@ options="$screen\n$area\n$window\n$infive\n$inten"
 
 chosen="$(echo -e "$options" | $rofi_command -p 'Take A Shot' -dmenu -selected-row 0)"
 case $chosen in
-	$screen)
-		shotnow
-		;;
-	$area)
-		shotarea
-		;;
-	$window)
-		shotwin
-		;;
-	$infive)
-		shot5
-		;;
-	$inten)
-		shot10
-		;;
+$screen)
+	shotnow
+	;;
+$area)
+	shotarea
+	;;
+$window)
+	shotwin
+	;;
+$infive)
+	shot5
+	;;
+$inten)
+	shot10
+	;;
 esac

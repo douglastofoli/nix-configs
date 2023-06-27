@@ -18,7 +18,7 @@ in {
       inherit inputs system user location;
       host = { # System specific configuration
         hostName = "desktop";
-        gitSigningKey = "C81F647F6A1A0F62";
+        gitSigningKey = "A30D5C3DE5FCB642";
         defaultBrowser = "firefox";
       };
     };

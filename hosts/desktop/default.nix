@@ -75,7 +75,10 @@
 
   services.blueman.enable = true;
 
-  programs.git.config.user.signingkey = lib.mkForce host.gitSigningKey;
+  programs = { 
+    git.config.user.signingkey = lib.mkForce host.gitSigningKey;
+    nix-ld.enable = true;
+  };
 
   nixpkgs.overlays = [
     (self: super: {

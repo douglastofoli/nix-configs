@@ -15,9 +15,10 @@ in {
       commit = { gpgsign = true; };
       pull = { rebase = false; };
       alias = {
-        ch = "checkout";
+        co = "checkout";
+        br = "branch";
+        ci = "commit";
         st = "status";
-        co = "commit";
         ps = "push";
         log = "log --all --graph --decorate --oneline --abbrev-commit";
         last = "log -1 HEAD";

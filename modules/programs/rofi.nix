@@ -5,5 +5,5 @@
     enable = true; 
   };
 
-  xdg.configFile."rofi".source = ../../dotfiles/rofi;
+  #xdg.configFile."rofi".source = ../../dotfiles/rofi;
 }

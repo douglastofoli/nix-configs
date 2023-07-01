@@ -4,27 +4,44 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    devshell-flake.url = "github:numtide/devshell";
   };
 
-  outputs = { self, nixpkgs, flake-utils, devshell-flake }:
+  outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
-      let
+      let 
+        inherit (pkgs.lib) optional optionals;
         pkgs = import nixpkgs { inherit system; };
-        javascriptDeps = with pkgs;
-          if builtins.pathExists ./assets/package.json then [
-            nodejs
-            yarn
-          ] else
-            [ ];
-
+        
         beamPkg = pkgs.beam.packagesWith pkgs.erlangR25;
         elixir = beamPkg.elixir.override {
           version = "1.14.3";
           sha256 = "sha256-8rkuyAQAZdaKFXnSMaIPwbgoHnPs+nJ+mdbqcqYNeE4=";
         };
-      in with pkgs; rec {
-        devShells.default =
-          callPackage ./shell.nix { inherit javascriptDeps elixir; };
+
+        nodejs = with pkgs;
+          if builtins.pathExists ./assets/package.json then [
+            nodejs_18
+          ] else
+            "";
+
+        inputs = with pkgs; [
+          elixir 
+          glibcLocales
+          postgresql_15
+          nodejs
+        ] ++ optional stdenv.isLinux [
+          inotify-tools
+        ] ++ optional stdenv.isDarwin terminal-notifier 
+        ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+          CoreFoundation
+          CoreServices
+        ]);
+      in 
+      with pkgs;
+      {
+        devShells.default = mkShell {
+          name = "schedume";
+          packages = inputs;
+        }; 
       });
 }

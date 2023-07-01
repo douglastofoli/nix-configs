@@ -36,10 +36,10 @@
     keyMap = "br-abnt2";
   };
 
-  #sound = {
-  #  enable = true;
-  #  mediaKeys.enable = true;
-  #};
+  sound = {
+    enable = true;
+    mediaKeys.enable = true;
+  };
 
   security = {
     rtkit.enable = true;

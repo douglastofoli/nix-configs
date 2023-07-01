@@ -12,7 +12,6 @@
       tdesktop
       qbittorrent
       spotify
-      zoom-us
       insync
       lazygit
     ];

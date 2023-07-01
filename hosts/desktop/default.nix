@@ -76,6 +76,7 @@
   services.blueman.enable = true;
 
   programs = { 
+    dconf.enable = true;
     git.config.user.signingkey = lib.mkForce host.gitSigningKey;
     nix-ld.enable = true;
   };

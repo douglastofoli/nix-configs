@@ -1,4 +1,4 @@
-{ lib, pkgs, protocol, ... }:
+{ lib, pkgs, ... }:
 
 {
   services = {

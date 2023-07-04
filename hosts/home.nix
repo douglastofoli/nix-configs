@@ -3,7 +3,7 @@
 { config, lib, pkgs, user, ... }:
 
 {
-  imports = (import ../modules/programs) ++ 
+  imports = (import ../modules/programs) ++
             (import ../modules/services);
 
   home = {
@@ -19,7 +19,7 @@
       vlc
 
       # Apps
-      firefox
+      # firefox # replaced by programs.firefox
       google-chrome
       obs-studio
 
@@ -50,7 +50,6 @@
       name = "Catppuccin-Mocha-Standard-Lavender-Dark";
       package = pkgs.catppuccin-gtk.override {
         accents = [ "lavender" ];
-        size = "standard";
         variant = "mocha";
       };
     };

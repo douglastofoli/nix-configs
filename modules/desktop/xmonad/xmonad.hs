@@ -144,7 +144,11 @@ myStartupHook = do
   spawn "killall trayer"
 
   spawnOnce "feh -zr --bg-fill --no-fehbg $HOME/.config/wallpaper.jpg"
-  --spawnOnce "insync start"
+  spawnOnce "insync start"
+  
+  spawnOnce "firefox"
+  spawnOnce "telegram-desktop"
+  spawnOnce "discord"
 
   spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 " ++ colorTrayer ++ " --height 30")
 

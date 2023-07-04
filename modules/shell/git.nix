@@ -10,7 +10,7 @@ in {
         email = email;
         signingkey = "";
       };
-      core = { editor = "lvim"; };
+      core = { editor = "nvim"; };
       init = { defaultBranch = "main"; };
       commit = { gpgsign = true; };
       pull = { rebase = false; };

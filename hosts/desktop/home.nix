@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ (import ../../modules/editors/nvim/home.nix) ];
-
   home = {
     packages = with pkgs; [
       hugo
@@ -14,6 +12,9 @@
       spotify
       insync
       lazygit
+      slack
+
+      pcmanfm
     ];
   };
 

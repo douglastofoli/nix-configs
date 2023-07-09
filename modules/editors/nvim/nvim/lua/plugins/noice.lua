@@ -1,10 +1,10 @@
 return {
-  { 
-    "folke/noice.nvim",  
+  {
+    "folke/noice.nvim",
     opts = {
       cmdline = {
-        view = "cmdline"
+        view = "cmdline",
       },
     },
-  }
+  },
 }

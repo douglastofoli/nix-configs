@@ -19,7 +19,7 @@
         };
 
         nodejs = with pkgs;
-          if builtins.pathExists ./assets/package.json then [
+          if builtins.pathExists ./apps/schedu_me_web/assets/package.json then [
             nodejs_18
           ] else
             "";

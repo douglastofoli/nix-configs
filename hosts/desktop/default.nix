@@ -27,11 +27,7 @@
 
   hardware.opengl = {
     enable = true;
-    extraPackages = with pkgs; [
-      vaapiIntel
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
+    extraPackages = with pkgs; [ vaapiIntel vaapiVdpau libvdpau-va-gl ];
     driSupport = true;
     driSupport32Bit = true;
   };
@@ -39,26 +35,10 @@
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
+    nameservers = [ "8.8.8.8" "8.8.4.4" ];
   };
 
-  environment = {
-    etc = {
-      "resolv.conf".text = ''
-        nameserver 8.8.8.8
-        nameserver 8.8.4.4
-      '';
-
-      "hosts".text = lib.mkForce ''
-        127.0.0.1 localhost
-        ::1       localhost
-        127.0.1.1 nixos
-      '';
-    };
-
-    variables = {
-      LIBVA_DRIVER_NAME = "i965";
-    };
-  };
+  environment.variables = { LIBVA_DRIVER_NAME = "i965"; };
 
   zramSwap = {
     enable = true;
@@ -75,7 +55,7 @@
 
   services.blueman.enable = true;
 
-  programs = { 
+  programs = {
     dconf.enable = true;
     git.config.user.signingkey = lib.mkForce host.gitSigningKey;
     nix-ld.enable = true;

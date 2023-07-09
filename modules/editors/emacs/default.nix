@@ -14,7 +14,7 @@
     aspellDicts.pt_BR
 
     # markdown
-    multimarkdown    
+    multimarkdown
 
     # nix
     nixfmt
@@ -31,7 +31,7 @@
 
     # web
     html-tidy
-    nodePackages.stylelint    
+    nodePackages.stylelint
     nodePackages.js-beautify
 
     ((emacsPackagesFor emacs).emacsWithPackages

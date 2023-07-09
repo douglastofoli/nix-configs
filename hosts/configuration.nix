@@ -4,8 +4,7 @@
 
 {
   imports = [ (import ../modules/services/yubikey.nix) ]
-    ++ (import ../modules/editors)
-    ++ (import ../modules/shell);
+    ++ (import ../modules/editors) ++ (import ../modules/shell);
 
   users.users = {
     root = {

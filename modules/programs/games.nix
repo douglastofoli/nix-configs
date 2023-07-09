@@ -1,8 +1,5 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    jdk17
-    prismlauncher
-  ];
+  home.packages = with pkgs; [ jdk17 prismlauncher ];
 }

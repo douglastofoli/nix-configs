@@ -1,9 +1,7 @@
 { lib, ... }:
 
-let
-  colors = import ../themes/colors.nix;
-in
-{
+let colors = import ../themes/colors.nix;
+in {
   xdg.configFile = {
     "waybar/config".text = ''
       {
@@ -65,7 +63,7 @@ in
           "interval": 30,
           "format": " {}%",
         },
- 
+
         "network": {
           "format-wifi": "  {essid}",
           "format-ethernet": " {essid} Connected",
@@ -202,7 +200,7 @@ in
         border-radius: 10px;
         margin-right: 10px;
       }
-  
+
       #cpu {
         color: ${sky};
         border-radius: 10px 0px 0px 10px;

@@ -21,8 +21,7 @@
     let
       user = "douglas";
       location = "$HOME/.setup";
-    in
-    {
+    in {
       nixosConfigurations = ( # NixOS configurations
         import ./hosts {
           inherit (nixpkgs) lib;

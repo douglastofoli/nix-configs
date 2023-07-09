@@ -1,9 +1,7 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    wezterm
-  ];
+  home.packages = with pkgs; [ wezterm ];
 
   xdg.configFile."wezterm/wezterm.lua".text = ''
     local wezterm = require("wezterm")  

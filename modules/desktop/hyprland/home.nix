@@ -17,15 +17,15 @@ let
     exec=${pkgs.firefox}/bin/firefox
   '';
 
-  touchpad = with host; 
+  touchpad = with host;
     if hostName == "laptop" then ''
       touchpad {
         natural_scroll=yes
         disable_while_typing=true
       }
-    '' else "";
-in
-let
+    '' else
+      "";
+in let
   hyprlandConfig = ''
     monitor=,preferred,auto,1
 
@@ -208,10 +208,9 @@ let
 
     windowrule=animation fadeIn,^(wlogout)$
   '';
-in
-{
-  imports = [ (import ../../programs/waybar.nix) ] 
-            ++ [ (import ../../programs/wofi.nix) ];
+in {
+  imports = [ (import ../../programs/waybar.nix) ]
+    ++ [ (import ../../programs/wofi.nix) ];
 
   xdg.configFile."hypr/hyprland.conf".text = hyprlandConfig;
   xdg.configFile."hypr/scripts".source = ./scripts;

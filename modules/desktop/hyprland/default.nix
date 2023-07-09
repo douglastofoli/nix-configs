@@ -3,9 +3,9 @@
 let exec = "exec Hyprland";
 in {
   programs = {
-      hyprland = {
+    hyprland = {
       enable = true;
-    
+
       xwayland = {
         enable = true;
         hidpi = false;
@@ -46,8 +46,6 @@ in {
   };
 
   nixpkgs.overlays = [
-    (final: prev: {
-      waybar = hyprland.packages.${system}.waybar-hyprland;
-    })
+    (final: prev: { waybar = hyprland.packages.${system}.waybar-hyprland; })
   ];
 }

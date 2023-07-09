@@ -1,13 +1,8 @@
 { pkgs, ... }:
 
-let
-  colors = import ../themes/colors.nix;
-in
-{
-  home.packages = with pkgs; [
-    wofi
-    wofi-emoji
-  ];
+let colors = import ../themes/colors.nix;
+in {
+  home.packages = with pkgs; [ wofi wofi-emoji ];
 
   xdg.configFile = {
     "wofi/config".text = ''

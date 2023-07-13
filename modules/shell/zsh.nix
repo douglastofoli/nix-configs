@@ -13,6 +13,8 @@
           error_symbol = "[✗](bold #ed8796) ";
           vicmd_symbol = "[V](bold #c6a0f6) ";
         };
+
+        gcloud = { detect_env_vars = [ "GCLOUD_HOME" ]; };
       };
     };
 

@@ -4,7 +4,6 @@
 
     profiles.default = {
       isDefault = true;
-      search = { default = "DuckDuckGo"; };
       settings = {
         "browser.tabs.inTitlebar" = 0;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;

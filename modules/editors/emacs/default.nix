@@ -5,10 +5,15 @@
     enable = true;
 
   };
-  environment.systemPackages = with pkgs;
-    [
+  environment.systemPackages = with pkgs; [
+    shfmt
+    shellcheck
 
-      ((emacsPackagesFor emacs).emacsWithPackages
-        (epkgs: with epkgs; [ editorconfig vterm ]))
-    ];
+    html-tidy
+    nodePackages.stylelint
+    nodePackages.js-beautify
+
+    ((emacsPackagesFor emacs).emacsWithPackages
+      (epkgs: with epkgs; [ editorconfig vterm ]))
+  ];
 }

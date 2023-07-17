@@ -35,7 +35,7 @@
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
-    nameservers = [ "8.8.8.8" "8.8.4.4" ];
+    nameservers = [ "1.1.1.1" "1.0.0.1" ];
   };
 
   environment.variables = { LIBVA_DRIVER_NAME = "i965"; };

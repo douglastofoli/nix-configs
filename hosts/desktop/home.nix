@@ -14,6 +14,8 @@
       lazygit
       slack
 
+      insomnia
+
       pcmanfm
     ];
   };

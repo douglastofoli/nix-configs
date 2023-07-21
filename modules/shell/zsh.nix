@@ -6,7 +6,7 @@
       enable = true;
 
       settings = {
-        add_newline = true;
+        add_newline = false;
 
         character = {
           success_symbol = "[➜](bold #a6da95) ";

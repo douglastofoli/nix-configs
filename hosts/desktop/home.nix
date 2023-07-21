@@ -10,11 +10,12 @@
       tdesktop
       qbittorrent
       spotify
-      insync
       lazygit
       slack
 
       insomnia
+
+      obsidian
 
       pcmanfm
     ];
@@ -22,6 +23,6 @@
 
   services = {
     blueman-applet.enable = true;
-    network-manager-applet.enable = true;
+    network-manager-applet.enable = false;
   };
 }

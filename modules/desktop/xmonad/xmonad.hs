@@ -144,7 +144,6 @@ myStartupHook = do
   spawn "killall trayer"
 
   spawnOnce "feh -zr --bg-fill --no-fehbg $HOME/.config/wallpaper.jpg"
-  spawnOnce "insync start"
   
   spawnOnce "sleep 2 && firefox"
   spawnOnce "sleep 2 && telegram-desktop"

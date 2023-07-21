@@ -18,7 +18,6 @@
       vlc
 
       # Apps
-      # firefox # replaced by programs.firefox
       google-chrome
       obs-studio
 

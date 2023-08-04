@@ -12,12 +12,11 @@
       spotify
       lazygit
       slack
-
       insomnia
-
       obsidian
-
       pcmanfm
+      gnome.file-roller
+      nodejs
     ];
   };
 

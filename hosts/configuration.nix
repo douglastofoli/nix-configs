@@ -24,9 +24,11 @@
   time.timeZone = "America/Sao_Paulo";
   i18n = {
     defaultLocale = "en_US.UTF-8";
+    supportedLocales = [ "en_US.UTF-8/UTF-8" "pt_BR.UTF-8/UTF-8" ];
     extraLocaleSettings = {
       LC_TIME = "pt_BR.UTF-8";
       LC_MONETARY = "pt_BR.UTF-8";
+      LC_MESSAGES = "en_US.UTF-8";
     };
   };
 
@@ -35,14 +37,14 @@
     keyMap = "br-abnt2";
   };
 
-  sound = {
-    enable = true;
-    mediaKeys.enable = true;
-  };
-
   security = {
     rtkit.enable = true;
     polkit.enable = true;
+  };
+
+  sound = {
+    enable = true;
+    mediaKeys.enable = true;
   };
 
   services = {
@@ -59,7 +61,7 @@
   };
 
   fonts = {
-    fonts = with pkgs; [
+    packages = with pkgs; [
       corefonts # Microsoft fonts
       font-awesome
 
@@ -78,45 +80,39 @@
   environment = {
     shells = [ pkgs.zsh ];
 
+    systemPackages = with pkgs; [
+      gcc
+      gnumake
+    ];
+
     variables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
       BROWSER = "firefox";
       TERMINAL = "wezterm";
+      TZ = "${config.time.timeZone}"; # Fix the timezone on firefox
     };
-
-    systemPackages = with pkgs; [
-      cmake
-      gcc
-      gnumake
-      killall
-      pciutils
-      usbutils
-      wget
-    ];
   };
 
   nix = {
-    settings.auto-optimise-store = true;
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" ];
+    };
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 3d";
+      options = "--delete-older-than 7d";
     };
     package = pkgs.nixVersions.unstable;
     registry.nixpkgs.flake = inputs.nixpkgs;
     extraOptions = ''
-      experimental-features = nix-command flakes
-      keep-outputs          = true
-      keep-derivations      = true
+      keep-outputs = true
+      keep-derivations = true
     '';
   };
 
-  nixpkgs.config = {
-    allowUnfree = true;
-    allowBroken = true;
-    permittedInsecurePackages = [ "electron-12.2.3" "electron-13.6.9" ];
-  };
+  nixpkgs.config.allowUnfree = true;
 
   system = {
     autoUpgrade = {

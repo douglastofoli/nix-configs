@@ -12,6 +12,7 @@
     packages = with pkgs; [
       # Terminal
       btop
+      killall
 
       # Video/Audio
       pavucontrol
@@ -25,6 +26,7 @@
       rsync
       unzip
       unrar
+      wget
       zip
     ];
 

@@ -22,6 +22,8 @@
 
     config.font = wezterm.font("JetBrainsMono Nerd Font")
 
+    config.audible_bell = "Disabled"
+
     return config
   '';
 }

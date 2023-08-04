@@ -28,8 +28,8 @@ Config { font              = "Ubuntu Bold 10"
                                  , "--normal"   , "#a6da95"
                                  , "--high"     , "#ed8796"
                                  ] 10
-                    , Run Date "<fc=#ee99a0><fn=2>\xf073</fn>  %a %m/%_d/%y</fc>" "date" 100000
-                    , Run Date "<fc=#c6a0f6><fn=2>\xf017</fn>  %H:%M</fc>" "time"  10
+                    , Run Date "<fc=#94e2d5><fn=2>\xf073</fn>  %a %m/%_d/%y</fc>" "date" 100000
+                    , Run Date "<fc=#89b4fa><fn=2>\xf017</fn>  %H:%M</fc>" "time"  10
                     , Run Com ".setup/modules/desktop/xmonad/xmobar/scripts/trayer-padding-icon.sh" [] "trayerpad" 20
                     ]
        , sepChar = "%"

@@ -33,6 +33,8 @@
       histSize = 10000;
 
       shellInit = ''
+        export PATH="$HOME/.local/bin:$PATH"
+
         export GPG_TTY="$(tty)"
         export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
         gpg-connect-agent updatestartuptty /bye > /dev/null

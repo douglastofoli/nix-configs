@@ -3,15 +3,8 @@
 {
   programs.neovim = {
     enable = true;
-    defaultEditor = true;
+    defaultEditor = false;
 
     vimAlias = true;
   };
-
-  environment.systemPackages = with pkgs; [
-    fd
-    ripgrep
-
-    nixfmt
-  ];
 }

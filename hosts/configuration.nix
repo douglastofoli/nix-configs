@@ -80,10 +80,7 @@
   environment = {
     shells = [ pkgs.zsh ];
 
-    systemPackages = with pkgs; [
-      gcc
-      gnumake
-    ];
+    systemPackages = with pkgs; [ gcc gnumake ];
 
     variables = {
       EDITOR = "nvim";

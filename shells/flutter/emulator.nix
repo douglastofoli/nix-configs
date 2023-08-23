@@ -1,4 +1,4 @@
-with import <nixpkgs> {};
+with import <nixpkgs> { };
 
 androidenv.emulateApp {
   name = "Pixel_4_API_29";

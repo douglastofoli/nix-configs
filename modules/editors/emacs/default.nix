@@ -3,6 +3,7 @@
 {
   services.emacs = {
     enable = true;
+    package = pkgs.emacs29;
     defaultEditor = true;
   };
 
@@ -10,7 +11,6 @@
     fd
     ripgrep
     nixfmt
-    ispell
 
     ((emacsPackagesFor emacs).emacsWithPackages
       (epkgs: with epkgs; [ editorconfig vterm ]))

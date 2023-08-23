@@ -14,8 +14,16 @@
 
     ${user} = {
       isNormalUser = true;
-      extraGroups =
-        [ "audio" "camera" "docker" "networkmanager" "video" "wheel" ];
+      extraGroups = [
+        "adbusers"
+        "audio"
+        "camera"
+        "docker"
+        "libvirtd"
+        "networkmanager"
+        "video"
+        "wheel"
+      ];
       shell = pkgs.zsh;
       initialPassword = "123456";
     };

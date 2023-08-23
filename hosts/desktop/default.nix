@@ -5,7 +5,8 @@
 {
   imports = [ (import ./hardware-configuration.nix) ]
     ++ [ (import ../../modules/desktop/xmonad) ]
-    ++ (import ../../modules/hardware);
+    ++ (import ../../modules/hardware)
+    ++ [ (import ../../modules/services/syncthing.nix) ];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -51,11 +52,13 @@
       enable = true;
       enableOnBoot = true;
     };
+    libvirtd.enable = true;
   };
 
   services.blueman.enable = true;
 
   programs = {
+    adb.enable = true;
     dconf.enable = true;
     git.config.user.signingkey = lib.mkForce host.gitSigningKey;
     nix-ld.enable = true;

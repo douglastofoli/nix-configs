@@ -16,6 +16,7 @@
       pcmanfm
       gnome.file-roller
       nodejs
+      obinskit
       vscode
     ];
   };

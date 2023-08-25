@@ -77,7 +77,7 @@
       });
       obinskit = super.obinskit.overrideAttrs (_: {
         src = builtins.fetchurl {
-          url = "https://datagcloud.com/ObinsKit_1.2.11_x64.tar.gz";
+          url = "https://files.douglastofoli.dev/ObinsKit_1.2.11_x64.tar.gz";
           sha256 = "1kcn41wmwcx6q70spa9a1qh7wfrj1sk4v4i58lbnf9kc6vasw41a";
         };
       });

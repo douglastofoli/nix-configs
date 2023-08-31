@@ -7,7 +7,7 @@
     ++ [ (import ../../modules/desktop/xmonad) ]
     ++ (import ../../modules/hardware)
     ++ [ (import ../../modules/services/syncthing.nix) ]
-    ++ [ (import ../../modules/services/udev.nix) ];
+    ++ [ (import ../../modules/services/yubikey.nix) ];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;

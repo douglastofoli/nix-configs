@@ -18,6 +18,10 @@
       nodejs
       obinskit
       vscode
+
+      nixfmt
+      fractal
+fluffychat
     ];
   };
 

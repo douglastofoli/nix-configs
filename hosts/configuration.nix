@@ -3,8 +3,7 @@
 { config, lib, pkgs, inputs, user, location, ... }:
 
 {
-  imports = [ (import ../modules/services/yubikey.nix) ]
-    ++ (import ../modules/editors) ++ (import ../modules/shell);
+  imports = (import ../modules/editors) ++ (import ../modules/shell);
 
   users.users = {
     root = {
@@ -72,13 +71,12 @@
     packages = with pkgs; [
       corefonts # Microsoft fonts
       font-awesome
-
+      liberation_ttf
+      mononoki
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
-      liberation_ttf
-
-      mononoki
+      roboto
       ubuntu_font_family
 
       (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })

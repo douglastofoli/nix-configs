@@ -57,7 +57,7 @@ import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
 myFont :: String
-myFont = "xft:JetBrainsMono Nerd Font:regular:size=11:antialias=true:hinting=true"
+myFont = "xft:Roboto:regular:size=11:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask -- Sets modkey to super/windows key
@@ -66,10 +66,10 @@ myTerminal :: String
 myTerminal = "wezterm" -- Sets default terminal
 
 myBrowser :: String
-myBrowser = "firefox "
+myBrowser = "firefox"
 
 myEditor :: String
-myEditor = "nvim " -- Sets emacs as editor
+myEditor = "emacs" -- Sets emacs as editor
 
 myBorderWidth :: Dimension
 myBorderWidth = 2 -- Sets border width for windows
@@ -254,8 +254,7 @@ gsSettings =
   []
 
 gsSystem =
-  [ ("Alacritty", "alacritty"),
-    ("Bash", (myTerminal ++ " -e bash")),
+  [ ("Bash", (myTerminal ++ " -e bash")),
     ("Btop", (myTerminal ++ " -e btop")),
     ("PCManFM", "pcmanfm"),
     ("Zsh", (myTerminal ++ " -e zsh"))
@@ -265,15 +264,13 @@ gsUtilities =
   [ ("Emacs", "emacs"),
     ("Emacsclient", "emacsclient -c -a 'emacs'"),
     ("Lvim", (myTerminal ++ " -e lvim")),
-    ("Nvim", (myTerminal ++ " -e nvim")),
-    ("Vim", (myTerminal ++ " -e vim"))
+    ("Nvim", (myTerminal ++ " -e nvim"))
   ]
 
 myScratchPads :: [NamedScratchpad]
 myScratchPads =
   [ NS "terminal" spawnTerm findTerm manageTerm,
-    NS "mocp" spawnMocp findMocp manageMocp,
-    NS "calculator" spawnCalc findCalc manageCalc
+    NS "volumecontrol" spawnVolume findVolume manageVolume
   ]
   where
     spawnTerm = myTerminal ++ " -t scratchpad"
@@ -284,22 +281,14 @@ myScratchPads =
         w = 0.9
         t = 0.95 - h
         l = 0.95 - w
-    spawnMocp = myTerminal ++ " -t mocp -e mocp"
-    findMocp = title =? "mocp"
-    manageMocp = customFloating $ W.RationalRect l t w h
+    spawnVolume = "pavucontrol"
+    findVolume = title =? "Volume Control"
+    manageVolume = customFloating $ W.RationalRect l t w h
       where
         h = 0.9
         w = 0.9
         t = 0.95 - h
         l = 0.95 - w
-    spawnCalc = "qalculate-gtk"
-    findCalc = className =? "Qalculate-gtk"
-    manageCalc = customFloating $ W.RationalRect l t w h
-      where
-        h = 0.5
-        w = 0.4
-        t = 0.75 - h
-        l = 0.70 - w
 
 -- Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
@@ -451,7 +440,8 @@ myManageHook =
     -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
     -- I'm doing it this way because otherwise I would have to write out the full
     -- name of my workspaces and the names would be very long if using clickable workspaces.
-    [ className =? "confirm" --> doFloat,
+    [ -- do float
+      className =? "confirm" --> doFloat,
       className =? "file_progress" --> doFloat,
       className =? "download" --> doFloat,
       className =? "error" --> doFloat,
@@ -460,38 +450,24 @@ myManageHook =
       className =? "pinentry-gtk-2" --> doFloat,
       className =? "splash" --> doFloat,
       className =? "toolbar" --> doFloat,
-      className =? "TelegramDesktop" --> doFloat,
+      (className =? "TelegramDesktop" <||> className =? "Fluffychat") --> doFloat,
       className =? "Yad" --> doCenterFloat,
-      (className =? zoomClassName) <&&> shouldFloat <$> title --> doFloat,
-      (className =? zoomClassName) <&&> shouldSink <$> title --> doSink,
-      title =? "Mozilla Firefox" --> doShift (myWorkspaces !! 1),
-      className =? "Google-chrome" --> doShift (myWorkspaces !! 1),
+      isDialog --> doCenterFloat,
+      isFullscreen --> doFullFloat,
       title =? "Bluetooth Device" --> doCenterFloat,
       title =? "Volume Control" --> doCenterFloat,
-      className =? "TelegramDesktop" --> doShift (myWorkspaces !! 3),
+      (className =? "Mozilla Firefox" <||> resource =? "Toolkit") --> doFloat,
+      -- do shift
+      title =? "Mozilla Firefox" --> doShift (myWorkspaces !! 1),
+      className =? "Google-chrome" --> doShift (myWorkspaces !! 1),
+      (className =? "TelegramDesktop" <||> className =? "Fluffychat") --> doShift (myWorkspaces !! 3),
       className =? "discord" --> doShift (myWorkspaces !! 4),
-      className =? "YouTube Music" --> doShift (myWorkspaces !! 5),
       title =? "Spotify" --> doShift (myWorkspaces !! 5),
       className =? "Gimp" --> doShift (myWorkspaces !! 8),
-      (className =? "firefox" <&&> resource =? "Toolkit") --> doFloat, -- Float Firefox Toolkit
-      title =? "Picture-in-Picture" --> doF copyToAll,
-      title =? "Picture in picture" --> doFloat,
-      title =? "Picture in picture" --> doF copyToAll,
-      isDialog --> doCenterFloat,
-      isFullscreen --> doFullFloat
+      -- do copy to all workspaces
+      (title =? "Picture-in-Picture" <||> title =? "Picture in Picture") --> doF copyToAll
     ]
     <+> namedScratchpadManageHook myScratchPads
-  where
-    zoomClassName = "zoom"
-    tileTitles =
-      [ "Zoom - Free Account", -- main window
-        "Zoom - Licensed Account", -- main window
-        "Zoom", -- meeting window on creation
-        "Zoom Meeting" -- meeting window shortly after creation
-      ]
-    shouldFloat title = title `notElem` tileTitles
-    shouldSink title = title `elem` tileTitles
-    doSink = (ask >>= doF . W.sink) <+> doF W.swapDown
 
 subtitle' :: String -> ((KeyMask, KeySym), NamedAction)
 subtitle' x =
@@ -614,8 +590,8 @@ myKeys c =
             ("M-S-<Down>", addName "Decrease clients in master pane" $ sendMessage (IncMasterN (-1))),
             ("M-=", addName "Increase max # of windows for layout" $ increaseLimit),
             ("M--", addName "Decrease max # of windows for layout" $ decreaseLimit)
-          ]
         -- Sublayouts
+          ]
         -- This is used to push windows to tabbed sublayouts, or pull them out of it.
         ^++^ subKeys
           "Sublayouts"
@@ -636,16 +612,7 @@ myKeys c =
         ^++^ subKeys
           "Scratchpads"
           [ ("M-s t", addName "Toggle scratchpad terminal" $ namedScratchpadAction myScratchPads "terminal"),
-            ("M-s m", addName "Toggle scratchpad mocp" $ namedScratchpadAction myScratchPads "mocp"),
-            ("M-<Escape>", addName "Toggle scratchpad calculator" $ namedScratchpadAction myScratchPads "calculator")
-          ]
-        -- Controls for mocp music player (SUPER-u followed by a key)
-        ^++^ subKeys
-          "Mocp music player"
-          [ ("M-u p", addName "mocp play" $ spawn "mocp --play"),
-            ("M-u l", addName "mocp next" $ spawn "mocp --next"),
-            ("M-u h", addName "mocp prev" $ spawn "mocp --previous"),
-            ("M-u <Space>", addName "mocp toggle pause" $ spawn "mocp --toggle-pause")
+            ("M-s p", addName "Toggle scratchpad pavucontrol" $ namedScratchpadAction myScratchPads "volumecontrol")
           ]
         ^++^ subKeys
           "GridSelect"
@@ -674,8 +641,8 @@ myKeys c =
             ("<XF86AudioPrev>", addName "mocp next" $ spawn "mocp --previous"),
             ("<XF86AudioNext>", addName "mocp prev" $ spawn "mocp --next"),
             ("<XF86AudioMute>", addName "Toggle audio mute" $ spawn "amixer set Master toggle"),
-            ("<XF86AudioLowerVolume>", addName "Lower vol" $ spawn "amixer set Master 5%- unmute"),
-            ("<XF86AudioRaiseVolume>", addName "Raise vol" $ spawn "amixer set Master 5%+ unmute"),
+            ("<XF86AudioLowerVolume>", addName "Lower volume" $ spawn "amixer set Master 5%- unmute"),
+            ("<XF86AudioRaiseVolume>", addName "Raise volume" $ spawn "amixer set Master 5%+ unmute"),
             ("<Print>", addName "Open Rofi screenshot" $ spawn "sh $HOME/.config/rofi/bin/screenshot")
           ]
   where
@@ -691,7 +658,7 @@ main = do
       docks . ewmhFullscreen . ewmh $
         def
           { manageHook = myManageHook <+> manageDocks,
-            handleEventHook = windowedFullscreenFixEventHook <> swallowEventHook (className =? "Alacritty" <||> className =? "st-256color" <||> className =? "XTerm") (return True) <> trayerPaddingXmobarEventHook,
+            handleEventHook = windowedFullscreenFixEventHook <> swallowEventHook (className =? "Alacritty" <||> className =? "org.wezfurlong.wezterm" <||> className =? "st-256color" <||> className =? "XTerm") (return True) <> trayerPaddingXmobarEventHook,
             modMask = myModMask,
             terminal = myTerminal,
             startupHook = myStartupHook,

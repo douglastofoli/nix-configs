@@ -1,91 +1,16 @@
-#+TITLE: GNU Emacs Config
-#+AUTHOR: Douglas Tofoli
-#+DESCRIPTION: My personal Emacs config.
-#+STARTUP: showeverything
-#+OPTIONS: toc:2
-
-* TABLE OF CONTENTS :toc:
-- [[#important-programs-to-load-first][IMPORTANT PROGRAMS TO LOAD FIRST]]
-  - [[#adding-the-scripts-directory-to-path][Adding the scripts directory to path]]
-  - [[#sourcing-the-scripts][Sourcing the scripts]]
-- [[#all-the-icons][ALL THE ICONS]]
-- [[#backup][BACKUP]]
-- [[#company][COMPANY]]
-- [[#copilot][COPILOT]]
-- [[#dashboard][DASHBOARD]]
-- [[#diminish][DIMINISH]]
-- [[#dired][DIRED]]
-- [[#evil][EVIL]]
-- [[#flycheck][FLYCHECK]]
-- [[#fonts][FONTS]]
-  - [[#setting-the-font-face][Setting the Font Face]]
-  - [[#zooming-inout][Zooming In/Out]]
-- [[#general-keybindings][GENERAL KEYBINDINGS]]
-- [[#graphical-user-interface-tweaks][GRAPHICAL USER INTERFACE TWEAKS]]
-  - [[#disable-menubar-toolbar-and-scrollbar][Disable Menubar, Toolbar and Scrollbar]]
-  - [[#display-line-numbers-and-truncated-lines][Display Line Numbers and Truncated Lines]]
-- [[#ivy-counsel][IVY (COUNSEL)]]
-- [[#language-support][LANGUAGE SUPPORT]]
-  - [[#elixir][Elixir]]
-  - [[#haskell][Haskell]]
-  - [[#lua][Lua]]
-- [[#modeline][MODELINE]]
-- [[#neotree][NEOTREE]]
-- [[#org-mode][ORG MODE]]
-  - [[#enabling-table-of-contents][Enabling Table of Contents]]
-  - [[#enabling-org-bullets][Enabling Org Bullets]]
-  - [[#disable-electric-indent][Disable Electric Indent]]
-  - [[#diminish-org-indent-mode][Diminish Org Indent Mode]]
-  - [[#org-level-headers][Org Level Headers]]
-  - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
-- [[#projectile][PROJECTILE]]
-- [[#rainbow-mode][RAINBOW MODE]]
-- [[#shells-and-terminals][SHELLS AND TERMINALS]]
-  - [[#eshell][Eshell]]
-  - [[#vterm][Vterm]]
-- [[#sound][SOUND]]
-  - [[#disable-ring-bell][Disable ring bell]]
-- [[#theme][THEME]]
-- [[#transparency][TRANSPARENCY]]
-- [[#treemacs][TREEMACS]]
-- [[#which-key][WHICH-KEY]]
-
-* IMPORTANT PROGRAMS TO LOAD FIRST
-To keep this =config.org= a reasonable length, I have moved a lot of code to individual scripts that will be sourced by this config. These scripts are found in "~/.config/emacs/scripts" and do not contain any code that most people are likely to need to edit.
-
-** Adding the scripts directory to path
-#+begin_src emacs-lisp
 (add-to-list 'load-path "~/.config/emacs/scripts/")
-#+end_src
 
-** Sourcing the scripts
-#+begin_src emacs-lisp
 (require 'elpaca-setup)  ;; The Package Manager
-#+end_src
 
-* ALL THE ICONS
-This is an icon set that can be used with dashboard, dired, ibuffer and other Emacs programs.
-  
-#+begin_src emacs-lisp
 (use-package all-the-icons
   :ensure t
   :if (display-graphic-p))
 
 (use-package all-the-icons-dired
   :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
-#+end_src
 
-* BACKUP 
-By default, Emacs creates automatic backups of files in their original directories, such "file.el" and the backup "file.el~".  This leads to a lot of clutter, so let's tell Emacs to put all backups that it creates in the =TRASH= directory.
-
-#+begin_src emacs-lisp
 (setq backup-directory-alist '((".*" . "~/.Trash")))
-#+end_src
 
-* COMPANY
-[[https://company-mode.github.io/][Company]] is a text completion framework for Emacs. The name stands for "complete anything".  Completion will start automatically after you type a few letters. Use M-n and M-p to select, <return> to complete or <tab> to complete the common part.
-
-#+begin_src emacs-lisp
 (use-package company
   :defer 2
   :diminish
@@ -101,24 +26,14 @@ By default, Emacs creates automatic backups of files in their original directori
   :after company
   :diminish
   :hook (company-mode . company-box-mode))
-#+end_src
 
-* COPILOT
-Copilot integration plugin for Emacs. 
-
-#+begin_src emacs-lisp
 (use-package copilot
   :ensure t
   (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el")))
 
 ;;(add-to-list 'load-path "/path/to/copilot.el")
 ;;(require 'copilot)
-#+end_src
 
-* DASHBOARD
-Emacs Dashboard is an extensible startup screen showing you recent files, bookmarks, agenda items and an Emacs banner.
-
-#+begin_src emacs-lisp
 (use-package dashboard
   :ensure t 
   :init
@@ -139,17 +54,9 @@ Emacs Dashboard is an extensible startup screen showing you recent files, bookma
 				      (bookmarks . "book")))
   :config
   (dashboard-setup-startup-hook))
-#+end_src
 
-* DIMINISH
-This package implements hiding or abbreviation of the modeline displays (lighters) of minor-modes.  With this package installed, you can add ':diminish' to any use-package block to hide that particular mode in the modeline.
-
-#+begin_src emacs-lisp
 (use-package diminish)
-#+end_src
 
-* DIRED
-#+begin_src emacs-lisp
 (use-package dired-open
   :config
   (setq dired-open-extensions '(("gif" . "sxiv")
@@ -166,12 +73,7 @@ This package implements hiding or abbreviation of the modeline displays (lighter
     (evil-define-key 'normal dired-mode-map (kbd "l") 'dired-open-file) ; use dired-find-file instead if not using dired-open package
     (evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file)
     (evil-define-key 'normal peep-dired-mode-map (kbd "k") 'peep-dired-prev-file))
-#+end_src
 
-* EVIL
-[[https://github.com/emacs-evil/evil][Evil]] is an extensible vi/vim layer for Emacs.  Because...let's face it.  The Vim keybindings are just plain better.
-
-#+begin_src emacs-lisp
 ;; Expands to: (elpaca evil (use-package evil :demand t))
 (use-package evil
     :init      ;; tweak evil's configuration before loading it
@@ -187,30 +89,19 @@ This package implements hiding or abbreviation of the modeline displays (lighter
   (setq evil-collection-mode-list '(dashboard dired ibuffer))
   (evil-collection-init))
 (use-package evil-tutor)
-#+end_src
 
-* FLYCHECK
-Install =luacheck= from your Linux distro's repositories for flycheck to work correctly with lua files.  Install =python-pylint= for flycheck to work with python files.  Haskell works with flycheck as long as =haskell-ghc= or =haskell-stack-ghc= is installed.  For more information on language support for flycheck, [[https://www.flycheck.org/en/latest/languages.html][read this]].
-
-#+begin_src emacs-lisp
 (use-package flycheck
   :ensure t
   :defer t
   :diminish
   :init (global-flycheck-mode))
-#+end_src
 
-* FONTS
-Defining the various fonts that Emacs will use.
-
-** Setting the Font Face
-#+begin_src emacs-lisp
 (set-face-attribute 'default nil
   :font "JetBrainsMono Nerd Font"
   :height 110
   :weight 'medium)
 (set-face-attribute 'variable-pitch nil
-  :font "Roboto"
+  :font "Ubuntu"
   :height 120
   :weight 'medium)
 (set-face-attribute 'fixed-pitch nil
@@ -232,20 +123,12 @@ Defining the various fonts that Emacs will use.
 
 ;; Uncomment the following line if line spacing needs adjusting.
 (setq-default line-spacing 0.12)
-#+end_src
 
-** Zooming In/Out
-You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTRL plus the mouse wheel for zooming in/out.
-
-#+begin_src emacs-lisp
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
 (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
-#+end_src
 
-* GENERAL KEYBINDINGS
-#+begin_src emacs-lisp
 (use-package general
   :config
   (general-evil-setup)
@@ -382,30 +265,14 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "w J" '(buf-move-down :wk "Buffer move down")
     "w K" '(buf-move-up :wk "Buffer move up")
     "w L" '(buf-move-right :wk "Buffer move right")))
-#+end_src
 
-* GRAPHICAL USER INTERFACE TWEAKS
-Let's make GNU Emacs look a little better.
-
-** Disable Menubar, Toolbar and Scrollbar
-#+begin_src emacs-lisp
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-#+end_src
 
-** Display Line Numbers and Truncated Lines
-#+begin_src emacs-lisp
 (global-display-line-numbers-mode 1)
 (global-visual-line-mode t)
-#+end_src
 
-* IVY (COUNSEL)
-+ Ivy, a generic completion mechanism for Emacs.
-+ Counsel, a collection of Ivy-enhanced versions of common Emacs commands.
-+ Ivy-rich allows us to add descriptions alongside the commands in M-x.
-
-#+begin_src emacs-lisp
 (use-package counsel
   :after ivy
   :diminish
@@ -439,33 +306,16 @@ Let's make GNU Emacs look a little better.
   :config
   (ivy-set-display-transformer 'ivy-switch-buffer
                                'ivy-rich-switch-buffer-transformer))
-#+end_src
 
-* LANGUAGE SUPPORT
-Emacs has built-in programming language modes for Lisp, Scheme, DSSSL, Ada, ASM, AWK, C, C++, Fortran, Icon, IDL (CORBA), IDLWAVE, Java, Javascript, M4, Makefiles, Metafont, Modula2, Object Pascal, Objective-C, Octave, Pascal, Perl, Pike, PostScript, Prolog, Python, Ruby, Simula, SQL, Tcl, Verilog, and VHDL.  Other languages will require you to install additional modes.
-
-** Elixir
-#+begin_src emacs-lisp
 (use-package elixir-mode 
   :ensure t)
 (use-package alchemist
   :ensure t)
-#+end_src
 
-** Haskell
-#+begin_src emacs-lisp
 (use-package haskell-mode)
-#+end_src
 
-** Lua
-#+begin_src emacs-lisp
 (use-package lua-mode)
-#+end_src
 
-* MODELINE
-The modeline is the bottom status bar that appears in Emacs windows.  While you can create your own custom modeline, why go to the trouble when Doom Emacs already has a nice modeline package available.  For more information on what is available to configure in the Doom modeline, check out: [[https://github.com/seagle0128/doom-modeline][Doom Modeline]]
-
-#+begin_src emacs-lisp
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
@@ -474,17 +324,7 @@ The modeline is the bottom status bar that appears in Emacs windows.  While you 
         doom-modeline-bar-width 4    ;; sets right bar width
         doom-modeline-persp-name t   ;; adds perspective name to modeline
         doom-modeline-persp-icon t)) ;; adds folder icon next to persp name
-#+end_src
 
-* NEOTREE
-Neotree is a file tree viewer.  When you open neotree, it jumps to the current file thanks to neo-smart-open.  The neo-window-fixed-size setting makes the neotree width be adjustable.  NeoTree provides following themes: classic, ascii, arrow, icons, and nerd.  Theme can be config'd by setting "two" themes for neo-theme: one for the GUI and one for the terminal.  I like to use 'SPC t' for 'toggle' keybindings, so I have used 'SPC t n' for toggle-neotree.
-
-| COMMAND        | DESCRIPTION               | KEYBINDING |
-|----------------+---------------------------+------------|
-| neotree-toggle | /Toggle neotree/            | SPC t n    |
-| neotree- dir   | /Open directory in neotree/ | SPC d n    |
-
-#+BEGIN_SRC emacs-lisp
 (use-package neotree
   :config
   (setq neo-smart-open t
@@ -501,98 +341,39 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
                  (setq word-wrap nil)
                  (make-local-variable 'auto-hscroll-mode)
                  (setq auto-hscroll-mode nil)))))
-#+end_src
 
-* ORG MODE
-** Enabling Table of Contents
-#+begin_src emacs-lisp
 (use-package toc-org
     :commands toc-org-enable
     :init (add-hook 'org-mode-hook 'toc-org-enable))
-#+end_src
 
-** Enabling Org Bullets
-Org-bullets gives us attractive bullets rather than asterisks.
-
-#+begin_src emacs-lisp
 (add-hook 'org-mode-hook 'org-indent-mode)
 (use-package org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-#+end_src
 
-** Disable Electric Indent
-Org mode source blocks have some really weird and annoying default indentation behavior.  I think this has to do with electric-indent-mode, which is turned on by default in Emacs, and the fact that Org defaults to indenting 2 spaces in source blocks.  So let's turn it all of that OFF!
-
-#+begin_src emacs-lisp
 (electric-indent-mode -1)
 (setq org-edit-src-content-indentation 0)
-#+end_src
 
-** Diminish Org Indent Mode
-Removes "Ind" from showing in the modeline.
-
-#+begin_src emacs-lisp
 (eval-after-load 'org-indent '(diminish 'org-indent-mode))
 
-#+end_src
+(custom-set-faces
+ '(org-level-1 ((t (:inherit outline-1 :height 1.7))))
+ '(org-level-2 ((t (:inherit outline-2 :height 1.6))))
+ '(org-level-3 ((t (:inherit outline-3 :height 1.5))))
+ '(org-level-4 ((t (:inherit outline-4 :height 1.4))))
+ '(org-level-5 ((t (:inherit outline-5 :height 1.3))))
+ '(org-level-6 ((t (:inherit outline-5 :height 1.2))))
+ '(org-level-7 ((t (:inherit outline-5 :height 1.1)))))
 
-** Org Level Headers
-#+begin_src emacs-lisp
-  (custom-set-faces
-   '(org-level-1 ((t (:inherit outline-1 :height 1.7))))
-   '(org-level-2 ((t (:inherit outline-2 :height 1.6))))
-   '(org-level-3 ((t (:inherit outline-3 :height 1.5))))
-   '(org-level-4 ((t (:inherit outline-4 :height 1.4))))
-   '(org-level-5 ((t (:inherit outline-5 :height 1.3))))
-   '(org-level-6 ((t (:inherit outline-5 :height 1.2))))
-   '(org-level-7 ((t (:inherit outline-5 :height 1.1)))))
-#+end_src
-
-** Source Code Block Tag Expansion
-Org-tempo is not a separate package but a module within org that can be enabled.  Org-tempo allows for '<s' followed by TAB to expand to a begin_src tag.  Other expansions available include:
-
-| Typing the below + TAB | Expands to ...                          |
-|------------------------+-----------------------------------------|
-| <a                     | '#+BEGIN_EXPORT ascii' … '#+END_EXPORT  |
-| <c                     | '#+BEGIN_CENTER' … '#+END_CENTER'       |
-| <C                     | '#+BEGIN_COMMENT' … '#+END_COMMENT'     |
-| <e                     | '#+BEGIN_EXAMPLE' … '#+END_EXAMPLE'     |
-| <E                     | '#+BEGIN_EXPORT' … '#+END_EXPORT'       |
-| <h                     | '#+BEGIN_EXPORT html' … '#+END_EXPORT'  |
-| <l                     | '#+BEGIN_EXPORT latex' … '#+END_EXPORT' |
-| <q                     | '#+BEGIN_QUOTE' … '#+END_QUOTE'         |
-| <s                     | '#+BEGIN_SRC' … '#+END_SRC'             |
-| <v                     | '#+BEGIN_VERSE' … '#+END_VERSE'         |
-
-#+begin_src emacs-lisp 
 (require 'org-tempo)
-#+end_src
 
-* PROJECTILE
-[[https://github.com/bbatsov/projectile][Projectile]] is a project interaction library for Emacs.  It should be noted that many projectile commands do not work if you have set "fish" as the "shell-file-name" for Emacs.  I had initially set "fish" as the "shell-file-name" in the Vterm section of this config, but oddly enough I changed it to "bin/sh" and projectile now works as expected, and Vterm still uses "fish" because my default user "sh" on my Linux system is "fish".
-
-#+begin_src emacs-lisp
 (use-package projectile
   :config
   (projectile-mode 1))
-#+end_src
 
-* RAINBOW MODE
-Display the actual color as a background for any hex color value (ex. #ffffff).  The code block below enables rainbow-mode in all programming modes (prog-mode) as well as org-mode, which is why rainbow works in this document.  
-
-#+begin_src emacs-lisp
 (use-package rainbow-mode
   :diminish
   :hook org-mode prog-mode)
-#+end_src
 
-* SHELLS AND TERMINALS
-In my configs, all of my shells (bash, fish, zsh and the ESHELL) require my shell-color-scripts-git package to be installed.  On Arch Linux, you can install it from the AUR.  Otherwise, go to my shell-color-scripts repository on GitLab to get it.
-
-** Eshell
-Eshell is an Emacs 'shell' that is written in Elisp.
-
-#+begin_src emacs-lisp
 (use-package eshell-toggle
   :custom
   (eshell-toggle-size-fraction 3)
@@ -617,29 +398,14 @@ Eshell is an Emacs 'shell' that is written in Elisp.
         eshell-scroll-to-bottom-on-input t
         eshell-destroy-buffer-when-process-dies t
         eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh"))
-#+end_src
 
-** Vterm
-Vterm is a terminal emulator within Emacs.  The 'shell-file-name' setting sets the shell to be used in M-x shell, M-x term, M-x ansi-term and M-x vterm.  By default, the shell is set to 'fish' but could change it to 'bash' or 'zsh' if you prefer.
-
-#+begin_src emacs-lisp
 (use-package vterm
 :config
 (setq shell-file-name "/bin/sh"
       vterm-max-scrollback 5000))
-#+end_src
 
-* SOUND
-
-** Disable ring bell
-#+begin_src emacs-lisp
 (setq ring-bell-function 'ignore)
-#+end_src
 
-* THEME
-The first line below designates the directory where will place all of our custom-made themes, which I have created only one (dtmacs).  You can create your own Emacs themes with the help of the [[https://emacsfodder.github.io/emacs-theme-editor/][Emacs Theme Editor]].  I am also installing =doom-themes= because it contains a huge collection of themes.  M-x load-theme will list all of the themes available.
-
-#+begin_src emacs-lisp
 (add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
 
 (use-package doom-themes
@@ -652,19 +418,9 @@ The first line below designates the directory where will place all of our custom
   (doom-themes-neotree-config)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
-#+end_src
 
-* TRANSPARENCY
-With Emacs version 29, true transparency has been added. I have turned transparency off by setting the alpha to '100'.  If you want some slight transparency, try setting alpha to '90'.  Of course, if you set alpha to '0', the background of Emacs would completely transparent.
-
-#+begin_src emacs-lisp
 (add-to-list 'default-frame-alist '(alpha-background . 100)) ; For all new frames henceforth
-#+end_src
 
-* TREEMACS
-A tree layout file explorer for Emacs
-
-#+begin_src emacs-lisp
 (use-package treemacs
   :config
   (progn
@@ -680,10 +436,7 @@ A tree layout file explorer for Emacs
   :after lsp-mode
   :config
   (lsp-metals-treeview-enable t))
-#+end_src
 
-* WHICH-KEY
-#+begin_src emacs-lisp
 (use-package which-key
   :init
     (which-key-mode 1)
@@ -702,5 +455,3 @@ A tree layout file explorer for Emacs
 	  which-key-max-description-length 25
 	  which-key-allow-imprecise-window-fit nil
 	  which-key-separator " → " ))
-#+end_src
-

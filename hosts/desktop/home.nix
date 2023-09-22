@@ -15,13 +15,17 @@
       obsidian
       pcmanfm
       gnome.file-roller
-      nodejs
       obinskit
       vscode
 
       nixfmt
       fractal
-fluffychat
+      fluffychat
+      dbeaver
+
+      # emacs/nvim
+      fd
+      ripgrep
     ];
   };
 

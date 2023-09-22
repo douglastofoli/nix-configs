@@ -1,6 +1,6 @@
 # These are the different profiles that can be used when building NixOS
 
-{ lib, inputs, nixpkgs, home-manager, nur, user, location, ... }:
+{ lib, inputs, nixpkgs, home-manager, nur, nix-emacs, user, location, ... }:
 
 let
   system = "x86_64-linux";
@@ -15,7 +15,7 @@ in {
   desktop = lib.nixosSystem { # Desktop profile
     inherit system;
     specialArgs = {
-      inherit inputs system user location;
+      inherit inputs system nix-emacs user location;
       host = { # System specific configuration
         hostName = "desktop";
         gitSigningKey = "A30D5C3DE5FCB642";

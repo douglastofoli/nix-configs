@@ -1,17 +1,9 @@
-{ pkgs, ... }:
+{ nix-emacs, system, ... }:
 
-{
-  services.emacs = {
-    enable = true;
-    defaultEditor = true;
-  };
-
-  environment.systemPackages = with pkgs; [
-    fd
-    ripgrep
-    nixfmt
-
-    ((emacsPackagesFor emacs).emacsWithPackages
-      (epkgs: with epkgs; [ editorconfig vterm ]))
+let 
+  emacs = nix-emacs.packages.${system}.default;
+in {
+  environment.systemPackages = [
+    emacs
   ];
 }

@@ -47,5 +47,5 @@
     };
   };
 
-  environment = { systemPackages = with pkgs; [ bat exa zoxide ]; };
+  environment = { systemPackages = with pkgs; [ bat eza zoxide ]; };
 }

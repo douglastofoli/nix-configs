@@ -15,9 +15,11 @@
       url = "github:guibou/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-emacs.url = "github:douglastofoli/nix-emacs/0.0.1";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nur, nixgl, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, nur, nixgl, nix-emacs, ... }:
     let
       user = "douglas";
       location = "$HOME/.setup";
@@ -25,7 +27,7 @@
       nixosConfigurations = ( # NixOS configurations
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs home-manager nur user location;
+          inherit inputs nixpkgs home-manager nur nix-emacs user location;
         });
 
       homeConfigurations = ( # Non-NixOS configurations

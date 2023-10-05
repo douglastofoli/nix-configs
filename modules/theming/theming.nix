@@ -23,7 +23,7 @@
         name = "Dracula";
         package = pkgs.dracula-icon-theme;
       };
-      font.name = "JetBrainsMono Nerd Font";
+      font.name = "Cantarell";
     };
   };
 }

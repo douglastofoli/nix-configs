@@ -53,6 +53,7 @@
 
   fonts = {
     packages = with pkgs; [
+      cantarell-fonts
       corefonts # Microsoft fonts
       font-awesome
       liberation_ttf

@@ -146,6 +146,7 @@ myStartupHook = do
   spawnOnce "feh -zr --bg-fill --no-fehbg $HOME/.config/wallpaper.jpg"
   
   spawnOnce "sleep 2 && firefox"
+  spawnOnce "sleep 2 && discord"
   spawnOnce "sleep 2 && telegram-desktop"
 
   spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 " ++ colorTrayer ++ " --height 30")
@@ -236,7 +237,8 @@ gsEducation =
   []
 
 gsInternet =
-  [ ("Discord", "discord"),
+  [ ("Brave Browser", "brave"),
+    ("Discord", "discord"),
     ("Firefox", "firefox"),
     ("Google Chrome", "google-chrome-stable"),
     ("Zoom", "zoom")
@@ -458,6 +460,7 @@ myManageHook =
       title =? "Volume Control" --> doCenterFloat,
       (className =? "Mozilla Firefox" <||> resource =? "Toolkit") --> doFloat,
       -- do shift
+      className =? "Brave-browser" --> doShift (myWorkspaces !! 1),
       title =? "Mozilla Firefox" --> doShift (myWorkspaces !! 1),
       className =? "Google-chrome" --> doShift (myWorkspaces !! 1),
       (className =? "TelegramDesktop" <||> className =? "Fluffychat") --> doShift (myWorkspaces !! 3),
@@ -465,7 +468,10 @@ myManageHook =
       title =? "Spotify" --> doShift (myWorkspaces !! 5),
       className =? "Gimp" --> doShift (myWorkspaces !! 8),
       -- do copy to all workspaces
-      (title =? "Picture-in-Picture" <||> title =? "Picture in Picture") --> doF copyToAll
+      --
+      (title =? "Picture in picture") --> doF copyToAll, -- Brave
+      (title =? "Picture-in-Picture") --> doF copyToAll, -- Firefox
+      (title =? "Picture in Picture") --> doF copyToAll -- Chrome
     ]
     <+> namedScratchpadManageHook myScratchPads
 
@@ -637,9 +643,9 @@ myKeys c =
         -- Multimedia Keys
         ^++^ subKeys
           "Multimedia keys"
-          [ ("<XF86AudioPlay>", addName "mocp play" $ spawn "mocp --play"),
-            ("<XF86AudioPrev>", addName "mocp next" $ spawn "mocp --previous"),
-            ("<XF86AudioNext>", addName "mocp prev" $ spawn "mocp --next"),
+          [ ("<XF86AudioPlay>", addName "playerctl play-pause" $ spawn "playerctl play-pause"),
+            ("<XF86AudioPrev>", addName "playerctl previous" $ spawn "playerctl previous"),
+            ("<XF86AudioNext>", addName "playerctl next" $ spawn "playerctl next"),
             ("<XF86AudioMute>", addName "Toggle audio mute" $ spawn "amixer set Master toggle"),
             ("<XF86AudioLowerVolume>", addName "Lower volume" $ spawn "amixer set Master 5%- unmute"),
             ("<XF86AudioRaiseVolume>", addName "Raise volume" $ spawn "amixer set Master 5%+ unmute"),
@@ -652,7 +658,7 @@ myKeys c =
 
 main :: IO ()
 main = do
-  xmproc <- spawnPipe "xmobar -x 0 $HOME/.setup/modules/desktop/xmonad/xmobar/xmobarrc"
+  xmproc <- spawnPipe "xmobar -x 0 $HOME/.setup/modules/desktops/xmonad/xmobar/xmobarrc"
   xmonad $
     addDescrKeys' ((mod4Mask, xK_F1), showKeybindings) myKeys $
       docks . ewmhFullscreen . ewmh $

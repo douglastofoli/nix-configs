@@ -23,11 +23,18 @@
     let
       user = "douglas";
       location = "$HOME/.setup";
+
+      vars = {
+        user = "douglas";
+        location = "$HOME/.setup";
+        terminal = "wezterm";
+        editor = "emacs";
+      };
     in {
       nixosConfigurations = ( # NixOS configurations
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs home-manager nur nix-emacs user location;
+          inherit inputs nixpkgs home-manager nur nix-emacs user location vars;
         });
 
       homeConfigurations = ( # Non-NixOS configurations

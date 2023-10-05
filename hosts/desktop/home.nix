@@ -18,6 +18,8 @@
       obinskit
       vscode
 
+      brave
+      logseq
       nixfmt
       fractal
       fluffychat

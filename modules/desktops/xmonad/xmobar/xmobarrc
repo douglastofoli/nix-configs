@@ -10,7 +10,7 @@ Config { font              = "Ubuntu Bold 10"
        , hideOnStart = False
        , allDesktops = True
        , persistent = True
-       , iconRoot = ".setup/modules/desktop/xmonad/xmobar/xpm/" -- default: "."
+       , iconRoot = ".setup/modules/desktops/xmonad/xmobar/xpm/" -- default: "."
        , commands = [ Run Com "echo" ["<fc=#494d64><fn=2>\xf053</fn></fc>"] "sep" 10000
                     , Run Com "echo" ["<fc=#494d64><fn=2>\xf054</fn></fc>"] "sep_right" 10000
                     , Run UnsafeStdinReader
@@ -30,7 +30,7 @@ Config { font              = "Ubuntu Bold 10"
                                  ] 10
                     , Run Date "<fc=#94e2d5><fn=2>\xf073</fn>  %a %m/%_d/%y</fc>" "date" 100000
                     , Run Date "<fc=#89b4fa><fn=2>\xf017</fn>  %H:%M</fc>" "time"  10
-                    , Run Com ".setup/modules/desktop/xmonad/xmobar/scripts/trayer-padding-icon.sh" [] "trayerpad" 20
+                    , Run Com ".setup/modules/desktops/xmonad/xmobar/scripts/trayer-padding-icon.sh" [] "trayerpad" 20
                     ]
        , sepChar = "%"
        , alignSep = "}{"

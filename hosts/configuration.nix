@@ -1,9 +1,10 @@
 # Main system configuration.
 
-{ config, lib, pkgs, inputs, user, location, vars, ... }:
+{ config, lib, pkgs, inputs, vars, ... }:
 
 {
   imports = (import ../modules/desktops ++ import ../modules/editors
+    ++ import ../modules/hardware ++ import ../modules/programs
     ++ import ../modules/services ++ import ../modules/theming
     ++ import ../modules/shell);
 

@@ -1,6 +1,6 @@
 # Specific system configuration settings for desktop
 
-{ config, lib, pkgs, user, location, host, ... }:
+{ config, lib, pkgs, host, ... }:
 
 {
   imports = [ (import ./hardware-configuration.nix) ]
@@ -78,8 +78,6 @@
     algorithm = "zstd";
     memoryPercent = 80;
   };
-
-  services.blueman.enable = true;
 
   programs = {
     adb.enable = true;

@@ -21,9 +21,6 @@
 
   outputs = inputs@{ self, nixpkgs, home-manager, nur, nixgl, nix-emacs, ... }:
     let
-      user = "douglas";
-      location = "$HOME/.setup";
-
       vars = {
         user = "douglas";
         location = "$HOME/.setup";
@@ -34,13 +31,13 @@
       nixosConfigurations = ( # NixOS configurations
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs home-manager nur nix-emacs user location vars;
+          inherit inputs nixpkgs home-manager nur nix-emacs vars;
         });
 
       homeConfigurations = ( # Non-NixOS configurations
         import ./nix {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs home-manager nixgl user;
+          inherit inputs nixpkgs home-manager nixgl vars;
         });
     };
 }

@@ -5,8 +5,8 @@
 {
   imports = (import ../modules/desktops ++ import ../modules/editors
     ++ import ../modules/hardware ++ import ../modules/programs
-    ++ import ../modules/services ++ import ../modules/theming
-    ++ import ../modules/shell);
+    ++ import ../modules/services ++ import ../modules/shells
+    ++ import ../modules/themes);
 
   users.users.${vars.user} = {
     isNormalUser = true;
@@ -72,6 +72,13 @@
   environment = {
     shells = [ pkgs.zsh ];
 
+    variables = {
+      TERMINAL = "${vars.terminal}";
+      EDITOR = "${vars.editor}";
+      VISUAL = "${vars.editor}";
+      TZ = "${config.time.timeZone}"; # Fix the timezone on firefox
+    };
+
     systemPackages = with pkgs; [
       # Apps 
       google-chrome
@@ -96,13 +103,6 @@
       pavucontrol
       vlc
     ];
-
-    variables = {
-      EDITOR = "nvim";
-      VISUAL = "nvim";
-      TERMINAL = "wezterm";
-      TZ = "${config.time.timeZone}"; # Fix the timezone on firefox
-    };
   };
 
   programs = { dconf.enable = true; };

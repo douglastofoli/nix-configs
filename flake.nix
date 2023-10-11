@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-emacs.url = "github:douglastofoli/nix-emacs/feat/refactor-home-manager";
+    nix-emacs.url = "github:douglastofoli/nix-emacs/0.0.5";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nur, nixgl, nix-emacs, ... }:

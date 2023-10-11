@@ -3,8 +3,8 @@ Config { font              = "Ubuntu Bold 10"
                            , "Font Awesome 6 Free Solid 13"
                            , "Font Awesome 6 Brands 13"
                            ]
-       , bgColor = "#1e1e2e"
-       , fgColor = "#cdd6f4"
+       , bgColor = "#282a36"
+       , fgColor = "#f8f8f2"
        , position = TopSize L 100 30
        , lowerOnStart = True
        , hideOnStart = False
@@ -14,22 +14,22 @@ Config { font              = "Ubuntu Bold 10"
        , commands = [ Run Com "echo" ["<fc=#494d64><fn=2>\xf053</fn></fc>"] "sep" 10000
                     , Run Com "echo" ["<fc=#494d64><fn=2>\xf054</fn></fc>"] "sep_right" 10000
                     , Run UnsafeStdinReader
-                    , Run Cpu [ "--template", "<fc=#8be7fd><fn=2>\xf2db</fn>  <total>%</fc>"
-                              , "--Low","3"
-                              , "--High","50"
-                              , "--low","#8be7fd"
-                              , "--normal","#8be7fd"
-                              , "--high","#ed8796"
+                    , Run Cpu [ "--template", "<fc=#8be9fd><fn=2>\xf2db</fn>  <total>%</fc>"
+                              , "--Low",    "3"
+                              , "--High",   "50"
+                              , "--low",    "#8be9fd"
+                              , "--normal", "#8be9fd"
+                              , "--high",   "#ff5555"
                               ] 50
-                    , Run Memory [ "--template" ,"<fc=#a6da95><fn=2>\xf538</fn>  <usedratio>%</fc>"
+                    , Run Memory [ "--template" ,"<fc=#50fa7b><fn=2>\xf538</fn>  <usedratio>%</fc>"
                                  , "--Low"      , "20"        -- units: %
                                  , "--High"     , "90"        -- units: %
-                                 , "--low"      , "#a6da95"
-                                 , "--normal"   , "#a6da95"
-                                 , "--high"     , "#ed8796"
+                                 , "--low"      , "#50fa7b"
+                                 , "--normal"   , "#50fa7b"
+                                 , "--high"     , "#ff5555"
                                  ] 10
-                    , Run Date "<fc=#94e2d5><fn=2>\xf073</fn>  %a %m/%_d/%y</fc>" "date" 100000
-                    , Run Date "<fc=#89b4fa><fn=2>\xf017</fn>  %H:%M</fc>" "time"  10
+                    , Run Date "<fc=#ffb86c><fn=2>\xf073</fn>  %a %m/%_d/%y</fc>" "date" 100000
+                    , Run Date "<fc=#f1fa86><fn=2>\xf017</fn>  %H:%M</fc>" "time"  10
                     , Run Com ".setup/modules/desktops/xmonad/xmobar/scripts/trayer-padding-icon.sh" [] "trayerpad" 20
                     ]
        , sepChar = "%"

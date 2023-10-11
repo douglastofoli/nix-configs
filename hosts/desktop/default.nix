@@ -58,7 +58,7 @@
     gnome.file-roller
     obinskit
     vscode
-
+    platformio
     nixfmt
     fluffychat
     dbeaver

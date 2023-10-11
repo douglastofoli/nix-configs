@@ -1,11 +1,11 @@
 # Nix setup using Home-manager
 
-{ config, pkgs, inputs, nixgl, user, ... }:
+{ config, pkgs, inputs, nixgl, vars, ... }:
 
 {
   home = {
-    username = "${user}";
-    homeDirectory = "/home/${user}";
+    username = "${vars.user}";
+    homeDirectory = "/home/${vars.user}";
 
     packages = with pkgs;
       [

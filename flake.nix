@@ -16,24 +16,29 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-emacs.url = "github:douglastofoli/nix-emacs/0.0.1";
+    nix-emacs.url = "github:douglastofoli/nix-emacs/0.0.5";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nur, nixgl, nix-emacs, ... }:
     let
-      user = "douglas";
-      location = "$HOME/.setup";
+      vars = {
+        user = "douglas";
+        location = "$HOME/.setup";
+        terminal = "wezterm";
+        editor = "emacs";
+        browser = "firefox";
+      };
     in {
       nixosConfigurations = ( # NixOS configurations
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs home-manager nur nix-emacs user location;
+          inherit inputs nixpkgs home-manager nur nix-emacs vars;
         });
 
       homeConfigurations = ( # Non-NixOS configurations
         import ./nix {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs home-manager nixgl user;
+          inherit inputs nixpkgs home-manager nixgl vars;
         });
     };
 }

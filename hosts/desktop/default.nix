@@ -1,13 +1,10 @@
 # Specific system configuration settings for desktop
 
-{ config, lib, pkgs, user, location, host, ... }:
+{ config, lib, pkgs, host, ... }:
 
 {
-  imports = [ (import ./hardware-configuration.nix) ]
-    ++ [ (import ../../modules/desktop/xmonad) ]
-    ++ (import ../../modules/hardware)
-    ++ [ (import ../../modules/services/syncthing.nix) ]
-    ++ [ (import ../../modules/services/yubikey.nix) ];
+  imports = [ ./hardware-configuration.nix ]
+    ++ (import ../../modules/desktops/virtualisation);
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -27,9 +24,17 @@
     };
   };
 
+  xmonad.enable = true;
+
   hardware.opengl = {
     enable = true;
-    extraPackages = with pkgs; [ vaapiIntel vaapiVdpau libvdpau-va-gl ];
+    extraPackages = with pkgs; [
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+    extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel ];
     driSupport = true;
     driSupport32Bit = true;
   };
@@ -40,32 +45,48 @@
     nameservers = [ "1.1.1.1" "1.0.0.1" ];
   };
 
-  environment.variables = { LIBVA_DRIVER_NAME = "i965"; };
+  environment.systemPackages = with pkgs; [
+    hugo
+    gimp
+    discord
+    tdesktop
+    qbittorrent
+    spotify
+    insomnia
+    obsidian
+    pcmanfm
+    gnome.file-roller
+    obinskit
+    vscode
+    platformio
+    nixfmt
+    fluffychat
+    dbeaver
+    logseq
+
+    # emacs/nvim
+    fd
+    ripgrep
+  ];
 
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    memoryPercent = 70;
+    memoryPercent = 80;
   };
-
-  virtualisation = {
-    docker = {
-      enable = true;
-      enableOnBoot = true;
-    };
-    libvirtd.enable = true;
-  };
-
-  services.blueman.enable = true;
 
   programs = {
-    adb.enable = true;
-    dconf.enable = true;
     git.config.user.signingkey = lib.mkForce host.gitSigningKey;
     nix-ld.enable = true;
   };
 
-  nixpkgs.config.permittedInsecurePackages = [ "electron-13.6.9" ];
+  nixpkgs.config = {
+    permittedInsecurePackages = [ "electron-13.6.9" ];
+
+    packageOverrides = pkgs: {
+      vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+    };
+  };
 
   nixpkgs.overlays = [
     (self: super: {

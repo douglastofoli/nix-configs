@@ -1,41 +1,26 @@
 # Main system configuration.
 
-{ config, lib, pkgs, inputs, user, location, ... }:
+{ config, lib, pkgs, inputs, vars, ... }:
 
 {
-  imports = (import ../modules/editors) ++ (import ../modules/shell);
+  imports = (import ../modules/desktops ++ import ../modules/editors
+    ++ import ../modules/hardware ++ import ../modules/programs
+    ++ import ../modules/services ++ import ../modules/shells
+    ++ import ../modules/themes);
 
-  users.users = {
-    root = {
-      isSystemUser = true;
-      shell = pkgs.zsh;
-    };
-
-    ${user} = {
-      isNormalUser = true;
-      extraGroups = [
-        "adbusers"
-        "audio"
-        "camera"
-        "docker"
-        "libvirtd"
-        "networkmanager"
-        "video"
-        "wheel"
-      ];
-      shell = pkgs.zsh;
-      initialPassword = "123456";
-    };
+  users.users.${vars.user} = {
+    isNormalUser = true;
+    shell = pkgs.zsh;
+    initialPassword = "123456";
+    extraGroups = [ "audio" "camera" "networkmanager" "video" "wheel" ];
   };
 
   time.timeZone = "America/Sao_Paulo";
   i18n = {
     defaultLocale = "en_US.UTF-8";
-    supportedLocales = [ "en_US.UTF-8/UTF-8" "pt_BR.UTF-8/UTF-8" ];
     extraLocaleSettings = {
       LC_TIME = "pt_BR.UTF-8";
       LC_MONETARY = "pt_BR.UTF-8";
-      LC_MESSAGES = "en_US.UTF-8";
     };
   };
 
@@ -69,6 +54,7 @@
 
   fonts = {
     packages = with pkgs; [
+      cantarell-fonts
       corefonts # Microsoft fonts
       font-awesome
       liberation_ttf
@@ -86,16 +72,40 @@
   environment = {
     shells = [ pkgs.zsh ];
 
-    systemPackages = with pkgs; [ gcc gnumake ];
-
     variables = {
-      EDITOR = "nvim";
-      VISUAL = "nvim";
-      BROWSER = "firefox";
-      TERMINAL = "wezterm";
+      TERMINAL = "${vars.terminal}";
+      EDITOR = "${vars.editor}";
+      VISUAL = "${vars.editor}";
       TZ = "${config.time.timeZone}"; # Fix the timezone on firefox
     };
+
+    systemPackages = with pkgs; [
+      # Apps 
+      google-chrome
+      obs-studio
+
+      # File Management
+      rsync
+      unzip
+      unrar
+      wget
+      zip
+
+      # GNU Utilities
+      gcc
+      gnumake
+
+      # Terminal
+      btop
+      killall
+
+      # Video/Audio
+      pavucontrol
+      vlc
+    ];
   };
+
+  programs = { dconf.enable = true; };
 
   nix = {
     settings = {
@@ -117,12 +127,10 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  system = {
-    autoUpgrade = {
-      enable = false;
-      allowReboot = false;
-      channel = "https://nixos.org/channels/nixos-unstable";
-    };
-    stateVersion = "23.05";
+  system.stateVersion = "23.05";
+
+  home-manager.users.${vars.user} = {
+    home.stateVersion = "23.05";
+    programs.home-manager.enable = true;
   };
 }

@@ -57,7 +57,7 @@ import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
 myFont :: String
-myFont = "xft:Roboto:regular:size=11:antialias=true:hinting=true"
+myFont = "xft:Cantarell:regular:size=11:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask -- Sets modkey to super/windows key
@@ -75,69 +75,39 @@ myBorderWidth :: Dimension
 myBorderWidth = 2 -- Sets border width for windows
 
 myNormColor :: String -- Border color of normal windows
-myNormColor = color19 -- This variable is imported from Colors.THEME
+myNormColor = color01
 
 myFocusColor :: String -- Border color of focused windows
-myFocusColor = color13 -- This variable is imported from Colors.THEME
+myFocusColor = color08
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 -- colors
-color01 = "#f5e0dc" -- rosewater
+color01 = "#282a36" -- background
 
-color02 = "#f2cdcd" -- flamingo
+color02 = "#44475a" -- current line
 
-color03 = "#f5c2e7" -- pink
+color03 = "#f8f8f2" -- foreground
 
-color04 = "#cba6f7" -- mauve
+color04 = "#6272a4" -- comment
 
-color05 = "#f38ba8" -- red
+color05 = "#8be9fd" -- cyan
 
-color06 = "#eba0ac" -- maroon
+color06 = "#50fa7b" -- green
 
-color07 = "#fab387" -- peach
+color07 = "#ffb86c" -- orange
 
-color08 = "#f9e2af" -- yellow
+color08 = "#ff79c6" -- pink
 
-color09 = "#a6e3a1" -- green
+color09 = "#bd93f9" -- purple
 
-color10 = "#94e2d5" -- teal
+color10 = "#ff5555" -- red
 
-color11 = "#89dceb" -- sky
-
-color12 = "#74c7ec" -- sapphire
-
-color13 = "#89b4fa" -- blue
-
-color14 = "#b4befe" -- lavender
-
-color15 = "#cdd6f4" -- text
-
-color16 = "#bac2de" -- subtext1
-
-color17 = "#a6adc8" -- subtext0
-
-color18 = "#9399b2" -- overlay2
-
-color19 = "#7f849c" -- overlay1
-
-color20 = "#6c7086" -- overlay0
-
-color21 = "#585b70" -- surface2
-
-color22 = "#45475a" -- surface1
-
-color23 = "#313244" -- surface0
-
-color24 = "#1e1e2e" -- base
-
-color25 = "#181825" -- mantle
-
-color26 = "#11111b" -- crust
+color11 = "#f1fa8c" -- yellow
 
 colorTrayer :: String
-colorTrayer = "--tint 0x1e1e2e"
+colorTrayer = "--tint 0x282a36"
 
 myStartupHook :: X ()
 myStartupHook = do
@@ -146,6 +116,7 @@ myStartupHook = do
   spawnOnce "feh -zr --bg-fill --no-fehbg $HOME/.config/wallpaper.jpg"
   
   spawnOnce "sleep 2 && firefox"
+  spawnOnce "sleep 2 && discord"
   spawnOnce "sleep 2 && telegram-desktop"
 
   spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 " ++ colorTrayer ++ " --height 30")
@@ -236,7 +207,8 @@ gsEducation =
   []
 
 gsInternet =
-  [ ("Discord", "discord"),
+  [ ("Brave Browser", "brave"),
+    ("Discord", "discord"),
     ("Firefox", "firefox"),
     ("Google Chrome", "google-chrome-stable"),
     ("Zoom", "zoom")
@@ -387,12 +359,12 @@ wideAccordion =
 myTabTheme =
   def
     { fontName = myFont,
-      activeColor = color15,
-      inactiveColor = color08,
-      activeBorderColor = color15,
-      inactiveBorderColor = color24,
-      activeTextColor = color24,
-      inactiveTextColor = color16
+      activeColor = color08,
+      activeBorderColor = color08,
+      inactiveColor = color01,
+      inactiveBorderColor = color01,
+      activeTextColor = color03,
+      inactiveTextColor = color03
     }
 
 -- Theme for showWName which prints current workspace when you change workspaces.
@@ -401,7 +373,7 @@ myShowWNameTheme =
   def
     { swn_font = "xft:Ubuntu:bold:size=60",
       swn_fade = 0.4,
-      swn_bgcolor = "#1c1f24",
+      swn_bgcolor = color01,
       swn_color = "#ffffff"
     }
 
@@ -458,6 +430,7 @@ myManageHook =
       title =? "Volume Control" --> doCenterFloat,
       (className =? "Mozilla Firefox" <||> resource =? "Toolkit") --> doFloat,
       -- do shift
+      className =? "Brave-browser" --> doShift (myWorkspaces !! 1),
       title =? "Mozilla Firefox" --> doShift (myWorkspaces !! 1),
       className =? "Google-chrome" --> doShift (myWorkspaces !! 1),
       (className =? "TelegramDesktop" <||> className =? "Fluffychat") --> doShift (myWorkspaces !! 3),
@@ -465,7 +438,10 @@ myManageHook =
       title =? "Spotify" --> doShift (myWorkspaces !! 5),
       className =? "Gimp" --> doShift (myWorkspaces !! 8),
       -- do copy to all workspaces
-      (title =? "Picture-in-Picture" <||> title =? "Picture in Picture") --> doF copyToAll
+      --
+      (title =? "Picture in picture") --> doF copyToAll, -- Brave
+      (title =? "Picture-in-Picture") --> doF copyToAll, -- Firefox
+      (title =? "Picture in Picture") --> doF copyToAll -- Chrome
     ]
     <+> namedScratchpadManageHook myScratchPads
 
@@ -637,9 +613,9 @@ myKeys c =
         -- Multimedia Keys
         ^++^ subKeys
           "Multimedia keys"
-          [ ("<XF86AudioPlay>", addName "mocp play" $ spawn "mocp --play"),
-            ("<XF86AudioPrev>", addName "mocp next" $ spawn "mocp --previous"),
-            ("<XF86AudioNext>", addName "mocp prev" $ spawn "mocp --next"),
+          [ ("<XF86AudioPlay>", addName "playerctl play-pause" $ spawn "playerctl play-pause"),
+            ("<XF86AudioPrev>", addName "playerctl previous" $ spawn "playerctl previous"),
+            ("<XF86AudioNext>", addName "playerctl next" $ spawn "playerctl next"),
             ("<XF86AudioMute>", addName "Toggle audio mute" $ spawn "amixer set Master toggle"),
             ("<XF86AudioLowerVolume>", addName "Lower volume" $ spawn "amixer set Master 5%- unmute"),
             ("<XF86AudioRaiseVolume>", addName "Raise volume" $ spawn "amixer set Master 5%+ unmute"),
@@ -652,7 +628,7 @@ myKeys c =
 
 main :: IO ()
 main = do
-  xmproc <- spawnPipe "xmobar -x 0 $HOME/.setup/modules/desktop/xmonad/xmobar/xmobarrc"
+  xmproc <- spawnPipe "xmobar -x 0 $HOME/.setup/modules/desktops/xmonad/xmobar/xmobarrc"
   xmonad $
     addDescrKeys' ((mod4Mask, xK_F1), showKeybindings) myKeys $
       docks . ewmhFullscreen . ewmh $
@@ -672,19 +648,19 @@ main = do
                 filterOutWsPP [scratchpadWorkspaceTag] $
                   xmobarPP
                     { ppOutput = hPutStrLn xmproc,
-                      ppCurrent = xmobarColor color13 "" . wrap "[ " " ]",
-                      ppVisible = xmobarColor color15 "" . clickable,
+                      ppCurrent = xmobarColor color08 "" . wrap "[ " " ]",
+                      ppVisible = xmobarColor color03 "" . clickable,
                       ppHidden =
-                        xmobarColor color04 ""
+                        xmobarColor color01 ""
                           . wrap
-                            ("<fc=" ++ color15 ++ ">")
+                            ("<fc=" ++ color03 ++ ">")
                             "</fc>"
                           . clickable,
-                      ppHiddenNoWindows = xmobarColor color19 "" . clickable,
-                      ppTitle = xmobarColor color13 "" . shorten 60,
-                      ppSep = "<fc=" ++ color22 ++ ">    <fn=2>\xf054</fn>    </fc>",
-                      ppUrgent = xmobarColor color05 "" . wrap "!" "!",
+                      ppHiddenNoWindows = xmobarColor color02 "" . clickable,
+                      ppTitle = xmobarColor color09 "" . shorten 60,
+                      ppSep = "<fc=" ++ color02 ++ ">    <fn=2>\xf054</fn>    </fc>",
+                      ppUrgent = xmobarColor color10 "" . wrap "!" "!",
                       ppExtras = [windowCount],
-                      ppOrder = \(ws : l : t : ex) -> ["<fn=4>" ++ ws ++ "</fn>"] ++ ex ++ ["<fc=" ++ color06 ++ ">[" ++ l ++ "]</fc>  " ++ t]
+                      ppOrder = \(ws : l : t : ex) -> ["<fn=4>" ++ ws ++ "</fn>"] ++ ex ++ ["<fc=" ++ color08 ++ ">[" ++ l ++ "]</fc>  " ++ t]
                     }
           }

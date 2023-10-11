@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-emacs.url = "github:douglastofoli/nix-emacs/0.0.1";
+    nix-emacs.url = "github:douglastofoli/nix-emacs/feat/refactor-home-manager";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nur, nixgl, nix-emacs, ... }:
@@ -26,6 +26,7 @@
         location = "$HOME/.setup";
         terminal = "wezterm";
         editor = "emacs";
+        browser = "firefox";
       };
     in {
       nixosConfigurations = ( # NixOS configurations

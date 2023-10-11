@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, vars, ... }:
 
 let inherit (lib) mkEnableOption mkIf types;
 in {
@@ -62,7 +62,9 @@ in {
     xdg = {
       mime = {
         enable = true;
-        defaultApplications = { "application/pdf" = "firefox.desktop"; };
+        defaultApplications = {
+          "application/pdf" = "${vars.browser}.desktop";
+        };
       };
 
       portal = {

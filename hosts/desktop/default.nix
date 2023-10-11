@@ -59,10 +59,10 @@
     obinskit
     vscode
 
-    logseq
     nixfmt
     fluffychat
     dbeaver
+    logseq
 
     # emacs/nvim
     fd

@@ -93,16 +93,16 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1695347693,
-        "narHash": "sha256-JzSWs4bGdCrMm1w2CLIlBkWw4tHzJHyQ2QyElvOZtM0=",
+        "lastModified": 1696558830,
+        "narHash": "sha256-e68+aDC/ofJk9egZs8kaBp4lh1ZNgBQlp8daI/Jy3GU=",
         "owner": "douglastofoli",
         "repo": "nix-emacs",
-        "rev": "24b6fcee814f14706b6270e2233cba0208cc77da",
+        "rev": "05f6d76a9be9f90725b5b6378f630b4fe858c434",
         "type": "github"
       },
       "original": {
         "owner": "douglastofoli",
-        "ref": "0.0.1",
+        "ref": "feat/refactor-home-manager",
         "repo": "nix-emacs",
         "type": "github"
       }
@@ -162,11 +162,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1696460286,
-        "narHash": "sha256-yitt3/KKHaZ1xyVQlbHAFhXdPY5hENfRNzQd+qWPOmo=",
+        "lastModified": 1696556389,
+        "narHash": "sha256-9nHvmL+gErUodHVY45XGcndHrxq4+adVIuNqphu2fVI=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "330ca7d24da8e5e6af288b54fb1de105609ed14d",
+        "rev": "67cae1335cd5cbcad37d08960fa80161cb16525d",
         "type": "github"
       },
       "original": {

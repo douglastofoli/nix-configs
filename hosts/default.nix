@@ -31,6 +31,10 @@ in {
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
+        home-manager.users.${vars.user} = { ... }: {
+          imports = [ nix-emacs.hmModule ];
+          programs.emacs.enable = true;
+        };
       }
     ];
   };

@@ -7,7 +7,7 @@
         enable = true;
 
         #Shadows
-        shadow = true;
+        shadow = false;
         shadowOffsets = [ (-7) (-7) ];
         shadowExclude = [
           "name = 'Notification'"

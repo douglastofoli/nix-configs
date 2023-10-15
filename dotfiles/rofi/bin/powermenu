@@ -71,14 +71,12 @@ $reboot)
 	fi
 	;;
 $lock)
-	sh $HOME/.local/bin/lock
+	sh $HOME/.setup/dotfiles/local/bin/lock
 	;;
 $suspend)
 	ans=$(rdialog &)
 	if [[ $ans == "yes" ]] || [[ $ans == "YES" ]] || [[ $ans == "y" ]]; then
-		mpc -q pause
-		amixer set Master mute
-		sh $HOME/.local/bin/lock
+		sh $HOME/.setup/dotfiles/local/bin/lock
 		systemctl suspend
 	elif [[ $ans == "no" ]] || [[ $ans == "NO" ]] || [[ $ans == "n" ]]; then
 		exit

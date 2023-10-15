@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+playerctl stop
+light-locker-command -l

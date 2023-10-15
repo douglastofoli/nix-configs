@@ -77,6 +77,8 @@ in {
     environment.systemPackages = with pkgs; [
       haskellPackages.xmobar
 
+      lightlocker
+      
       feh
       maim
       playerctl

@@ -113,6 +113,7 @@ myStartupHook :: X ()
 myStartupHook = do
   spawn "killall trayer"
   spawn "killall .blueman-applet"
+  spawn "killall .light-locker-w"
 
   spawnOnce "feh -zr --bg-fill --no-fehbg $HOME/.config/wallpaper.jpg"
   spawnOnce "blueman-applet"
@@ -122,6 +123,7 @@ myStartupHook = do
   spawnOnce "sleep 2 && telegram-desktop"
 
   spawn "sleep 2 && blueman-applet"
+  spawn "sleep 2 && light-locker"
   spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 " ++ colorTrayer ++ " --height 30")
 
   setWMName "LG3D"
@@ -479,7 +481,8 @@ myKeys c =
           ("M-S-a", addName "Kill all windows on WS" $ killAll),
           ("M-S-b", addName "Toggle bar show/hide" $ sendMessage ToggleStruts),
           ("M-d", addName "Open Rofi launcher" $ spawn "sh $HOME/.config/rofi/bin/launcher"),
-          ("M-S-e", addName "Open Rofi powermenu" $ spawn "sh $HOME/.config/rofi/bin/powermenu")
+          ("M-S-e", addName "Open Rofi powermenu" $ spawn "sh $HOME/.config/rofi/bin/powermenu"),
+          ("M-S-l", addName "Lock session" $ spawn "sh $HOME/.setup/dotfiles/local/bin/lock")
         ]
         ^++^ subKeys
           "Switch to workspace"

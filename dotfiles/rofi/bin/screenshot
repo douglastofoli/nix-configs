@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 rofi_command="rofi -theme $HOME/.config/rofi/config/screenshot.rasi"
 
 time=$(date +%Y-%m-%d-%I-%M-%S)

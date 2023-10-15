@@ -112,13 +112,16 @@ colorTrayer = "--tint 0x282a36"
 myStartupHook :: X ()
 myStartupHook = do
   spawn "killall trayer"
+  spawn "killall .blueman-applet"
 
   spawnOnce "feh -zr --bg-fill --no-fehbg $HOME/.config/wallpaper.jpg"
+  spawnOnce "blueman-applet"
   
   spawnOnce "sleep 2 && firefox"
   spawnOnce "sleep 2 && discord"
   spawnOnce "sleep 2 && telegram-desktop"
 
+  spawn "sleep 2 && blueman-applet"
   spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 " ++ colorTrayer ++ " --height 30")
 
   setWMName "LG3D"
@@ -619,7 +622,8 @@ myKeys c =
             ("<XF86AudioMute>", addName "Toggle audio mute" $ spawn "amixer set Master toggle"),
             ("<XF86AudioLowerVolume>", addName "Lower volume" $ spawn "amixer set Master 5%- unmute"),
             ("<XF86AudioRaiseVolume>", addName "Raise volume" $ spawn "amixer set Master 5%+ unmute"),
-            ("<Print>", addName "Open Rofi screenshot" $ spawn "sh $HOME/.config/rofi/bin/screenshot")
+            ("<Print>", addName "Open Rofi screenshot" $ spawn "sh $HOME/.config/rofi/bin/screenshot"),
+            ("M-m p", addName "Open Rofi music" $ spawn "sh $HOME/.config/rofi/bin/music")
           ]
   where
     -- The following lines are needed for named scratchpads.

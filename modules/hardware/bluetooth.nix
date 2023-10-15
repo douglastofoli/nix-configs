@@ -32,7 +32,7 @@
     };
 
     home-manager.users.${vars.user} = {
-      services = { blueman-applet.enable = config.hardware.bluetooth.enable; };
+      services.blueman-applet.enable = config.hardware.bluetooth.enable;
     };
   };
 }

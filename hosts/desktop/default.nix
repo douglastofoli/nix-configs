@@ -64,6 +64,7 @@
     dbeaver
     logseq
 
+    cura
     # emacs/nvim
     fd
     ripgrep

@@ -79,6 +79,7 @@ in {
 
       feh
       maim
+      playerctl
 
       trayer
       xdotool

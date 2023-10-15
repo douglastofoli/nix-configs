@@ -12,8 +12,7 @@
         inherit (pkgs.lib) optional optionals;
         pkgs = import nixpkgs { inherit system; };
 
-        inputs = with pkgs;
-          [ ghc ghcid ];
+        inputs = with pkgs; [ ghc ghcid ];
       in with pkgs; {
         devShells.default = mkShell {
           name = "haskell";

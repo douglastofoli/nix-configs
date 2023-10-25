@@ -78,7 +78,7 @@ in {
       haskellPackages.xmobar
 
       lightlocker
-      
+
       feh
       maim
       playerctl

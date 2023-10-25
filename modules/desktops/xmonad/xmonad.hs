@@ -247,7 +247,8 @@ gsUtilities =
 myScratchPads :: [NamedScratchpad]
 myScratchPads =
   [ NS "terminal" spawnTerm findTerm manageTerm,
-    NS "volumecontrol" spawnVolume findVolume manageVolume
+    NS "volumecontrol" spawnVolume findVolume manageVolume,
+    NS "bluetoothcontrol" spawnBluetooth findBluetooth manageBluetooth
   ]
   where
     spawnTerm = myTerminal ++ " -t scratchpad"
@@ -266,6 +267,14 @@ myScratchPads =
         w = 0.9
         t = 0.95 - h
         l = 0.95 - w
+    spawnBluetooth = "blueman-manager"
+    findBluetooth = title =? "Bluetooth Devices"
+    manageBluetooth = customFloating $ W.RationalRect l t w h
+      where
+      h = 0.9
+      w = 0.9
+      t = 0.95 - h
+      l = 0.95 - w
 
 -- Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
@@ -594,7 +603,8 @@ myKeys c =
         ^++^ subKeys
           "Scratchpads"
           [ ("M-s t", addName "Toggle scratchpad terminal" $ namedScratchpadAction myScratchPads "terminal"),
-            ("M-s p", addName "Toggle scratchpad pavucontrol" $ namedScratchpadAction myScratchPads "volumecontrol")
+            ("M-s p", addName "Toggle scratchpad pavucontrol" $ namedScratchpadAction myScratchPads "volumecontrol"),
+            ("M-s b", addName "Toggle scratchpad blueman-manager" $ namedScratchpadAction myScratchPads "bluetoothcontrol")
           ]
         ^++^ subKeys
           "GridSelect"

@@ -92,6 +92,7 @@
       zip
 
       # GNU Utilities
+      cmake
       gcc
       gnumake
 

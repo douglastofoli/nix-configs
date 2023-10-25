@@ -45,35 +45,37 @@
     nameservers = [ "1.1.1.1" "1.0.0.1" ];
   };
 
-  environment.systemPackages = with pkgs; [
-    hugo
-    gimp
-    discord
-    tdesktop
-    qbittorrent
-    spotify
-    insomnia
-    obsidian
-    pcmanfm
-    gnome.file-roller
-    obinskit
-    vscode
-    platformio
-    nixfmt
-    fluffychat
-    dbeaver
-    logseq
+  environment = {
+    variables = { LIBVA_DRIVER_NAME = "i965"; };
+    systemPackages = with pkgs; [
+      nodejs_18
 
-    cura
-    # emacs/nvim
-    fd
-    ripgrep
-  ];
+      gimp
+      discord
+      tdesktop
+      spotify
+      insomnia
+      obsidian
+      pcmanfm
+      gnome.file-roller
+      obinskit
+      vscode
+      nixfmt
+      fluffychat
+      dbeaver
+      logseq
+
+      cura
+      # emacs/nvim
+      fd
+      ripgrep
+    ];
+  };
 
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    memoryPercent = 80;
+    memoryPercent = 60;
   };
 
   programs = {

@@ -1,28 +1,16 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-  programs = lib.mkIf (config.programs.zsh.enable) {
-    zsh = {
-      shellInit = ''
-        emulate zsh -c "$(direnv hook zsh)"
-      '';
+  programs.direnv = {
+    enable = true;
+    package = pkgs.direnv;
+    silent = false;
+    loadInNixShell = true;
+    direnvrcExtra = "";
+    nix-direnv = {
+      enable = true;
+      package = pkgs.nix-direnv;
     };
   };
-
-  environment = {
-    systemPackages = with pkgs; [ direnv nix-direnv ];
-    pathsToLink = [ "/share/nix-direnv" ];
-  };
-
-  nix.settings = {
-    keep-outputs = true;
-    keep-derivations = true;
-  };
-
-  nixpkgs.overlays = [
-    (self: super: {
-      nix-direnv = super.nix-direnv.override { enableFlakes = true; };
-    })
-  ];
 }
 

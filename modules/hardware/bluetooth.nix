@@ -3,8 +3,6 @@
 {
   config = {
     hardware = {
-      enableAllFirmware = true;
-
       bluetooth = {
         enable = true;
         settings = {
@@ -17,22 +15,28 @@
           };
           Policy = {
             AutoEnable = true;
-            ReconnectAttempts = 7;
-            ReconnectIntervals = "1,2,4,8,16,32,64";
+            ReconnectAttempts = 5;
+            ReconnectIntervals = "1,2,4,8,16";
           };
         };
       };
+
+      enableAllFirmware = true;
     };
 
     services.blueman.enable = config.hardware.bluetooth.enable;
 
-    environment.etc = {
-      "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text =
-        "	bluez_monitor.properties = {\n		[\"bluez5.enable-sbc-xq\"] = true,\n		[\"bluez5.enable-msbc\"] = true,\n		[\"bluez5.enable-hw-volume\"] = true,\n		[\"bluez5.headset-roles\"] = \"[ hsp_hs hsp_ag hfp_hf hfp_ag ]\"\n	}\n";
+    home-manager.users.${vars.user} = {
+      services.blueman-applet.enable = config.services.blueman.enable;
     };
 
-    home-manager.users.${vars.user} = {
-      services.blueman-applet.enable = config.hardware.bluetooth.enable;
+    systemd.services.fix-generic-usb-bluetooth-dongle = {
+      description = "Fixes for generic USB bluetooth dongle.";
+      wantedBy = [ "post-resume.target" ];
+      after = [ "post-resume.target" ];
+      script = builtins.readFile ../../dotfiles/local/bin/bluetooth-reset;
+      scriptArgs = "2357:0604"; # Vendor ID and Product ID here
+      serviceConfig.Type = "oneshot";
     };
   };
 }

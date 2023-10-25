@@ -13,13 +13,17 @@ let
       };
 
       completion = {
-        company.enable = true;
+        company = {
+          enable = true;
+          childframe = true;
+        };
         helm.enable = false;
         ivy = {
           enable = true;
-          counsel = true;
-          rich = true;
-          swiper = true;
+          childframe = true;
+          fuzzy = true;
+          icons = true;
+          prescient = true;
         };
       };
 
@@ -36,7 +40,12 @@ let
         dired = {
           enable = true;
           icons = true;
-          ranger = false;
+          ranger = true;
+        };
+
+        undo = {
+          enable = true;
+          tree = true;
         };
       };
 
@@ -62,7 +71,7 @@ let
           lineSpacing = 0.12;
         };
 
-        emacs.themes.name = "dracula";
+        themes.name = "dracula";
 
         ligatures.enable = true;
 
@@ -78,6 +87,8 @@ let
           separator = " → ";
           sideWindowLocation = "bottom";
         };
+
+        workspaces.enable = true;
       };
     };
   };

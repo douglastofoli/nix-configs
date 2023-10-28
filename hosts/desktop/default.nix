@@ -48,14 +48,12 @@
   environment = {
     variables = { LIBVA_DRIVER_NAME = "i965"; };
     systemPackages = with pkgs; [
-      nodejs_18
+      nodejs_20
 
       gimp
-      discord
       tdesktop
       spotify
       insomnia
-      obsidian
       pcmanfm
       gnome.file-roller
       obinskit
@@ -69,6 +67,11 @@
       # emacs/nvim
       fd
       ripgrep
+
+      (pkgs.discord.override { 
+        withOpenASAR = true;
+        withVencord = false;
+      })
     ];
   };
 
@@ -84,7 +87,7 @@
   };
 
   nixpkgs.config = {
-    permittedInsecurePackages = [ "electron-13.6.9" ];
+    permittedInsecurePackages = [ "electron-13.6.9" "electron-24.8.6" ];
 
     packageOverrides = pkgs: {
       vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
@@ -96,7 +99,7 @@
       discord = super.discord.overrideAttrs (_: {
         src = builtins.fetchTarball {
           url = "https://discord.com/api/download?platform=linux&format=tar.gz";
-          sha256 = "0mr1az32rcfdnqh61jq7jil6ki1dpg7bdld88y2jjfl2bk14vq4s";
+          sha256 = "0qzdvyyialvpiwi9mppbqvf2rvz1ps25mmygqqck0z9i2q01c1zd";
         };
       });
       obinskit = super.obinskit.overrideAttrs (_: {

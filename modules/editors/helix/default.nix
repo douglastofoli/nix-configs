@@ -7,7 +7,7 @@
 }: let
   inherit (lib) mkEnableOption mkIf;
   cfg = custom.helix.languages;
-  lexical-lsp = pkgs.beam.packages.erlangR26.callPackage ../../shells/lexical-lsp.nix {};
+  lexical-lsp = pkgs.beam.packages.erlangR25.callPackage ../../shells/lexical-lsp.nix {};
   vscode-lsp = pkgs.nodePackages.vscode-langservers-extracted;
 in {
   options.helix = {
@@ -35,7 +35,7 @@ in {
           true-color = true;
 
           statusline = {
-            left = ["mode" "spinner" "spacer" "version-control"];
+            left = ["mode" "spacer" "spinner" "spacer" "version-control"];
             center = ["file-name"];
             right = [
               "diagnostics"
@@ -69,16 +69,16 @@ in {
         keys = {
           normal = {
             esc = ["collapse_selection" "keep_primary_selection"];
-            #C-right = "move_next_word_start";
-            #C-left = "move_prev_word_end";
+            C-right = "move_next_word_start";
+            C-left = "move_prev_word_end";
 
-            #C-A-up = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "move_line_up" "add_newline_above" "move_line_up" "replace_with_yanked"];
-            #C-A-down = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "add_newline_below" "move_line_down" "replace_with_yanked"];
+            C-A-up = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "move_line_up" "add_newline_above" "move_line_up" "replace_with_yanked"];
+            C-A-down = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "add_newline_below" "move_line_down" "replace_with_yanked"];
           };
-          #insert = {
-          #C-right = "move_next_word_start";
-          #C-left = "move_prev_word_end";
-          #};
+          insert = {
+            C-right = "move_next_word_start";
+            C-left = "move_prev_word_end";
+          };
         };
       };
 

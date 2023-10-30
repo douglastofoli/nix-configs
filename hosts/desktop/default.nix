@@ -1,9 +1,13 @@
 # Specific system configuration settings for desktop
-
-{ config, lib, pkgs, host, ... }:
-
 {
-  imports = [ ./hardware-configuration.nix ]
+  config,
+  lib,
+  pkgs,
+  host,
+  ...
+}: {
+  imports =
+    [./hardware-configuration.nix]
     ++ (import ../../modules/desktops/virtualisation);
 
   boot = {
@@ -16,7 +20,7 @@
       grub = {
         enable = true;
         efiSupport = true;
-        devices = [ "nodev" ];
+        devices = ["nodev"];
         useOSProber = true;
       };
 
@@ -34,7 +38,7 @@
       vaapiVdpau
       libvdpau-va-gl
     ];
-    extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel ];
+    extraPackages32 = with pkgs.pkgsi686Linux; [vaapiIntel];
     driSupport = true;
     driSupport32Bit = true;
   };
@@ -42,11 +46,11 @@
   networking = {
     hostName = "nixos";
     networkmanager.enable = false;
-    nameservers = [ "1.1.1.1" "1.0.0.1" ];
+    nameservers = ["1.1.1.1" "1.0.0.1"];
   };
 
   environment = {
-    variables = { LIBVA_DRIVER_NAME = "i965"; };
+    variables = {LIBVA_DRIVER_NAME = "i965";};
     systemPackages = with pkgs; [
       nodejs_20
 
@@ -58,17 +62,17 @@
       gnome.file-roller
       obinskit
       vscode
-      nixfmt
       fluffychat
       dbeaver
       logseq
+      insync
 
       cura
       # emacs/nvim
       fd
       ripgrep
 
-      (pkgs.discord.override { 
+      (pkgs.discord.override {
         withOpenASAR = true;
         withVencord = false;
       })
@@ -87,10 +91,10 @@
   };
 
   nixpkgs.config = {
-    permittedInsecurePackages = [ "electron-13.6.9" "electron-24.8.6" ];
+    permittedInsecurePackages = ["electron-13.6.9" "electron-24.8.6"];
 
     packageOverrides = pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+      vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
     };
   };
 

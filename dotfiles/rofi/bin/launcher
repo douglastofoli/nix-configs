@@ -8,5 +8,5 @@ rofi \
 	-drun-display-format "{name}" \
 	-no-drun-show-actions \
 	-terminal $TERMINAL \
-	-kb-cancel Alt-F1 \
+	-kb-cancel Escape \
 	-theme "$HOME"/.config/rofi/config/launcher.rasi

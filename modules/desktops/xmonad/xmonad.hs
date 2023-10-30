@@ -117,6 +117,7 @@ myStartupHook = do
 
   spawnOnce "feh -zr --bg-fill --no-fehbg $HOME/.config/wallpaper.jpg"
   spawnOnce "blueman-applet"
+  spawnOnce "insync start"
   
   spawnOnce "sleep 2 && firefox"
   spawnOnce "sleep 2 && discord"

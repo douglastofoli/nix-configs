@@ -1,5 +1,3 @@
-# Main system configuration.
-
 { config, lib, pkgs, inputs, vars, ... }:
 
 {
@@ -65,7 +63,7 @@
       roboto
       ubuntu_font_family
 
-      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      (nerdfonts.override { fonts = [ "JetBrainsMono" "Lilex" ]; })
     ];
   };
 

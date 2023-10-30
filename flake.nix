@@ -9,17 +9,21 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur.url = "github:nix-community/NUR";
-
     nixgl = { # OpenGL
       url = "github:guibou/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-emacs.url = "github:douglastofoli/nix-emacs";
+
+    helix.url = "github:helix-editor/helix";
+
+    # Elixir LSP
+    lexical-lsp.url = "github:lexical-lsp/lexical";
+    next-ls.url = "github:elixir-tools/next-ls?ref=v0.14.1";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nur, nixgl, nix-emacs, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, nixgl, nix-emacs, ... }:
     let
       vars = {
         user = "douglas";
@@ -32,7 +36,7 @@
       nixosConfigurations = ( # NixOS configurations
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs home-manager nur nix-emacs vars;
+          inherit inputs nixpkgs home-manager nix-emacs vars;
         });
 
       homeConfigurations = ( # Non-NixOS configurations

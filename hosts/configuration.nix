@@ -93,6 +93,7 @@
       cmake
       gcc
       gnumake
+      libtool
 
       # Terminal
       btop

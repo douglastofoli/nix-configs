@@ -132,21 +132,6 @@
         "type": "github"
       }
     },
-    "flake-utils_4": {
-      "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "helix": {
       "inputs": {
         "crane": "crane",
@@ -155,15 +140,16 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1698690535,
-        "narHash": "sha256-uSGGZ7iRQOL01CXr/lr3OCgBmBjgD8njFwv2OkaLfBU=",
+        "lastModified": 1698251847,
+        "narHash": "sha256-JACu3mKrGJuViAoyNDHVDuHXwWkmibXxu6j0JOmNhT4=",
         "owner": "helix-editor",
         "repo": "helix",
-        "rev": "7d7ed78681797d2dffa1070060e063a508a18ecf",
+        "rev": "f6021dd0cdd8cf6795f024e396241cb0af2ca368",
         "type": "github"
       },
       "original": {
         "owner": "helix-editor",
+        "ref": "23.10",
         "repo": "helix",
         "type": "github"
       }
@@ -175,11 +161,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1698670511,
-        "narHash": "sha256-jQIu3UhBMPHXzVkHQO1O2gg8SVo5lqAVoC6mOaLQcLQ=",
+        "lastModified": 1698873617,
+        "narHash": "sha256-FfGFcfbULwbK1vD+H0rslIOfmy4g8f2hXiPkQG3ZCTk=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "8e5416b478e465985eec274bc3a018024435c106",
+        "rev": "48b0a30202516e25d9885525fbb200a045f23f26",
         "type": "github"
       },
       "original": {
@@ -194,15 +180,16 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1698256119,
-        "narHash": "sha256-uDxe1uR0s6z/FTN5vfz5hYq1R/wUfzyhSZarz5sezf0=",
+        "lastModified": 1698171756,
+        "narHash": "sha256-GKUZqRmh8a/u9oGc6WIE//P8jRkHYjPl09VlPJ/CIsY=",
         "owner": "lexical-lsp",
         "repo": "lexical",
-        "rev": "0bda0572dcc5d28ef67ed3cf1e68a367ecea33d3",
+        "rev": "09b36e1f4e38da50e430be1cbd622b90cc3856cf",
         "type": "github"
       },
       "original": {
         "owner": "lexical-lsp",
+        "ref": "v0.4.0",
         "repo": "lexical",
         "type": "github"
       }
@@ -234,37 +221,16 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1698017467,
-        "narHash": "sha256-ZMMHQn/2PcZABcFMYvm+hlgG+knMV0VdhBwKI2bXWMc=",
+        "lastModified": 1698892881,
+        "narHash": "sha256-S2XuXuZIPpMIJO99l/IpojRiM60LUPe6JOlzJ2q3ejI=",
         "owner": "douglastofoli",
         "repo": "nix-emacs",
-        "rev": "db95d65e43086a082e92660f3918511508f778bb",
+        "rev": "be9201b4dcbcd936c6a5707156666f8508dfd217",
         "type": "github"
       },
       "original": {
         "owner": "douglastofoli",
         "repo": "nix-emacs",
-        "type": "github"
-      }
-    },
-    "nixgl": {
-      "inputs": {
-        "flake-utils": "flake-utils_4",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1685908677,
-        "narHash": "sha256-E4zUPEUFyVWjVm45zICaHRpfGepfkE9Z2OECV9HXfA4=",
-        "owner": "guibou",
-        "repo": "nixGL",
-        "rev": "489d6b095ab9d289fe11af0219a9ff00fe87c7c5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "guibou",
-        "repo": "nixGL",
         "type": "github"
       }
     },
@@ -330,11 +296,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1698318101,
-        "narHash": "sha256-gUihHt3yPD7bVqg+k/UVHgngyaJ3DMEBchbymBMvK1E=",
+        "lastModified": 1698611440,
+        "narHash": "sha256-jPjHjrerhYDy3q9+s5EAsuhyhuknNfowY6yt6pjn9pc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "63678e9f3d3afecfeafa0acead6239cdb447574c",
+        "rev": "0cbe9f69c234a7700596e943bfae7ef27a31b735",
         "type": "github"
       },
       "original": {
@@ -351,7 +317,6 @@
         "lexical-lsp": "lexical-lsp",
         "next-ls": "next-ls",
         "nix-emacs": "nix-emacs",
-        "nixgl": "nixgl",
         "nixpkgs": "nixpkgs_5"
       }
     },

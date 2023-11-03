@@ -95,7 +95,7 @@ let
 in {
   services.emacs = {
     enable = true;
-    package = emacs;
+    package = pkgs.emacs29;
     defaultEditor = true;
   };
 }

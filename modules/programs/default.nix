@@ -1,1 +1,1 @@
-[ ./firefox.nix ./rofi.nix ./wezterm.nix ]
+[./firefox.nix ./rofi.nix ./wezterm.nix]

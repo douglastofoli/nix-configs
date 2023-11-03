@@ -62,7 +62,6 @@
       gnome.file-roller
       obinskit
       vscode
-      fluffychat
       dbeaver
       logseq
       insync
@@ -71,6 +70,8 @@
       # emacs/nvim
       fd
       ripgrep
+
+      xplr
 
       (pkgs.discord.override {
         withOpenASAR = true;

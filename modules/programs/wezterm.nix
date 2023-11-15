@@ -1,11 +1,13 @@
-{ pkgs, vars, ... }:
-
 {
+  pkgs,
+  vars,
+  ...
+}: {
   home-manager.users.${vars.user} = {
-    home.packages = [ pkgs.wezterm ];
+    home.packages = [pkgs.wezterm];
 
     xdg.configFile."wezterm/wezterm.lua".text = ''
-      local wezterm = require("wezterm")  
+      local wezterm = require("wezterm")
 
       local config = {}
 

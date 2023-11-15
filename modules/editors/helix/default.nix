@@ -5,19 +5,60 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf types;
   cfg = custom.helix.languages;
   lexical-lsp = pkgs.beam.packages.erlangR25.callPackage ../../shells/lexical-lsp.nix {};
+  typescript-lsp = pkgs.nodePackages.typescript-language-server;
   vscode-lsp = pkgs.nodePackages.vscode-langservers-extracted;
 in {
   options.helix = {
     enable = mkEnableOption "Enables Helix editor";
     languages = {
-      css.enable = mkEnableOption "Enables CSS support";
-      elixir.enable = mkEnableOption "Enables Elixir support";
-      html.enable = mkEnableOption "Enables HTML support";
-      json.enable = mkEnableOption "Enables JSON support";
-      nix.enable = mkEnableOption "Enables Nix support";
+      clojure.enable = mkEnableOption {
+        description = "Enables Clojure support";
+        type = types.bool;
+        default = true;
+      };
+      css.enable = mkEnableOption {
+        description = "Enables CSS support";
+        type = types.bool;
+        default = true;
+      };
+      elixir.enable = mkEnableOption {
+        description = "Enables Elixir support";
+        type = types.bool;
+        default = false;
+      };
+      haskell.enable = mkEnableOption {
+        description = "Enables Haskell support";
+        type = types.bool;
+        default = false;
+      };
+      html.enable = mkEnableOption {
+        description = "Enables HTML support";
+        type = types.bool;
+        default = true;
+      };
+      javascript.enable = mkEnableOption {
+        description = "Enables JavaScript support";
+        type = types.bool;
+        default = false;
+      };
+      json.enable = mkEnableOption {
+        description = "Enables JSON support";
+        type = types.bool;
+        default = true;
+      };
+      markdown.enable = mkEnableOption {
+        description = "Enables Markdown support";
+        type = types.bool;
+        default = false;
+      };
+      nix.enable = mkEnableOption {
+        description = "Enables Nix support";
+        type = types.bool;
+        default = false;
+      };
     };
   };
 
@@ -84,12 +125,30 @@ in {
 
       languages = {
         language-server = {
+          clojure-lsp.command = mkIf cfg.clojure.enable "${pkgs.clojure-lsp}/bin/clojure-lsp";
+          haskell-language-server = mkIf cfg.haskell.enable {
+            command = "${pkgs.haskell-language-server}/bin/haskell-language-server-wrapper";
+            args = ["--lsp"];
+          };
+          lexical-lsp.command = mkIf cfg.elixir.enable "${lexical-lsp}/bin/lexical";
+          marksman.command = mkIf cfg.markdown.enable "${pkgs.marksman}/bin/marksman";
           nextls = mkIf cfg.elixir.enable {
             command = "${next-ls.packages."${pkgs.system}".default}/bin/nextls";
             args = ["--stdio=true"];
           };
           nil.command = mkIf cfg.nix.enable "${pkgs.nil}/bin/nil";
-          lexical-lsp.command = mkIf cfg.elixir.enable "${lexical-lsp}/bin/lexical";
+          scss = mkIf cfg.css.enable {
+            command = "${vscode-lsp}/bin/vscode-css-language-server";
+            args = ["--stdio"];
+            config = {
+              provideFormatter = true;
+              scss = {validate.enable = true;};
+            };
+          };
+          typescript-language-server = mkIf cfg.javascript.enable {
+            command = "${typescript-lsp}/bin/typescript-language-server";
+            args = ["--stdio"];
+          };
           vscode-css-language-server = mkIf cfg.css.enable {
             command = "${vscode-lsp}/bin/vscode-css-language-server";
             args = ["--stdio"];
@@ -117,10 +176,21 @@ in {
         };
 
         language = let
+          alejandra = {
+            formatter = {
+              command = "${pkgs.alejandra}/bin/alejandra";
+            };
+          };
           mix = {
             formatter = {
               command = "mix";
               args = ["format" "-"];
+            };
+          };
+          prettier = {
+            formatter = {
+              command = "prettier";
+              args = ["--parser" "typescript"];
             };
           };
         in [
@@ -140,10 +210,32 @@ in {
             name = "heex";
             auto-format = true;
           })
+          (mkIf cfg.javascript.enable {
+            inherit (prettier) formatter;
+            name = "javascript";
+            auto-format = true;
+            language-servers = ["typescript-language-server"];
+          })
+          (mkIf cfg.javascript.enable {
+            inherit (prettier) formatter;
+            name = "typescript";
+            auto-format = true;
+            language-servers = ["typescript-language-server"];
+          })
+          (mkIf cfg.javascript.enable {
+            inherit (prettier) formatter;
+            name = "jsx";
+            auto-format = true;
+          })
+          (mkIf cfg.javascript.enable {
+            inherit (prettier) formatter;
+            name = "tsx";
+            auto-format = true;
+          })
           (mkIf cfg.nix.enable {
+            inherit (alejandra) formatter;
             name = "nix";
             auto-format = true;
-            formatter.command = "${pkgs.alejandra}/bin/alejandra";
           })
         ];
       };

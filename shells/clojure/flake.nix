@@ -1,5 +1,5 @@
 {
-  description = "A basic flake to run a Haskell Project";
+  description = "A basic flake to run a Clojure Project";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -12,14 +12,17 @@
     flake-utils,
   }:
     flake-utils.lib.eachDefaultSystem (system: let
-      inherit (pkgs.lib) optional optionals;
+      inherit (pkgs.lib) optionals;
       pkgs = import nixpkgs {inherit system;};
 
-      inputs = with pkgs; [ghc ghcid];
+      inputs = with pkgs;
+        [clojure leiningen]
+        ++ optionals stdenv.isDarwin
+        (with darwin.apple_sdk.frameworks; [CoreFoundation CoreServices]);
     in
       with pkgs; {
         devShells.default = mkShell {
-          name = "haskell";
+          name = "clojure";
           packages = inputs;
         };
       });

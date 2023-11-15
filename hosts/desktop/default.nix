@@ -64,6 +64,7 @@
       vscode
       dbeaver
       logseq
+      obsidian
       insync
 
       cura
@@ -75,7 +76,7 @@
 
       (pkgs.discord.override {
         withOpenASAR = true;
-        withVencord = false;
+        withVencord = true;
       })
     ];
   };

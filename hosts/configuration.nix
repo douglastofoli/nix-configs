@@ -1,16 +1,25 @@
-{ config, lib, pkgs, inputs, vars, ... }:
-
 {
-  imports = (import ../modules/desktops ++ import ../modules/editors
-    ++ import ../modules/hardware ++ import ../modules/programs
-    ++ import ../modules/services ++ import ../modules/shells
-    ++ import ../modules/themes);
+  config,
+  lib,
+  pkgs,
+  inputs,
+  vars,
+  ...
+}: {
+  imports =
+    import ../modules/desktops
+    ++ import ../modules/editors
+    ++ import ../modules/hardware
+    ++ import ../modules/programs
+    ++ import ../modules/services
+    ++ import ../modules/shells
+    ++ import ../modules/themes;
 
   users.users.${vars.user} = {
     isNormalUser = true;
     shell = pkgs.zsh;
     initialPassword = "123456";
-    extraGroups = [ "audio" "camera" "networkmanager" "video" "wheel" ];
+    extraGroups = ["audio" "camera" "networkmanager" "video" "wheel"];
   };
 
   time.timeZone = "America/Sao_Paulo";
@@ -63,12 +72,12 @@
       roboto
       ubuntu_font_family
 
-      (nerdfonts.override { fonts = [ "JetBrainsMono" "Lilex" ]; })
+      (nerdfonts.override {fonts = ["JetBrainsMono"];})
     ];
   };
 
   environment = {
-    shells = [ pkgs.zsh ];
+    shells = [pkgs.zsh];
 
     variables = {
       TERMINAL = "${vars.terminal}";
@@ -78,7 +87,7 @@
     };
 
     systemPackages = with pkgs; [
-      # Apps 
+      # Apps
       google-chrome
       obs-studio
 
@@ -105,12 +114,12 @@
     ];
   };
 
-  programs = { dconf.enable = true; };
+  programs = {dconf.enable = true;};
 
   nix = {
     settings = {
       auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = ["nix-command" "flakes"];
     };
     gc = {
       automatic = true;

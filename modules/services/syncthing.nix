@@ -1,27 +1,23 @@
-{ vars, ... }:
-
-let user = "${vars.user}";
+{vars, ...}: let
+  user = vars.user;
 in {
-  home-manager.users.${vars.user} = {
-    services.syncthing = {
-      enable = true;
-      user = "${user}";
-      dataDir = "/home/${user}/Sync";
-      devices = {
-        "xiaomi" = {
-          id =
-            "3RZ7NZW-LW4JZPE-DO6XB5M-WIVTSRD-N3PQOLO-OMNYNH7-APRXQT7-INIGUAQ";
-        };
+  services.syncthing = {
+    enable = true;
+    user = "${user}";
+    dataDir = "/home/${user}/Sync";
+    devices = {
+      "xiaomi" = {
+        id = "FVXA4RC-UJZHWLU-GNPDYPB-HCF2XJI-Z3Q5ARL-F5JEDJL-OCFKNCC-WQF2IAR";
       };
-      folders = {
-        "Obsidian" = {
-          path = "/home/${user}/Obsidian";
-          devices = [ "xiaomi" ];
-        };
-        "Sync" = {
-          path = "/home/${user}/Sync";
-          devices = [ "xiaomi" ];
-        };
+    };
+    folders = {
+      "Logseq" = {
+        path = "/home/${user}/Logseq";
+        devices = ["xiaomi"];
+      };
+      "Sync" = {
+        path = "/home/${user}/Sync";
+        devices = ["xiaomi"];
       };
     };
   };

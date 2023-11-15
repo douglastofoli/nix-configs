@@ -1,1 +1,1 @@
-[ ./dunst.nix ./flameshot.nix ./picom.nix ./yubikey.nix ]
+[./dunst.nix ./flameshot.nix ./picom.nix ./syncthing.nix ./yubikey.nix]

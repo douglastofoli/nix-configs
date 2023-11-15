@@ -1,11 +1,16 @@
-{ config, lib, vars, ... }:
-
 {
+  config,
+  pkgs,
+  vars,
+  ...
+}: {
   config = {
     hardware = {
+      enableAllFirmware = true;
+
       bluetooth = {
         enable = true;
-        powerOnBoot = true;
+
         settings = {
           General = {
             Name = "Bluetooth";
@@ -14,6 +19,7 @@
             AlwaysPairable = true;
             FastConnectable = true;
           };
+
           Policy = {
             AutoEnable = true;
             ReconnectAttempts = 5;

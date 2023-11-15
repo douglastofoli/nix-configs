@@ -14,8 +14,8 @@
     helix.url = "github:helix-editor/helix/23.10";
 
     # Elixir LSP
-    lexical-lsp.url = "github:lexical-lsp/lexical?ref=v0.4.0";
-    next-ls.url = "github:elixir-tools/next-ls?ref=v0.14.1";
+    lexical-lsp.url = "github:lexical-lsp/lexical?ref=v0.4.1";
+    next-ls.url = "github:elixir-tools/next-ls?ref=v0.15.0";
   };
 
   outputs = inputs @ {
@@ -29,7 +29,7 @@
       user = "douglas";
       location = "$HOME/.setup";
       terminal = "wezterm";
-      editor = "emacs";
+      editor = "hx";
       browser = "firefox";
     };
   in {

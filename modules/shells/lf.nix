@@ -16,7 +16,7 @@ in {
 
   config = mkIf cfg.enable {
     programs.lf = {
-      enable = true;
+      inherit (cfg) enable;
 
       commands = {
         editor-open = ''$$EDITOR $f'';

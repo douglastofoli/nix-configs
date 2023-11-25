@@ -30,13 +30,35 @@
         overlays = with inputs; [
           helix.overlays.default
         ];
-        config.allowUnfree = true;
+        config = {
+          allowUnfree = true;
+          permittedInsecurePackages = [
+            "electron-13.6.9"
+          ];
+        };
+      };
+
+      vars = {
+        user = "douglas";
+        location = "$HOME/.setup";
+        terminal = "wezterm";
+        editor = "hx";
+        browser = "firefox";
       };
 
       user = "douglas";
     in {
       desktop = nixosSystem rec {
         inherit pkgs;
+        specialArgs = {
+          inherit inputs vars;
+          host = {
+            # System specific configuration
+            hostName = "desktop";
+            gitSigningKey = "A30D5C3DE5FCB642";
+            defaultBrowser = "firefox";
+          };
+        };
         modules = let
           desktop.custom-config = import ./hosts/desktop/custom.nix {inherit pkgs;};
         in [
@@ -51,7 +73,7 @@
 
             home-manager.users = let
               args = host: {
-                inherit (inputs) helix lexical-lsp next-lsp;
+                inherit (inputs) helix lexical-lsp next-ls;
                 inherit (host) custom-config;
               };
             in {

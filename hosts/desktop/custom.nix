@@ -1,4 +1,27 @@
 {pkgs, ...}: {
+  git = {
+    enable = true;
+
+    defaultBranch = "main";
+    delta.enable = true;
+    lfs.enable = true;
+
+    core = {
+      autocrlf = "input";
+      editor = "${pkgs.helix}/bin/hx";
+      whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
+    };
+    user = {
+      name = "douglastofoli";
+      email = "tofoli.douglas@hotmail.com";
+    };
+    signing = {
+      key = "A30D5C3DE5FCB642";
+      signByDefault = true;
+      gpgPath = "${pkgs.gnupg}/bin/gpg";
+    };
+  };
+
   helix = {
     enable = true;
     languages = {

@@ -2,7 +2,6 @@
 {
   lib,
   pkgs,
-  host,
   ...
 }: {
   imports =
@@ -25,6 +24,13 @@
 
       timeout = 3;
     };
+  };
+
+  users.users.douglas = {
+    isNormalUser = true;
+    shell = pkgs.zsh;
+    initialPassword = "123456";
+    extraGroups = ["audio" "camera" "networkmanager" "video" "wheel"];
   };
 
   xmonad.enable = true;
@@ -90,17 +96,16 @@
   };
 
   programs = {
-    git.config.user.signingkey = lib.mkForce host.gitSigningKey;
     nix-ld.enable = true;
   };
 
-  nixpkgs.config = {
-    permittedInsecurePackages = ["electron-13.6.9" "electron-24.8.6"];
+  # nixpkgs.config = {
+  #   permittedInsecurePackages = ["electron-13.6.9" "electron-24.8.6"];
 
-    packageOverrides = pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
-    };
-  };
+  #   packageOverrides = pkgs: {
+  #     vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
+  #   };
+  # };
 
   nixpkgs.overlays = [
     (self: super: {

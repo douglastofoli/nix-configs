@@ -142,7 +142,7 @@ in {
             args = ["--stdio=true"];
           };
           nil.command = mkIf languages.nix.enable "${pkgs.nil}/bin/nil";
-          scss = mkIf cfg.css.enable {
+          scss = mkIf languages.css.enable {
             command = "${vscode-lsp}/bin/vscode-css-language-server";
             args = ["--stdio"];
             config = {

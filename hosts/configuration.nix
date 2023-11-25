@@ -15,13 +15,6 @@
     ++ import ../modules/shells
     ++ import ../modules/themes;
 
-  users.users.${vars.user} = {
-    isNormalUser = true;
-    shell = pkgs.zsh;
-    initialPassword = "123456";
-    extraGroups = ["audio" "camera" "networkmanager" "video" "wheel"];
-  };
-
   time.timeZone = "America/Sao_Paulo";
   i18n = {
     defaultLocale = "en_US.UTF-8";
@@ -136,7 +129,7 @@
     '';
   };
 
-  nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config.allowUnfree = true;
 
   system.stateVersion = "23.05";
 

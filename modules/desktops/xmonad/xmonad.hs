@@ -66,7 +66,7 @@ myTerminal :: String
 myTerminal = "wezterm" -- Sets default terminal
 
 myBrowser :: String
-myBrowser = "firefox"
+myBrowser = "vivaldi"
 
 myEditor :: String
 myEditor = "emacs" -- Sets emacs as editor
@@ -119,7 +119,7 @@ myStartupHook = do
   spawnOnce "blueman-applet"
   spawnOnce "insync start"
   
-  spawnOnce "sleep 2 && firefox"
+  spawnOnce "sleep 2 && vivaldi"
   spawnOnce "sleep 2 && discord"
   spawnOnce "sleep 2 && telegram-desktop"
 
@@ -217,6 +217,7 @@ gsInternet =
     ("Discord", "discord"),
     ("Firefox", "firefox"),
     ("Google Chrome", "google-chrome-stable"),
+    ("Vivaldi", "Vivaldi-stable"),
     ("Zoom", "zoom")
   ]
 
@@ -446,15 +447,18 @@ myManageHook =
       (className =? "Mozilla Firefox" <||> resource =? "Toolkit") --> doFloat,
       -- do shift
       className =? "Brave-browser" --> doShift (myWorkspaces !! 1),
-      title =? "Mozilla Firefox" --> doShift (myWorkspaces !! 1),
       className =? "Google-chrome" --> doShift (myWorkspaces !! 1),
+      title =? "Mozilla Firefox" --> doShift (myWorkspaces !! 1),
+      title =? "Vivaldi-stable" --> doShift (myWorkspaces !! 1),
       (className =? "TelegramDesktop" <||> className =? "Fluffychat") --> doShift (myWorkspaces !! 3),
       className =? "discord" --> doShift (myWorkspaces !! 4),
       title =? "Spotify" --> doShift (myWorkspaces !! 5),
       className =? "Gimp" --> doShift (myWorkspaces !! 8),
       -- do copy to all workspaces
-      --
-      (title =? "Picture in picture") --> doF copyToAll, -- Brave
+
+      title =? "Picture in picture" --> doFloat,
+      
+      (title =? "Picture in picture") --> doF copyToAll, -- Brave / Vivald
       (title =? "Picture-in-Picture") --> doF copyToAll, -- Firefox
       (title =? "Picture in Picture") --> doF copyToAll -- Chrome
     ]

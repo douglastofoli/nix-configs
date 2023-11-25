@@ -19,17 +19,19 @@
 in {
   desktop = lib.nixosSystem {
     # Desktop profile
-    inherit system;
-    specialArgs = {
-      inherit inputs system nix-emacs vars;
-      host = {
-        # System specific configuration
-        hostName = "desktop";
-        gitSigningKey = "A30D5C3DE5FCB642";
-        defaultBrowser = "firefox";
-      };
-    };
-    modules = [
+    inherit pkgs;
+    # specialArgs = {
+    #   inherit inputs system nix-emacs vars;
+    #   host = {
+    #     # System specific configuration
+    #     hostName = "desktop";
+    #     gitSigningKey = "A30D5C3DE5FCB642";
+    #     defaultBrowser = "firefox";
+    #   };
+    # };
+    modules = let
+      desktop.custom-config = import ./desktop/custom.nix {inherit pkgs;};
+    in [
       ./desktop
       ./configuration.nix
 
@@ -38,11 +40,26 @@ in {
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
-          extraSpecialArgs = {
-            inherit (inputs) next-ls helix;
-            custom = import ./desktop/custom.nix {inherit pkgs;};
+          sharedModules = [../modules];
+
+          # extraSpecialArgs = {
+          #   inherit (inputs) lexical-lsp next-ls helix;
+          #   custom = import ./desktop/custom.nix {inherit pkgs;};
+          # };
+
+          users = let
+            args = host: {
+              inherit (inputs) lexical-lsp next-ls helix;
+              inherit (host) custom-config;
+            };
+          in {
+            ${vars.user} = {
+              _module.args = args desktop;
+              imports = [./desktop/home.nix];
+            };
           };
-          users.${vars.user} = {imports = [../modules/editors/helix];};
+
+          #users.${vars.user} = {imports = [../modules/editors/helix];};
         };
       }
     ];

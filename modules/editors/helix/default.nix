@@ -1,23 +1,28 @@
 {
-  custom,
+  custom-config,
+  lexical-lsp,
   lib,
   next-ls,
   pkgs,
   ...
 }: let
   inherit (lib) mkEnableOption mkIf types;
-  cfg = custom.helix.languages;
-  lexical-lsp = pkgs.beam.packages.erlangR25.callPackage ../../shells/lexical-lsp.nix {};
+  cfg = custom-config.helix;
+  languages = cfg.languages;
   typescript-lsp = pkgs.nodePackages.typescript-language-server;
   vscode-lsp = pkgs.nodePackages.vscode-langservers-extracted;
 in {
   options.helix = {
-    enable = mkEnableOption "Enables Helix editor";
+    enable = mkEnableOption {
+      description = "Enables Helix editor";
+      type = types.bool;
+      default = false;
+    };
     languages = {
       clojure.enable = mkEnableOption {
         description = "Enables Clojure support";
         type = types.bool;
-        default = true;
+        default = false;
       };
       css.enable = mkEnableOption {
         description = "Enables CSS support";
@@ -52,7 +57,7 @@ in {
       markdown.enable = mkEnableOption {
         description = "Enables Markdown support";
         type = types.bool;
-        default = false;
+        default = true;
       };
       nix.enable = mkEnableOption {
         description = "Enables Nix support";
@@ -62,9 +67,9 @@ in {
     };
   };
 
-  config = {
+  config = mkIf cfg.enable {
     programs.helix = {
-      enable = true;
+      inherit (cfg) enable;
 
       settings = {
         theme = "dracula";
@@ -125,18 +130,18 @@ in {
 
       languages = {
         language-server = {
-          clojure-lsp.command = mkIf cfg.clojure.enable "${pkgs.clojure-lsp}/bin/clojure-lsp";
-          haskell-language-server = mkIf cfg.haskell.enable {
+          clojure-lsp.command = mkIf languages.clojure.enable "${pkgs.clojure-lsp}/bin/clojure-lsp";
+          haskell-language-server = mkIf languages.haskell.enable {
             command = "${pkgs.haskell-language-server}/bin/haskell-language-server-wrapper";
             args = ["--lsp"];
           };
-          lexical-lsp.command = mkIf cfg.elixir.enable "${lexical-lsp}/bin/lexical";
-          marksman.command = mkIf cfg.markdown.enable "${pkgs.marksman}/bin/marksman";
-          nextls = mkIf cfg.elixir.enable {
+          lexical-lsp.command = mkIf languages.elixir.enable "${lexical-lsp.packages."${pkgs.system}".default}/bin/lexical";
+          marksman.command = mkIf languages.markdown.enable "${pkgs.marksman}/bin/marksman";
+          nextls = mkIf languages.elixir.enable {
             command = "${next-ls.packages."${pkgs.system}".default}/bin/nextls";
             args = ["--stdio=true"];
           };
-          nil.command = mkIf cfg.nix.enable "${pkgs.nil}/bin/nil";
+          nil.command = mkIf languages.nix.enable "${pkgs.nil}/bin/nil";
           scss = mkIf cfg.css.enable {
             command = "${vscode-lsp}/bin/vscode-css-language-server";
             args = ["--stdio"];
@@ -145,11 +150,11 @@ in {
               scss = {validate.enable = true;};
             };
           };
-          typescript-language-server = mkIf cfg.javascript.enable {
+          typescript-language-server = mkIf languages.javascript.enable {
             command = "${typescript-lsp}/bin/typescript-language-server";
             args = ["--stdio"];
           };
-          vscode-css-language-server = mkIf cfg.css.enable {
+          vscode-css-language-server = mkIf languages.css.enable {
             command = "${vscode-lsp}/bin/vscode-css-language-server";
             args = ["--stdio"];
             config = {
@@ -157,7 +162,7 @@ in {
               css = {validate.enable = true;};
             };
           };
-          vscode-html-language-server = mkIf cfg.html.enable {
+          vscode-html-language-server = mkIf languages.html.enable {
             command = "${vscode-lsp}/bin/vscode-css-language-server";
             args = ["--stdio"];
             config = {
@@ -165,7 +170,7 @@ in {
               html = {validate.enable = true;};
             };
           };
-          vscode-json-language-server = mkIf cfg.json.enable {
+          vscode-json-language-server = mkIf languages.json.enable {
             command = "${vscode-lsp}/bin/vscode-css-language-server";
             args = ["--stdio"];
             config = {
@@ -194,45 +199,45 @@ in {
             };
           };
         in [
-          (mkIf cfg.elixir.enable {
+          (mkIf languages.elixir.enable {
             inherit (mix) formatter;
             name = "elixir";
             auto-format = true;
             language-servers = ["lexical-lsp" "nextls"];
           })
-          (mkIf cfg.elixir.enable {
+          (mkIf languages.elixir.enable {
             inherit (mix) formatter;
             name = "eex";
             auto-format = true;
           })
-          (mkIf cfg.elixir.enable {
+          (mkIf languages.elixir.enable {
             inherit (mix) formatter;
             name = "heex";
             auto-format = true;
           })
-          (mkIf cfg.javascript.enable {
+          (mkIf languages.javascript.enable {
             inherit (prettier) formatter;
             name = "javascript";
             auto-format = true;
             language-servers = ["typescript-language-server"];
           })
-          (mkIf cfg.javascript.enable {
+          (mkIf languages.javascript.enable {
             inherit (prettier) formatter;
             name = "typescript";
             auto-format = true;
             language-servers = ["typescript-language-server"];
           })
-          (mkIf cfg.javascript.enable {
+          (mkIf languages.javascript.enable {
             inherit (prettier) formatter;
             name = "jsx";
             auto-format = true;
           })
-          (mkIf cfg.javascript.enable {
+          (mkIf languages.javascript.enable {
             inherit (prettier) formatter;
             name = "tsx";
             auto-format = true;
           })
-          (mkIf cfg.nix.enable {
+          (mkIf languages.nix.enable {
             inherit (alejandra) formatter;
             name = "nix";
             auto-format = true;

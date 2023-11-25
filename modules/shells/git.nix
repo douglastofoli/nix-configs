@@ -1,4 +1,4 @@
-let
+{pkgs, ...}: let
   username = "douglastofoli";
   email = "tofoli.douglas@hotmail.com";
 in {
@@ -10,10 +10,13 @@ in {
         email = email;
         signingkey = "";
       };
-      core = { editor = "nvim"; };
-      init = { defaultBranch = "main"; };
-      commit = { gpgsign = true; };
-      pull = { rebase = false; };
+      core = {
+        autocrlf = true;
+        editor = "${pkgs.helix}/bin/hx";
+      };
+      init = {defaultBranch = "main";};
+      commit = {gpgsign = true;};
+      pull = {rebase = false;};
       alias = {
         co = "checkout";
         br = "branch";

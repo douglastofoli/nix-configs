@@ -1,6 +1,5 @@
 # Specific system configuration settings for desktop
 {
-  config,
   lib,
   pkgs,
   host,
@@ -53,6 +52,9 @@
     variables = {LIBVA_DRIVER_NAME = "i965";};
     systemPackages = with pkgs; [
       nodejs_20
+
+      brave
+      vivaldi
 
       gimp
       tdesktop

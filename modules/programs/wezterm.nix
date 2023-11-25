@@ -25,6 +25,9 @@
 
       config.font = wezterm.font("JetBrainsMono Nerd Font")
 
+      --config.font = wezterm.font("MxPlus IBM VGA 8x16")
+      --config.font_size = 14.0
+
       config.audible_bell = "Disabled"
 
       return config

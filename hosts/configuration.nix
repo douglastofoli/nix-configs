@@ -72,6 +72,8 @@
       roboto
       ubuntu_font_family
 
+      ultimate-oldschool-pc-font-pack
+
       (nerdfonts.override {fonts = ["JetBrainsMono"];})
     ];
   };

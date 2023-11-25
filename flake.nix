@@ -9,8 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-emacs.url = "github:douglastofoli/nix-emacs";
-
+    # Editor
     helix.url = "github:helix-editor/helix/23.10";
 
     # Elixir LSP
@@ -18,26 +17,54 @@
     next-ls.url = "github:elixir-tools/next-ls?ref=v0.15.0";
   };
 
-  outputs = inputs @ {
-    self,
+  outputs = {
     nixpkgs,
     home-manager,
-    nix-emacs,
     ...
-  }: let
-    vars = {
-      user = "douglas";
-      location = "$HOME/.setup";
-      terminal = "wezterm";
-      editor = "hx";
-      browser = "firefox";
-    };
+  } @ inputs: let
+    inherit (nixpkgs.lib) nixosSystem;
   in {
-    nixosConfigurations = ( # NixOS configurations
-      import ./hosts {
-        inherit (nixpkgs) lib;
-        inherit inputs nixpkgs home-manager nix-emacs vars;
-      }
-    );
+    nixosConfigurations = let
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        overlays = with inputs; [
+          helix.overlays.default
+        ];
+        config.allowUnfree = true;
+      };
+
+      user = "douglas";
+    in {
+      desktop = nixosSystem rec {
+        inherit pkgs;
+        modules = let
+          desktop.custom-config = import ./hosts/desktop/custom.nix {inherit pkgs;};
+        in [
+          ./hosts/desktop
+          ./hosts/configuration.nix
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              sharedModules = [./modules];
+
+              users = let
+                args = host: {
+                  inherit (inputs) helix lexical-lsp next-lsp;
+                  inherit (host) custom-config;
+                };
+              in {
+                ${user} = {
+                  _module.args = args desktop;
+                  imports = [./hosts/desktop/home.nix];
+                };
+              };
+            };
+          }
+        ];
+      };
+    };
   };
 }

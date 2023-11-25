@@ -13,4 +13,8 @@
       nix.enable = true;
     };
   };
+
+  lf = {
+    enable = true;
+  };
 }

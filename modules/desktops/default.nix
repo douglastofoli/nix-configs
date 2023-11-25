@@ -1,1 +1,1 @@
-[ ./xmonad ]
+[./xmonad]

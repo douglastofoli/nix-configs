@@ -1,6 +1,11 @@
-{ config, lib, pkgs, vars, ... }:
-
-let inherit (lib) mkEnableOption mkIf types;
+{
+  config,
+  lib,
+  pkgs,
+  vars,
+  ...
+}: let
+  inherit (lib) mkEnableOption mkIf types;
 in {
   options.xmonad = {
     enable = mkEnableOption {
@@ -70,7 +75,7 @@ in {
       portal = {
         enable = true;
         xdgOpenUsePortal = false;
-        extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+        extraPortals = with pkgs; [xdg-desktop-portal-gtk];
       };
     };
 

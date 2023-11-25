@@ -1,6 +1,6 @@
 {...}: {
   imports = [
-    ./editors/helix
-    ./shells/lf.nix
+    ./editors/helix/default.nix
+    # ./shells/lf.nix
   ];
 }

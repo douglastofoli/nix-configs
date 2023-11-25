@@ -40,26 +40,24 @@
         modules = let
           desktop.custom-config = import ./hosts/desktop/custom.nix {inherit pkgs;};
         in [
-          ./hosts/desktop
+          ./hosts/desktop/configuration.nix
           ./hosts/configuration.nix
 
           home-manager.nixosModules.home-manager
           {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              sharedModules = [./modules];
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = [./modules/default.nix];
 
-              users = let
-                args = host: {
-                  inherit (inputs) helix lexical-lsp next-lsp;
-                  inherit (host) custom-config;
-                };
-              in {
-                ${user} = {
-                  _module.args = args desktop;
-                  imports = [./hosts/desktop/home.nix];
-                };
+            home-manager.users = let
+              args = host: {
+                inherit (inputs) helix lexical-lsp next-lsp;
+                inherit (host) custom-config;
+              };
+            in {
+              ${user} = {
+                _module.args = args desktop;
+                imports = [./hosts/desktop/home.nix];
               };
             };
           }

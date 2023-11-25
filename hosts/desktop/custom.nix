@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   helix = {
     enable = true;
     languages = {

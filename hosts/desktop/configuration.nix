@@ -6,7 +6,16 @@
 }: {
   imports =
     [./hardware-configuration.nix]
-    ++ (import ../../modules/desktops/virtualisation);
+    ++ import ../../modules/desktops
+    ++ import ../../modules/editors
+    ++ import ../../modules/hardware
+    ++ import ../../modules/programs
+    ++ import ../../modules/services
+    ++ import ../../modules/shells
+    ++ import ../../modules/themes;
+
+  docker.enable = true;
+  xmonad.enable = true;
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -33,12 +42,9 @@
     extraGroups = ["audio" "camera" "networkmanager" "video" "wheel"];
   };
 
-  xmonad.enable = true;
-
   hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
       vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       vaapiVdpau
       libvdpau-va-gl
@@ -58,9 +64,6 @@
     variables = {LIBVA_DRIVER_NAME = "i965";};
     systemPackages = with pkgs; [
       nodejs_20
-
-      brave
-      vivaldi
 
       gimp
       tdesktop
@@ -95,17 +98,7 @@
     memoryPercent = 60;
   };
 
-  programs = {
-    nix-ld.enable = true;
-  };
-
-  # nixpkgs.config = {
-  #   permittedInsecurePackages = ["electron-13.6.9" "electron-24.8.6"];
-
-  #   packageOverrides = pkgs: {
-  #     vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
-  #   };
-  # };
+  programs.nix-ld.enable = true;
 
   nixpkgs.overlays = [
     (self: super: {

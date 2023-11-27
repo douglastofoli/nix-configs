@@ -1,5 +1,4 @@
 # System theme colors
-
 {
   scheme = {
     dracula = {
@@ -16,7 +15,7 @@
       red = "#ff5555";
       yellow = "#f1fa8c";
       black = "#21222c";
-      white = "#ffffff";
+      white = "#f8f8f2";
     };
 
     catppuccin-macchiato = {

@@ -1,12 +1,26 @@
-{ config, pkgs, vars, ... }:
-
 {
-  virtualisation.docker = {
-    enable = true;
-    enableOnBoot = true;
+  config,
+  lib,
+  vars,
+  ...
+}: let
+  inherit (lib) mkEnableOption mkIf types;
+in {
+  options.docker = {
+    enable = mkEnableOption {
+      description = "Enables Docker virtualisation";
+      type = types.bool;
+      default = false;
+    };
   };
 
-  users.groups.docker.members = [ "${vars.user}" ];
+  config = mkIf config.docker.enable {
+    virtualisation.docker = {
+      enable = true;
+      enableOnBoot = true;
+    };
 
-  environment.systemPackages = with pkgs; [ docker docker-compose ];
+    users.extraGroups.docker.members = ["${vars.user}"];
+  };
+  #environment.systemPackages = with pkgs; [ docker docker-compose ];
 }

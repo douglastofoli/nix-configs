@@ -15,7 +15,7 @@
           rounded-corners-exclude = ["window_type = 'dock'" "window_type = 'desktop'"];
 
           # Shadows
-          shadow = true;
+          shadow = false;
           shadow-radius = 7;
           shadow-offset-x = -7;
           shadow-offset-y = -7;

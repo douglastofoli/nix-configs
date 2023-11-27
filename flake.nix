@@ -41,9 +41,9 @@
       vars = {
         user = "douglas";
         location = "$HOME/.setup";
-        terminal = "wezterm";
+        terminal = "alacritty";
         editor = "hx";
-        browser = "firefox";
+        browser = "chrome";
       };
 
       user = "douglas";
@@ -55,8 +55,7 @@
           host = {
             # System specific configuration
             hostName = "desktop";
-            gitSigningKey = "A30D5C3DE5FCB642";
-            defaultBrowser = "firefox";
+            defaultBrowser = "chrome";
           };
         };
         modules = let

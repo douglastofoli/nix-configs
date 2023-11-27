@@ -1,11 +1,15 @@
 {pkgs, ...}: {
+  alacritty = {
+    enable = true;
+    fontFamily = "JetBrainsMono Nerd Font";
+    fontSize = 13;
+  };
+
   git = {
     enable = true;
-
     defaultBranch = "main";
     delta.enable = true;
     lfs.enable = true;
-
     core = {
       autocrlf = "input";
       editor = "${pkgs.helix}/bin/hx";

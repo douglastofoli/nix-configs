@@ -6,15 +6,6 @@
   vars,
   ...
 }: {
-  imports =
-    import ../modules/desktops
-    ++ import ../modules/editors
-    ++ import ../modules/hardware
-    ++ import ../modules/programs
-    ++ import ../modules/services
-    ++ import ../modules/shells
-    ++ import ../modules/themes;
-
   time.timeZone = "America/Sao_Paulo";
   i18n = {
     defaultLocale = "en_US.UTF-8";

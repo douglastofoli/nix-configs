@@ -1,1 +1,3 @@
-[ ./docker.nix ]
+{...}: {
+  imports = [./docker.nix];
+}

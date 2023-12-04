@@ -40,10 +40,11 @@
 
       vars = {
         user = "douglas";
-        location = "$HOME/.setup";
-        terminal = "alacritty";
+        terminal = "wezterm";
         editor = "hx";
-        browser = "chrome";
+        browser = "firefox";
+        timezone = "America/Sao_Paulo";
+        stateVersion = "23.05";
       };
 
       user = "douglas";
@@ -52,17 +53,11 @@
         inherit pkgs;
         specialArgs = {
           inherit inputs vars;
-          host = {
-            # System specific configuration
-            hostName = "desktop";
-            defaultBrowser = "chrome";
-          };
         };
         modules = let
           desktop.custom-config = import ./hosts/desktop/custom.nix {inherit pkgs;};
         in [
           ./hosts/desktop/configuration.nix
-          ./hosts/configuration.nix
 
           home-manager.nixosModules.home-manager
           {
@@ -74,6 +69,7 @@
               args = host: {
                 inherit (inputs) helix lexical-lsp next-ls;
                 inherit (host) custom-config;
+                inherit vars;
               };
             in {
               ${user} = {

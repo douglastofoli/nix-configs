@@ -44,4 +44,17 @@
   lf = {
     enable = true;
   };
+
+  themes = {
+    fontFamily = "Cantarell";
+    wallpaper = ../../modules/themes/wallpaper5.jpg;
+  };
+
+  wezterm = {
+    enable = true;
+    enableBashIntegration = false;
+    enableZshIntegration = true;
+    fontFamily = "JetBrainsMono Nerd Font";
+    fontSize = 13.0;
+  };
 }

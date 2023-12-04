@@ -1,121 +1,66 @@
 {
-  pkgs,
-  vars,
+  custom-config,
+  lib,
   ...
-}: {
-  home-manager.users.${vars.user} = {
-    home.packages = [pkgs.wezterm];
+}: let
+  inherit (lib) mkEnableOption mkIf mkOption types;
+  cfg = custom-config.wezterm;
 
-    xdg.configFile."wezterm/wezterm.lua".text = ''
-      local wezterm = require("wezterm")
+  colors = import ../themes/colors.nix;
+in {
+  options.wezterm = {
+    enable = mkEnableOption {
+      description = "Enables Wezterm terminal emulator";
+      type = types.bool;
+      default = false;
+    };
+    enableBashIntegration = mkOption {
+      description = "Enables support for Bash";
+      type = types.bool;
+      default = false;
+    };
+    enableZshIntegration = mkOption {
+      description = "Enables support for Zsh";
+      type = types.bool;
+      default = false;
+    };
+    fontFamily = mkOption {
+      description = "Set font family";
+      type = types.str;
+      default = "";
+    };
+    fontSize = mkOption {
+      description = "Set font size";
+      type = types.number;
+      default = 12;
+    };
+  };
 
-      local config = {}
+  config = mkIf cfg.enable {
+    programs.wezterm = {
+      inherit (cfg) enable enableBashIntegration enableZshIntegration;
 
-      -- In newer versions of wezterm, use the config_builder which will
-      -- help provide clearer error messages
-      if wezterm.config_builder then
-        config = wezterm.config_builder()
-      end
+      colorSchemes = import ../themes/colors-wezterm.nix {inherit colors;};
 
-      config.color_scheme = "Dracula (Official)"
+      extraConfig = ''
+        return {
+          font = wezterm.font("${cfg.fontFamily}"),
+          font_size = ${toString cfg.fontSize},
+          line_height = 1.15,
+          dpi = 96.0,
+          bold_brightens_ansi_colors = true,
+          audible_bell = "Disabled",
 
-      config.tab_bar_at_bottom = true
-      config.use_fancy_tab_bar = false
-      config.window_decorations = "RESIZE"
+          color_scheme = "dracula";
 
-      config.font = wezterm.font("JetBrainsMono Nerd Font")
-
-      --config.font = wezterm.font("MxPlus IBM VGA 8x16")
-      --config.font_size = 14.0
-
-      config.audible_bell = "Disabled"
-
-      return config
-    '';
-
-    xdg.configFile."wezterm/dracula.toml".text = ''
-      [colors]
-      ansi = [
-          '#21222c',
-          '#ff5555',
-          '#50fa7b',
-          '#f1fa8c',
-          '#bd93f9',
-          '#ff79c6',
-          '#8be9fd',
-          '#f8f8f2',
-      ]
-      background = '#282a36'
-      brights = [
-          '#6272a4',
-          '#ff6e6e',
-          '#69ff94',
-          '#ffffa5',
-          '#d6acff',
-          '#ff92df',
-          '#a4ffff',
-          '#ffffff',
-      ]
-      compose_cursor = '#ffb86c'
-      cursor_bg = '#f8f8f2'
-      cursor_border = '#f8f8f2'
-      cursor_fg = '#282a36'
-      foreground = '#f8f8f2'
-      scrollbar_thumb = '#44475a'
-      selection_bg = 'rgba(26.666668% 27.843138% 35.294117% 50%)'
-      selection_fg = 'rgba(0% 0% 0% 0%)'
-      split = '#6272a4'
-
-      [colors.indexed]
-
-      [colors.tab_bar]
-      background = '#282a36'
-
-      [colors.tab_bar.active_tab]
-      bg_color = '#bd93f9'
-      fg_color = '#282a36'
-      intensity = 'Normal'
-      italic = false
-      strikethrough = false
-      underline = 'None'
-
-      [colors.tab_bar.inactive_tab]
-      bg_color = '#282a36'
-      fg_color = '#f8f8f2'
-      intensity = 'Normal'
-      italic = false
-      strikethrough = false
-      underline = 'None'
-
-      [colors.tab_bar.inactive_tab_hover]
-      bg_color = '#6272a4'
-      fg_color = '#f8f8f2'
-      intensity = 'Normal'
-      italic = true
-      strikethrough = false
-      underline = 'None'
-
-      [colors.tab_bar.new_tab]
-      bg_color = '#282a36'
-      fg_color = '#f8f8f2'
-      intensity = 'Normal'
-      italic = false
-      strikethrough = false
-      underline = 'None'
-
-      [colors.tab_bar.new_tab_hover]
-      bg_color = '#ff79c6'
-      fg_color = '#f8f8f2'
-      intensity = 'Normal'
-      italic = true
-      strikethrough = false
-      underline = 'None'
-
-      [metadata]
-      aliases = []
-      author = 'timescam'
-      name = 'Dracula (Official)'
-      origin_url = 'https://github.com/dracula/wezterm'
-    '';
+          -- Tab bar
+          enable_tab_bar = true,
+          tab_bar_at_bottom = true,
+          use_fancy_tab_bar = false,
+          hide_tab_bar_if_only_one_tab = true,
+          show_tab_index_in_tab_bar = false
+        }
+      '';
+    };
   };
 }

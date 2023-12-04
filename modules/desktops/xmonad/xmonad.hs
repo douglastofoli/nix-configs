@@ -63,13 +63,13 @@ myModMask :: KeyMask
 myModMask = mod4Mask -- Sets modkey to super/windows key
 
 myTerminal :: String
-myTerminal = "alacritty" -- Sets default terminal
+myTerminal = "$TERMINAL" -- Sets default terminal
 
 myBrowser :: String
-myBrowser = "chrome"
+myBrowser = "$BROWSER"
 
 myEditor :: String
-myEditor = "hx" -- Sets emacs as editor
+myEditor = "$EDITOR" -- Sets emacs as editor
 
 myBorderWidth :: Dimension
 myBorderWidth = 2 -- Sets border width for windows
@@ -117,9 +117,8 @@ myStartupHook = do
 
   spawnOnce "feh -zr --bg-fill --no-fehbg $HOME/.config/wallpaper.jpg"
   spawnOnce "blueman-applet"
-  spawnOnce "insync start"
   
-  spawnOnce "sleep 2 && vivaldi"
+  spawnOnce "sleep 2 && $BROWSER"
   spawnOnce "sleep 2 && discord"
   spawnOnce "sleep 2 && telegram-desktop"
 
@@ -213,12 +212,9 @@ gsEducation =
   []
 
 gsInternet =
-  [ ("Brave Browser", "brave"),
-    ("Discord", "discord"),
+  [ ("Discord", "discord"),
     ("Firefox", "firefox"),
-    ("Google Chrome", "google-chrome-stable"),
-    ("Vivaldi", "Vivaldi-stable"),
-    ("Zoom", "zoom")
+    ("Google Chrome", "google-chrome-stable")
   ]
 
 gsMultimedia =

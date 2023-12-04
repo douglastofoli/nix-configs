@@ -1,18 +1,18 @@
 # Specific system configuration settings for desktop
 {
-  lib,
+  config,
+  inputs,
   pkgs,
+  vars,
   ...
 }: {
   imports =
     [./hardware-configuration.nix]
     ++ import ../../modules/desktops
     ++ import ../../modules/editors
-    ++ import ../../modules/hardware
     ++ import ../../modules/programs
     ++ import ../../modules/services
-    ++ import ../../modules/shells
-    ++ import ../../modules/themes;
+    ++ import ../../modules/shells;
 
   docker.enable = true;
   xmonad.enable = true;
@@ -35,23 +35,62 @@
     };
   };
 
-  users.users.douglas = {
+  users.users.${vars.user} = {
     isNormalUser = true;
     shell = pkgs.zsh;
     initialPassword = "123456";
     extraGroups = ["audio" "camera" "networkmanager" "video" "wheel"];
   };
 
-  hardware.opengl = {
-    enable = true;
-    extraPackages = with pkgs; [
-      vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-      vaapiVdpau
-      libvdpau-va-gl
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "br-abnt2";
+  };
+
+  time.timeZone = "${vars.timezone}";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    supportedLocales = [
+      "en_US.UTF-8/UTF-8"
+      "pt_BR.UTF-8/UTF-8"
     ];
-    extraPackages32 = with pkgs.pkgsi686Linux; [vaapiIntel];
-    driSupport = true;
-    driSupport32Bit = true;
+    extraLocaleSettings = {
+      LC_TIME = "pt_BR.UTF-8";
+      LC_MONETARY = "pt_BR.UTF-8";
+    };
+  };
+
+  security = {
+    rtkit.enable = true;
+    polkit.enable = true;
+  };
+
+  hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings = {
+        General = {
+          Enable = "Source,Sink,Media,Socket";
+        };
+      };
+    };
+    enableAllFirmware = true;
+  };
+
+  sound.enable = true;
+
+  services = {
+    blueman.enable = true;
+    devmon.enable = true;
+    pipewire = {
+      enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      pulse.enable = true;
+    };
   };
 
   networking = {
@@ -60,30 +99,81 @@
     nameservers = ["1.1.1.1" "1.0.0.1"];
   };
 
+  programs = {
+    dconf.enable = true;
+    nix-ld.enable = true;
+  };
+
+  fonts.packages = with pkgs; [
+    cantarell-fonts
+    corefonts # Microsoft fonts
+    font-awesome
+    liberation_ttf
+    mononoki
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    roboto
+    ubuntu_font_family
+
+    (nerdfonts.override {fonts = ["JetBrainsMono"];})
+  ];
+
   environment = {
-    variables = {LIBVA_DRIVER_NAME = "i965";};
+    shells = [pkgs.zsh];
+
+    variables = {
+      BROWSER = "${vars.browser}";
+      EDITOR = "${vars.editor}";
+      TERMINAL = "${vars.terminal}";
+      TZ = "${config.time.timeZone}";
+      VISUAL = "${vars.editor}";
+    };
+
     systemPackages = with pkgs; [
-      nodejs_20
-
-      gimp
-      tdesktop
-      spotify
-      insomnia
-      pcmanfm
-      gnome.file-roller
-      obinskit
-      vscode
-      dbeaver
-      logseq
-      obsidian
-      insync
-
+      # Apps
       cura
-      # emacs/nvim
-      fd
-      ripgrep
+      gimp
+      google-chrome
+      insomnia
+      logseq
+      obinskit
+      obs-studio
+      spotify
+      tdesktop
 
+      #Dev
+      dbeaver
+      vscode
+
+      # Files
+      fd
+      gnome.file-roller
+      insync
+      pcmanfm
+      ripgrep
+      unrar
+      unzip
       xplr
+      wget
+      zip
+
+      # GNU utilities
+      cmake
+      gcc
+      gnumake
+      libtool
+
+      # Terminal
+      btop
+      killall
+      pciutils
+      usbutils
+      xdg-utils
+
+      # Video/Audio
+      pavucontrol
+      vlc
 
       (pkgs.discord.override {
         withOpenASAR = true;
@@ -98,7 +188,23 @@
     memoryPercent = 60;
   };
 
-  programs.nix-ld.enable = true;
+  nix = {
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = ["nix-command" "flakes"];
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+    package = pkgs.nixVersions.unstable;
+    registry.nixpkgs.flake = inputs.nixpkgs;
+    extraOptions = ''
+      keep-outputs = true
+      keep-derivations = true
+    '';
+  };
 
   nixpkgs.overlays = [
     (self: super: {
@@ -116,4 +222,6 @@
       });
     })
   ];
+
+  system.stateVersion = "${vars.stateVersion}";
 }

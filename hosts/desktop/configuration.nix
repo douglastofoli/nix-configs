@@ -9,7 +9,6 @@
   imports =
     [./hardware-configuration.nix]
     ++ import ../../modules/desktops
-    ++ import ../../modules/editors
     ++ import ../../modules/programs
     ++ import ../../modules/services
     ++ import ../../modules/shells;
@@ -95,7 +94,7 @@
 
   networking = {
     hostName = "nixos";
-    networkmanager.enable = false;
+    networkmanager.enable = true;
     nameservers = ["1.1.1.1" "1.0.0.1"];
   };
 
@@ -137,6 +136,8 @@
       google-chrome
       insomnia
       logseq
+      networkmanagerapplet
+      networkmanager-openvpn
       obinskit
       obs-studio
       spotify

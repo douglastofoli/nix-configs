@@ -113,10 +113,12 @@ myStartupHook :: X ()
 myStartupHook = do
   spawn "killall trayer"
   spawn "killall .blueman-applet"
+  spawn "killall .nm-applet-wrap"
   spawn "killall .light-locker-w"
 
   spawnOnce "feh -zr --bg-fill --no-fehbg $HOME/.config/wallpaper.jpg"
   spawnOnce "blueman-applet"
+  spawnOnce "nm-applet"
   
   spawnOnce "sleep 2 && $BROWSER"
   spawnOnce "sleep 2 && discord"
@@ -504,7 +506,7 @@ myKeys c =
             ("M-6", addName "Switch to workspace 6" $ (windows $ W.greedyView $ myWorkspaces !! 5)),
             ("M-7", addName "Switch to workspace 7" $ (windows $ W.greedyView $ myWorkspaces !! 6)),
             ("M-8", addName "Switch to workspace 8" $ (windows $ W.greedyView $ myWorkspaces !! 7)),
-            ("M-9", addName "Switch to workspace 9" $ (windows $ W.greedyView $ myWorkspaces !! 8))
+            ("M-9", addName "Switch to workspace 9" $ (windows $ W.greedyView $ myWorkspaces !! 8))      
           ]
         ^++^ subKeys
           "Send window to workspace"

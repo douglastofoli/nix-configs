@@ -3,7 +3,7 @@
   vars,
   ...
 }: {
-  home.stateVersion = "23.05";
+  home.stateVersion = "${vars.stateVersion}";
   home.homeDirectory = "/home/${vars.user}";
 
   programs.home-manager.enable = true;

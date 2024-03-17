@@ -9,9 +9,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Editor
+    # Editors
     helix.url = "github:helix-editor/helix/23.10";
-
     nix-emacs.url = "github:douglastofoli/nix-emacs/0.0.6";
 
     # Elixir LSP
@@ -31,9 +30,6 @@
     nixosConfigurations = let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
-        overlays = with inputs; [
-          helix.overlays.default
-        ];
         config = {
           allowUnfree = true;
           permittedInsecurePackages = [
@@ -45,9 +41,9 @@
 
       vars = {
         user = "douglas";
-        terminal = "wezterm";
-        editor = "hx";
-        browser = "firefox";
+        terminal = "${pkgs.wezterm}/bin/wezterm";
+        editor = "${pkgs.helix}/bin/hx";
+        browser = "${pkgs.firefox}/bin/firefox";
         timezone = "America/Sao_Paulo";
         stateVersion = "23.11";
       };
@@ -60,7 +56,7 @@
           inherit inputs vars;
         };
         modules = let
-          desktop.custom-config = import ./hosts/desktop/custom.nix {inherit pkgs;};
+          desktop.custom-config = import ./hosts/desktop/custom.nix {inherit pkgs vars;};
         in [
           ./hosts/desktop/configuration.nix
 

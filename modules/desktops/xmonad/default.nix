@@ -22,8 +22,10 @@ in {
       xserver = {
         enable = true;
 
-        layout = "br,us";
-        xkbOptions = "grp:alt_space_toggle";
+        xkb = {
+          layout = "br,us";
+          options = "grp:alt_space_toggle";
+        };
 
         displayManager = {
           lightdm = {

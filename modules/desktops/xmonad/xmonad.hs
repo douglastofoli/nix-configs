@@ -121,7 +121,6 @@ myStartupHook = do
   spawnOnce "nm-applet"
   
   spawnOnce "sleep 2 && $BROWSER"
-  spawnOnce "sleep 2 && discord"
   spawnOnce "sleep 2 && telegram-desktop"
 
   spawn "sleep 2 && blueman-applet"

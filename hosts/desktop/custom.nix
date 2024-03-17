@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  vars,
+  ...
+}: {
   alacritty = {
     enable = true;
     fontFamily = "JetBrainsMono Nerd Font";
@@ -12,7 +16,7 @@
     lfs.enable = true;
     core = {
       autocrlf = "input";
-      editor = "${pkgs.helix}/bin/hx";
+      editor = "${vars.editor}";
       whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
     };
     user = {
@@ -29,7 +33,7 @@
   helix = {
     enable = true;
     languages = {
-      clojure.enable = true;
+      clojure.enable = false;
       css.enable = true;
       elixir.enable = true;
       haskell.enable = true;

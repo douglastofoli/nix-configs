@@ -1,0 +1,13 @@
+* {
+    BG:  #282a36;
+    BGA: #8be9fd;
+    FG:  #f8f8f2;
+    FGA: #ff79c6;
+    BDR: #8be9fd;
+    SEL: #44475a;
+    UGT: #ff79c6;
+    IMG: #bd93f9;
+    OFF: #6272a4;
+    ON:  #50fa7b;
+}
+

@@ -1,0 +1,16 @@
+#+title: NixOS & Non-NixOS System Configuration Flake
+
+* NixOS Installation Guide
+This flake currently has *1* host
+1. desktop
+   - UEFI boot w/ systemd-boot
+
+
+*** Install
+
+#+begin_src
+$ nix-env -iA nixpkgs.git
+$ git clone https://github.com/douglastofoli/nix-configs /mnt/etc/nixos/<name>
+$ cd /mnt/etc/nixos/<name>
+$ nixos-install --flake .#<host>
+#+end_src

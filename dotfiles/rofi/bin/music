@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+rofi_command="rofi -theme $HOME/.config/rofi/config/music.rasi"
+
+# Buttons
+layout=$(cat $HOME/.config/rofi/config/music.rasi | grep BUTTON | cut -d'=' -f2 | tr -d '[:blank:],*/')
+if [[ "$layout" == "TRUE" ]]; then
+    button_music=''
+    button_play=''
+    button_pause=''
+    button_stop=''
+    button_next=''
+    button_previous=''
+else
+    button_music=' Player'
+    button_play=' Play'
+    button_pause=' Pause'
+    button_stop=' Stop'
+    button_next=' Next'
+    button_previous=' Previous'
+fi
+
+# Colors
+active=""
+urgent=""
+
+# Gets the current status of mpd
+status="$(playerctl status)"
+
+# Defines the Play / Pause option content
+if [[ $status == "Playing" ]]; then
+    toggle="$button_pause"
+else
+    toggle="$button_play"
+fi
+
+# Variable passed to rofi
+options="$toggle\n$button_stop\n$button_previous\n$button_next"
+
+# Get the current playing song
+current=$(playerctl metadata --format "Now playing: {{ artist }} - {{ title }}")
+current_cutted=$(echo $current | cut -c 1-45)
+
+if [ ${#current} -gt 30 ]; then
+    current="$current_cutted..."
+else
+    current="$current_cutted"
+fi
+
+if [[ -z "$current" ]]; then
+    current="Idle"
+fi
+
+# Spawn the mpd menu with the "Play / Pause" entry selected by default
+chosen=$(echo -e "$options" | $rofi_command -p "$current" -dmenu $active $urgent -selected-row 0)
+case $chosen in
+    $button_previous)
+        playerctl previous
+        ;;
+    $toggle)
+        playerctl play-pause
+        ;;
+    $button_stop)
+        playerctl stop
+        ;;
+    $button_next)
+        playerctl next
+        ;;
+esac

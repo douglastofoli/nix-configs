@@ -113,12 +113,10 @@ myStartupHook :: X ()
 myStartupHook = do
   spawn "killall trayer"
   spawn "killall .blueman-applet"
-  spawn "killall .nm-applet-wrap"
   spawn "killall .light-locker-w"
 
   spawnOnce "feh -zr --bg-fill --no-fehbg $HOME/.config/wallpaper.jpg"
   spawnOnce "blueman-applet"
-  spawnOnce "nm-applet"
   
   spawnOnce "sleep 2 && $BROWSER"
   spawnOnce "sleep 2 && telegram-desktop"

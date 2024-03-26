@@ -10,14 +10,12 @@
     };
 
     # Editors
-    helix.url = "github:helix-editor/helix/23.10";
-    nix-emacs.url = "github:douglastofoli/nix-emacs/0.0.6";
+    helix.url = "github:helix-editor/helix";
+    nix-emacs.url = "github:douglastofoli/nix-emacs";
 
     # Elixir LSP
-    # lexical-lsp.url = "github:lexical-lsp/lexical?ref=v0.4.1";
-    # next-ls.url = "github:elixir-tools/next-ls?ref=v0.15.0";
-    lexical-lsp.url = "github:lexical-lsp/lexical?ref=v0.5.2";
-    next-ls.url = "github:elixir-tools/next-ls?ref=v0.19.2";
+    lexical-lsp.url = "github:lexical-lsp/lexical";
+    next-ls.url = "github:elixir-tools/next-ls";
   };
 
   outputs = {
@@ -30,6 +28,9 @@
     nixosConfigurations = let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
+        # overlays = with inputs; [
+        #   helix.overlays.default
+        # ];
         config = {
           allowUnfree = true;
           permittedInsecurePackages = [

@@ -71,10 +71,10 @@
       settings = {
         General = {
           Enable = "Source,Sink,Media,Socket";
+          Experimental = true;
         };
       };
     };
-    enableAllFirmware = true;
   };
 
   sound.enable = true;
@@ -135,10 +135,10 @@
       gimp
       google-chrome
       insomnia
+      httpie
       logseq
       networkmanagerapplet
       networkmanager-openvpn
-      obinskit
       obs-studio
       spotify
       tdesktop
@@ -213,12 +213,6 @@
         src = builtins.fetchTarball {
           url = "https://discord.com/api/download?platform=linux&format=tar.gz";
           sha256 = "0qzdvyyialvpiwi9mppbqvf2rvz1ps25mmygqqck0z9i2q01c1zd";
-        };
-      });
-      obinskit = super.obinskit.overrideAttrs (_: {
-        src = builtins.fetchurl {
-          url = "https://files.douglastofoli.dev/ObinsKit_1.2.11_x64.tar.gz";
-          sha256 = "1kcn41wmwcx6q70spa9a1qh7wfrj1sk4v4i58lbnf9kc6vasw41a";
         };
       });
     })

@@ -5,8 +5,6 @@
 }: let
   inherit (lib) mkEnableOption mkIf mkOption types;
   cfg = custom-config.alacritty;
-
-  colors = import ../themes/colors.nix;
 in {
   options.alacritty = {
     enable = mkEnableOption {
@@ -41,7 +39,7 @@ in {
           save_to_clipboard = false;
         };
         scrolling = {
-          history = 50000;
+          history = 5000;
           multiplier = 2;
         };
         font = {
@@ -58,16 +56,16 @@ in {
           };
           size = cfg.fontSize;
         };
-        draw_bold_text_with_bright_colors = true;
-        colors = with colors.scheme.dracula; {
+
+        colors = {
           primary = {
-            background = "${background}";
-            foreground = "${foreground}";
-            bright_foreground = "${white}";
+            background = "#282a36";
+            foreground = "#f8f8f2";
+            bright_foreground = "#ffffff";
           };
           cursor = {
-            text = "${background}";
-            curor = "${foreground}";
+            text = "#282a36";
+            cursor = "#f8f8f2";
           };
           vi_mode_cursor = {
             text = "CellBackground";
@@ -75,17 +73,17 @@ in {
           };
           selection = {
             text = "CellForeground";
-            background = "${current_line}";
+            background = "#44475a";
           };
           normal = {
-            black = "${black}";
-            red = "${red}";
-            green = "${green}";
-            yellow = "${yellow}";
-            blue = "${purple}";
-            magenta = "${pink}";
-            cyan = "${cyan}";
-            white = "${white}";
+            black = "#21222c";
+            red = "#ff5555";
+            green = "#50fa7b";
+            yellow = "#f1fa8c";
+            blue = "#bd93f9";
+            magenta = "#ff79c6";
+            cyan = "#8be9fd";
+            white = "#f8f8f2";
           };
           bright = {
             black = "#6272a4";
@@ -99,26 +97,26 @@ in {
           };
           search = {
             matches = {
-              background = "${green}";
-              foreground = "${current_line}";
+              background = "#50fa7b";
+              foreground = "#44475a";
             };
             focused_match = {
-              background = "${orange}";
-              foreground = "${current_line}";
+              background = "#ffb86c";
+              foreground = "#44475a";
             };
           };
           footer_bar = {
-            background = "${background}";
-            foreground = "${foreground}";
+            background = "#282a36";
+            foreground = "#f8f8f2";
           };
           hints = {
             start = {
-              background = "${yellow}";
-              foreground = "${background}";
+              background = "#f1fa8c";
+              foreground = "#282a36";
             };
             end = {
-              background = "${background}";
-              foreground = "${yellow}";
+              background = "#282a36";
+              foreground = "#f1fa8c";
             };
           };
         };

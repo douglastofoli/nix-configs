@@ -71,10 +71,10 @@
       settings = {
         General = {
           Enable = "Source,Sink,Media,Socket";
-          Experimental = true;
         };
       };
     };
+    enableAllFirmware = true;
   };
 
   sound.enable = true;

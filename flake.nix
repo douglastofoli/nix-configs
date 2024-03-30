@@ -28,9 +28,6 @@
     nixosConfigurations = let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
-        # overlays = with inputs; [
-        #   helix.overlays.default
-        # ];
         config = {
           allowUnfree = true;
           permittedInsecurePackages = [
@@ -42,7 +39,7 @@
 
       vars = {
         user = "douglas";
-        terminal = "${pkgs.wezterm}/bin/wezterm";
+        terminal = "${pkgs.alacritty}/bin/alacritty";
         editor = "${pkgs.helix}/bin/hx";
         browser = "${pkgs.firefox}/bin/firefox";
         timezone = "America/Sao_Paulo";

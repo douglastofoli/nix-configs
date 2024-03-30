@@ -22,9 +22,16 @@ in {
         editor-open = ''$$EDITOR $f'';
         mkdir = ''
           ''${{
-            printf "Directory Name: "
+            printf "Directory name: "
             read DIR
             mkdir $DIR
+          }}
+        '';
+        touch = ''
+          ''${{
+            printf "File name: "
+            read FILE
+            touch $FILE
           }}
         '';
       };
@@ -33,6 +40,7 @@ in {
         "\\\"" = "";
         o = "";
         c = "mkdir";
+        x = "touch";
         "." = "set hidden!";
         "`" = "mark-load";
         "\\'" = "mark-load";

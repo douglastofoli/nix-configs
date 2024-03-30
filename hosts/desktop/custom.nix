@@ -54,6 +54,10 @@
     wallpaper = ../../modules/themes/wallpaper5.jpg;
   };
 
+  tmux = {
+    enable = true;
+  };
+
   wezterm = {
     enable = true;
     enableBashIntegration = false;

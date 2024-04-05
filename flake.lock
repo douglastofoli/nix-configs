@@ -115,15 +115,16 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1711382373,
-        "narHash": "sha256-/Pu8APFFMtFXuqyVJpODuV6teisNZyDEsXsNmctpN3M=",
+        "lastModified": 1711805282,
+        "narHash": "sha256-HNqoisL+7OlP6nhm0mQi4bhwZNjSbSZWaExkAopiL/4=",
         "owner": "helix-editor",
         "repo": "helix",
-        "rev": "1d1087822a3b91dfc6617e0d67bf4293ad4f38e2",
+        "rev": "2cadec0b1182332338a5a1cc3062776f834d8835",
         "type": "github"
       },
       "original": {
         "owner": "helix-editor",
+        "ref": "24.03",
         "repo": "helix",
         "type": "github"
       }
@@ -135,11 +136,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1711133180,
-        "narHash": "sha256-WJOahf+6115+GMl3wUfURu8fszuNeJLv9qAWFQl3Vmo=",
+        "lastModified": 1712317700,
+        "narHash": "sha256-rnkQ6qMhlxfjpCECkTMlFXHU/88QvC5KpdJWq5H6F1E=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "1c2c5e4cabba4c43504ef0f8cc3f3dfa284e2dbb",
+        "rev": "782eed8bb64b27acaeb7c17be4a095c85e65717f",
         "type": "github"
       },
       "original": {
@@ -155,15 +156,16 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1711381621,
-        "narHash": "sha256-bjx1v7umZPBJNJATLF1ex8zMSOHVjVGydYIkfbzyvhM=",
+        "lastModified": 1709178342,
+        "narHash": "sha256-HWqwJ7PAz80bm6YeDG84hLWPE11n06K98GOyeDQWZWU=",
         "owner": "lexical-lsp",
         "repo": "lexical",
-        "rev": "56ddd703a22bf9bc0cd881090d1f65cfb611bfed",
+        "rev": "a06bb03f2873f4a2bf41edf4bc7c0e68d1e1bdbb",
         "type": "github"
       },
       "original": {
         "owner": "lexical-lsp",
+        "ref": "v0.5.2",
         "repo": "lexical",
         "type": "github"
       }
@@ -173,15 +175,16 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1711319759,
-        "narHash": "sha256-tZI1tXGQ4hYVEe1qCUi4sWqjdMSkRbIrS1PRoYjyrws=",
+        "lastModified": 1711567155,
+        "narHash": "sha256-i/xjDLqPiPhW5dvUwtaWmT+otQ2CysMuye6b8Oor6fg=",
         "owner": "elixir-tools",
         "repo": "next-ls",
-        "rev": "cb3f10b755530fb8a03b0a8518169f26e14b6fe9",
+        "rev": "1ae8eaded94146b27a47789e28493974784cb74d",
         "type": "github"
       },
       "original": {
         "owner": "elixir-tools",
+        "ref": "v0.20.2",
         "repo": "next-ls",
         "type": "github"
       }
@@ -287,11 +290,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1711163522,
-        "narHash": "sha256-YN/Ciidm+A0fmJPWlHBGvVkcarYWSC+s3NTPk/P+q3c=",
+        "lastModified": 1712163089,
+        "narHash": "sha256-Um+8kTIrC19vD4/lUCN9/cU9kcOsD1O1m+axJqQPyMM=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "44d0940ea560dee511026a53f0e2e2cde489b4d4",
+        "rev": "fd281bd6b7d3e32ddfa399853946f782553163b5",
         "type": "github"
       },
       "original": {

@@ -65,4 +65,8 @@
     fontFamily = "JetBrainsMono Nerd Font";
     fontSize = 13.0;
   };
+
+  zsh = {
+    enable = true;
+  };
 }

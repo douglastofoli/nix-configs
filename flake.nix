@@ -10,12 +10,12 @@
     };
 
     # Editors
-    helix.url = "github:helix-editor/helix";
+    helix.url = "github:helix-editor/helix/24.03";
     nix-emacs.url = "github:douglastofoli/nix-emacs";
 
     # Elixir LSP
-    lexical-lsp.url = "github:lexical-lsp/lexical";
-    next-ls.url = "github:elixir-tools/next-ls";
+    lexical-lsp.url = "github:lexical-lsp/lexical?ref=v0.5.2";
+    next-ls.url = "github:elixir-tools/next-ls?ref=v0.20.2";
   };
 
   outputs = {

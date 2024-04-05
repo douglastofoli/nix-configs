@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   programs = {
     starship = {
       enable = true;
@@ -14,7 +16,7 @@
           vicmd_symbol = "[V](bold #c6a0f6) ";
         };
 
-        gcloud = { detect_env_vars = [ "GCLOUD_HOME" ]; };
+        gcloud = {detect_env_vars = ["GCLOUD_HOME"];};
       };
     };
 
@@ -27,12 +29,18 @@
 
       ohMyZsh = {
         enable = true;
-        plugins = [ "git" ];
+        plugins = ["git" "tmux"];
       };
 
       histSize = 10000;
 
       shellInit = ''
+        alias tmux="tmux -f $HOME/.config/tmux/tmux.conf"
+
+        if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+          tmux -f $HOME/.config/tmux/tmux.conf attach -t default || tmux new -s default
+        fi
+
         export PATH="$HOME/.local/bin:$PATH"
 
         export GPG_TTY="$(tty)"
@@ -47,5 +55,5 @@
     };
   };
 
-  environment = { systemPackages = with pkgs; [ bat eza zoxide ]; };
+  environment = {systemPackages = with pkgs; [bat eza zoxide];};
 }

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if playerctl -l | grep -q "spotify"; then
+	artist=$(playerctl -p spotify metadata artist)
+	song=$(playerctl -p spotify metadata title | cut -c 1-60)
+
+	echo -n "$artist · $song"
+fi

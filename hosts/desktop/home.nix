@@ -12,8 +12,10 @@
 
   home.packages = with pkgs; [
     bat
+    eza
+    zoxide
+
     ffmpeg
     spotdl
-    obsidian
   ];
 }

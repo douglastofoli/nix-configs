@@ -13,10 +13,10 @@ in {
         };
       };
       folders = {
-        # "Logseq" = {
-        #   path = "/home/${user}/Logseq";
-        #   devices = ["xiaomi"];
-        # };
+        "Logseq" = {
+          path = "/home/${user}/Logseq";
+          devices = ["xiaomi"];
+        };
         "Sync" = {
           path = "/home/${user}/Sync";
           devices = ["xiaomi"];

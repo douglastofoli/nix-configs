@@ -41,7 +41,7 @@ in {
           save_to_clipboard = false;
         };
         scrolling = {
-          history = 5000;
+          history = 50000;
           multiplier = 2;
         };
         font = {

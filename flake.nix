@@ -10,7 +10,7 @@
     };
 
     # Editors
-    helix.url = "github:helix-editor/helix/24.03";
+    helix.url = "github:helix-editor/helix";
     nix-emacs.url = "github:douglastofoli/nix-emacs";
 
     # Elixir LSP

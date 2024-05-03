@@ -15,6 +15,8 @@
     eza
     zoxide
 
+    nodejs_21
+
     ffmpeg
     spotdl
   ];

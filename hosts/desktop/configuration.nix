@@ -9,6 +9,7 @@
   imports =
     [./hardware-configuration.nix]
     ++ import ../../modules/desktops
+    ++ import ../../modules/editors
     ++ import ../../modules/programs
     ++ import ../../modules/services
     ++ import ../../modules/shells;

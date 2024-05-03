@@ -86,7 +86,8 @@
 in {
   services.emacs = {
     enable = true;
-    package = nix-emacs;
+    # package = nix-emacs;
+    package = pkgs.emacs29;
     defaultEditor = false;
   };
 }

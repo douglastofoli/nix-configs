@@ -1,6 +1,9 @@
-{ config, lib, pkgs, vars, ... }:
-
 {
+  config,
+  lib,
+  vars,
+  ...
+}: {
   home-manager.users.${vars.user} = lib.mkIf config.services.xserver.enable {
     programs.rofi.enable = true;
 

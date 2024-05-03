@@ -19,6 +19,8 @@ in {
     services = {
       dbus.enable = true;
 
+      displayManager.defaultSession = "none+xmonad";
+
       xserver = {
         enable = true;
 
@@ -46,7 +48,6 @@ in {
               };
             };
           };
-          defaultSession = "none+xmonad";
         };
 
         windowManager = {

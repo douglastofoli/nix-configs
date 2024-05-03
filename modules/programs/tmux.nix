@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkEnableOption mkIf types;
+  inherit (lib) mkEnableOption mkOption mkIf types;
   cfg = custom-config.tmux;
 in {
   options.tmux = {
@@ -13,24 +13,35 @@ in {
       type = types.bool;
       default = false;
     };
+
+    tmuxinator = mkOption {
+      description = "Manage complex tmux sessions.";
+      type = types.bool;
+      default = false;
+    };
   };
 
   config = mkIf cfg.enable {
     programs.tmux = {
       inherit (cfg) enable;
+      tmuxinator.enable = cfg.tmuxinator;
 
       clock24 = true;
-      baseIndex = 1;
       escapeTime = 0;
       newSession = true;
+      secureSocket = false;
 
       plugins = with pkgs.tmuxPlugins; [
-        fingers
         sensible
         yank
         {
           plugin = resurrect;
           extraConfig = ''
+            set -g @resurrect-dir $HOME/.config/tmux/resurrect
+
+            set -g @resurrect-save S
+            set -g @resurrect-restore R
+
             set -g @ressurect-strategy-vim session
             set -g @ressurect-strategy-nvim session
             set -g @resurrect-capture-pane-contents on
@@ -42,6 +53,8 @@ in {
             set -g @continuum-boot on
             set -g @continuum-restore on
             set -g @continuum-save-interval 10
+
+            set -g @continuum-boot-options alacritty
           '';
         }
         {
@@ -51,47 +64,72 @@ in {
             set -g @dracula-show-powerline true
             set -g @dracula-refresh-rate 10
 
-            set -g @dracula-plugins "git weather"
+            set -g @dracula-plugins "git"
+            set -g @dracula-git-colors "pink dark_gray"
             set -g @dracula-show-left-icon session
             set -g @dracula-show-empty-plugins false
-            set -g @dracula-show-fahrenheit false
           '';
         }
       ];
 
       extraConfig = ''
+        # use 256 colors
+        set -g default-terminal "xterm-256color"
+        set -ga terminal-overrides ",*256col*:Tc"
+
+        # configs
+        set -g escape-time 0
+        set -g history-limit 50000
+        set -g detach-on-destroy off
+
         # enable mouse
         set-option -g mouse on
+
+        # change tab index
+        set -g base-index 1
+        set -g renumber-windows on
 
         # set prefix
         unbind C-b
         set -g prefix C-s
         bind C-s send-prefix
 
-        # set vi-mode
-        set-window-option -g mode-keys vi
+        # refresh config
+        unbind r
+        bind r source-file ~/.config/tmux/tmux.conf
+
+        # vi mode
+        setw -g mode-keys vi
 
         # select mode and yank commands
-        bind-key -T copy-mode-vi v send-keys -X begin-selection
-        bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-        bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+        bind -T copy-mode-vi v send-keys -X begin-selection
+        bind -T copy-mode-vi C-v send-keys -X rectangle-toggle
+        bind -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
-        # move between pane with vi keybindings
-        bind-key h select-pane -L
-        bind-key j select-pane -D
-        bind-key k select-pane -U
-        bind-key l select-pane -R
+        # select window with hjkl
+        bind h select-pane -L
+        bind j select-pane -D
+        bind k select-pane -U
+        bind l select-pane -R
+
+        # resize window with HJKL
+        bind -r H resize-pane -L 10
+        bind -r J resize-pane -D 10
+        bind -r K resize-pane -U 10
+        bind -r L resize-pane -R 10
+
+        # shift arrow to switch windows
+        bind -n S-Left previous-window
+        bind -n S-Right next-window
+
+        # shift alt vim keys to switch windows
+        bind -n M-H previous-window
+        bind -n M-L next-window
 
         # split pane commands
-        bind h split-window -h -c "#{pane_current_path}"
-        bind v split-window -v -c "#{pane_current_path}"
         bind c new-window -c "#{pane_current_path}"
-
-        # use 256 colors
-        set -g default-terminal "xterm-256color"
-        set -ga terminal-overrides ",*256col*:Tc"
-        set -ga terminal-overrides '*:Ss=\E[%p1%d q:Se=\E[ q'
-        set-environment -g COLORTERM "truecolor"
+        bind % split-window -h -c "#{pane_current_path}"
+        bind '"' split-window -v -c "#{pane_current_path}"
       '';
     };
   };

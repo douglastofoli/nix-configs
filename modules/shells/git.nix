@@ -124,7 +124,7 @@ in {
         help = {autocorrect = 0;};
 
         commit = {
-          template = builtins.toString ../../dotfiles/gitmessage;
+          template = builtins.toPath ../../dotfiles/gitmessage;
         };
 
         color = {

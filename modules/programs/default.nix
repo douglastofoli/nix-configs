@@ -1,1 +1,1 @@
-[./firefox.nix ./games.nix ./rofi.nix]
+[./games.nix ./rofi.nix]

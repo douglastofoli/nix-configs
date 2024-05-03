@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   programs = {
     starship = {
       enable = true;
@@ -29,18 +25,12 @@
 
       ohMyZsh = {
         enable = true;
-        plugins = ["git" "tmux"];
+        plugins = ["git"];
       };
 
       histSize = 10000;
 
       shellInit = ''
-        alias tmux="tmux -f $HOME/.config/tmux/tmux.conf"
-
-        if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-          tmux -f $HOME/.config/tmux/tmux.conf attach -t default || tmux new -s default
-        fi
-
         export PATH="$HOME/.local/bin:$PATH"
 
         export GPG_TTY="$(tty)"

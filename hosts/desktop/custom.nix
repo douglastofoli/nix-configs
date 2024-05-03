@@ -9,6 +9,10 @@
     fontSize = 13;
   };
 
+  firefox = {
+    enable = true;
+  };
+
   git = {
     enable = true;
     defaultBranch = "main";
@@ -56,6 +60,7 @@
 
   tmux = {
     enable = true;
+    tmuxinator = true;
   };
 
   wezterm = {

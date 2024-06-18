@@ -11,11 +11,11 @@
 
     # Editors
     helix.url = "github:helix-editor/helix";
-    nix-emacs.url = "github:douglastofoli/nix-emacs";
+    nix-nvim.url = "github:douglastofoli/nix-nvim";
 
     # Elixir LSP
-    lexical-lsp.url = "github:lexical-lsp/lexical?ref=v0.5.2";
-    next-ls.url = "github:elixir-tools/next-ls?ref=v0.20.2";
+    lexical-lsp.url = "github:lexical-lsp/lexical?ref=v0.6.1";
+    next-ls.url = "github:elixir-tools/next-ls?ref=v0.23.0";
   };
 
   outputs = {
@@ -26,13 +26,18 @@
     inherit (nixpkgs.lib) nixosSystem;
   in {
     nixosConfigurations = let
-      pkgs = import nixpkgs {
+      pkgs = import nixpkgs rec {
         system = "x86_64-linux";
+        overlays = with inputs; [
+          helix.overlays.default
+          nix-nvim.overlays."${system}".default
+        ];
         config = {
           allowUnfree = true;
           permittedInsecurePackages = [
             "electron-13.6.9"
             "electron-25.9.0"
+            "electron-27.3.11"
           ];
         };
       };
@@ -45,8 +50,6 @@
         timezone = "America/Sao_Paulo";
         stateVersion = "23.11";
       };
-
-      user = "douglas";
     in {
       desktop = nixosSystem rec {
         inherit pkgs;
@@ -71,7 +74,7 @@
                 inherit vars;
               };
             in {
-              ${user} = {
+              ${vars.user} = {
                 _module.args = args desktop;
                 imports = [./hosts/desktop/home.nix];
               };

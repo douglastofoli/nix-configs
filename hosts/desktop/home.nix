@@ -2,7 +2,9 @@
   pkgs,
   vars,
   ...
-}: {
+}: let
+  neovim = pkgs.callPackage ../../modules/editors/nvim {inherit pkgs;};
+in {
   home.stateVersion = "${vars.stateVersion}";
   home.homeDirectory = "/home/${vars.user}";
 
@@ -11,11 +13,13 @@
   services.blueman-applet.enable = true;
 
   home.packages = with pkgs; [
+    neovim
+
     bat
     eza
     zoxide
 
-    nodejs_21
+    obsidian
 
     ffmpeg
     spotdl

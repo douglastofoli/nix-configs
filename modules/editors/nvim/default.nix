@@ -1,10 +1,24 @@
-{ pkgs, ... }:
+{pkgs, ...}: let
+  inherit (pkgs) mkNeovim;
 
-{
-  programs.neovim = {
-    enable = true;
-    defaultEditor = false;
+  config = {
+    nvim = {
+      package = pkgs.neovim-unwrapped;
 
-    vimAlias = true;
+      ui = {
+        statusline = {
+          enable = true;
+          theme = "dracula";
+        };
+        whichkey.enable = true;
+      };
+    };
   };
-}
+in
+  mkNeovim {inherit config;}
+# programs.neovim = {
+#   enable = true;
+#   defaultEditor = false;
+#   vimAlias = true;
+# };
+

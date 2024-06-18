@@ -9,7 +9,6 @@
   imports =
     [./hardware-configuration.nix]
     ++ import ../../modules/desktops
-    ++ import ../../modules/editors
     ++ import ../../modules/programs
     ++ import ../../modules/services
     ++ import ../../modules/shells;
@@ -50,10 +49,10 @@
   time.timeZone = "${vars.timezone}";
   i18n = {
     defaultLocale = "en_US.UTF-8";
-    # supportedLocales = [
-    #   "en_US.UTF-8/UTF-8"
-    #   "pt_BR.UTF-8/UTF-8"
-    # ];
+    supportedLocales = [
+      "en_US.UTF-8/UTF-8"
+      "pt_BR.UTF-8/UTF-8"
+    ];
     extraLocaleSettings = {
       LC_TIME = "pt_BR.UTF-8";
       LC_MONETARY = "pt_BR.UTF-8";
@@ -72,6 +71,7 @@
       settings = {
         General = {
           Enable = "Source,Sink,Media,Socket";
+          Experimental = true;
         };
       };
     };
@@ -145,7 +145,7 @@
       tdesktop
 
       #Dev
-      dbeaver
+      dbeaver-bin
       vscode
 
       # Files
@@ -200,7 +200,7 @@
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
-    package = pkgs.nixVersions.unstable;
+    package = pkgs.nixVersions.latest;
     registry.nixpkgs.flake = inputs.nixpkgs;
     extraOptions = ''
       keep-outputs = true

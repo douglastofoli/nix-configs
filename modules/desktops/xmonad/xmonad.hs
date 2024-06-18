@@ -268,8 +268,8 @@ myScratchPads =
     findBluetooth = title =? "Bluetooth Devices"
     manageBluetooth = customFloating $ W.RationalRect l t w h
       where
-      h = 0.9
-      w = 0.9
+      h = 0.6
+      w = 0.2
       t = 0.95 - h
       l = 0.95 - w
 
@@ -292,7 +292,7 @@ tall =
         windowNavigation $
           addTabs shrinkText myTabTheme $
             subLayout [] (smartBorders Simplest) $
-              mySpacing 8 $
+              mySpacing 6 $
                 ResizableTall 1 (3 / 100) (1 / 2) []
 
 monocle =

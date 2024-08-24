@@ -1,10 +1,15 @@
-{ config, lib, pkgs, vars, ... }:
-
-let colors = import ../themes/colors.nix;
+{
+  config,
+  lib,
+  pkgs,
+  vars,
+  ...
+}: let
+  colors = import ../themes/colors.nix;
 in {
   config = lib.mkIf config.services.xserver.enable {
     home-manager.users.${vars.user} = {
-      home.packages = [ pkgs.libnotify ];
+      home.packages = [pkgs.libnotify];
 
       services.dunst = {
         enable = true;
@@ -74,8 +79,7 @@ in {
         };
       };
 
-      xdg.dataFile."dbus-1/services/org.knopwob.dunst.service".source =
-        "${pkgs.dunst}/share/dbus-1/services/org.knopwob.dunst.service";
+      xdg.dataFile."dbus-1/services/org.knopwob.dunst.service".source = "${pkgs.dunst}/share/dbus-1/services/org.knopwob.dunst.service";
     };
   };
 }

@@ -40,6 +40,7 @@
       clojure.enable = false;
       css.enable = true;
       elixir.enable = true;
+      go.enable = true;
       haskell.enable = true;
       html.enable = true;
       javascript.enable = true;

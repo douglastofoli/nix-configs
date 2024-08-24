@@ -27,7 +27,6 @@ in {
       tmuxinator.enable = cfg.tmuxinator;
 
       clock24 = true;
-      escapeTime = 0;
       newSession = true;
       secureSocket = false;
 
@@ -76,6 +75,8 @@ in {
         # use 256 colors
         set -g default-terminal "xterm-256color"
         set -ga terminal-overrides ",*256col*:Tc"
+        set -ga terminal-overrides '*:Ss=\E[%p1%d q:Se=\E[ q'
+        set-environment -g COLORTERM "truecolor"
 
         # configs
         set -g escape-time 0

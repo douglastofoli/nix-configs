@@ -25,7 +25,7 @@
 
       ohMyZsh = {
         enable = true;
-        plugins = ["git"];
+        plugins = ["git" "tmux"];
       };
 
       histSize = 10000;

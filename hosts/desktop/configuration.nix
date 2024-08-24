@@ -38,7 +38,7 @@
     isNormalUser = true;
     shell = pkgs.zsh;
     initialPassword = "123456";
-    extraGroups = ["audio" "camera" "networkmanager" "video" "wheel"];
+    extraGroups = ["audio" "camera" "lp" "video" "wheel"];
   };
 
   console = {
@@ -75,10 +75,7 @@
         };
       };
     };
-    enableAllFirmware = true;
   };
-
-  sound.enable = true;
 
   services = {
     blueman.enable = true;
@@ -91,13 +88,21 @@
       };
       pulse.enable = true;
     };
+    resolved = {
+      enable = true;
+      dnssec = "true";
+      domains = ["~."];
+      fallbackDns = [
+        "45.90.28.0#91823f.dns.nextdns.io"
+        "2a07:a8c0::#91823f.dns.nextdns.io"
+        "45.90.30.0#91823f.dns.nextdns.io"
+        "2a07:a8c1::#91823f.dns.nextdns.io"
+      ];
+      dnsovertls = "true";
+    };
   };
 
-  networking = {
-    hostName = "nixos";
-    networkmanager.enable = true;
-    nameservers = ["1.1.1.1" "1.0.0.1"];
-  };
+  networking.hostName = "desktop";
 
   programs = {
     dconf.enable = true;
@@ -132,31 +137,27 @@
 
     systemPackages = with pkgs; [
       # Apps
-      cura
       gimp
       google-chrome
       insomnia
-      httpie
       logseq
-      networkmanagerapplet
-      networkmanager-openvpn
       obs-studio
       spotify
       tdesktop
 
       #Dev
+      beekeeper-studio
       dbeaver-bin
       vscode
 
       # Files
       fd
-      gnome.file-roller
-      insync
+      file-roller
+      # insync
       pcmanfm
       ripgrep
       unrar
       unzip
-      xplr
       wget
       zip
 
@@ -177,10 +178,7 @@
       pavucontrol
       vlc
 
-      (pkgs.discord.override {
-        withOpenASAR = true;
-        withVencord = true;
-      })
+      discord
     ];
   };
 

@@ -34,6 +34,11 @@ in {
         type = types.bool;
         default = false;
       };
+      go.enable = mkEnableOption {
+        description = "Enables Go lang support";
+        type = types.bool;
+        default = false;
+      };
       haskell.enable = mkEnableOption {
         description = "Enables Haskell support";
         type = types.bool;
@@ -131,6 +136,9 @@ in {
       languages = {
         language-server = {
           clojure-lsp.command = mkIf languages.clojure.enable "${pkgs.clojure-lsp}/bin/clojure-lsp";
+          gopls = mkIf languages.go.enable {
+            command = "${pkgs.gopls}/bin/gopls";
+          };
           haskell-language-server = mkIf languages.haskell.enable {
             command = "${pkgs.haskell-language-server}/bin/haskell-language-server-wrapper";
             args = ["--lsp"];
@@ -171,7 +179,7 @@ in {
             };
           };
           vscode-json-language-server = mkIf languages.json.enable {
-            command = "${vscode-lsp}/bin/vscode-css-language-server";
+            command = "${vscode-lsp}/bin/vscode-json-language-server";
             args = ["--stdio"];
             config = {
               provideFormatter = true;
@@ -184,6 +192,11 @@ in {
           alejandra = {
             formatter = {
               command = "${pkgs.alejandra}/bin/alejandra";
+            };
+          };
+          gofmt = {
+            formatter = {
+              command = "${pkgs.go}/bin/gofmt";
             };
           };
           mix = {
@@ -214,6 +227,28 @@ in {
             inherit (mix) formatter;
             name = "heex";
             auto-format = true;
+          })
+          (mkIf languages.go.enable {
+            inherit (gofmt) formatter;
+            name = "go";
+            auto-format = true;
+            language-servers = ["gopls"];
+            indent = {
+              tab-width = 4;
+              unit = "    ";
+            };
+          })
+          (mkIf languages.go.enable {
+            name = "templ";
+            auto-format = true;
+            indent = {
+              tab-width = 4;
+              unit = "    ";
+            };
+          })
+          (mkIf languages.html.enable {
+            name = "html";
+            auto-format = false;
           })
           (mkIf languages.javascript.enable {
             inherit (prettier) formatter;

@@ -13,6 +13,11 @@ in {
   services.blueman-applet.enable = true;
 
   home.packages = with pkgs; [
+    brave
+    vivaldi
+
+    zoom-us
+
     neovim
 
     bat
@@ -22,6 +27,5 @@ in {
     obsidian
 
     ffmpeg
-    spotdl
   ];
 }

@@ -20,6 +20,7 @@ in {
 
       profiles.default = {
         isDefault = true;
+
         settings = {
           # General
           "content.notify.interval" = 100000;
@@ -46,21 +47,21 @@ in {
           "network.http.max-urgent-start-excessive-connections-per-host" = 5;
           "network.http.pacing.requests.enabled" = false;
           "network.dnsCacheExpiration" = 3600;
-          "network.dns.max_high_priority_threads" = 8;
           "network.ssl_tokens_cache_capacity" = 10240;
 
-          # Speculative loading
+          # Speculative Loading
           "network.dns.disablePrefetch" = true;
+          "network.dns.disablePrefetchFromHTTPS" = true;
           "network.prefetch-next" = false;
           "network.predictor.enabled" = false;
+          "network.predictor.enable-prefetch" = false;
 
           # Experimental
           "layout.css.grid-template-masonry-value.enabled" = true;
           "dom.enable_web_task_scheduling" = true;
-          "layout.css.has-selector.enabled" = true;
           "dom.security.sanitizer.enabled" = true;
 
-          # Tracking protection
+          # Tracking Protection
           "browser.contentblocking.category" = "strict";
           "urlclassifier.trackingSkipURLs" = "*.reddit.com, *.twitter.com, *.twimg.com, *.tiktok.com";
           "urlclassifier.features.socialtracking.skipURLs" = "*.instagram.com, *.twitter.com, *.twimg.com";
@@ -70,7 +71,7 @@ in {
           "browser.uitour.enabled" = false;
           "privacy.globalprivacycontrol.enabled" = true;
 
-          # OCSP & CERTS / HPKP
+          # OCSP & Certs / HPKP
           "security.OCSP.enabled" = 0;
           "security.remote_settings.crlite_filters.enabled" = true;
           "security.pki.crlite_mode" = 2;
@@ -80,19 +81,23 @@ in {
           "browser.xul.error_pages.expert_bad_cert" = true;
           "security.tls.enable_0rtt_data" = false;
 
-          # Disk avoidance
+          # Disk Avoidance
           "browser.privatebrowsing.forceMediaMemoryCache" = true;
           "browser.sessionstore.interval" = 60000;
 
           # Shutdown & Sanitizing
           "privacy.history.custom" = true;
 
-          # Search / URL bar
+          # Search / URL Bar
+          "browser.urlbar.trimHttps" = true;
+          "browser.urlbar.untrimOnUserInteraction.featureGate" = true;
           "browser.search.separatePrivateDefault.ui.enabled" = true;
           "browser.urlbar.update2.engineAliasRefresh" = true;
           "browser.search.suggest.enabled" = false;
+          "browser.urlbar.quicksuggest.enabled" = false;
           "browser.urlbar.suggest.quicksuggest.sponsored" = false;
           "browser.urlbar.suggest.quicksuggest.nonsponsored" = false;
+          "browser.urlbar.groupLabels.enabled" = false;
           "browser.formfill.enable" = false;
           "security.insecure_connection_text.enabled" = true;
           "security.insecure_connection_text.pbmode.enabled" = true;
@@ -100,7 +105,6 @@ in {
 
           # HTTPS-First Policy
           "dom.security.https_first" = true;
-          "dom.security.https_first_schemeless" = true;
 
           # Passwords
           "signon.formlessCapture.enabled" = false;
@@ -108,10 +112,8 @@ in {
           "network.auth.subresource-http-auth-allow" = 1;
           "editor.truncate_user_pastes" = false;
 
-          # Mixed content + Cross-site
+          # Mixed Content + Cross-Site
           "security.mixed_content.block_display_content" = true;
-          "security.mixed_content.upgrade_display_content" = true;
-          "security.mixed_content.upgrade_display_content.image" = true;
           "pdfjs.enableScripting" = false;
           "extensions.postDownloadThirdPartyPrompt" = false;
 
@@ -121,17 +123,16 @@ in {
           # Containers
           "privacy.userContext.ui.enabled" = true;
 
-          # WEBRTC
+          # WebRTC
           "media.peerconnection.ice.proxy_only_if_behind_proxy" = true;
           "media.peerconnection.ice.default_address_only" = true;
 
-          # Safe browsing
+          # Safe Browsing
           "browser.safebrowsing.downloads.remote.enabled" = false;
 
           # Mozilla
           "permissions.default.desktop-notification" = 2;
           "permissions.default.geo" = 2;
-          "geo.provider.network.url" = "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%";
           "permissions.manager.defaultsUrl" = "";
           "webchannel.allowObject.urlWhitelist" = "";
 
@@ -150,7 +151,6 @@ in {
           "toolkit.telemetry.coverage.opt-out" = true;
           "toolkit.coverage.opt-out" = true;
           "toolkit.coverage.endpoint.base" = "";
-          "browser.ping-centre.telemetry" = false;
           "browser.newtabpage.activity-stream.feeds.telemetry" = false;
           "browser.newtabpage.activity-stream.telemetry" = false;
 
@@ -159,7 +159,7 @@ in {
           "app.normandy.enabled" = false;
           "app.normandy.api_url" = "";
 
-          # Crash reports
+          # Crash Reports
           "breakpad.reportURL" = "";
           "browser.tabs.crashReporting.sendReport" = false;
           "browser.crashReports.unsubmittedCheck.autoSubmit2" = false;
@@ -178,35 +178,37 @@ in {
           "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
           "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
           "browser.preferences.moreFromMozilla" = false;
-          "browser.tabs.tabmanager.enabled" = false;
           "browser.aboutConfig.showWarning" = false;
           "browser.aboutwelcome.enabled" = false;
+          "browser.tabs.tabmanager.enabled" = false;
+          "browser.profiles.enabled" = true;
 
-          # Theme adjustments
+          # Theme Adjustments
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "browser.compactmode.show" = true;
           "browser.display.focus_ring_on_anything" = true;
           "browser.display.focus_ring_style" = 0;
           "browser.display.focus_ring_width" = 0;
           "layout.css.prefers-color-scheme.content-override" = 2;
-          "browser.privateWindowSeparation.enabled" = false;
+          "browser.privateWindowSeparation.enabled" = false; # WINDOWS
+          "browser.newtabpage.activity-stream.newtabWallpapers.v2.enabled" = true;
 
-          # Cookie banner handling
+          # Cookie Banner Handling
           "cookiebanners.service.mode" = 1;
           "cookiebanners.service.mode.privateBrowsing" = 1;
 
-          # Fullscreen notice
+          # Fullscreen Notice
           "full-screen-api.transition-duration.enter" = "0 0";
           "full-screen-api.transition-duration.leave" = "0 0";
           "full-screen-api.warning.delay" = -1;
           "full-screen-api.warning.timeout" = 0;
 
-          # URL BAR
+          # URL Bar
           "browser.urlbar.suggest.calculator" = true;
           "browser.urlbar.unitConversion.enabled" = true;
           "browser.urlbar.trending.featureGate" = false;
 
-          # New tab page
+          # New Tab Page
           "browser.newtabpage.activity-stream.feeds.topsites" = false;
           "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
 
@@ -214,18 +216,18 @@ in {
           "extensions.pocket.enabled" = false;
 
           # Downloads
-          "browser.download.always_ask_before_handling_new_types" = true;
           "browser.download.manager.addToRecentDocs" = false;
 
           # PDF
           "browser.download.open_pdf_attachments_inline" = true;
 
-          # Tab behavior
+          # Tab Behavior
           "browser.bookmarks.openInTabClosesMenu" = false;
           "browser.menu.showViewImageInfo" = true;
           "findbar.highlightAll" = true;
           "layout.word_select.eat_space_to_next_word" = false;
         };
+
         userChrome = ''
           /*** Hide Tab Close buttons ***/
           .tabbrowser-tab .tab-close-button {

@@ -47,6 +47,7 @@
       json.enable = true;
       markdown.enable = true;
       nix.enable = true;
+      php.enable = true;
     };
   };
 

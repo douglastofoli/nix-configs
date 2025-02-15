@@ -69,6 +69,11 @@ in {
         type = types.bool;
         default = false;
       };
+      php.enable = mkEnableOption {
+        description = "Enables PHP support";
+        type = types.bool;
+        default = false;
+      };
     };
   };
 
@@ -143,6 +148,10 @@ in {
             command = "${pkgs.haskell-language-server}/bin/haskell-language-server-wrapper";
             args = ["--lsp"];
           };
+          intelephense = mkIf languages.php.enable {
+            command = "${pkgs.nodePackages.intelephense}/bin/intelephense";
+            args = ["--stdio"];
+          };
           lexical-lsp.command = mkIf languages.elixir.enable "${lexical-lsp.packages."${pkgs.system}".default}/bin/lexical";
           marksman.command = mkIf languages.markdown.enable "${pkgs.marksman}/bin/marksman";
           nextls = mkIf languages.elixir.enable {
@@ -203,6 +212,12 @@ in {
             formatter = {
               command = "mix";
               args = ["format" "-"];
+            };
+          };
+          phpcbf = {
+            formatter = {
+              command = "${pkgs.php83Packages.php-codesniffer}/bin/phpcbf";
+              args = ["-"];
             };
           };
           prettier = {
@@ -276,6 +291,12 @@ in {
             inherit (alejandra) formatter;
             name = "nix";
             auto-format = true;
+          })
+          (mkIf languages.php.enable {
+            inherit (phpcbf) formatter;
+            name = "php";
+            auto-format = true;
+            language-servers = ["intelephense"];
           })
         ];
       };

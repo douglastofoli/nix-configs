@@ -37,7 +37,7 @@
 
           # Transparancy / Opacity
           active-opacity = 1.0;
-          inactive-opacity = 0.8;
+          inactive-opacity = 1.0;
           frame-opacity = 0.7;
           popup_menu = {opacity = 0.8;};
           dropdown_menu = {opacity = 0.8;};

@@ -14,8 +14,8 @@
     nix-nvim.url = "github:douglastofoli/nix-nvim";
 
     # Elixir LSP
-    lexical-lsp.url = "github:lexical-lsp/lexical?ref=v0.7.0";
-    next-ls.url = "github:elixir-tools/next-ls?ref=v0.23.1";
+    lexical-lsp.url = "github:lexical-lsp/lexical?ref=v0.7.2";
+    next-ls.url = "github:elixir-tools/next-ls?ref=v0.23.3";
   };
 
   outputs = {
@@ -48,8 +48,7 @@
         editor = "${pkgs.helix}/bin/hx";
         browser = "${pkgs.firefox}/bin/firefox";
         timezone = "America/Sao_Paulo";
-        # stateVersion = "23.11";
-        stateVersion = "24.05";
+        stateVersion = "24.11";
       };
     in {
       desktop = nixosSystem rec {

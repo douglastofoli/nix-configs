@@ -38,7 +38,7 @@
     isNormalUser = true;
     shell = pkgs.zsh;
     initialPassword = "123456";
-    extraGroups = ["audio" "camera" "lp" "video" "wheel"];
+    extraGroups = ["audio" "camera" "lp" "storage" "video" "wheel"];
   };
 
   console = {
@@ -80,6 +80,8 @@
   services = {
     blueman.enable = true;
     devmon.enable = true;
+    gvfs.enable = true;
+    udisks2.enable = true;
     pipewire = {
       enable = true;
       alsa = {
@@ -116,12 +118,11 @@
     liberation_ttf
     mononoki
     noto-fonts
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
     noto-fonts-emoji
     roboto
     ubuntu_font_family
-
-    (nerdfonts.override {fonts = ["JetBrainsMono"];})
+    nerd-fonts.jetbrains-mono
   ];
 
   environment = {

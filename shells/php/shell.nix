@@ -1,21 +1,22 @@
-{ pkgs, ... }:
-
-with pkgs;
-
-let
+{pkgs, ...}:
+with pkgs; let
   projectName = "php";
 
-  php = pkgs.php82.buildEnv {
-    extensions = ({ enabled, all }:
-      enabled ++ (with all; [ xdebug php82Extensions.pgsql ]));
+  php = pkgs.php83.buildEnv {
+    extensions = {
+      enabled,
+      all,
+    }:
+      enabled ++ (with all; [xdebug php83Extensions.pgsql]);
 
     extraConfig = ''
       memory_limit = 2G
       xdebug.mode=debug
     '';
   };
-in mkShell {
-  name = "${projectName}-shell";
+in
+  mkShell {
+    name = "${projectName}-shell";
 
-  packages = [ php ];
-}
+    packages = [php php83Packages.composer];
+  }

@@ -120,6 +120,7 @@ myStartupHook = do
   
   spawnOnce "sleep 2 && $BROWSER"
   spawnOnce "sleep 2 && telegram-desktop"
+  spawnOnce "sleep 2 && hexchat"
 
   spawn "sleep 2 && blueman-applet"
   spawn "sleep 2 && light-locker"
@@ -408,7 +409,7 @@ myLayoutHook =
         ||| tallAccordion
         ||| wideAccordion
 
-myWorkspaces = [" dev ", " www ", " sys ", " chat ", " disc ", " mus ", " vid ", " img ", " game "]
+myWorkspaces = [" dev ", " www ", " sys ", " chat ", " disc ", " mus ", " vid ", " img ", " irc "]
 
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1 ..] -- (,) == \x y -> (x,y)
 
@@ -433,7 +434,7 @@ myManageHook =
       className =? "pinentry-gtk-2" --> doFloat,
       className =? "splash" --> doFloat,
       className =? "toolbar" --> doFloat,
-      (className =? "TelegramDesktop" <||> className =? "Fluffychat") --> doFloat,
+      (className =? "TelegramDesktop" <||> className =? "Whatsapp-for-linux") --> doFloat,
       className =? "Yad" --> doCenterFloat,
       isDialog --> doCenterFloat,
       isFullscreen --> doFullFloat,
@@ -445,10 +446,11 @@ myManageHook =
       className =? "Google-chrome" --> doShift (myWorkspaces !! 1),
       title =? "Mozilla Firefox" --> doShift (myWorkspaces !! 1),
       title =? "Vivaldi-stable" --> doShift (myWorkspaces !! 1),
-      (className =? "TelegramDesktop" <||> className =? "Fluffychat") --> doShift (myWorkspaces !! 3),
+      (className =? "TelegramDesktop" <||> className =? "Whatsapp-for-linux") --> doShift (myWorkspaces !! 3),
       className =? "discord" --> doShift (myWorkspaces !! 4),
       title =? "Spotify" --> doShift (myWorkspaces !! 5),
       className =? "Gimp" --> doShift (myWorkspaces !! 8),
+      className =? "Hexchat" --> doShift (myWorkspaces !! 9),
       -- do copy to all workspaces
 
       title =? "Picture in picture" --> doFloat,

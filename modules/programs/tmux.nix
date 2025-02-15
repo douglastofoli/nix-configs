@@ -24,6 +24,7 @@ in {
   config = mkIf cfg.enable {
     programs.tmux = {
       inherit (cfg) enable;
+      shell = "${pkgs.zsh}/bin/zsh";
       tmuxinator.enable = cfg.tmuxinator;
 
       clock24 = true;

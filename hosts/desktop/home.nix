@@ -13,16 +13,13 @@ in {
   services.blueman-applet.enable = true;
 
   home.packages = with pkgs; [
-    zoom-us
-
+    hexchat
     neovim
-
     bat
     eza
     zoxide
-
     obsidian
-
     ffmpeg
+    zoom-us
   ];
 }

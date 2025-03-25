@@ -120,7 +120,6 @@ myStartupHook = do
   
   spawnOnce "sleep 2 && $BROWSER"
   spawnOnce "sleep 2 && telegram-desktop"
-  spawnOnce "sleep 2 && hexchat"
 
   spawn "sleep 2 && blueman-applet"
   spawn "sleep 2 && light-locker"
@@ -214,7 +213,8 @@ gsEducation =
 gsInternet =
   [ ("Discord", "discord"),
     ("Firefox", "firefox"),
-    ("Google Chrome", "google-chrome-stable")
+    ("Google Chrome", "google-chrome-stable"),
+    ("Zen Browser", "zen")
   ]
 
 gsMultimedia =

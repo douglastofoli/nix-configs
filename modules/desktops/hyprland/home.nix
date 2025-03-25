@@ -1,6 +1,8 @@
-{ config, lib, pkgs, host, ... }:
-
-let
+{
+  pkgs,
+  host,
+  ...
+}: let
   execute = ''
     exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
     exec-once=systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
@@ -18,13 +20,14 @@ let
   '';
 
   touchpad = with host;
-    if hostName == "laptop" then ''
+    if hostName == "laptop"
+    then ''
       touchpad {
         natural_scroll=yes
         disable_while_typing=true
       }
-    '' else
-      "";
+    ''
+    else "";
 in let
   hyprlandConfig = ''
     monitor=,preferred,auto,1
@@ -111,7 +114,7 @@ in let
 
     bind=$mainMod,Return,exec,$TERMINAL
     bind=$mainMod SHIFT,Q,killactive,
-    bind=$mainMod SHIFT,E,exec,~/.config/hypr/scripts/logout.sh 
+    bind=$mainMod SHIFT,E,exec,~/.config/hypr/scripts/logout.sh
     bind=$mainMod,V,togglefloating,
     bind=$mainMod,D,exec,wofi --show drun
     bind=$mainMod,P,pseudo,
@@ -209,8 +212,9 @@ in let
     windowrule=animation fadeIn,^(wlogout)$
   '';
 in {
-  imports = [ (import ../../programs/waybar.nix) ]
-    ++ [ (import ../../programs/wofi.nix) ];
+  imports =
+    [(import ../../programs/waybar.nix)]
+    ++ [(import ../../programs/wofi.nix)];
 
   xdg.configFile."hypr/hyprland.conf".text = hyprlandConfig;
   xdg.configFile."hypr/scripts".source = ./scripts;

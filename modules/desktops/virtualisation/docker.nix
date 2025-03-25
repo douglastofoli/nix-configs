@@ -22,5 +22,4 @@ in {
 
     users.extraGroups.docker.members = ["${vars.user}"];
   };
-  #environment.systemPackages = with pkgs; [ docker docker-compose ];
 }

@@ -9,12 +9,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    zen-browser.url = "github:MarceColl/zen-browser-flake";
+
     # Editors
     helix.url = "github:helix-editor/helix";
     nix-nvim.url = "github:douglastofoli/nix-nvim";
 
     # Elixir LSP
-    lexical-lsp.url = "github:lexical-lsp/lexical?ref=v0.7.2";
+    lexical-lsp.url = "github:lexical-lsp/lexical?ref=v0.7.3";
     next-ls.url = "github:elixir-tools/next-ls?ref=v0.23.3";
   };
 
@@ -31,6 +33,9 @@
         overlays = with inputs; [
           helix.overlays.default
           nix-nvim.overlays."${system}".default
+          (final: prev: {
+            zen-browser = zen-browser.packages."${system}".default;
+          })
         ];
         config = {
           allowUnfree = true;
@@ -46,7 +51,7 @@
         user = "douglas";
         terminal = "${pkgs.alacritty}/bin/alacritty";
         editor = "${pkgs.helix}/bin/hx";
-        browser = "${pkgs.firefox}/bin/firefox";
+        browser = "${pkgs.zen-browser}/bin/zen";
         timezone = "America/Sao_Paulo";
         stateVersion = "24.11";
       };

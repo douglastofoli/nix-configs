@@ -15,6 +15,7 @@
 
   docker.enable = true;
   xmonad.enable = true;
+  gnome.enable = false;
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -141,20 +142,16 @@
       gimp
       google-chrome
       insomnia
-      logseq
       obs-studio
       spotify
       tdesktop
 
       #Dev
-      beekeeper-studio
       dbeaver-bin
-      vscode
 
       # Files
       fd
       file-roller
-      # insync
       pcmanfm
       ripgrep
       unrar
@@ -180,6 +177,7 @@
       vlc
 
       discord
+      zen-browser
     ];
   };
 
@@ -213,6 +211,14 @@
         src = builtins.fetchTarball {
           url = "https://discord.com/api/download?platform=linux&format=tar.gz";
           sha256 = "0qzdvyyialvpiwi9mppbqvf2rvz1ps25mmygqqck0z9i2q01c1zd";
+        };
+      });
+    })
+    (self: super: {
+      zen-browser = super.zen-browser.overrideAttrs (_: {
+        src = builtins.fetchTarball {
+          url = "https://github.com/zen-browser/desktop/releases/download/1.10b/zen.linux-x86_64.tar.xz";
+          sha256 = "sha256:06v8caplc3qakqc9ifyfr0zmzpg83m86kc8yy8yaln77hxvw7lbz";
         };
       });
     })

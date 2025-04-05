@@ -1,1 +1,1 @@
-[./gnome ./virtualisation ./xmonad]
+[./gnome ./hyprland ./virtualisation ./xmonad]

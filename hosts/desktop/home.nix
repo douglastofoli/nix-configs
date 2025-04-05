@@ -13,12 +13,16 @@ in {
   services.blueman-applet.enable = true;
 
   home.packages = with pkgs; [
-    zed-editor
+    kitty
+
     neovim
     bat
     eza
     zoxide
     obsidian
     ffmpeg
+
+    zed-editor
+    zen-browser
   ];
 }

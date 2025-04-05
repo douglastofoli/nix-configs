@@ -1,51 +1,35 @@
-{ config, pkgs, system, hyprland, ... }:
-
-let exec = "exec Hyprland";
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib) mkEnableOption mkIf types;
+  exec = "exec Hyprland";
 in {
-  programs = {
-    hyprland = {
-      enable = true;
+  options.hyprland = {
+    enable = mkEnableOption {
+      description = "Enables Hyprland";
+      type = types.bool;
+      default = false;
+    };
+  };
 
-      xwayland = {
+  config = mkIf config.hyprland.enable {
+    programs = {
+      hyprland = {
         enable = true;
-        hidpi = false;
+        withUWSM = true;
       };
 
-      nvidiaPatches = false;
+      waybar.enable = true;
     };
 
-    waybar.enable = true;
+    environment = {
+      loginShellInit = ''
+        if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
+          ${exec}
+        fi
+      '';
+    };
   };
-
-  environment = {
-    loginShellInit = ''
-      if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-        ${exec}
-      fi
-    '';
-
-    systemPackages = with pkgs; [
-      grim
-      mpvpaper
-      playerctl
-      slurp
-      swappy
-      swaybg
-      swayidle
-      swaylock-effects
-      wl-clipboard
-      wlr-randr
-      wlogout
-    ];
-  };
-
-  security.pam.services.swaylock = {
-    text = ''
-      auth include login
-    '';
-  };
-
-  nixpkgs.overlays = [
-    (final: prev: { waybar = hyprland.packages.${system}.waybar-hyprland; })
-  ];
 }

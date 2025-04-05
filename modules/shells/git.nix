@@ -74,7 +74,7 @@ in {
         type = types.str;
         default = false;
       };
-      gpgPath = mkOption {
+      signer = mkOption {
         description = "Defines the GPG path";
         type = types.str;
         default = "${pkgs.gnupg}/bin/gpg";
@@ -96,7 +96,7 @@ in {
       ignores = ["*.swp" "*.swo" ".nix-*" ".postgres" ".direnv"];
 
       signing = {
-        inherit (cfg.signing) gpgPath key signByDefault;
+        inherit (cfg.signing) signer key signByDefault;
       };
 
       aliases = {

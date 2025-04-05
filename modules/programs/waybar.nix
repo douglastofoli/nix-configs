@@ -1,6 +1,5 @@
-{ lib, ... }:
-
-let colors = import ../themes/colors.nix;
+{...}: let
+  colors = import ../themes/colors.nix;
 in {
   xdg.configFile = {
     "waybar/config".text = ''
@@ -226,7 +225,7 @@ in {
         border-right: 0px;
       }
 
-      #pulseaudio#microphone { 
+      #pulseaudio#microphone {
         color: ${blue};
         border-left: 0px;
         border-right: 0px;

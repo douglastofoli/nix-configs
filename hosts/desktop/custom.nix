@@ -30,7 +30,7 @@
     signing = {
       key = "A30D5C3DE5FCB642";
       signByDefault = true;
-      gpgPath = "${pkgs.gnupg}/bin/gpg";
+      signer = "${pkgs.gnupg}/bin/gpg";
     };
   };
 

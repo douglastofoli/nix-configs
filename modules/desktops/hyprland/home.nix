@@ -1,8 +1,4 @@
-{
-  pkgs,
-  host,
-  ...
-}: let
+{pkgs, ...}: let
   execute = ''
     exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
     exec-once=systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
@@ -18,16 +14,6 @@
     exec=${pkgs.discord}/bin/discord
     exec=${pkgs.firefox}/bin/firefox
   '';
-
-  touchpad = with host;
-    if hostName == "laptop"
-    then ''
-      touchpad {
-        natural_scroll=yes
-        disable_while_typing=true
-      }
-    ''
-    else "";
 in let
   hyprlandConfig = ''
     monitor=,preferred,auto,1
@@ -38,8 +24,6 @@ in let
 
       follow_mouse=1
       float_switch_override_focus=true
-
-      ${touchpad}
 
       sensitivity=0.7
     }
@@ -218,5 +202,4 @@ in {
 
   xdg.configFile."hypr/hyprland.conf".text = hyprlandConfig;
   xdg.configFile."hypr/scripts".source = ./scripts;
-  xdg.configFile."wlogout".source = ../../../dotfiles/wlogout;
 }

@@ -6,17 +6,98 @@
     exec-once=${pkgs.swaybg}/bin/swaybg -m fill -i $HOME/.config/wallpaper.jpg
     exec-once=${pkgs.waybar}/bin/waybar
     exec-once=${pkgs.blueman}/bin/blueman-applet
-    exec-once=${pkgs.networkmanagerapplet}/bin/nm-applet --indicator
 
     exec-once=$HOME/.config/hypr/scripts/sleep.sh
 
     exec=${pkgs.tdesktop}/bin/telegram-desktop
-    exec=${pkgs.discord}/bin/discord
-    exec=${pkgs.firefox}/bin/firefox
+    exec=${pkgs.zen-browser}/bin/zen
   '';
 in let
   hyprlandConfig = ''
-    monitor=,preferred,auto,1
+    # Monitors
+    monitor=,preferred,auto,auto
+
+    # Programs
+    $browser = zen
+    $terminal = alacritty
+    $fileManager = pcmanfm
+    $menu = wofi --show drun
+
+    # Autostart
+    ${execute}
+
+    # Environment Variables
+    env = XCURSOR_SIZE,24
+    env = HYPRCURSOR_SIZE,24
+
+    # Look and feel
+    general {
+      gaps_in = 5
+      gaps_out = 20
+
+      border_size = 2
+
+      col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
+      col.inactive_border = rgba(595959aa)
+
+      resize_on_border = false
+
+      allow_tearing = false
+
+      layout = dwindle
+    }
+
+    decoration {
+      rounding = 10
+      rounding_power = 2
+
+      active_opacity = 1.0
+      inactive_opacity = 1.0
+
+      shadow {
+        enabled = true
+        range = 4
+        render_power = 3
+        color = rgba(1a1a1aee)
+      }
+
+      blur {
+        enabled = true
+        size = 3
+        passes = 1
+
+        vibrancy = 0.1696
+      }
+    }
+
+    animations {
+      enabled = yes, please :)
+
+      bezier = easeOutQuint,0.23,1,0.32,1
+      bezier = easeInOutCubic,0.65,0.05,0.36,1
+      bezier = linear,0,0,1,1
+      bezier = almostLinear,0.5,0.5,0.75,1.0
+      bezier = quick,0.15,0,0.1,1
+
+      animation = global, 1, 10, default
+      animation = border, 1, 5.39, easeOutQuint
+      animation = windows, 1, 4.79, easeOutQuint
+      animation = windowsIn, 1, 4.1, easeOutQuint, popin 87%
+      animation = windowsOut, 1, 1.49, linear, popin 87%
+      animation = fadeIn, 1, 1.73, almostLinear
+      animation = fadeOut, 1, 1.46, almostLinear
+      animation = fade, 1, 3.03, quick
+      animation = layers, 1, 3.81, easeOutQuint
+      animation = layersIn, 1, 4, easeOutQuint, fade
+      animation = layersOut, 1, 1.5, linear, fade
+      animation = fadeLayersIn, 1, 1.79, almostLinear
+      animation = fadeLayersOut, 1, 1.39, almostLinear
+      animation = workspaces, 1, 1.94, almostLinear, fade
+      animation = workspacesIn, 1, 1.21, almostLinear, fade
+      animation = workspacesOut, 1, 1.94, almostLinear, fade
+    }
+
+    $mainMod=SUPER
 
     input {
       kb_layout=br,us
@@ -28,178 +109,31 @@ in let
       sensitivity=0.7
     }
 
-    general {
-      gaps_in=3
-      gaps_out=5
-      border_size=3
-
-      col.active_border=0xb3cba6f7
-      col.inactive_border=0xb3313244
-
-      layout=dwindle
-    }
 
     decoration {
-      rounding=5
-      blur=yes
-      blur_size=6.8
-      blur_passes=3
-      blur_new_optimizations=on
-      inactive_opacity=0.98
-
-      drop_shadow=no
-      shadow_range=4
-      shadow_render_power=3
-      col.shadow=rgba(1a1a1aee)
+      rounding=8
+      inactive_opacity=0.95
     }
 
-    animations {
-      enabled=yes
-
-      bezier=myBezier,0.05,0.9,0.1,1.05
-      bezier=overshot,0.13,0.99,0.29,1.1
-
-      animation=windows,1,5,overshot,popin
-      animation=border,1,5,default
-      animation=fade,1,5,default
-      animation=workspaces,1,6,default
-    }
-
-    dwindle {
-      pseudotile=yes
-      preserve_split=yes
-      pseudotile=true
-      force_split=2
-    }
-
-    master {
-      new_is_master=true
-      new_on_top=true,
-    }
 
     gestures {
       workspace_swipe=on
-      workspace_swipe_min_speed_to_force=50
-      workspace_swipe_distance=550
+      workspace_swipe_fingers=3
+      workspace_swipe_distance=500
     }
 
     misc {
       disable_hyprland_logo=on
       enable_swallow=true
-
-      animate_manual_resizes=false
     }
-
-    device:epic mouse V1 {
-      sensitivity=-0.5
-    }
-
-    $mainMod=SUPER
 
     bind=$mainMod,Return,exec,$TERMINAL
-    bind=$mainMod SHIFT,Q,killactive,
-    bind=$mainMod SHIFT,E,exec,~/.config/hypr/scripts/logout.sh
-    bind=$mainMod,V,togglefloating,
     bind=$mainMod,D,exec,wofi --show drun
-    bind=$mainMod,P,pseudo,
-    bind=$mainMod,J,togglesplit,
     bind=$mainMod,L,exec,~/.config/hypr/scripts/lock.sh
 
-    bind=ALT,Space,exec,wofi-emoji
-
-    bind=$mainMod,left,movefocus,l
-    bind=$mainMod,right,movefocus,r
-    bind=$mainMod,up,movefocus,u
-    bind=$mainMod,down,movefocus,d
-
-    bind=SUPER_SHIFT,left,movewindow,l
-    bind=SUPER_SHIFT,right,movewindow,r
-    bind=SUPER_SHIFT,up,movewindow,u
-    bind=SUPER_SHIFT,down,movewindow,d
-
-    bind=$mainMod,1,workspace,1
-    bind=$mainMod,2,workspace,2
-    bind=$mainMod,3,workspace,3
-    bind=$mainMod,4,workspace,4
-    bind=$mainMod,5,workspace,5
-    bind=$mainMod,6,workspace,6
-    bind=$mainMod,7,workspace,7
-    bind=$mainMod,8,workspace,8
-    bind=$mainMod,9,workspace,9
-    bind=$mainMod,0,workspace,10
-
-    # Move window, doesnt switch to the workspace
-    bind = $mainMod SHIFT, 1, movetoworkspacesilent, 1
-    bind = $mainMod SHIFT, 2, movetoworkspacesilent, 2
-    bind = $mainMod SHIFT, 3, movetoworkspacesilent, 3
-    bind = $mainMod SHIFT, 4, movetoworkspacesilent, 4
-    bind = $mainMod SHIFT, 5, movetoworkspacesilent, 5
-    bind = $mainMod SHIFT, 6, movetoworkspacesilent, 6
-    bind = $mainMod SHIFT, 7, movetoworkspacesilent, 7
-    bind = $mainMod SHIFT, 8, movetoworkspacesilent, 8
-    bind = $mainMod SHIFT, 9, movetoworkspacesilent, 9
-    bind = $mainMod SHIFT, 0, movetoworkspacesilent, 10
-
-    # Move window, switch to the workspace
-    bind = $mainMod CTRL, 1, movetoworkspace, 1
-    bind = $mainMod CTRL, 2, movetoworkspace, 2
-    bind = $mainMod CTRL, 3, movetoworkspace, 3
-    bind = $mainMod CTRL, 4, movetoworkspace, 4
-    bind = $mainMod CTRL, 5, movetoworkspace, 5
-    bind = $mainMod CTRL, 6, movetoworkspace, 6
-    bind = $mainMod CTRL, 7, movetoworkspace, 7
-    bind = $mainMod CTRL, 8, movetoworkspace, 8
-    bind = $mainMod CTRL, 9, movetoworkspace, 9
-    bind = $mainMod CTRL, 0, movetoworkspace, 10
-
-    bind = $mainMod, mouse_down, workspace, e+1
-    bind = $mainMod, mouse_up, workspace, e-1
-
-    bindm = $mainMod, mouse:272, movewindow
-    bindm = $mainMod, mouse:273, resizewindow
-
-    # Volume, brightness, media player
-    bind=,XF86AudioRaiseVolume,exec,~/.config/hypr/scripts/volume.sh up
-    bind=,XF86AudioLowerVolume,exec,~/.config/hypr/scripts/volume.sh down
-    bind=,XF86AudioMute,exec,~/.config/hypr/scripts/volume.sh mute
-    bind=,XF86AudioPlay,exec,~/.config/hypr/scripts/spotify.sh --play
-    bind=,XF86AudioNext,exec,~/.config/hypr/scripts/spotify.sh --next
-    bind=,XF86AudioPrev,exec,~/.config/hypr/scripts/spotify.sh --prev
-    bind=,XF86PowerOff,exec,systemctl suspend
-
-    # Scratchpad
-    bind = $mainMod, minus, movetoworkspace,special
-    bind = $mainMod, equal, togglespecialworkspace
-
-    # Screenshot
-    bind=,print,exec,${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - -o ~/GoogleDrive/Screenshots/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png && notify-send "Saved to ~/Pictures/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png"
-
     # Auto start
-    ${execute}
-
-    # Window rules
-    windowrule=float,title:^(Picture-in-Picture)$
-    windowrule=size 590 333,title:^(Picture-in-Picture)$
-    windowrule=move 1930 710,title:^(Picture-in-Picture)$
-
-    windowrule=workspace 1,class:^(firefox)(.*)$
-    windowrule=workspace 4,title:^(Telegram)$
-    windowrule=workspace 5,class:^(discord)$
-
-    windowrule=float,title:^(Telegram)$
-    windowrule=move 765 225,title:^(Telegram)$
-    windowrule=size 890 730,title:^(Telegram)$
-    windowrule=float,title:^(Bluetooth)(.*)$
-    windowrule=move 955 330,title:^(Bluetooth)(.*)$
-    windowrule=size 710 550,title:^(Bluetooth)(.*)$
-
-    windowrule=animation fadeIn,^(wlogout)$
   '';
 in {
-  imports =
-    [(import ../../programs/waybar.nix)]
-    ++ [(import ../../programs/wofi.nix)];
-
   xdg.configFile."hypr/hyprland.conf".text = hyprlandConfig;
   xdg.configFile."hypr/scripts".source = ./scripts;
 }

@@ -8,7 +8,7 @@
 in {
   options.hyprland = {
     enable = mkEnableOption {
-      description = "Enables Hyprland";
+      description = "Enables Hyprland with updated features";
       type = types.bool;
       default = false;
     };
@@ -30,6 +30,13 @@ in {
           ${exec}
         fi
       '';
+    };
+
+    environment.variables = {
+      XDG_CURRENT_DESKTOP = "Hyprland";
+      XDG_SESSION_TYPE = "wayland";
+      GDK_BACKEND = "wayland,x11,*";
+      MOZ_ENABLE_WAYLAND = "1";
     };
   };
 }

@@ -14,9 +14,9 @@
     ++ import ../../modules/shells;
 
   docker.enable = true;
-  xmonad.enable = false;
+  xmonad.enable = true;
   gnome.enable = false;
-  hyprland.enable = true;
+  hyprland.enable = false;
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;

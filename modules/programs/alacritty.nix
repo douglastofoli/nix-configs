@@ -1,6 +1,7 @@
 {
   custom-config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib) mkEnableOption mkIf mkOption types;
@@ -31,6 +32,16 @@ in {
       settings = {
         env.TERM = "xterm-256color";
 
+        terminal.shell = {
+          program = "${pkgs.tmux}/bin/tmux";
+          args = [
+            "new-session"
+            "-A"
+            "-D"
+            "-s"
+            "main"
+          ];
+        };
         window = {
           dynamic_title = true;
           dynamic_padding = true;

@@ -15,8 +15,6 @@
 
   docker.enable = true;
   xmonad.enable = true;
-  gnome.enable = false;
-  hyprland.enable = false;
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;

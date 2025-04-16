@@ -9,20 +9,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "github:hyprwm/Hyprland";
-
     # Editors
     helix.url = "github:helix-editor/helix";
-    nix-nvim.url = "github:douglastofoli/nix-nvim";
 
     # Elixir LSP
     lexical-lsp.url = "github:lexical-lsp/lexical?ref=v0.7.3";
     next-ls.url = "github:elixir-tools/next-ls?ref=v0.23.3";
 
-    zed-editor = {
-      url = "github:nixos/nixpkgs?ref=1efd7847d1f9ee4d02d78184bf73ba09ac1767b5";
-    };
-
+    zed-editor.url = "github:nixos/nixpkgs?ref=1efd7847d1f9ee4d02d78184bf73ba09ac1767b5";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 
@@ -38,13 +32,6 @@
         system = "x86_64-linux";
         overlays = with inputs; [
           helix.overlays.default
-          nix-nvim.overlays."${system}".default
-          # (final: prev: {
-          #   waybar = inputs.hyprland.packages.${system}.waybar-hyprland;
-          # })
-          (final: prev: {
-            hyprland = inputs.hyprland.packages.${system}.hyprland;
-          })
           (final: prev: {
             zed-editor = inputs.zed-editor.legacyPackages.${final.system}.zed-editor;
           })

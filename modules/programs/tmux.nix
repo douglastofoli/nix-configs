@@ -53,8 +53,6 @@ in {
             set -g @continuum-boot on
             set -g @continuum-restore on
             set -g @continuum-save-interval 10
-
-            set -g @continuum-boot-options alacritty
           '';
         }
         {
@@ -75,9 +73,13 @@ in {
       extraConfig = ''
         # use 256 colors
         set -g default-terminal "xterm-256color"
-        set -ga terminal-overrides ",*256col*:Tc"
+        set -ga terminal-overrides ",alacritty:RGB"
         set -ga terminal-overrides '*:Ss=\E[%p1%d q:Se=\E[ q'
         set-environment -g COLORTERM "truecolor"
+
+        # Automatic rename for windows based on the current program
+        set-option -g automatic-rename on
+        set-option -g automatic-rename-format '#{pane_current_command}'
 
         # configs
         set -g escape-time 0

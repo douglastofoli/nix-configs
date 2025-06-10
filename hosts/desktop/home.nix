@@ -17,8 +17,9 @@
     bat
     eza
     zoxide
-    obsidian
     ffmpeg
+
+    logseq
 
     zed-editor
     zen-browser

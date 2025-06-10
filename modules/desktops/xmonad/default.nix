@@ -16,7 +16,11 @@ in {
 
   config = mkIf config.xmonad.enable {
     services = {
-      dbus.enable = true;
+      dbus = {
+        enable = true;
+        packages = with pkgs; [gnome-keyring];
+      };
+
       displayManager.defaultSession = "none+xmonad";
 
       xserver = {
@@ -47,6 +51,13 @@ in {
           enableContribAndExtras = true;
           config = ./xmonad.hs;
         };
+
+        serverFlagsSection = ''
+          Option "BlankTime" "0"
+          Option "StandbyTime" "0"
+          Option "SuspendTime" "0"
+          Option "OffTime" "0"
+        '';
       };
     };
 

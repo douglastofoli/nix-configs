@@ -85,7 +85,6 @@ myStartupHook = do
   spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 " ++ colorTrayer ++ " --height 30")
   spawnOnce "sleep 2 && zen"
   spawnOnce "sleep 2 && telegram-desktop"
-  spawnOnce "sleep 2 && alacritty"
 
 -- Layouts
 myLayoutHook = avoidStruts $
@@ -126,7 +125,6 @@ myManageHook = composeAll
     , title =? "Spotify" --> doShift (myWorkspaces !! 5)
     , title =? "Picture in Picture" --> doF copyToAll
     , title =? "Picture-in-Picture" --> doF copyToAll
-    -- Size hints e regras específicas
     , isInProperty "_NET_WM_WINDOW_TYPE" "_NET_WM_WINDOW_TYPE_DIALOG" --> doCenterFloat
     , isInProperty "_NET_WM_WINDOW_TYPE" "_NET_WM_WINDOW_TYPE_UTILITY" --> doCenterFloat
     , isInProperty "_NET_WM_WINDOW_TYPE" "_NET_WM_WINDOW_TYPE_TOOLBAR" --> doFloat

@@ -33,19 +33,18 @@
       shellInit = ''
         export PATH="$HOME/.local/bin:$PATH"
 
-        # Setup GPG agent and SSH auth socket
-        #export GPG_TTY="$(tty)"
-        #export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
-
-        eval $(/run/wrappers/bin/gnome-keyring-daemon --start --daemonize)
-        export SSH_AUTH_SOCK
-
+        # Inicia o GPG Agent e atualiza o tty
         gpgconf --launch gpg-agent
         gpg-connect-agent updatestartuptty /bye >/dev/null
 
-        # Tmux setup
+        # Evita iniciar o gnome-keyring-daemon manualmente se ele já está iniciado via systemd/desktop
+        if [ -z "$SSH_AUTH_SOCK" ]; then
+          export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+        fi
+
+        # Tmux autoinit
         export TERM="xterm-256color"
-        if [ -z "$TMUX" ] && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]]; then
+        if [ -z "$TMUX" ] && [ -n "$PS1" ] && [[ $TERM != screen* ]]; then
           sleep 0.5
           exec tmux new-session -A -s main
         fi

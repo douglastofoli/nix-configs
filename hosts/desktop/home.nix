@@ -11,6 +11,10 @@
   services.blueman-applet.enable = true;
 
   home.packages = with pkgs; [
+    hunspell
+    hunspellDicts.en_US
+    hunspellDicts.pt_BR
+
     kitty
     anydesk
 

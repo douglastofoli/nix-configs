@@ -33,15 +33,15 @@
       shellInit = ''
         export PATH="$HOME/.local/bin:$PATH"
 
-        # GPG & SSH setup
+        # Setup GPG agent and SSH auth socket
         export GPG_TTY="$(tty)"
-        export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
-        gpg-connect-agent updatestartuptty /bye > /dev/null
+        export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
 
-        # Tmux
+        gpgconf --launch gpg-agent
+        gpg-connect-agent updatestartuptty /bye >/dev/null
+
+        # Tmux setup
         export TERM="xterm-256color"
-
-        # Tmux auto attach
         if [ -z "$TMUX" ] && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]]; then
           sleep 0.5
           exec tmux new-session -A -s main

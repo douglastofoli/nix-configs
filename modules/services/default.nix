@@ -1,1 +1,9 @@
-[./dunst.nix ./flameshot.nix ./picom.nix ./syncthing.nix ./yubikey.nix]
+[
+  ./dunst.nix
+  ./flameshot.nix
+  ./picom.nix
+  ./syncthing.nix
+  ./yubikey.nix
+  ./gpg-agent.nix
+  ./ssh-agent.nix
+]

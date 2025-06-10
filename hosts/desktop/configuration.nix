@@ -78,6 +78,8 @@
   };
 
   services = {
+    gnome.gnome-keyring.enable = true;
+
     blueman.enable = true;
     devmon.enable = true;
     gvfs.enable = true;

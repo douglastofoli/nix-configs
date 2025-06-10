@@ -34,8 +34,11 @@
         export PATH="$HOME/.local/bin:$PATH"
 
         # Setup GPG agent and SSH auth socket
-        export GPG_TTY="$(tty)"
-        export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
+        #export GPG_TTY="$(tty)"
+        #export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
+
+        eval $(/run/wrappers/bin/gnome-keyring-daemon --start --daemonize)
+        export SSH_AUTH_SOCK
 
         gpgconf --launch gpg-agent
         gpg-connect-agent updatestartuptty /bye >/dev/null

@@ -1,4 +1,6 @@
 {pkgs, ...}: {
+  security.pam.services.lightdm.enableGnomeKeyring = true;
+
   security.pam.yubico = {
     enable = true;
     mode = "challenge-response";
@@ -9,7 +11,7 @@
 
   programs = {
     gnupg.agent = {
-      enable = true;
+      enable = false;
       enableSSHSupport = true;
       pinentryPackage = pkgs.pinentry-gtk2;
       settings = {
@@ -21,7 +23,7 @@
     };
 
     ssh = {
-      startAgent = false;
+      startAgent = true;
       extraConfig = ''
         AddKeysToAgent yes
       '';

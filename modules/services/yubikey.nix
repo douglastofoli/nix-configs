@@ -19,6 +19,13 @@
     };
   };
 
+  programs.ssh = {
+    startAgent = false;
+    extraConfig = ''
+      AddKeysToAgent yes
+    '';
+  };
+
   environment.systemPackages = with pkgs; [
     yubikey-manager
     yubikey-personalization

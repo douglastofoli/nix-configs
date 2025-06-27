@@ -89,7 +89,9 @@ in {
 
   config = mkIf cfg.enable {
     programs.git = {
-      inherit (cfg) enable delta lfs;
+      inherit (cfg) enable;
+      delta = cfg.delta or {};
+      lfs = cfg.lfs or {};
 
       userName = cfg.user.name;
       userEmail = cfg.user.email;

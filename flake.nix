@@ -28,6 +28,7 @@
     inherit (nixpkgs.lib) nixosSystem;
   in {
     packages.x86_64-windows.helix-windows = inputs.helix.packages.x86_64-windows.default;
+    packages.helix-windows = inputs.helix.packages.x86_64-windows.default;
 
     homeConfigurations = let
       system = "x86_64-linux";

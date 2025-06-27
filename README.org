@@ -14,3 +14,23 @@ $ git clone https://github.com/douglastofoli/nix-configs /mnt/etc/nixos/<name>
 $ cd /mnt/etc/nixos/<name>
 $ nixos-install --flake .#<host>
 #+end_src
+
+* Windows Usage
+This flake exposes a `helix-windows` package that builds Helix for Windows.
+
+To build Helix on Windows with Nix, run:
+
+#+begin_src
+$ nix build .#helix-windows
+#+end_src
+
+The executable will be available at `./result/bin/hx.exe`.
+
+* WSL Environment
+To install a basic environment with Helix inside WSL, run:
+
+#+begin_src
+$ nix run .#homeConfigurations.wsl.activationPackage
+#+end_src
+
+This will configure a minimal setup using Home Manager.

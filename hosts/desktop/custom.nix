@@ -48,6 +48,7 @@
       markdown.enable = true;
       nix.enable = true;
       php.enable = true;
+      rust.enable = true;
     };
   };
 

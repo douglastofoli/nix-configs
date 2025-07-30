@@ -1,16 +1,43 @@
-{
-  custom-config,
-  lexical-lsp,
-  lib,
-  next-ls,
-  pkgs,
-  ...
-}: let
+{ custom-config, lexical-lsp, lib, next-ls, pkgs, ... }:
+
+let
   inherit (lib) mkEnableOption mkIf types;
   cfg = custom-config.helix;
   languages = cfg.languages;
+  system = pkgs.system;
+
   typescript-lsp = pkgs.nodePackages.typescript-language-server;
   vscode-lsp = pkgs.nodePackages.vscode-langservers-extracted;
+
+  formatters = {
+    alejandra = {
+      command = "${pkgs.alejandra}/bin/alejandra";
+    };
+    gofmt = {
+      command = "${pkgs.go}/bin/gofmt";
+    };
+    mix = {
+      command = "mix";
+      args = ["format" "-"];
+    };
+    phpcbf = {
+      command = "${pkgs.php83Packages.php-codesniffer}/bin/phpcbf";
+      args = ["-"];
+    };
+    prettier = {
+      command = "prettier";
+      args = ["--parser" "typescript"];
+    };
+    rustfmt = {
+      command = "${pkgs.rustfmt}/bin/rustfmt";
+    };
+  };
+
+  vscodeCssLsp = {
+    command = "${vscode-lsp}/bin/vscode-css-language-server";
+    args = ["--stdio"];
+  };
+
 in {
   options.helix = {
     enable = mkEnableOption {
@@ -18,62 +45,20 @@ in {
       type = types.bool;
       default = false;
     };
+
     languages = {
-      clojure.enable = mkEnableOption {
-        description = "Enables Clojure support";
-        type = types.bool;
-        default = false;
-      };
-      css.enable = mkEnableOption {
-        description = "Enables CSS support";
-        type = types.bool;
-        default = true;
-      };
-      elixir.enable = mkEnableOption {
-        description = "Enables Elixir support";
-        type = types.bool;
-        default = false;
-      };
-      go.enable = mkEnableOption {
-        description = "Enables Go lang support";
-        type = types.bool;
-        default = false;
-      };
-      haskell.enable = mkEnableOption {
-        description = "Enables Haskell support";
-        type = types.bool;
-        default = false;
-      };
-      html.enable = mkEnableOption {
-        description = "Enables HTML support";
-        type = types.bool;
-        default = true;
-      };
-      javascript.enable = mkEnableOption {
-        description = "Enables JavaScript support";
-        type = types.bool;
-        default = false;
-      };
-      json.enable = mkEnableOption {
-        description = "Enables JSON support";
-        type = types.bool;
-        default = true;
-      };
-      markdown.enable = mkEnableOption {
-        description = "Enables Markdown support";
-        type = types.bool;
-        default = true;
-      };
-      nix.enable = mkEnableOption {
-        description = "Enables Nix support";
-        type = types.bool;
-        default = false;
-      };
-      php.enable = mkEnableOption {
-        description = "Enables PHP support";
-        type = types.bool;
-        default = false;
-      };
+      clojure.enable = mkEnableOption { description = "Enables Clojure support"; type = types.bool; default = false; };
+      css.enable = mkEnableOption { description = "Enables CSS support"; type = types.bool; default = true; };
+      elixir.enable = mkEnableOption { description = "Enables Elixir support"; type = types.bool; default = false; };
+      go.enable = mkEnableOption { description = "Enables Go lang support"; type = types.bool; default = false; };
+      haskell.enable = mkEnableOption { description = "Enables Haskell support"; type = types.bool; default = false; };
+      html.enable = mkEnableOption { description = "Enables HTML support"; type = types.bool; default = true; };
+      javascript.enable = mkEnableOption { description = "Enables JavaScript support"; type = types.bool; default = false; };
+      json.enable = mkEnableOption { description = "Enables JSON support"; type = types.bool; default = true; };
+      markdown.enable = mkEnableOption { description = "Enables Markdown support"; type = types.bool; default = true; };
+      nix.enable = mkEnableOption { description = "Enables Nix support"; type = types.bool; default = false; };
+      php.enable = mkEnableOption { description = "Enables PHP support"; type = types.bool; default = false; };
+      rust.enable = mkEnableOption { description = "Enables Rust support"; type = types.bool; default = true; };
     };
   };
 
@@ -94,12 +79,8 @@ in {
             left = ["mode" "spacer" "spinner" "spacer" "version-control"];
             center = ["file-name"];
             right = [
-              "diagnostics"
-              "selections"
-              "position"
-              "file-encoding"
-              "file-line-ending"
-              "file-type"
+              "diagnostics" "selections" "position"
+              "file-encoding" "file-line-ending" "file-type"
             ];
           };
 
@@ -127,9 +108,16 @@ in {
             esc = ["collapse_selection" "keep_primary_selection"];
             C-right = "move_next_word_start";
             C-left = "move_prev_word_end";
-
-            C-A-up = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "move_line_up" "add_newline_above" "move_line_up" "replace_with_yanked"];
-            C-A-down = ["ensure_selections_forward" "extend_to_line_bounds" "extend_char_right" "extend_char_left" "delete_selection" "add_newline_below" "move_line_down" "replace_with_yanked"];
+            C-A-up = [
+              "ensure_selections_forward" "extend_to_line_bounds" "extend_char_right"
+              "extend_char_left" "delete_selection" "move_line_up"
+              "add_newline_above" "move_line_up" "replace_with_yanked"
+            ];
+            C-A-down = [
+              "ensure_selections_forward" "extend_to_line_bounds" "extend_char_right"
+              "extend_char_left" "delete_selection" "add_newline_below"
+              "move_line_down" "replace_with_yanked"
+            ];
           };
           insert = {
             C-right = "move_next_word_start";
@@ -141,162 +129,138 @@ in {
       languages = {
         language-server = {
           clojure-lsp.command = mkIf languages.clojure.enable "${pkgs.clojure-lsp}/bin/clojure-lsp";
+
           gopls = mkIf languages.go.enable {
             command = "${pkgs.gopls}/bin/gopls";
           };
+
           haskell-language-server = mkIf languages.haskell.enable {
             command = "${pkgs.haskell-language-server}/bin/haskell-language-server-wrapper";
             args = ["--lsp"];
           };
+
           intelephense = mkIf languages.php.enable {
             command = "${pkgs.nodePackages.intelephense}/bin/intelephense";
             args = ["--stdio"];
           };
-          lexical-lsp.command = mkIf languages.elixir.enable "${lexical-lsp.packages."${pkgs.system}".default}/bin/lexical";
+
+          lexical-lsp.command = mkIf languages.elixir.enable "${lexical-lsp.packages.${system}.default}/bin/lexical";
+
           marksman.command = mkIf languages.markdown.enable "${pkgs.marksman}/bin/marksman";
+
           nextls = mkIf languages.elixir.enable {
-            command = "${next-ls.packages."${pkgs.system}".default}/bin/nextls";
+            command = "${next-ls.packages.${system}.default}/bin/nextls";
             args = ["--stdio=true"];
           };
+
           nil.command = mkIf languages.nix.enable "${pkgs.nil}/bin/nil";
-          scss = mkIf languages.css.enable {
-            command = "${vscode-lsp}/bin/vscode-css-language-server";
-            args = ["--stdio"];
+
+          rust-analyzer = mkIf languages.rust.enable {
+            command = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+          };
+
+          scss = mkIf languages.css.enable (vscodeCssLsp // {
             config = {
               provideFormatter = true;
-              scss = {validate.enable = true;};
+              scss = { validate.enable = true; };
             };
-          };
-          typescript-language-server = mkIf languages.javascript.enable {
-            command = "${typescript-lsp}/bin/typescript-language-server";
-            args = ["--stdio"];
-          };
-          vscode-css-language-server = mkIf languages.css.enable {
-            command = "${vscode-lsp}/bin/vscode-css-language-server";
-            args = ["--stdio"];
-            config = {
-              provideFormatter = true;
-              css = {validate.enable = true;};
-            };
-          };
+          });
+
           vscode-html-language-server = mkIf languages.html.enable {
-            command = "${vscode-lsp}/bin/vscode-css-language-server";
+            command = "${vscode-lsp}/bin/vscode-html-language-server";
             args = ["--stdio"];
             config = {
               provideFormatter = true;
-              html = {validate.enable = true;};
+              html = { validate.enable = true; };
             };
           };
+
           vscode-json-language-server = mkIf languages.json.enable {
             command = "${vscode-lsp}/bin/vscode-json-language-server";
             args = ["--stdio"];
             config = {
               provideFormatter = true;
-              json = {validate.enable = true;};
+              json = { validate.enable = true; };
             };
+          };
+
+          typescript-language-server = mkIf languages.javascript.enable {
+            command = "${typescript-lsp}/bin/typescript-language-server";
+            args = ["--stdio"];
           };
         };
 
-        language = let
-          alejandra = {
-            formatter = {
-              command = "${pkgs.alejandra}/bin/alejandra";
-            };
-          };
-          gofmt = {
-            formatter = {
-              command = "${pkgs.go}/bin/gofmt";
-            };
-          };
-          mix = {
-            formatter = {
-              command = "mix";
-              args = ["format" "-"];
-            };
-          };
-          phpcbf = {
-            formatter = {
-              command = "${pkgs.php83Packages.php-codesniffer}/bin/phpcbf";
-              args = ["-"];
-            };
-          };
-          prettier = {
-            formatter = {
-              command = "prettier";
-              args = ["--parser" "typescript"];
-            };
-          };
-        in [
+        language = [
           (mkIf languages.elixir.enable {
-            inherit (mix) formatter;
+            inherit (formatters.mix) formatter;
             name = "elixir";
             auto-format = true;
             language-servers = ["lexical-lsp" "nextls"];
           })
           (mkIf languages.elixir.enable {
-            inherit (mix) formatter;
+            inherit (formatters.mix) formatter;
             name = "eex";
             auto-format = true;
           })
           (mkIf languages.elixir.enable {
-            inherit (mix) formatter;
+            inherit (formatters.mix) formatter;
             name = "heex";
             auto-format = true;
           })
           (mkIf languages.go.enable {
-            inherit (gofmt) formatter;
+            inherit (formatters.gofmt) formatter;
             name = "go";
             auto-format = true;
             language-servers = ["gopls"];
-            indent = {
-              tab-width = 4;
-              unit = "    ";
-            };
+            indent = { tab-width = 4; unit = "    "; };
           })
           (mkIf languages.go.enable {
             name = "templ";
             auto-format = true;
-            indent = {
-              tab-width = 4;
-              unit = "    ";
-            };
+            indent = { tab-width = 4; unit = "    "; };
           })
           (mkIf languages.html.enable {
             name = "html";
             auto-format = false;
           })
           (mkIf languages.javascript.enable {
-            inherit (prettier) formatter;
+            inherit (formatters.prettier) formatter;
             name = "javascript";
             auto-format = true;
             language-servers = ["typescript-language-server"];
           })
           (mkIf languages.javascript.enable {
-            inherit (prettier) formatter;
+            inherit (formatters.prettier) formatter;
             name = "typescript";
             auto-format = true;
             language-servers = ["typescript-language-server"];
           })
           (mkIf languages.javascript.enable {
-            inherit (prettier) formatter;
+            inherit (formatters.prettier) formatter;
             name = "jsx";
             auto-format = true;
           })
           (mkIf languages.javascript.enable {
-            inherit (prettier) formatter;
+            inherit (formatters.prettier) formatter;
             name = "tsx";
             auto-format = true;
           })
           (mkIf languages.nix.enable {
-            inherit (alejandra) formatter;
+            inherit (formatters.alejandra) formatter;
             name = "nix";
             auto-format = true;
           })
           (mkIf languages.php.enable {
-            inherit (phpcbf) formatter;
+            inherit (formatters.phpcbf) formatter;
             name = "php";
             auto-format = true;
             language-servers = ["intelephense"];
+          })
+          (mkIf languages.rust.enable {
+            inherit (formatters.rustfmt) formatter;
+            name = "rust";
+            auto-format = true;
+            language-servers = ["rust-analyzer"];
           })
         ];
       };

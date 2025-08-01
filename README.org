@@ -1,16 +1,81 @@
-#+title: NixOS & Non-NixOS System Configuration Flake
+#+title: Nix Configuration Flake
 
-* NixOS Installation Guide
-This flake currently has *1* host
-1. desktop
-   - UEFI boot w/ systemd-boot
+* Overview
+This repository contains my personal system configuration managed with the
+Nix flakes feature.  It provides NixOS modules for my desktop machine and a
+minimal Home Manager setup for running inside Windows Subsystem for Linux
+(WSL).  Several development shells and helper modules are also included.
 
+* Requirements
+- Nix 2.17 or newer with flakes enabled (`nix --experimental-features 'nix-command flakes'`)
+- Optional: a NixOS installation medium when setting up a new machine
 
-*** Install
+* Repository layout
+- `flake.nix` :: main entry of the flake
+- `hosts/` :: host specific configurations (`desktop`, `wsl`)
+- `modules/` :: reusable Home Manager and NixOS modules
+- `shells/` :: language specific development shells
+- `install.sh` :: helper script to partition and prepare a NixOS install
 
-#+begin_src
+* NixOS host: desktop
+Currently the flake defines a single NixOS host named =desktop=.  To install
+this configuration, boot into the NixOS installer and run the following:
+
+#+begin_src sh
 $ nix-env -iA nixpkgs.git
 $ git clone https://github.com/douglastofoli/nix-configs /mnt/etc/nixos/<name>
 $ cd /mnt/etc/nixos/<name>
-$ nixos-install --flake .#<host>
+$ nixos-install --flake .#desktop
 #+end_src
+
+After the installation finishes, reboot into the new system.
+
+* WSL configuration
+A small Home Manager configuration is provided for WSL.  It installs Helix,
+Git and Zsh.  Execute the command below from inside your WSL environment:
+
+#+begin_src sh
+$ nix run .#homeConfigurations.wsl.activationPackage
+#+end_src
+
+This will activate the Home Manager setup in your home directory.
+
+* Building Helix for Windows
+The flake exposes a package called =helix-windows= which builds a Windows
+release of Helix.  On any system with Nix installed run:
+
+#+begin_src sh
+$ nix build .#helix-windows
+#+end_src
+
+The resulting executable will be available at =result/bin/hx.exe=.
+
+* Development shells
+Under the =shells/= directory there are flakes providing language specific
+=devShells=.  Example usage:
+
+#+begin_src sh
+$ nix develop ./shells/elixir
+#+end_src
+
+This drops you into an environment with Elixir tooling available.  Similar
+flakes exist for other languages such as Clojure, Go, Python and more.
+
+* Customisation
+The =hosts/<name>/custom.nix= files control which modules are enabled for each
+host.  Modify these files to tweak programs and options to your liking.
+
+* Updating
+Update flake inputs and rebuild with the standard Nix commands:
+
+#+begin_src sh
+$ nix flake update
+$ sudo nixos-rebuild switch --flake .#desktop
+#+end_src
+
+For Home Manager only configurations you can use:
+
+#+begin_src sh
+$ home-manager switch --flake .#wsl
+#+end_src
+

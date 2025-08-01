@@ -27,6 +27,52 @@
   } @ inputs: let
     inherit (nixpkgs.lib) nixosSystem;
   in {
+    packages.x86_64-windows.helix-windows = inputs.helix.packages.x86_64-windows.default;
+    packages.helix-windows = inputs.helix.packages.x86_64-windows.default;
+
+    homeConfigurations = let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs rec {
+        inherit system;
+        overlays = with inputs; [
+          helix.overlays.default
+          (final: prev: {
+            zed-editor = inputs.zed-editor.legacyPackages.${final.system}.zed-editor;
+          })
+          (final: prev: {
+            zen-browser = inputs.zen-browser.packages."${system}".default;
+          })
+        ];
+        config.allowUnfree = true;
+      };
+
+      vars = {
+        user = "douglas";
+        terminal = "${pkgs.alacritty}/bin/alacritty";
+        editor = "${pkgs.helix}/bin/hx";
+        browser = "${pkgs.zen-browser}/bin/zen";
+        timezone = "America/Sao_Paulo";
+        stateVersion = "24.11";
+      };
+
+      args = host: {
+        inherit (inputs) helix lexical-lsp next-ls;
+        inherit (host) custom-config;
+        inherit vars;
+      };
+    in {
+      wsl = let
+        wsl.custom-config = import ./hosts/wsl/custom.nix { inherit pkgs vars; };
+      in inputs.home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          ./modules/default.nix
+          ./hosts/wsl/home.nix
+        ];
+        extraSpecialArgs = args wsl;
+      };
+    };
+
     nixosConfigurations = let
       pkgs = import nixpkgs rec {
         system = "x86_64-linux";

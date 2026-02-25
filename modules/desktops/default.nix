@@ -1,1 +1,1 @@
-[./virtualisation ./xmonad]
+[./hyprland ./sway ./virtualisation ./xmonad]

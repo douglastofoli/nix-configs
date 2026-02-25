@@ -15,6 +15,12 @@
     hunspellDicts.en_US
     hunspellDicts.pt_BR
 
+    nvim-pkg
+    sqlite
+
+    prismlauncher
+    jdk8
+
     kitty
     anydesk
 
@@ -22,10 +28,10 @@
     eza
     zoxide
     ffmpeg
+    codex
 
-    logseq
+    obsidian
 
-    zed-editor
-    zen-browser
+    slack
   ];
 }

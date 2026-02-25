@@ -7,38 +7,53 @@
     rust-overlay.url = "github:oxalica/rust-overlay";
   };
 
-  outputs = { self, nixpkgs, flake-utils, rust-overlay }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        overlays = [ rust-overlay.overlays.default ];
-        pkgs = import nixpkgs { inherit system overlays; };
+  outputs = {
+    self,
+    nixpkgs,
+    flake-utils,
+    rust-overlay,
+  }:
+    flake-utils.lib.eachDefaultSystem (system: let
+      overlays = [rust-overlay.overlays.default];
+      pkgs = import nixpkgs {inherit system overlays;};
+      lib = pkgs.lib;
 
-        rust = pkgs.rust-bin.stable."1.88.0".default;
-      in {
-        # Ambiente de desenvolvimento
-        devShells.default = pkgs.mkShell {
-          buildInputs = [
-            rust
-            pkgs.rust-analyzer
-            pkgs.pkg-config
-            pkgs.openssl
-          ];
+      rust = pkgs.rust-bin.stable."1.88.0".default;
+    in {
+      # Ambiente de desenvolvimento
+      devShells.default = pkgs.mkShell rec {
+        buildInputs = [
+          rust
+          pkgs.rust-analyzer
+          pkgs.pkg-config
+          pkgs.openssl
 
-          RUST_SRC_PATH = "${rust}/lib/rustlib/src/rust/library";
+          pkgs.libxkbcommon
+          pkgs.libGL
+
+          pkgs.xorg.libXcursor
+          pkgs.xorg.libXrandr
+          pkgs.xorg.libXi
+          pkgs.xorg.libX11
+        ];
+
+        WINIT_UNIX_BACKEND = "x11";
+        LD_LIBRARY_PATH = "${lib.makeLibraryPath buildInputs}";
+        RUST_SRC_PATH = "${rust}/lib/rustlib/src/rust/library";
+      };
+
+      # Build do pacote binário
+      packages.default = pkgs.rustPlatform.buildRustPackage {
+        pname = "aether";
+        version = "0.1.0";
+
+        src = ./.;
+        cargoLock = {
+          lockFile = ./Cargo.lock;
         };
 
-        # Build do pacote binário
-        packages.default = pkgs.rustPlatform.buildRustPackage {
-          pname = "aether";
-          version = "0.1.0";
-
-          src = ./.;
-          cargoLock = {
-            lockFile = ./Cargo.lock;
-          };
-
-          nativeBuildInputs = [ pkgs.pkg-config ];
-          buildInputs = [ pkgs.openssl ];
-        };
-      });
+        nativeBuildInputs = [pkgs.pkg-config];
+        buildInputs = [pkgs.openssl];
+      };
+    });
 }

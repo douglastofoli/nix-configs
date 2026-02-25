@@ -4,12 +4,7 @@
   vars,
   ...
 }: {
-  home-manager.users.${vars.user} = lib.mkIf config.services.xserver.enable {
+  home-manager.users.${vars.user} = lib.mkIf (config.services.xserver.enable || config.hyprland.enable) {
     programs.rofi.enable = true;
-
-    home.file.".config/rofi" = {
-      source = ../../dotfiles/rofi;
-      recursive = true;
-    };
   };
 }

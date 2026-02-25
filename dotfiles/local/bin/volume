@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+    echo "Error: A value must be provided."
+    exit 1
+fi
+
+VALUE=$1
+
+CURRENT_VOL=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | tr -d '%')
+NEW_VOL=$((CURRENT_VOL + VALUE))
+
+if [ "$NEW_VOL" -gt 200 ]; then
+    NEW_VOL=200
+elif [ "$NEW_VOL" -lt 0 ]; then
+    NEW_VOL=0
+fi
+
+pactl set-sink-volume @DEFAULT_SINK@ ${NEW_VOL}%
+
+if [ "$NEW_VOL" -gt 70 ]; then
+    ICON="audio-volume-high"
+elif [ "$NEW_VOL" -lt 40 ]; then
+    ICON="audio-volume-low"
+else
+    ICON="audio-volume-medium"
+fi
+
+notify-send --app-name $0 --icon $ICON \
+            "Volume changed" "Current volume: $NEW_VOL%"  \
+            -h "string:x-canonical-private-synchronous:$0"

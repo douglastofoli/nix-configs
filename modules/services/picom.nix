@@ -54,7 +54,6 @@
             "80:class_g = 'xmobar'"
             "90:class_g = 'Alacritty'"
             "100:class_g = 'firefox'"
-            "100:class_g = 'zen'"
           ];
 
           wintypes = {

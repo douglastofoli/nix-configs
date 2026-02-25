@@ -1,0 +1,76 @@
+configuration {
+	modi: "drun,run,filebrowser,window";
+	case-sensitive: false;
+	cycle: true;
+	normalize-match: true;
+	show-icons: true;
+	icon-theme: "Papirus";
+	matching: "normal";
+	tokenize: true;
+
+	/*---------- Drun settings ----------*/
+	drun-match-fields: "name,exec,generic,comment";
+	drun-display-format: "{name} \n[<span size='small'><i>{comment}</i></span>]";
+	drun-url-launcher: "xdg-open";
+	drun-show-actions: false;
+	drun-use-desktop-cache: false;
+	drun-reload-desktop-cache: false;
+	drun {
+		parse-user:   true;
+		parse-system: true;
+    }
+
+	/*---------- Run settings ----------*/
+	run-command: "{cmd}";
+	run-shell-command: "{terminal} -e {cmd}";
+
+	/*---------- Fallback Icon ----------*/
+	run, drun {
+		fallback-icon: "application-default-icon";
+	}
+
+	filebrowser {
+		fallback-icon: "application-x-zerosize";
+	}
+
+	/*---------- Window switcher settings ----------*/
+	window-match-fields: "title,class,role,name,desktop";
+	window-command: "wmctrl -i -R {window}";
+	window-format: "{w} - {c} - {t:0}";
+	window-thumbnail: true;
+
+	
+	disable-history: false;
+	sorting-method: "normal";
+
+	/*---------- Misc setting ----------*/
+	terminal: "alacritty";
+	sort: false;
+	threads: 0;
+
+	/*---------- File browser settings ----------*/
+    filebrowser {
+      show-hidden: true;
+      directories-first: true;
+      sorting-method:    "mtime";
+    }
+
+	/*---------- Other settings ----------*/
+    timeout {
+      action: "kb-cancel";
+      delay:  0;
+    }
+
+    
+     /* Highlight an entry under the mouse pointer */
+     hover-select: true;
+
+     /* Disable MousePrimary as an entry selector */
+     /* Without this setting you won't be able to set MousePrimary as an entry
+     acceptor. */
+     me-select-entry: "";
+
+     /* Use either LMB single click or RMB single click or LMB double click
+     to accept an entry */
+     me-accept-entry: [ MousePrimary ];
+}

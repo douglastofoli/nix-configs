@@ -13,6 +13,10 @@
     enable = true;
   };
 
+  steam = {
+    enable = true;
+  };
+
   git = {
     enable = true;
     defaultBranch = "main";

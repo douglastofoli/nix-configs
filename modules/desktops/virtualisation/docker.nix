@@ -18,6 +18,7 @@ in {
     virtualisation.docker = {
       enable = true;
       enableOnBoot = true;
+      rootless.enable = true;
     };
 
     users.extraGroups.docker.members = ["${vars.user}"];

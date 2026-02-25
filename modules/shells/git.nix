@@ -88,29 +88,36 @@ in {
   };
 
   config = mkIf cfg.enable {
+    programs.delta = {
+      inherit (cfg.delta) enable;
+      enableGitIntegration = true;
+    };
     programs.git = {
-      inherit (cfg) enable delta lfs;
+      inherit (cfg) enable lfs;
 
-      userName = cfg.user.name;
-      userEmail = cfg.user.email;
       ignores = ["*.swp" "*.swo" ".nix-*" ".postgres" ".direnv"];
 
       signing = {
         inherit (cfg.signing) signer key signByDefault;
       };
 
-      aliases = {
-        p = "push";
-        s = "status";
-        c = "commit";
-        co = "checkout";
-        aa = "add -p";
-        st = "stash";
-        br = "branch";
-        lg = "log --graph --oneline --decorate --abbrev-commit";
-      };
+      settings = {
+        user = {
+          name = cfg.user.name;
+          email = cfg.user.email;
+        };
 
-      extraConfig = {
+        alias = {
+          p = "push";
+          s = "status";
+          c = "commit";
+          co = "checkout";
+          aa = "add -p";
+          st = "stash";
+          br = "branch";
+          lg = "log --graph --oneline --decorate --abbrev-commit";
+        };
+
         github.user = cfg.user.name;
         init.defaultBranch = cfg.defaultBranch;
 
@@ -122,10 +129,6 @@ in {
         push = {default = "current";};
         apply = {whitespace = "nowarn";};
         help = {autocorrect = 0;};
-
-        commit = {
-          template = builtins.toPath ../../dotfiles/gitmessage;
-        };
 
         color = {
           grep = "auto";

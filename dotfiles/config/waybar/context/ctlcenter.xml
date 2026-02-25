@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+<object class="GtkMenu" id="menu">
+    <child>
+      <object class="GtkMenuItem" id="action-1">
+        <property name="label">Monitor system</property>
+        <child type="submenu">
+            <object class="GtkMenu">
+                <child>
+                    <object class="GtkMenuItem" id="action-1-1">
+                        <property name="label">htop</property>
+                    </object>
+                </child>
+
+                <child>
+                    <object class="GtkMenuItem" id="action-1-2">
+                        <property name="label">nvtop</property>
+                    </object>
+                </child>
+
+                <child>
+                    <object class="GtkMenuItem" id="action-1-3">
+                        <property name="label">powertop</property>
+                    </object>
+                </child>
+
+                <child>
+                    <object class="GtkMenuItem" id="action-1-4">
+                        <property name="label">missioncenter</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkMenuItem" id="action-2">
+        <property name="label">Theme settings</property>
+        <child type="submenu">
+            <object class="GtkMenu">
+                <child>
+                    <object class="GtkMenuItem" id="action-2-1">
+                        <property name="label">GTK settings</property>
+                    </object>
+                </child>
+
+                <child>
+                    <object class="GtkMenuItem" id="action-2-2">
+                        <property name="label">QT6 settings</property>
+                    </object>
+                </child>
+
+                <child>
+                    <object class="GtkMenuItem" id="action-2-3">
+                        <property name="label">Kvantum settings</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkMenuItem" id="action-3">
+        <property name="label">Refresh rate</property>
+        <child type="submenu">
+            <object class="GtkMenu">
+                <child>
+                    <object class="GtkMenuItem" id="action-3-1">
+                        <property name="label">60Hz</property>
+                    </object>
+                </child>
+
+                <child>
+                    <object class="GtkMenuItem" id="action-3-2">
+                        <property name="label">90Hz</property>
+                    </object>
+                </child>
+
+                <child>
+                    <object class="GtkMenuItem" id="action-3-3">
+                        <property name="label">144Hz</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkMenuItem" id="action-4">
+        <property name="label">Inhibit</property>
+        <child type="submenu">
+            <object class="GtkMenu">
+                <child>
+                    <object class="GtkMenuItem" id="action-4-1">
+                        <property name="label">Shutdown</property>
+                    </object>
+                </child>
+
+                <child>
+                    <object class="GtkMenuItem" id="action-4-2">
+                        <property name="label">Lid</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+
+      </object>
+    </child>
+
+    <child>
+        <object class="GtkMenuItem" id="action-5">
+            <property name="label">Powersafe mode</property>
+        </object>
+    </child>
+
+    <child><object class="GtkSeparatorMenuItem" id="separator"/></child>
+
+    <child>
+      <object class="GtkMenuItem" id="action-6">
+        <property name="label"> Reload config</property>
+      </object>
+    </child>
+
+</object>
+</interface>

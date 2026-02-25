@@ -11,13 +11,10 @@
 
     # Editors
     helix.url = "github:helix-editor/helix";
+    nvim.url = "github:douglastofoli/nvim";
 
     # Elixir LSP
-    lexical-lsp.url = "github:lexical-lsp/lexical?ref=v0.7.3";
-    next-ls.url = "github:elixir-tools/next-ls?ref=v0.23.3";
-
-    zed-editor.url = "github:nixos/nixpkgs?ref=1efd7847d1f9ee4d02d78184bf73ba09ac1767b5";
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    expert-lsp.url = "github:elixir-lang/expert";
   };
 
   outputs = {
@@ -28,16 +25,11 @@
     inherit (nixpkgs.lib) nixosSystem;
   in {
     nixosConfigurations = let
-      pkgs = import nixpkgs rec {
+      pkgs = import nixpkgs {
         system = "x86_64-linux";
         overlays = with inputs; [
           helix.overlays.default
-          (final: prev: {
-            zed-editor = inputs.zed-editor.legacyPackages.${final.system}.zed-editor;
-          })
-          (final: prev: {
-            zen-browser = inputs.zen-browser.packages."${system}".default;
-          })
+          nvim.overlays.default
         ];
         config = {
           allowUnfree = true;
@@ -53,7 +45,7 @@
         user = "douglas";
         terminal = "${pkgs.alacritty}/bin/alacritty";
         editor = "${pkgs.helix}/bin/hx";
-        browser = "${pkgs.zen-browser}/bin/zen";
+        browser = "${pkgs.firefox}/bin/firefox";
         timezone = "America/Sao_Paulo";
         stateVersion = "24.11";
       };
@@ -76,7 +68,7 @@
 
             home-manager.users = let
               args = host: {
-                inherit (inputs) helix lexical-lsp next-ls;
+                inherit (inputs) helix expert-lsp;
                 inherit (host) custom-config;
                 inherit vars;
               };

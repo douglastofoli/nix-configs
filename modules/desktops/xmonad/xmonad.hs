@@ -83,7 +83,7 @@ myStartupHook = do
   spawn "killall trayer"
   spawnOnce "feh --bg-fill $HOME/.config/wallpaper.jpg"
   spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 " ++ colorTrayer ++ " --height 30")
-  spawnOnce "sleep 2 && zen"
+  spawnOnce "sleep 2 && firefox"
   spawnOnce "sleep 2 && telegram-desktop"
 
 -- Layouts
@@ -119,7 +119,7 @@ myManageHook = composeAll
     , className =? "Yad" --> doCenterFloat
     , isDialog --> doCenterFloat
     , isFullscreen --> doFullFloat
-    , className =? "zen" --> doShift (myWorkspaces !! 1)
+    , className =? "firefox" --> doShift (myWorkspaces !! 1)
     , className =? "TelegramDesktop" --> doShift (myWorkspaces !! 3)
     , className =? "discord" --> doShift (myWorkspaces !! 4)
     , title =? "Spotify" --> doShift (myWorkspaces !! 5)
@@ -201,13 +201,11 @@ main = do
             dynamicLogWithPP $
               xmobarPP
                 { ppOutput = hPutStrLn xmproc
-                , ppCurrent = xmobarColor color08 "" . wrap "[ " " ]"
+                , ppCurrent = xmobarColor color08 "" . wrap "[ " " ]" . clickable
                 , ppVisible = xmobarColor color03 "" . clickable
                 , ppHidden =
                     xmobarColor color01 ""
-                      . wrap
-                        ("<fc=" ++ color03 ++ ">")
-                        "</fc>"
+                      . wrap ("<fc=" ++ color03 ++ ">") "</fc>"
                       . clickable
                 , ppHiddenNoWindows = xmobarColor color02 "" . clickable
                 , ppTitle = xmobarColor color09 "" . shorten 60
@@ -219,7 +217,10 @@ main = do
                     "Spacing Mirror Tall" -> "Mirror"
                     "Spacing ThreeCol" -> "ThreeCol"
                     _ -> x
-                , ppOrder = \(ws : l : t : ex) -> ["<fn=4>" ++ ws ++ "</fn>"] ++ ["<fc=" ++ color08 ++ ">[" ++ l ++ "]</fc>"] ++ [t]
+                , ppOrder = \(ws : l : t : ex) ->
+                    ["<fn=4>" ++ ws ++ "</fn>"]
+                    ++ ["<fc=" ++ color08 ++ ">[" ++ l ++ "]</fc>"]
+                    ++ [t]
                 }
             checkAndUpdateCorners  
         } `additionalKeysP` myKeys

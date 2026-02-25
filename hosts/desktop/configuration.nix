@@ -14,7 +14,11 @@
     ++ import ../../modules/shells;
 
   docker.enable = true;
-  xmonad.enable = true;
+  xmonad.enable = false;
+  hyprland.enable = true;
+  hyprland.user = vars.user;
+  sway.enable = true;
+  sway.user = vars.user;
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -38,7 +42,7 @@
     isNormalUser = true;
     shell = pkgs.zsh;
     initialPassword = "123456";
-    extraGroups = ["audio" "camera" "lp" "storage" "video" "wheel"];
+    extraGroups = ["audio" "camera" "lp" "storage" "video" "wheel" "networkmanager"];
   };
 
   console = {
@@ -54,8 +58,7 @@
       "pt_BR.UTF-8/UTF-8"
     ];
     extraLocaleSettings = {
-      LC_TIME = "pt_BR.UTF-8";
-      LC_MONETARY = "pt_BR.UTF-8";
+      LC_ALL = "pt_BR.UTF-8";
     };
   };
 
@@ -78,6 +81,15 @@
   };
 
   services = {
+    postgresql = {
+      enable = true;
+      extensions = with pkgs.postgresql16Packages; [
+        postgis
+      ];
+    };
+
+    flatpak.enable = true;
+
     blueman.enable = true;
     devmon.enable = true;
     gvfs.enable = true;
@@ -92,23 +104,41 @@
     };
     resolved = {
       enable = true;
-      dnssec = "true";
-      domains = ["~."];
-      fallbackDns = [
-        "45.90.28.0#91823f.dns.nextdns.io"
-        "2a07:a8c0::#91823f.dns.nextdns.io"
-        "45.90.30.0#91823f.dns.nextdns.io"
-        "2a07:a8c1::#91823f.dns.nextdns.io"
-      ];
-      dnsovertls = "true";
+      settings = {
+        Resolve = {
+          DNSSEC = "true";
+          DNSOverTLS = "true";
+          Domains = ["~."];
+          FallbackDNS = [
+            "45.90.28.0#91823f.dns.nextdns.io"
+            "2a07:a8c0::#91823f.dns.nextdns.io"
+            "45.90.30.0#91823f.dns.nextdns.io"
+            "2a07:a8c1::#91823f.dns.nextdns.io"
+          ];
+        };
+      };
     };
   };
 
   networking.hostName = "desktop";
+  networking.firewall.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    plugins = with pkgs; [
+      networkmanager-openvpn
+    ];
+  };
 
   programs = {
+    openvpn3.enable = true;
     dconf.enable = true;
     nix-ld.enable = true;
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+      localNetworkGameTransfers.openFirewall = true;
+    };
   };
 
   fonts.packages = with pkgs; [
@@ -119,10 +149,11 @@
     mononoki
     noto-fonts
     noto-fonts-cjk-sans
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     roboto
-    ubuntu_font_family
+    ubuntu-classic
     nerd-fonts.jetbrains-mono
+    nerd-fonts.caskaydia-cove
   ];
 
   environment = {
@@ -143,10 +174,13 @@
       insomnia
       obs-studio
       spotify
-      tdesktop
+      telegram-desktop
+
+      networkmanagerapplet
 
       #Dev
       dbeaver-bin
+      docker-compose
 
       # Files
       fd
@@ -176,6 +210,8 @@
       vlc
 
       discord
+
+      code-cursor
     ];
   };
 
@@ -212,14 +248,17 @@
         };
       });
     })
-    # (self: super: {
-    #   zen-browser = super.zen-browser.overrideAttrs (_: {
-    #     src = builtins.fetchTarball {
-    #       url = "https://github.com/zen-browser/desktop/releases/download/1.10b/zen.linux-x86_64.tar.xz";
-    #       sha256 = "sha256:06v8caplc3qakqc9ifyfr0zmzpg83m86kc8yy8yaln77hxvw7lbz";
-    #     };
-    #   });
-    # })
+    (self: super: {
+      code-cursor = super.appimageTools.wrapType2 {
+        pname = "cursor";
+        version = "2.5.20";
+
+        src = super.fetchurl {
+          url = "https://downloads.cursor.com/production/511523af765daeb1fa69500ab0df5b6524424612/linux/x64/Cursor-2.5.20-x86_64.AppImage";
+          sha256 = "sha256-csvj0THOX/RPi7Docv033mi8DlEOEdnjFIQ8jL7HPO8=";
+        };
+      };
+    })
   ];
 
   system.stateVersion = "${vars.stateVersion}";

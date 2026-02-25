@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Extract any archive
+
+extract() {
+    local src="$1"
+    local dest="$2"
+    local extension="${src##*.}"
+
+    case "$extension" in
+        7z)
+            7z x "$src" -o"$dest"
+            ;;
+        zip)
+            unzip "$src" -d "$dest"
+            ;;
+        rar)
+            unrar x "$src" "$dest"
+            ;;
+        tgz)
+            tar -xzf "$src" -C "$dest"
+            ;;
+        tar)
+            tar -xf "$src" -C "$dest"
+            ;;
+        gz)
+            tar -xzf "$src" -C "$dest"
+            ;;
+        xz)
+            tar -xJf "$src" -C "$dest"
+            ;;
+        bz2)
+            tar -xjf "$src" -C "$dest"
+            ;;
+        *)
+            echo "Error: Unsupported archive extension: $extension"
+            exit 1
+            ;;
+    esac
+}
+
+if [ "$#" -lt 1 ]; then
+    echo "Usage: $0 <archive> [destination]"
+    exit 1
+fi
+
+archive="$1"
+destination="${2:-.}"
+
+extract "$archive" "$destination"
+

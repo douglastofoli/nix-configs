@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if pgrep -x "wf-recorder" > /dev/null; then
+    pkill wf-recorder
+    notify-send --app-name $0 \
+                --icon simplescreenrecorder-panel \
+                "Finished recording" "wf-recorder"
+    exit 0
+fi
+
+FILE=$XDG_VIDEOS_DIR/'record-'"$(date +"%Y-%m-%d_%H-%M-%S")"'.mp4'
+
+MONITOR_SOURCES=$(pactl list sources | grep Name | grep '\.monitor' | cut -d' ' -f2)
+BLUEZ_SOURCE=$(echo "$MONITOR_SOURCES" | grep bluez_output)
+
+if [[ -n "$BLUEZ_SOURCE" ]]; then
+    AUDIO_SOURCE=$BLUEZ_SOURCE
+else
+    AUDIO_SOURCE=$(echo $MONITOR_SOURCES | grep alsa_output)
+fi
+
+if [[ "$1" == "--select" ]]; then 
+    AREA='-g '"$(slurp)"
+else 
+    AREA=''
+fi
+
+notify-send --app-name $0 \
+            --icon simplescreenrecorder-recording \
+            "Recording..." "wf-recorder"
+
+wf-recorder "$AREA" --audio="$AUDIO_SOURCE" -D --file $FILE -c libx264rgb

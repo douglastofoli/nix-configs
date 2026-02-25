@@ -1,0 +1,15 @@
+#!/bin/bash
+
+PREVIOUS_PROFILE=$(asusctl profile -p | grep 'Active profile is' | cut -d' ' -f4)
+PROFILE_CHANGED=0
+
+if [ "$PREVIOUS_PROFILE" != "Performance" ]; then
+    asusctl profile -P Performance
+    PROFILE_CHANGED=1
+fi
+
+systemd-inhibit --what=idle -- "$@"
+
+if [ "$PROFILE_CHANGED" = 1 ]; then
+    asusctl profile -P "$PREVIOUS_PROFILE"
+fi

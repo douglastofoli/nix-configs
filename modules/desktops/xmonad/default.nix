@@ -43,6 +43,10 @@ in {
               package = pkgs.dracula-theme;
               size = 24;
             };
+            iconTheme = {
+              name = "Papirus-Dark";
+              package = pkgs.papirus-icon-theme;
+            };
           };
         };
 
@@ -74,7 +78,17 @@ in {
       playerctl
       trayer
       xclip
-      xorg.xwininfo
+      xdotool
+      xwininfo
+      dracula-theme
+      papirus-icon-theme
     ];
+
+    # GTK Theme Settings
+    environment.variables = {
+      GTK_THEME = "Dracula";
+      XCURSOR_THEME = "Dracula-cursors";
+      XCURSOR_SIZE = "24";
+    };
   };
 }

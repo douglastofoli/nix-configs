@@ -1,27 +1,43 @@
+#!/usr/bin/env bash
+set -euo pipefail
+set -x
+
 DISK=/dev/nvme0n1
+MNT=/mnt
+NIXOS_DIR=$MNT/etc/nixos
+REPO_DIR=$NIXOS_DIR/nix-configs
+HOST_DIR=$REPO_DIR/hosts/desktop
 
-parted $DISK -- mklabel gpt
-parted $DISK -- mkpart root 512MB 100%
-parted $DISK -- mkpart ESP fat32 1MB 512MB
-parted $DISK -- set 2 esp on
+parted "$DISK" -- mklabel gpt
+parted "$DISK" -- mkpart root 512MB 100%
+parted "$DISK" -- mkpart ESP fat32 1MB 512MB
+parted "$DISK" -- set 2 esp on
 
-mkfs.ext4 -L nixos ${DISK}p1
-mkfs.fat -F 32 -n boot ${DISK}p2
+mkfs.ext4 -L nixos "${DISK}p1"
+mkfs.fat -F 32 -n boot "${DISK}p2"
 
-mount /dev/disk/by-label/nixos /mnt
+mount /dev/disk/by-label/nixos "$MNT"
 
-mkdir -p /mnt/boot
-mount -o umask=077 /dev/disk/by-label/boot /mnt/boot
+mkdir -p "$MNT/boot"
+mount -o umask=077 /dev/disk/by-label/boot "$MNT/boot"
 
-nixos-generate-config --root /mnt
+nixos-generate-config --root "$MNT"
 
-nix-env -iA nixos.git
+# garantir que o diretório existe
+mkdir -p "$NIXOS_DIR"
 
-cd /mnt/etc/nixos
+# clonar repo
+if [ ! -d "$REPO_DIR" ]; then
+  git clone https://github.com/douglastofoli/nix-configs "$REPO_DIR"
+fi
 
-git clone https://github.com/douglastofoli/nix-configs
-cd nix-configs
+# garantir diretório do host
+mkdir -p "$HOST_DIR"
 
-cp /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos/nix-configs/hosts/desktop/hardware-configuration.nix
+# copiar hardware config
+cp "$NIXOS_DIR/hardware-configuration.nix" \
+   "$HOST_DIR/hardware-configuration.nix"
 
-#nixos-install --flake .#desktop
+echo "✅ hardware-configuration.nix copiado com sucesso"
+
+# nixos-install --flake "$REPO_DIR#desktop"

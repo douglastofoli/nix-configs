@@ -8,7 +8,7 @@
   inherit (lib) mkEnableOption mkIf types;
   cfg = custom-config.helix;
   languages = cfg.languages;
-  system = pkgs.system;
+  system = pkgs.stdenv.hostPlatform.system;
 
   typescript-lsp = pkgs.nodePackages.typescript-language-server;
   vscode-lsp = pkgs.nodePackages.vscode-langservers-extracted;

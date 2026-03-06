@@ -25,22 +25,27 @@ in {
       programs.sway = {
         enable = true;
         xwayland.enable = true;
+        wrapperFeatures.gtk = true;
       };
 
       xdg.portal = {
         enable = true;
       };
 
-      # Login: greetd + regreet (ReGreet runs in Cage, lists Wayland sessions including Hyprland)
-      services.greetd = {                                                      
-        enable = true;                                                         
-        settings = {                                                           
-          default_session = {                                                  
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
-          user = "greeter";                                                  
-          };                                                                   
-        };                                                                     
+      services = {
+        gnome.gnome-keyring.enable = true;
+
+        greetd = {                                                      
+          enable = true;                                                         
+          settings = {                                                           
+            default_session = {                                                  
+              command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
+              user = "greeter";                                                  
+            };                                                                   
+          };                                                                     
+        };
       };
+
       security.pam.services = {
         greetd.enableGnomeKeyring = true;
         swaylock.enableGnomeKeyring = true;
@@ -48,16 +53,35 @@ in {
 
       programs.regreet.enable = true;
 
-      # Default Hyprland config (example) + packages referenced by it
       environment.systemPackages = with pkgs; [
-     
+        grim
+        slurp
+        swappy
+        foot
+        swaynotificationcenter
+        libnotify
+        wofi
+        swaylock-effects
       ];
     }
     
-    (mkIf (config.hyprland.user != null) {
-      home-manager.users.${config.hyprland.user} = {
+    (mkIf (config.sway.user != null) {
+      home-manager.users.${config.sway.user} = {
         xdg.configFile."sway" = {
-            source = ./config;
+          source = ../../../dotfiles/config/sway;
+          recursive = true;
+        };
+        xdg.configFile."foot" = {
+          source = ../../../dotfiles/config/foot;
+          recursive = true;
+        };
+        xdg.configFile."swaylock" = {
+          source = ../../../dotfiles/config/swaylock;
+          recursive = true;
+        };
+        xdg.configFile."wofi" = {
+          source = ../../../dotfiles/config/wofi;
+          recursive = true;
         };
       };
     })

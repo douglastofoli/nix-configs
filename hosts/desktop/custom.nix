@@ -32,7 +32,7 @@
       email = "tofoli.douglas@hotmail.com";
     };
     signing = {
-      key = "A30D5C3DE5FCB642";
+      key = "2E29572E78E90F6E";
       signByDefault = true;
       signer = "${pkgs.gnupg}/bin/gpg";
     };

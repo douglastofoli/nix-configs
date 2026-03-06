@@ -50,22 +50,15 @@ in {
         {
           plugin = continuum;
           extraConfig = ''
-            set -g @continuum-boot on
+            set -g @continuum-boot off
             set -g @continuum-restore on
             set -g @continuum-save-interval 10
           '';
         }
         {
-          plugin = dracula;
+          plugin = catppuccin;
           extraConfig = ''
-            set -g @dracula-show-battery false
-            set -g @dracula-show-powerline true
-            set -g @dracula-refresh-rate 10
-
-            set -g @dracula-plugins "git"
-            set -g @dracula-git-colors "pink dark_gray"
-            set -g @dracula-show-left-icon session
-            set -g @dracula-show-empty-plugins false
+            set -g @catppuccin_flavor 'macchiato'
           '';
         }
       ];

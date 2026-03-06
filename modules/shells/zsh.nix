@@ -31,6 +31,7 @@
       histSize = 10000;
 
       shellInit = ''
+        export ZSH_TMUX_AUTOSTART=true
         export PATH="$HOME/.local/bin:$PATH"
 
         # Inicia o GPG Agent e atualiza o tty
@@ -40,13 +41,6 @@
         # Evita iniciar o gnome-keyring-daemon manualmente se ele já está iniciado via systemd/desktop
         if [ -z "$SSH_AUTH_SOCK" ]; then
           export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-        fi
-
-        # Tmux autoinit
-        export TERM="xterm-256color"
-        if [ -z "$TMUX" ] && [ -n "$PS1" ] && [[ $TERM != screen* ]]; then
-          sleep 0.5
-          exec tmux new-session -A -s main
         fi
       '';
     };

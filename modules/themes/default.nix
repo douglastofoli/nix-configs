@@ -22,7 +22,7 @@ in {
 
   config = {
     home = {
-      file.".config/wallpaper.jpg".source = cfg.wallpaper;
+      file."Pictures/wallpaper.jpg".source = cfg.wallpaper;
 
       pointerCursor = {
         gtk.enable = true;

@@ -29,7 +29,7 @@
         system = "x86_64-linux";
         overlays = with inputs; [
           helix.overlays.default
-          nvim.overlays.default
+          #nvim.overlays.default
         ];
         config = {
           allowUnfree = true;
@@ -47,7 +47,7 @@
         editor = "${pkgs.helix}/bin/hx";
         browser = "${pkgs.firefox}/bin/firefox";
         timezone = "America/Sao_Paulo";
-        stateVersion = "24.11";
+        stateVersion = "25.11";
       };
     in {
       desktop = nixosSystem rec {

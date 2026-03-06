@@ -15,13 +15,15 @@
     hunspellDicts.en_US
     hunspellDicts.pt_BR
 
-    nvim-pkg
+    #nvim-pkg
+    neovim-unwrapped
     sqlite
+
+    cura-appimage
 
     prismlauncher
     jdk8
 
-    kitty
     anydesk
 
     bat

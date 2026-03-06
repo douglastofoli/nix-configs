@@ -15,7 +15,7 @@
 
   docker.enable = true;
   xmonad.enable = false;
-  hyprland.enable = true;
+  hyprland.enable = false;
   hyprland.user = vars.user;
   sway.enable = true;
   sway.user = vars.user;
@@ -53,13 +53,11 @@
   time.timeZone = "${vars.timezone}";
   i18n = {
     defaultLocale = "en_US.UTF-8";
+
     supportedLocales = [
       "en_US.UTF-8/UTF-8"
       "pt_BR.UTF-8/UTF-8"
     ];
-    extraLocaleSettings = {
-      LC_ALL = "pt_BR.UTF-8";
-    };
   };
 
   security = {
@@ -120,7 +118,7 @@
     };
   };
 
-  networking.hostName = "desktop";
+  networking.hostName = "nixos";
   networking.firewall.enable = true;
   networking.networkmanager = {
     enable = true;
@@ -153,7 +151,7 @@
     roboto
     ubuntu-classic
     nerd-fonts.jetbrains-mono
-    nerd-fonts.caskaydia-cove
+    nerd-fonts.ubuntu-mono
   ];
 
   environment = {
@@ -244,7 +242,7 @@
       discord = super.discord.overrideAttrs (_: {
         src = builtins.fetchTarball {
           url = "https://discord.com/api/download?platform=linux&format=tar.gz";
-          sha256 = "0qzdvyyialvpiwi9mppbqvf2rvz1ps25mmygqqck0z9i2q01c1zd";
+          sha256 = "sha256:0fjh50a07vzx08sh8y5hmqvqzk74ljv5hd4igjaq6hz7wjm8gfzr";
         };
       });
     })

@@ -43,6 +43,7 @@
           firefox # Browser
           google-chrome # Browser
           cura-appimage
+          obsidian
 
           # File Management
           file-roller # Archive Manager

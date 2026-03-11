@@ -25,10 +25,10 @@ in
       audio
       bluetooth
 
-      nixvim
-
       sway
       waybar
+
+      nixvim
 
       git
       virtualisation

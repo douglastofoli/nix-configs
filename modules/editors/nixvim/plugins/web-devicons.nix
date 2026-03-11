@@ -1,5 +1,5 @@
 {
   flake.modules.editors.nixvim = {
-    plugins.lsp.enable = true;
+    plugins.web-devicons.enable = true;
   };
 }

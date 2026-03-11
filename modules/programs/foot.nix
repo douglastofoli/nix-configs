@@ -39,7 +39,7 @@
               bright6 = "a4ffff"; # bright cyan
               bright7 = "ffffff"; # bright white
 
-              ## Misc colors
+              # Misc colors
               selection-foreground = "ffffff";
               selection-background = "44475a";
               urls = "8be9fd";

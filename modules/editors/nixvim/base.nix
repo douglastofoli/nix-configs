@@ -2,40 +2,52 @@
   flake.modules.editors.nixvim =
     { lib, pkgs, ... }:
     {
+      enableMan = false;
       viAlias = true;
       vimAlias = true;
 
       opts = {
         number = true;
         relativenumber = true;
-
         shiftwidth = 2;
         tabstop = 2;
         softtabstop = 2;
         expandtab = true;
-
-        smartindent = true;
+        autoindent = true;
         wrap = false;
-
-        ignorecase = true;
-        smartcase = true;
-
-        termguicolors = true;
-        cursorline = true;
-        signcolumn = "yes";
-
-        splitbelow = true;
-        splitright = true;
-
-        updatetime = 250;
-        timeoutlen = 300;
-
-        scrolloff = 8;
-        sidescrolloff = 8;
-
+        scrolloff = 10;
+        sidescroll = 20;
+        completeopt = [
+          "menu"
+          "menuone"
+          "noinsert"
+        ];
+        pumheight = 15;
+        fileencoding = "utf-8";
+        swapfile = false;
         undofile = true;
+        writebackup = false;
+        conceallevel = 0;
+        cursorline = true;
+        spell = false;
+        spelllang = [
+          "pt"
+          "en"
+        ];
       };
 
-      plugins.web-devicons.enable = true;
+      clipboard = {
+        register = "unnamedplus";
+        providers.wl-copy = lib.mkIf pkgs.stdenv.isLinux {
+          enable = true;
+        };
+      };
+
+      diagnostic.settings = {
+        virtual_text = true;
+        signs = true;
+        underline = true;
+        update_in_insert = true;
+      };
     };
 }

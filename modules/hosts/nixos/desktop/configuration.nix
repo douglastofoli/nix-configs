@@ -8,6 +8,7 @@
       environment = {
         systemPackages = with pkgs; [
           code-cursor
+          cursor-cli
         ];
       };
     };

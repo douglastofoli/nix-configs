@@ -11,11 +11,13 @@ let
     imports = [ config.flake.modules.editors.nixvim ];
   };
 
-  environment = pkgs: {
-    systemPackages = with pkgs; [
-      fd
+  packages =
+    pkgs: with pkgs; [
       ripgrep
     ];
+
+  environment = pkgs: {
+    systemPackages = packages pkgs;
     variables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
@@ -40,6 +42,16 @@ in
       ];
       programs.nixvim = nixvimConfig pkgs;
       environment = environment pkgs;
+    };
+
+  flake.modules.homeManager.nixvim =
+    { pkgs, ... }:
+    {
+      imports = [
+        inputs.nixvim.homeModules.nixvim
+      ];
+      programs.nixvim = nixvimConfig pkgs;
+      home.packages = packages pkgs;
     };
 
   flake.modules.darwin.nixvim =

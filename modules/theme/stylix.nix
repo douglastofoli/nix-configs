@@ -16,8 +16,8 @@
         base16Scheme = "${pkgs.base16-schemes}/share/themes/seti.yaml";
         polarity = "dark";
         cursor = {
-          package = pkgs.capitaine-cursors;
-          name = "capitaine-cursors";
+          package = pkgs.dracula-theme;
+          name = "Dracula-cursors";
           size = 16;
         };
         fonts = {
@@ -43,9 +43,9 @@
         };
         icons = {
           enable = true;
-          package = pkgs.papirus-icon-theme;
-          dark = "Papirus-Dark";
-          light = "Papirus-Light";
+          package = pkgs.dracula-icon-theme;
+          dark = "Dracula";
+          light = "Dracula";
         };
         targets = {
           gnome.enable = false;

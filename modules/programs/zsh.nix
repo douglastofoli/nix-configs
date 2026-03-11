@@ -21,6 +21,7 @@
           histSize = 10000;
 
           shellInit = ''
+            export GPG_TTY=$(tty)
             export ZSH_TMUX_AUTOSTART=true
             export PATH="$HOME/.local/bin:$PATH"
 

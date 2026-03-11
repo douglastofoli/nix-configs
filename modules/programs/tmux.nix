@@ -15,7 +15,7 @@
           yank
           resurrect
           continuum
-          rose-pine
+          dracula
         ];
 
         # Opções dos plugins (precisam existir antes dos run-shell)
@@ -36,11 +36,13 @@
           ##### rose-pine
           set -g @rose_pine_variant "main"
 
-          set -g @rose_pine_host "on" 
-          set -g @rose_pine_hostname_short "on"
-          set -g @rose_pine_date_time ""
-          set -g @rose_pine_user "on"
-          set -g @rose_pine_directory "on"
+          set -g @dracula-show-battery false
+          set -g @dracula-show-powerline true
+          set -g @dracula-refresh-rate 10
+          set -g @dracula-plugins "git"
+          set -g @dracula-git-colors "pink dark_gray"
+          set -g @dracula-show-left-icon session
+          set -g @dracula-show-empty-plugins false        
         '';
 
         extraConfig = ''

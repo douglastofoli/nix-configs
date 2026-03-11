@@ -41,24 +41,6 @@
       menu = "wmenu-run -N '#282A36' -n '#F8F8F2' -S '#6272A4' -s '#F8F8F2' -f 'UbuntuMono Nerd Font 12' -p 'run:'";
 
       monitor = builtins.head host.monitors;
-
-      colors = {
-        base = "#191724";
-        surface = "#1f1d2e";
-        overlay = "#26233a";
-        muted = "#6e6a86";
-        subtle = "#908caa";
-        text = "#e0def4";
-        love = "#eb6f92";
-        gold = "#f6c177";
-        rose = "#ebbcba";
-        pine = "#31748f";
-        foam = "#9ccfd8";
-        iris = "#c4a7e7";
-        highlightlow = "#21202e";
-        highlightmed = "#403d52";
-        highlighthigh = "#524f67";
-      };
     in
     {
       wayland.windowManager.sway = {
@@ -99,44 +81,43 @@
             smartBorders = "off";
           };
 
-          # Rosé Pine: border, background, text, indicator, childBorder (ordem do Sway)
           colors = lib.mkForce {
             focused = {
-              border = colors.rose;
-              background = colors.base;
-              text = colors.text;
-              indicator = colors.rose;
-              childBorder = colors.rose;
+              border = "#6272A4";
+              background = "#6272A4";
+              text = "#F8F8F2";
+              indicator = "#6272A4";
+              childBorder = "#6272A4";
             };
             focusedInactive = {
-              border = colors.text;
-              background = colors.base;
-              text = colors.text;
-              indicator = colors.subtle;
-              childBorder = colors.surface;
+              border = "#44475A";
+              background = "#44475A";
+              text = "#F8F8F2";
+              indicator = "#44475A";
+              childBorder = "#44475A";
             };
             unfocused = {
-              border = colors.text;
-              background = colors.base;
-              text = colors.text;
-              indicator = colors.overlay;
-              childBorder = colors.overlay;
+              border = "#282A36";
+              background = "#282A36";
+              text = "#BFBFBF";
+              indicator = "#282A36";
+              childBorder = "#282A36";
             };
             urgent = {
-              border = colors.text;
-              background = colors.base;
-              text = colors.text;
-              indicator = colors.love;
-              childBorder = colors.love;
+              border = "#44475A";
+              background = "#FF5555";
+              text = "#F8F8F2";
+              indicator = "#FF5555";
+              childBorder = "#FF5555";
             };
             placeholder = {
-              border = colors.base;
-              background = colors.base;
-              text = colors.text;
-              indicator = colors.overlay;
-              childBorder = colors.overlay;
+              border = "#282A36";
+              background = "#282A36";
+              text = "#F8F8F2";
+              indicator = "#282A36";
+              childBorder = "#282A36";
             };
-            background = colors.base;
+            background = "#F8F8F2";
           };
 
           keybindings = {

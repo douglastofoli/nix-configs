@@ -27,6 +27,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixnvim = {
+      url = "github:douglastofoli/nix-nvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixgl.url = "github:guibou/nixGL";
   };
 
@@ -57,6 +62,7 @@
             };
             overlays = [
               inputs.nur.overlays.default
+              inputs.nixnvim.overlays.default
               (final: prev: {
                 stable = import inputs.nixpkgs-stable {
                   system = prev.system;

@@ -44,6 +44,7 @@
           google-chrome # Browser
           cura-appimage
           obsidian
+          telegram-desktop
 
           # File Management
           file-roller # Archive Manager

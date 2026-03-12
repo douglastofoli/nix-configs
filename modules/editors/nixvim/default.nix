@@ -13,6 +13,7 @@ let
 
   packages =
     pkgs: with pkgs; [
+      fd
       ripgrep
     ];
 

@@ -24,7 +24,6 @@
             "text/html" = "nvim-kitty.desktop";
             "text/csv" = "nvim-kitty.desktop";
             "application/pdf" = [
-              "wps-office-pdf.desktop"
               "firefox.desktop"
               "google-chrome.desktop"
             ];
@@ -55,32 +54,6 @@
             "video/mp4" = "mpv.desktop";
             "video/x-matroska" = "mpv.desktop";
             "inode/directory" = "pcmanfm.desktop";
-          };
-        };
-        desktopEntries.gmail = {
-          name = "Gmail";
-          icon = "mail-google";
-          exec = ''xdg-open "https://mail.google.com/mail/?view=cm&fs=1&to=%u"'';
-          mimeType = [ "x-scheme-handler/mailto" ];
-        };
-        desktopEntries.nvim-kitty = {
-          name = "Neovim (Kitty)";
-          genericName = "Text Editor";
-          comment = "Open text files in Neovim within the Kitty terminal";
-          icon = "nvim";
-          exec = "kitty nvim %F";
-          terminal = false;
-          categories = [
-            "Utility"
-            "TextEditor"
-          ];
-          mimeType = [
-            "text/plain"
-            "text/markdown"
-            "application/x-shellscript"
-          ];
-          settings = {
-            Keywords = "Text;Editor;Vim;Nvim;";
           };
         };
       };

@@ -214,6 +214,8 @@
           default_floating_border pixel 3
 
           exec ${pkgs.blueman}/bin/blueman-applet
+
+          for_window [app_id="org.telegram.desktop"] floating enable
         '';
       };
     };

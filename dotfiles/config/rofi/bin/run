@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-rofi -theme ~/.config/rofi/themes/launcher.rasi \
-     -theme-str 'mainbox {children: [ "inputbar", "message", "listview"];}' \
-     -no-show-icons \
-     -modi run \
-     -show run 

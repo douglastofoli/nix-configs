@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# Script to generate unique "id" based on input
-echo -n "$1" | md5sum | awk '{print $1}'

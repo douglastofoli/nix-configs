@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-wofi -theme ~/.config/wofi/themes/launcher.rasi \
-     --show drun \
-     --allow-images \
-     --width 600 \
-     --height 400 \
-     --prompt "Run"

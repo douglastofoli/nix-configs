@@ -21,9 +21,17 @@ in
 {
   perSystem =
     { pkgs, ... }:
+    let
+      nixnvim-pkg = inputs.nixnvim.packages.${pkgs.system}.nix-nvim;
+    in
     {
-      packages.neovim = inputs.nixnvim.packages.${pkgs.system}.nix-nvim;
-      packages.nix-nvim = inputs.nixnvim.packages.${pkgs.system}.nix-nvim;
+      packages.neovim = nixnvim-pkg;
+      packages.nix-nvim = nixnvim-pkg;
+
+      apps.neovim = {
+        type = "app";
+        program = "${nixnvim-pkg}/bin/nvim";
+      };
     };
 
   flake.modules.nixos.nixnvim =

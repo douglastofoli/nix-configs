@@ -5,10 +5,7 @@
 }:
 
 let
-  packages = pkgs: [
-    inputs.nixnvim.packages.${pkgs.system}.nix-nvim
-    pkgs.ripgrep
-  ];
+  packages = pkgs: [ inputs.nixnvim.packages.${pkgs.system}.nix-nvim ];
 
   environment = pkgs: {
     systemPackages = packages pkgs;

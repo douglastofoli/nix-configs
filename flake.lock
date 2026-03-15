@@ -311,14 +311,15 @@
         "import-tree": "import-tree_2",
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1773433094,
-        "narHash": "sha256-p3BCp4sMLc9xtJJjDsGEKrqTsJchVNDAr+emEizUCH8=",
+        "lastModified": 1773590551,
+        "narHash": "sha256-QSqzqB+opTORXySYaFacYpZvo2fV6kct279esdXBjJk=",
         "owner": "douglastofoli",
         "repo": "nix-nvim",
-        "rev": "1ba896c2ccadc347a40d001617d73723ed2f406c",
+        "rev": "2f601d55aa53810fa099a47a3e79387ba8c43914",
         "type": "github"
       },
       "original": {
@@ -373,6 +374,22 @@
       }
     },
     "nixpkgs-stable": {
+      "locked": {
+        "lastModified": 1773375660,
+        "narHash": "sha256-SEzUWw2Rf5Ki3bcM26nSKgbeoqi2uYy8IHVBqOKjX3w=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "3e20095fe3c6cbb1ddcef89b26969a69a1570776",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-25.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-stable_2": {
       "locked": {
         "lastModified": 1773068389,
         "narHash": "sha256-vMrm7Pk2hjBRPnCSjhq1pH0bg350Z+pXhqZ9ICiqqCs=",
@@ -480,7 +497,7 @@
         "nixgl": "nixgl",
         "nixnvim": "nixnvim",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-stable": "nixpkgs-stable",
+        "nixpkgs-stable": "nixpkgs-stable_2",
         "nixvim": "nixvim",
         "nur": "nur",
         "stylix": "stylix"

@@ -49,6 +49,7 @@
         };
         targets = {
           gnome.enable = false;
+          nixvim.enable = false;
         };
       };
     };

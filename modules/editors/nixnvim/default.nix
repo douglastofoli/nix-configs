@@ -23,7 +23,6 @@ in
     in
     {
       packages.neovim = nixnvim-pkg;
-      packages.nix-nvim = nixnvim-pkg;
 
       apps.neovim = {
         type = "app";

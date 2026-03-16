@@ -5,7 +5,7 @@
 }:
 
 let
-  packages = pkgs: [ inputs.nixnvim.packages.${pkgs.system}.nix-nvim ];
+  packages = pkgs: [ inputs.nixnvim.packages.${pkgs.system}.neovim ];
 
   environment = pkgs: {
     systemPackages = packages pkgs;
@@ -19,14 +19,14 @@ in
   perSystem =
     { pkgs, ... }:
     let
-      nixnvim-pkg = inputs.nixnvim.packages.${pkgs.system}.nix-nvim;
+      neovim-pkg = inputs.nixnvim.packages.${pkgs.system}.neovim;
     in
     {
-      packages.neovim = nixnvim-pkg;
+      packages.neovim = neovim-pkg;
 
       apps.neovim = {
         type = "app";
-        program = "${nixnvim-pkg}/bin/nvim";
+        program = "${neovim-pkg}/bin/nvim";
       };
     };
 

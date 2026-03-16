@@ -315,11 +315,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1773590777,
-        "narHash": "sha256-T0qvH307FBGQ1NwiyryQDTgGuWX+uTFqKXvV9/gCyYs=",
+        "lastModified": 1773680381,
+        "narHash": "sha256-+kAc844sYTG/rt48fqtOjj9o/WKAWPtMpLxhFSXn+JM=",
         "owner": "douglastofoli",
         "repo": "nix-nvim",
-        "rev": "5f3b4d066917edf7036f566186e8c6a4fa71f322",
+        "rev": "0e802b63ecbebb982989fe9c9294225c7148d202",
         "type": "github"
       },
       "original": {

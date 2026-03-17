@@ -28,7 +28,7 @@ in
       sway
       waybar
 
-      nixnvim
+      neovim
 
       git
       virtualisation

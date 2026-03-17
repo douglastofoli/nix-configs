@@ -286,6 +286,29 @@
         "type": "github"
       }
     },
+    "neovim": {
+      "inputs": {
+        "flake-parts": "flake-parts_2",
+        "import-tree": "import-tree_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-stable": "nixpkgs-stable"
+      },
+      "locked": {
+        "lastModified": 1773705799,
+        "narHash": "sha256-yXdhbPTjvuQwnREzRGf7vd3w2b7eMNmDaf02gpwSNCM=",
+        "owner": "douglastofoli",
+        "repo": "nix-nvim",
+        "rev": "635c7b8d01eaa20143d00c00945f874322f2dbaa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "douglastofoli",
+        "repo": "nix-nvim",
+        "type": "github"
+      }
+    },
     "nixgl": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -302,29 +325,6 @@
       "original": {
         "owner": "guibou",
         "repo": "nixGL",
-        "type": "github"
-      }
-    },
-    "nixnvim": {
-      "inputs": {
-        "flake-parts": "flake-parts_2",
-        "import-tree": "import-tree_2",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "nixpkgs-stable": "nixpkgs-stable"
-      },
-      "locked": {
-        "lastModified": 1773699154,
-        "narHash": "sha256-iaRRPthjL5gUO4G6DlUmcFkN8PkSqO8q0iNBJhTLY/4=",
-        "owner": "douglastofoli",
-        "repo": "nix-nvim",
-        "rev": "a707e1e172c5a4f037f0c239e7b3c523e9250863",
-        "type": "github"
-      },
-      "original": {
-        "owner": "douglastofoli",
-        "repo": "nix-nvim",
         "type": "github"
       }
     },
@@ -494,8 +494,8 @@
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
+        "neovim": "neovim",
         "nixgl": "nixgl",
-        "nixnvim": "nixnvim",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable_2",
         "nixvim": "nixvim",

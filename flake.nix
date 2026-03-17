@@ -27,7 +27,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixnvim = {
+    neovim = {
       url = "github:douglastofoli/nix-nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };

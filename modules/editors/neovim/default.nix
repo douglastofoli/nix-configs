@@ -5,7 +5,7 @@
 }:
 
 let
-  packages = pkgs: [ inputs.nixnvim.packages.${pkgs.system}.neovim ];
+  packages = pkgs: [ inputs.neovim.packages.${pkgs.system}.neovim ];
 
   environment = pkgs: {
     systemPackages = packages pkgs;
@@ -19,7 +19,7 @@ in
   perSystem =
     { pkgs, ... }:
     let
-      neovim-pkg = inputs.nixnvim.packages.${pkgs.system}.neovim;
+      neovim-pkg = inputs.neovim.packages.${pkgs.system}.neovim;
     in
     {
       packages.neovim = neovim-pkg;
@@ -30,13 +30,13 @@ in
       };
     };
 
-  flake.modules.nixos.nixnvim =
+  flake.modules.nixos.neovim =
     { pkgs, ... }:
     {
       environment = environment pkgs;
     };
 
-  flake.modules.homeManager.nixnvim =
+  flake.modules.homeManager.neovim =
     { pkgs, ... }:
     {
       home.packages = packages pkgs;
@@ -47,7 +47,7 @@ in
       };
     };
 
-  flake.modules.darwin.nixnvim =
+  flake.modules.darwin.neovim =
     { pkgs, ... }:
     {
       environment = environment pkgs;

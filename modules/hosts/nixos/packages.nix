@@ -14,6 +14,7 @@
           btop # Resource Manager
           coreutils # GNU Utilities
           gnupg
+          gnumake
           eza
           jq # JSON Manipulation
           killall # Process Killer

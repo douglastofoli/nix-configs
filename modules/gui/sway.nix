@@ -53,6 +53,7 @@
 
           startup = [
             { command = "firefox"; }
+            { command = "${pkgs.telegram-desktop}/bin/telegram-desktop"; }
           ];
 
           output = {
@@ -69,7 +70,14 @@
           };
 
           assigns = {
-            "2" = [ { class = "^Firefox$"; } ];
+            "2" = [
+              { class = "^Firefox$"; }
+              { app_id = "^firefox$"; }
+            ];
+            "4" = [
+              { app_id = "^org.telegram.desktop$"; }
+              { class = "^TelegramDesktop$"; }
+            ];
           };
 
           bars = [ ];
@@ -216,6 +224,7 @@
           exec ${pkgs.blueman}/bin/blueman-applet
 
           for_window [app_id="org.telegram.desktop"] floating enable
+          for_window [class="TelegramDesktop"] floating enable
         '';
       };
     };

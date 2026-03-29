@@ -4,7 +4,7 @@ let
   host = {
     name = "desktop";
     user.name = "douglas";
-    state.version = "25.11";
+    state.version = "26.05";
     system = "x86_64-linux";
     monitors = [
       {

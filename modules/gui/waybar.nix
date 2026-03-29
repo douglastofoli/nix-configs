@@ -22,6 +22,8 @@
     {
       wayland.windowManager.sway.systemd.enable = lib.mkDefault true;
 
+      services.playerctld.enable = lib.mkDefault true;
+
       programs.waybar = {
         enable = true;
         systemd.enable = true;
@@ -50,9 +52,9 @@
 
             "sway/workspaces" = {
               format = "{name}";
-              persistent-workspaces = {
-                "*" = 6;
-              };
+              persistent-workspaces = lib.genAttrs (map toString (lib.range 1 6)) (_: [
+                monitor0.name
+              ]);
               cursor = true;
             };
 

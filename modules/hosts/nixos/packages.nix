@@ -45,6 +45,7 @@
           google-chrome # Browser
           cura-appimage
           obsidian
+          dbeaver-bin
           telegram-desktop
 
           # File Management

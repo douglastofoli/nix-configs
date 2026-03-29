@@ -49,6 +49,7 @@
         graphics = {
           enable = true;
           extraPackages = with pkgs; [
+            mesa
             intel-media-driver
             intel-vaapi-driver
             libva-vdpau-driver

@@ -9,6 +9,7 @@
         systemPackages = with pkgs; [
           code-cursor
           cursor-cli
+          networkmanagerapplet
         ];
       };
     };

@@ -32,8 +32,8 @@
           mainBar = {
             layer = "top";
             position = "top";
-            height = 32;
-            spacing = 4;
+            height = 36;
+            spacing = 8;
             margin-top = 0;
             margin-bottom = 0;
             output = [ monitor0.name ];
@@ -111,10 +111,10 @@
           }
 
           window#waybar {
-            opacity: 0.9;
-            background-color: rgba(30, 31, 41, 230);
-            color: #f8f8f2;
-            border-bottom: 2px solid #282a36;
+            background-color: rgba(16, 17, 23, 0.94);
+            color: #e8eaf0;
+            border-bottom: 1px solid rgba(98, 114, 164, 0.35);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
           }
 
           window#waybar * {
@@ -124,84 +124,120 @@
 
           tooltip {
             font-family: ${fontFamily};
-            font-size: 12px;
-            background: #282a36;
-            color: #f8f8f2;
-            border: 1px solid #6272a4;
+            font-size: 11.5px;
+            background: rgba(30, 32, 42, 0.98);
+            color: #f0f1f5;
+            border: 1px solid rgba(139, 233, 253, 0.25);
+            border-radius: 4px;
+            padding: 8px 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
           }
 
           #workspaces {
-            padding: 0 4px;
+            margin: 0;
+            padding: 0;
           }
 
           #workspaces button {
-            padding: 0 6px;
-            color: #6272a4;
+            min-width: 0;
+            padding: 0 10px;
+            margin: 0;
+            color: #7a7f98;
             background: transparent;
+            border-radius: 0;
+            border: none;
+            border-bottom: 2px solid transparent;
+            transition:
+              color 140ms ease,
+              background 140ms ease,
+              border-bottom-color 140ms ease;
           }
 
           #workspaces button:hover {
-            color: #f8f8f2;
-            background: #282a36;
+            color: #cdd0da;
+            background: rgba(255, 255, 255, 0.06);
           }
 
           #workspaces button.focused {
-            color: #282a36;
-            background: #bd93f9;
+            color: #e8eaf0;
+            background: rgba(189, 147, 249, 0.14);
+            border-bottom-color: #bd93f9;
+            font-weight: 600;
           }
 
           #workspaces button.urgent {
-            color: #282a36;
-            background: #ff5555;
+            color: #ffdfd9;
+            background: rgba(255, 85, 85, 0.22);
+            border-bottom-color: #ff5555;
           }
 
           #mpris {
-            padding: 0 10px;
-            color: #f8f8f2;
-            background: #282a36;
-            border-radius: 6px;
-            margin: 4px 0;
+            padding: 0 12px;
+            margin: 0;
+            color: #e8eaf0;
+            background: rgba(40, 42, 54, 0.75);
+            border: none;
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 0;
+            box-shadow: none;
           }
 
           #mpris.paused {
-            color: #6272a4;
+            color: #7a7f98;
           }
 
           #window {
-            padding: 0 12px;
-            color: #f8f8f2;
+            padding: 0 14px;
+            margin: 0;
+            color: #c8ccd6;
             font-weight: 500;
+            background: transparent;
+            border-radius: 0;
+            border: none;
           }
 
           #window.empty {
-            color: #6272a4;
+            color: #5c6177;
           }
 
           #cpu,
           #memory,
           #clock {
             padding: 0 10px;
-            color: #f8f8f2;
-            background: #282a36;
-            border-radius: 6px;
-            margin: 4px 2px;
+            margin: 0;
+            min-width: 0;
+            color: #e8eaf0;
+            background: rgba(40, 42, 54, 0.75);
+            border: none;
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 0;
+            box-shadow: none;
+            transition: color 140ms ease;
           }
 
           #cpu {
-            color: #8be9fd;
+            color: #9ee7ff;
+            border-color: rgba(139, 233, 253, 0.22);
           }
 
           #memory {
-            color: #50fa7b;
+            color: #73f0a0;
+            border-color: rgba(80, 250, 123, 0.22);
           }
 
           #clock {
-            color: #f1fa8c;
+            color: #f5f7a8;
+            font-weight: 600;
+            letter-spacing: 0.02em;
           }
 
           #tray {
             padding: 0 8px;
-            margin: 4px 0;
+            margin: 0;
+            background: rgba(40, 42, 54, 0.75);
+            border-radius: 0;
+            border: none;
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
           }
 
           #tray > .passive {

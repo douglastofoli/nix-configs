@@ -5,6 +5,7 @@
       users.users.${config.host.user.name} = {
         isNormalUser = true;
         extraGroups = [
+          "adbusers"
           "wheel"
           "video"
           "audio"

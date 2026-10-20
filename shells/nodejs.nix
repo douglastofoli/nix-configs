@@ -6,12 +6,13 @@
 {
   packages = with pkgs; [
     nodejs
-    nodePackages.npm
+    pnpm
   ];
 
   shellHook = ''
-    npm set prefix ~/.npm-global
-    export PATH="$HOME/.npm-global/bin:$PATH"
-    echo "done"
+    export PNPM_HOME="$HOME/.local/share/pnpm"
+    export PATH="$PNPM_HOME:$PATH"
+
+    echo "pnpm ready"
   '';
 }

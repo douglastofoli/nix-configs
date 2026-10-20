@@ -53,6 +53,7 @@
 
           startup = [
             { command = "firefox"; }
+            { command = "${pkgs.networkmanagerapplet}/bin/nm-applet"; }
             { command = "${pkgs.telegram-desktop}/bin/telegram-desktop"; }
           ];
 

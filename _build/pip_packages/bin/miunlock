@@ -1,0 +1,7 @@
+#!/nix/store/9ywhvj11x038ghk4r2w3lbsbzh0mkqda-python3-3.13.12-env/bin/python3.13
+import sys
+from miunlock.__main__ import main
+if __name__ == '__main__':
+    if sys.argv[0].endswith('.exe'):
+        sys.argv[0] = sys.argv[0][:-4]
+    sys.exit(main())

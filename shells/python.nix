@@ -10,6 +10,7 @@
         numpy
         pandas
         requests
+        pip
       ]
     ))
   ];

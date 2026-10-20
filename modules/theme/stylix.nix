@@ -16,7 +16,7 @@
         base16Scheme = "${pkgs.base16-schemes}/share/themes/seti.yaml";
         polarity = "dark";
         cursor = {
-          package = pkgs.dracula-theme;
+          package = pkgs.stable.dracula-theme;
           name = "Dracula-cursors";
           size = 16;
         };

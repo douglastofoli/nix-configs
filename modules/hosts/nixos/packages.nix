@@ -20,8 +20,6 @@
           killall # Process Killer
           libnotify
           nano # Text Editor
-          nodejs # Javascript Runtime
-          nodePackages.npm # Package Manager
           pciutils # Manage PCI
           ranger # File Manager
           ripgrep # Recursive Search
@@ -40,13 +38,18 @@
           slurp # Screenshot Selector
 
           # Apps
+          anydesk
           appimage-run # Runs AppImages on NixOS
           firefox # Browser
           google-chrome # Browser
           cura-appimage
           obsidian
           dbeaver-bin
+          vesktop
+          prismlauncher
           telegram-desktop
+
+          wayvnc
 
           # File Management
           file-roller # Archive Manager
@@ -57,6 +60,8 @@
           unrar # Rar Files
           zip # Zip
           stable.image-roll # Image viewer
+
+          jdk8_headless
         ];
       };
     };

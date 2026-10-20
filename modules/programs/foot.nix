@@ -13,7 +13,7 @@
               font = "JetBrainsMono Nerd Font:size=12";
             };
 
-            colors = lib.mkForce {
+            colors-dark = lib.mkForce {
               alpha = 0.95;
 
               background = "282a36";

@@ -1,0 +1,2 @@
+[console_scripts]
+miunlock = miunlock.__main__:main

@@ -1,23 +1,28 @@
 {
   flake.modules.nixos.desktop =
-    { config, lib, ... }:
+    { config, ... }:
     {
       networking = {
-        useDHCP = false;
         hostName = config.host.name;
+
+        useDHCP = false;
+
+        firewall.allowedTCPPorts = [
+          5900
+          8081
+          19000
+          19001
+          19002
+        ];
+
         networkmanager.enable = true;
-        networkmanager.dns = "systemd-resolved";
 
-        interfaces.enp0s3 = {
-          ipv4.addresses = [
-            {
-              address = "192.168.3.20";
-              prefixLength = 24;
-            }
-          ];
-        };
-
-        defaultGateway = "192.168.3.1";
+        nameservers = [
+          "45.90.28.0"
+          "45.90.30.0"
+          "2a07:a8c0::"
+          "2a07:a8c1::"
+        ];
       };
 
       services.resolved = {
